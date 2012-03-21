@@ -4,6 +4,12 @@
  * @param pages
  */
 
+var startPagination = 0;
+var endPagination = 10;
+var anzahlPerPage = 10;
+var anzahlPages = 1;
+var page = 1;
+
 $(document).ready(function ()
 {
   $('.paginator_pageNo').html(page);

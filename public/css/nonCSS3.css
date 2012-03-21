@@ -1,0 +1,66 @@
+/*
+* @author: Severin Burgstaller
+* @company: NDCom Computerservice KG.
+* @initial_creation: 2012
+* @description: Stylesheet for non CSS3 browsers. Filtered out via modernizr.js
+*/
+
+.content
+{
+    border:1px solid #35b1e1;
+}
+
+.inputText
+{
+    background-image:url("../images/inputTextInactive.png");
+    background-repeat:no-repeat;
+    border:0px;
+    height:30px;
+    width:831px;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.inputText:focus
+{
+    background-image:url("../images/inputTextActive.png");
+    background-repeat:no-repeat;
+    border:0px;
+    height:30px;
+    width:831px;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.inputTextLightbox
+{
+    background-image:url("../images/InputInactiveLightbox.png");
+    background-repeat:no-repeat;
+    border:0px;
+    height:30px;
+    width:590px;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.inputTextLightbox:focus
+{
+    background-image:url("../images/InputActiveLightbox.png");
+    background-repeat:no-repeat;
+    border:0px;
+    height:30px;
+    width:590px;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.accountDetailsInput
+{
+    background-image:url("../images/text.png");
+    background-repeat:no-repeat;
+    border:0px;
+    height:22px;
+    width:834px;
+    padding-left:7px;
+    padding-top:8px;
+}

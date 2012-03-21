@@ -1,0 +1,7 @@
+<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced close="]" open="["><mtable><mtr><mtd><msub><mi>P</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd><msub><mi>P</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd><mo>.</mo><mo>.</mo><mo>.</mo></mtd></mtr><mtr><mtd><msub><mi>P</mi><mi>N</mi></msub></mtd></mtr></mtable></mfenced><mo>=</mo><msup><mi>S</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mo>&#215;</mo><mfenced close="]" open="["><mtable><mtr><mtd><mo>&#916;</mo><msub><mi>T</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd><mo>&#916;</mo><msub><mi>T</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd><mo>.</mo><mo>.</mo><mo>.</mo></mtd></mtr><mtr><mtd><mo>&#916;</mo><msub><mi>T</mi><mi>N</mi></msub></mtd></mtr></mtable></mfenced></math>
+#ffffff
+#000000
+true
+16
+#000000
+#000000

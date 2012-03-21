@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <?php
+  echo $this->headMeta ();
+  echo $this->headTitle ('WEKA Fachmedien Anbieterverzeichnis - Bitte melden Sie sich an');
+  echo $this->headScript ()->prependFile ('/js/jquery/jquery-1.4.2.js')
+  ->appendFile ('/js/jquery/jquery-ui-1.7.2.custom.min.js')
+  ->appendFile ('/js/jquery/jquery.base64.js')
+  ->appendFile ('/js/fancybox/jquery.fancybox-1.3.4.pack.js')
+  ->appendFile ('/js/jquery/jquery.tipsy.js')
+  ->appendFile ('/js/dialog.js')
+  ->appendFile ('/js/login.js')
+  ->appendFile ('/js/general.js');
+  echo $this->headLink () //->prependStylesheet('/css/global.css')
+  ->appendStylesheet ('/js/fancybox/jquery.fancybox-1.3.4.css')
+  ->appendStylesheet ('/css/jquery/jquery.tipsy.css');
+  ?>
+
+  <?php
+  echo $this->headLink ()->prependStylesheet ('/css/login.css');
+
+
+  $useragent = $_SERVER ['HTTP_USER_AGENT'];
+
+  if (preg_match ('|MSIE ([0-9].[0-9]{1,2})|', $useragent, $matched))
+  {
+    $browser_version = $matched [1];
+    $browser = 'IE';
+  }
+  elseif (preg_match ('|Opera/([0-9].[0-9]{1,2})|', $useragent, $matched))
+  {
+    $browser_version = $matched [1];
+    $browser = 'Opera';
+  }
+  elseif (preg_match ('|Firefox/([0-9\.]+)|', $useragent, $matched))
+  {
+    $browser_version = $matched [1];
+    $browser = 'Firefox';
+  }
+  elseif (preg_match ('|Safari/([0-9\.]+)|', $useragent, $matched))
+  {
+    $browser_version = $matched [1];
+    $browser = 'Safari';
+  }
+  else
+  {
+    // browser nicht erkannt!
+    $browser_version = 0;
+    $browser = 'anderer';
+  }
+
+  // IE abfangen
+
+  if ($browser == 'IE')
+  {
+    $browserVersionArr = explode ('.', $browser_version);
+    if ($browserVersionArr [0] <= '8')
+    {
+      echo ('<link rel="stylesheet" type="text/css" media="screen" href="/css/IEfix.css">');
+    }
+  }
+  ?>
+</head>
+<body>
+
+<input type="hidden" name="module" id="module" value="<?php echo $this->layout ()->_module; ?>">
+<input type="hidden" name="controller" id="controller" value="<?php echo $this->layout ()->_controller; ?>">
+<input type="hidden" name="action" id="action" value="<?php echo $this->layout ()->_action; ?>">
+
+<div class="hidden"><img src="/images/formField.png"><img src="/images/formFieldFocus.png"><img
+src="/images/loginButtonNormal.png"><img src="/images/loginButtonPressed.png"></div>
+<div class="bar"></div>
+
+<div class="clearer"></div>
+<div class="backgroundNormal">
+
+  <div class="productLogos">
+    <a href="http://www.elektroniknet.de" target="_blank"><img src="/images/elnet.png" class="white"></a>
+    <a href="http://www.energie-und-technik.de" target="_blank"><img src="/images/et.png" class="white"></a>
+    <a href="http://www.computer-automation.de" target="_blank"><img src="/images/ca.png" class="white"></a>
+    <a href="http://www.funkschau.de" target="_blank"><img src="/images/funkschau.png" class="funkschau"></a>
+    <a href="http://www.karriere-ing.de" target="_blank"><img src="/images/king.png" class="white"></a>
+  </div>
+  <div class="wcosName">Anbieterverzeichnis</div>
+
+
+  <div class="login">
+    <span>Login</span>
+
+    <form id="login" enctype="application/x-www-form-urlencoded" method="post" action="/login/process/go">
+      <div class="loginForm">
+        <input type="HIDDEN" name="username" id="username">
+        <input type="HIDDEN" name="password" id="password">
+        <input type="text" class="inputField" value="Benutzername" id="unscrumbledUsername"
+               onFocus="if(this.value=='Benutzername') this.value=''"
+               onBlur="if(this.value=='') this.value='Benutzername'">
+        <input type="password" class="inputField loginPassword" value="Password" id="unscrumbledPassword"
+               onFocus="if(this.value=='Password') this.value=''" onBlur="if(this.value=='') this.value='Password'">
+        <input type="submit" class="loginButton" value="" onClick="scrambleLoginData ();">
+      </div>
+      <p class="passwortvergessen forgotPassword"
+         original-title="Klicken Sie hier, wenn Sie Ihr Kennwort vergessen haben">?</p>
+
+      <p class="passwortvergessen forgotPasswordText">Haben Sie Ihr Kennwort vergessen?</p>
+    </form>
+    <?php
+    echo $this->confirmDialog;
+    ?>
+  </div>
+  <!-- login -->
+</div>
+<div style="text-align:center">WEKA FACHMEDIEN GmbH | Richard-Reitzner-Allee 2 | 85540 Haar | Telefon: +49 (0)89.255
+  56-1000 | Fax: +49 (0)89.255 56-1396
+</div>
+<div style="text-align:center">Gesch&auml;ftsf&uuml;hrer: Kurt Skupin, Werner M&uuml;tzel, Wolfgang Materna |
+  Amtsgericht M&uuml;nchen, HRB: 119 806 | Umsatzsteuer-ID-Nummer DE 811 190 616
+</div>

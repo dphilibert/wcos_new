@@ -1,0 +1,587 @@
+/*
+* @author: Severin Burgstaller
+* @company: NDCom Computerservice KG.
+* @initial_creation: 2012
+* @description: Main Stylesheet, uses CSS3.
+*/
+
+body
+{
+    margin:0px;
+    padding:0px;
+    border:0px;
+    font-family:Arial, Helvetica, sans-serif, "Times New Roman";
+    font-size:12px;	
+}
+
+input
+{
+    outline:none;
+}
+
+.preload
+{
+    display:none;
+    height:0px;
+    width:0px;
+}
+
+.left
+{
+    float:left;
+}
+
+.right
+{
+    float:right;
+}
+
+.pointer
+{
+    cursor:pointer;
+}
+
+img
+{
+    border:0px;	
+}
+
+a
+{
+    color:black;
+    text-decoration:none;	
+}
+/* Bar on Top */
+.bar
+{
+    background-color:#35b1e1;	
+    height:3px;
+    margin:0px;
+    padding:0px;
+}
+/* Wrap page to 1000px and center */
+.wrapper
+{
+    width:1000px;
+    margin:auto;
+}
+/* Clear floats */
+.clearer, .clear
+{
+    clear:both;	
+}
+/* Header Styles */
+.header
+{
+
+}
+
+.logo
+{
+    float:left;
+    background-image:url("../images/logo.png");
+    height:51px;
+    width:158px;
+    background-repeat:no-repeat;	
+}
+
+.menu
+{
+    clear:both;
+    text-align:center;
+    margin-top:20px;
+    margin-bottom:20px;
+    padding-top:7px;
+    padding-bottom:7px;
+/*    background-color:#1b7d9e;*/
+    border-bottom:7px solid #0e2a46;
+    color:#FFFFFF;
+    width:1000px;
+    box-shadow:0px 0px 5px #0e2a46;
+
+
+    background: #f4f5f7;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y0ZjVmNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNhY2MxZDQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #f4f5f7 0%, #acc1d4 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f5f7), color-stop(100%,#acc1d4));
+    background: -webkit-linear-gradient(top, #f4f5f7 0%,#acc1d4 100%);
+    background: -o-linear-gradient(top, #f4f5f7 0%,#acc1d4 100%);
+    background: -ms-linear-gradient(top, #f4f5f7 0%,#acc1d4 100%);
+    background: linear-gradient(top, #f4f5f7 0%,#acc1d4 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f5f7', endColorstr='#acc1d4',GradientType=0 );
+
+
+}
+
+.menu ul
+{
+    margin:0px;
+    padding:0px;
+}
+
+.menu li
+{
+    -webkit-transition: border 0.5s ease-in-out 0.5s ease-in-out;
+    -moz-transition: border 0.5s ease-in-out 0.5s ease-in-out;
+    -o-transition: border 0.5s ease-in-out 0.5s ease-in-out;
+    -ms-transition: border 0.5s ease-in-out 0.5s ease-in-out;
+    transition: border 0.5s ease-in-out 0.5s ease-in-out;
+
+    margin:0px;
+    padding:0px;
+    list-style-type:none;
+    display:inline;
+    padding-left:10px;
+    padding-right:10px;	
+    padding-top:7px;
+    padding-bottom:7px;
+}
+
+.menu a
+{
+    color:#0e2a46;
+    text-decoration:none;	
+}
+
+.menu li:hover, .menu li.active, .activeSUB
+{
+    background-color:#0e2a46;
+    border-bottom:7px solid #1f5b91;
+    color:#ffffff;
+    padding-left:10px;
+    padding-right:10px;	
+    /*	box-shadow:0px 0px 10px #000000;*/
+}
+
+.menu li:hover a, .menu li.active a, .activeSUB a
+{
+    color:#ffffff;
+}
+
+.menu li.active
+{
+    box-shadow:none;
+}
+
+.menu li:active
+{
+    /*box-shadow:0px 0px 6px #000000;*/
+    border-bottom:7px solid #1B7D9E;
+}
+
+/* Submenu */
+
+.submenu
+{
+    margin:0px;
+    padding:0px;
+    /*height:30px;*/
+    display:block;
+}
+
+/* Account Info */
+
+.accountInfo
+{
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+
+    width:500px;
+    float:right;
+    border:1px solid #35b1e1;
+    border-top:none;
+    padding:5px;
+    height:38px;
+    overflow:hidden;
+    z-index:100;
+
+    position:absolute;
+    margin-left:488px;
+    background-color:white;
+}
+
+.accountInfo:hover
+{
+    box-shadow:0px 0px 10px #0e2a46;
+    height:160px;
+}
+
+
+.accountInfo_admin
+{
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+
+    width:500px;
+    float:right;
+    border:1px solid #35b1e1;
+    border-top:none;
+    padding:5px;
+    height:38px;
+    overflow:hidden;
+    z-index:100;
+
+    position:absolute;
+    margin-left:488px;
+    background-color:red;
+}
+
+.accountInfo_admin:hover
+{
+    box-shadow:0px 0px 10px #0e2a46;
+    height:200px;
+}
+
+
+.accountInfoItem
+{    
+    border-bottom:1px dotted #35b1e1;
+    margin-bottom:3px;
+    padding-bottom:3px;
+}
+
+.accountInfo:hover .accountInfoBottom
+{
+    border-bottom:1px dotted #35b1e1;
+    margin-bottom:3px;
+    padding-bottom:3px;
+}
+
+.accountInfoBottom
+{
+    border-bottom:none;
+    margin-bottom:3px;
+    padding-bottom:4px;
+}
+
+.accountInfoDatenAktualisieren
+{
+    padding-top:3px;
+    border-bottom:none;
+    font-weight:bold;
+}
+
+.wantPremium
+{
+    width:100%;
+    margin-top:30px;
+    margin-bottom:20px;
+    padding:5px;
+    margin-left:-5px;
+    height:70px;
+    background-color:#c7d8e6;
+}
+
+.wantPremium p, .wantPremium h3
+{
+    margin-top:25px;
+    margin-left:135px;
+}
+
+.wantPremium h3
+{
+    margin-top:5px;
+}
+
+.wantPremium img
+{
+    position:absolute;
+    margin-top:-20px;
+}
+
+.accountInfoDatenAktualisieren .left
+{
+    padding-top:9px;
+}
+
+.accountProfilAnschauen
+{
+    padding-top:3px;
+    border-bottom:none;
+    font-weight:bold;
+}
+
+/* Content Styles */
+.content
+{
+    box-shadow:0px 0px 5px #0e2a46;
+    padding:5px;
+}
+
+.inputText
+{
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+
+    height:30px;
+    border:none;
+    padding-left:5px;
+    padding-right:5px;
+    -moz-border-radius: 6px;
+    border-radius: 7px;
+
+    -moz-box-shadow: inset 0 0 10px #35B1E1;
+    -webkit-box-shadow: inset 0 0 10px #35B1E1;
+    box-shadow: inner 0 0 10px #35B1E1;
+}
+
+.inputText:hover
+{
+    -moz-box-shadow: inset 0 0 15px #35B1E1;
+    -webkit-box-shadow: inset 0 0 15px #35B1E1;
+    box-shadow: inner 0 0 15px #35B1E1;
+}
+
+.inputTextContent
+{
+    width:850px;
+}
+
+.inputText:focus
+{
+    -moz-box-shadow: inset 0 0 10px #0161a4;
+    -webkit-box-shadow: inset 0 0 10px #0161a4;
+    box-shadow: inner 0 0 10px #0161a4;
+}
+
+.inputTextLightbox
+{
+    /*    background-image:url("../images/InputInactiveLightbox.png");
+        background-repeat:no-repeat;
+        border:0px;
+        height:30px;
+        width:590px;
+        padding-left:5px;
+        padding-right:5px;*/
+
+    width:590px;
+}
+
+.searchPageinator
+{
+    width:980px;
+    margin:auto;	
+}
+
+.searchBox
+{
+    background-image:url("../images/searchBox.png");
+    width:265px;
+    background-color:transparent;
+    height:25px;
+    padding-left:5px;
+    padding-right:30px;
+    border:0px;
+    background-repeat:no-repeat;
+}
+
+.searchBox:focus
+{
+    background-image:url("../images/searchBoxFocus.png");
+}
+
+.formLightboxText
+{
+    width:200px;	
+}
+
+.accountDetailsInput
+{
+    background-color:#90a9b2;
+    width:840px;
+    padding-top:8px;
+    height:22px;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.buttonSave
+{
+    height:31px;
+    width:180px;
+    background-image:url("../images/button.png");
+    background-repeat:no-repeat;
+    color:#ffffff;
+    font-weight:normal;	
+    border:0px;
+}
+
+.buttonSave:hover
+{
+    background-image:url("../images/buttonActive.png");	
+}
+
+.buttonSave:active
+{
+    background-image:url("../images/buttonClicked.png");	
+}
+
+.contentDescriptionImage
+{
+    margin-top:5px;
+}
+.contentLeft, .contentLeftBelow
+{
+    float:left;	
+}
+
+.contentRight
+{
+    float:right;	
+    color:#0060a9;
+    font-weight:bold;
+    font-size:15px;
+    padding-top:20px;
+    padding-right:10px;
+}
+
+.contentRightBelow
+{
+    float:right;
+}
+
+.contentRight a
+{
+    text-decoration:none;
+    color:#0060a9;
+    font-weight:bold;
+}
+
+.contentRight a:hover
+{
+    border:none;	
+}
+/* Table Styles */
+.tableListe
+{
+    width:100%;
+    margin:auto;
+    border:0px;
+    box-shadow:0px 0px 5px #0e2a46;
+}
+
+.tableListeZeileHeader
+{
+    background-color:#146681;
+    color:#FFFFFF;
+}
+
+.tableListeZeile
+{
+    border:0px;
+}
+
+.tableListeZeile:hover
+{
+    background-color:#35b1e1;
+    color:#ffffff;
+}
+
+.tableListeZeile:hover a
+{
+    color:#ffffff;
+}
+
+.tableListeZeileGrey:hover
+{
+    background-color:#35b1e1;
+    color:#ffffff;
+}
+
+.tableListeZeileGrey:hover a
+{
+    color:#ffffff;
+}
+
+
+.tableListeZeileGrey
+{
+    background-color:#c1c1c1;
+}
+
+.tableListeAction
+{
+    width:200px;	
+}
+
+.textareaLightbox
+{
+    background-image:url("../images/textarea.png");	
+    background-repeat:no-repeat;
+    height:340px;
+    width:600px;
+    border:0px;
+    padding-top:5px;
+    padding-left:5px;
+    padding-right:5px;
+    padding-bottom:5px;
+}
+
+textarea
+{
+    outline:none;
+}
+
+.textareaLightbox:focus
+{
+    background-image:url("../images/textareaFocus.png");	
+}
+
+/* Footer Styles */
+.footer
+{
+    text-align:center;	
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.tooltip 
+{
+    display:none;
+    background:transparent url("../images/black_arrow.png");
+    font-size:12px;
+    height:70px;
+    width:160px;
+    padding:25px;
+    color:#fff; 
+}
+
+.paginator
+{
+  width:200px;
+}
+
+.paginator_pages
+{
+  float:left;
+}
+
+.paginatorPageBwd
+{
+  float: left;
+  cursor:pointer;
+  text-align:left;
+}
+
+.paginatorCount
+{
+  width:75%;
+  float:left;
+  text-align:center;
+}
+.paginatorPageFwd
+{
+  float:right;
+  cursor:pointer;
+  text-align:right;
+}
+/* @TODO Buttons mit CSS3 mit Icon vor dem Button like http://www.red-team-design.com/wp-content/uploads/2011/09/awesome-css3-buttons.html */

@@ -1,0 +1,140 @@
+<div class="contentLeft"><img src="/images/pageDescriptionImages/termine.png" class="contentDescriptionImage"></div>
+<div class="contentRight"><a href="#termine_editor" id="new"><img src="/img/icons/date_add.png" />&nbsp;&nbsp;Termin hinzuf&uuml;gen</a></div>
+<div class="clearer"></div>
+<div class="searchPageinator"><div class="contentRightBelow"><input type="text" class="searchBox" id="searchBox" name="searchBox" /></div></div>
+<div class="liste" id="liste">
+    <?php echo $this->partial ('entriesPerPage.phtml', 'default'); ?>
+    <table class="tableListe">
+        <tr id="paginator" class="paginator">
+            <td colspan="4" align="center">
+                <?php echo $this->partial ('paginator.phtml', 'default'); ?>
+            </td>
+        </tr>
+        <tr class="tableListeZeileHeader">
+            <td>Beginn</td>
+            <td>Ende</td>
+            <td>Ort</td>
+            <td class="tableListeAction">Aktionen</td>
+        </tr>
+        <tr name="tableListeZeile" id="null" class="tableListeZeile" style="display:none">
+            <td id="beginn"></td>
+            <td id="ende"></td>
+            <td id="ort"></td>
+            <td><a href="#termine_editor" id="edit"><img src="/img/icons/date_edit.png">&nbsp;&nbsp;Bearbeiten</a><a href="#termine_editor" id="del">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/icons/date_delete.png">&nbsp;&nbsp;L&ouml;schen</a></td>
+        </tr>
+        <tr id="paginator" class="paginator">
+            <td colspan="4" align="center">
+                <?php echo $this->partial ('paginator.phtml', 'default'); ?>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<!-- lightbox Edit-Fenster-->
+
+<!--TODO: neue inputs-->
+
+<div style="display:none;">
+    <div id="termine_editor" class="">
+        <input type="HIDDEN" id="tID" value="">
+
+
+        <div class="left">
+            Termin-Art:
+            <select id="te_typ" name="typID"></select>
+        </div>
+
+
+        <div class="right">
+            der Termin wird nach Ablauf wie folgt gel&ouml;scht:
+            <select id="te_loeschenTimer" name="loeschenTimer">
+                <option value="0">keine automatische L&ouml;schung</option>
+                <option value="1">automatische L&ouml;schung direkt nach Ablauf</option>
+                <option value="2">automatische L&ouml;schung nach 7 Tagen</option>
+            </select>
+        </div>
+
+        <div class="clear">
+            <p class="left">Name:</p>
+            <p class="right"><input type="text" class="inputText inputTextLightbox" type="text" id="te_titel" style="width:730px;" name="name"></p>
+        </div>
+
+
+
+
+
+        <table>
+            <tr>
+                <td>
+                    <table border="0" id="messenSelect" style="display:none">
+                        <tr>
+                            <td colspan="2">Messe:</td>
+                            <td>
+                                <select id="te_messen" name="messnID"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Halle:</td>
+                            <td colspan="2">
+                                <input type="text" id="messenHalle">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Stand:</td>
+                            <td colspan="2">
+                                <input type="text" id="messenStand">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>Beginn <input type="text" id="te_beginn" name="beginn"></td>
+                <td>&nbsp;</td>
+                <td>Ende <input type="text" id="te_ende" name="ende"></td>
+                <td>&nbsp;</td>
+                <td>Ort <input type="text" id="te_ort" name="ort"></td>
+            </tr>
+            <tr>
+                <td>Kurzbeschreibung</td>
+            </tr>
+            <tr>
+                <td colspan="5" id="teaserMCE">
+                    <textarea id="te_teaser" name="teaser" cols=70 rows=4></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Beschreibung</td>
+            </tr>
+            <tr>
+                <td colspan="5" id="beschreibungMCE">
+                    <textarea id="te_beschreibung" name="beschreibung" style="width:100%;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">Medium (z.B. Bild):</td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <select id="te_medium" name="mediaID">
+                        <option value="0">kein Medium anzeigen</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" align="center">
+                    <input id="buttonSave" class="buttonSave" type="button" value="  speichern">
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

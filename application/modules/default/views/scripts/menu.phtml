@@ -1,0 +1,27 @@
+<ul>
+<?php
+
+$anbieterLimits = Plugin_Global::getAnbieterLimitsBySession ();
+
+foreach ($this->container as $page)
+{
+  $module = $page->_module;
+  $controller = $page->_controller;
+  $action = $page->_action;
+//  if ($anbieterLimits->{'canuse_'.$module} == 1 && $page->show == 'true')
+  if ($page->show == 'true')
+  {
+				($this->layout ()->_module == $module) ? $activeClass = 'active' : $activeClass = 'inactive';
+				$imageName = $page->_module.".png";
+				if (!file_exists (getcwd ()."/images/".$imageName)) $imageName = "noImage.png";
+				if ($page->_module != "admin")	
+				{
+				  echo "<li class='$activeClass'><a href='/".$page->_module."/".$page->_controller."/".$page->_action."'>";
+				  echo $page->label;
+				  echo "</a></li>";
+				}
+  }
+}
+
+?>
+</ul>

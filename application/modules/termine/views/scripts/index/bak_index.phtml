@@ -1,0 +1,101 @@
+<div class="termine_liste">
+<input type="HIDDEN" name="aID" id="aID" value="<?php echo $this->aID ?>">
+<input type="HIDDEN" name="anbieterID" id="anbieterID" value="<?php echo $this->anbieterID; ?>">
+<input type="HIDDEN" name="anbieterHash" id="anbieterHash" value="<?php echo $this->anbieterHash; ?>">
+<div id="form_ansprechpartner" >
+  <?php
+    foreach ($this->termine as $key => $termin)
+    {
+      $tID = $termin ['termineID'];
+    ?>
+    <div id="termin_<?php echo $tID; ?>" tID="<?php echo $tID?>">
+       <div id="beginn_<?php echo $tID; ?>" class="termine_listeVorname">
+       <?php echo $termin ['beginn']; ?>
+       </div> 
+       <div id="ende_<?php echo $tID; ?>" class="termine_listeNachname">
+       <?php echo $termin ['ende']; ?>
+       </div> 
+       <div id="ort_<?php echo $tID; ?>" class="termine_listeOrt">
+       <?php echo $termin ['ort']; ?>
+       </div> 
+       <div id="termin_edit" class="termine_statusIcons" onClick="javascript: AjaxEdit (<?php echo $tID; ?>);">
+         <img src="/img/action_go.gif">
+       </div>
+       <div id="termin_delete" class="termine_statusIcons" onClick="javascript: AjaxDelete (<?php echo $tID; ?>);">
+         <img src="/img/delete.png">
+       </div>
+    </div>
+	<div class="clearer"></div>
+    <?php
+    }
+  ?>
+		<div id="termin_vorlage" style="display:none" class="termine_liste">
+					<div id="beginn_vorlage" class="termine_listeVorname"></div> 
+					<div id="ende_vorlage" class="termine_listeNachname">	</div> 
+					<div id="ort_vorlage" class="termine_listeOrt"></div> 
+					<div id="termin_edit" class="termine_statusIcons" onClick="javascript: AjaxEdit (vorlage);">
+							<img src="/img/action_go.gif">
+					</div>
+					<div id="termin_delete" class="termine_statusIcons" onClick="javascript: AjaxDelete (vorlage);">
+							<img src="/img/delete.png">
+					</div>
+		</div>
+</div>
+		  <div id="neu" class="termine_listeNeu">
+    <div class="ansprechpartner_listeNeuAdd"><img src="/img/delete.png"></div>
+	neuen Termin anlegen
+  </div>
+
+</div>
+
+<div id="termine_editor" class="" style="display:none">
+  <input type="HIDDEN" id="tID" value=""> 
+  <div id="te_div_daten">
+  <div class="linkeSpaltePosition">
+  <!-- linke Spalte -->   
+      <div id="te_div_name" class="benutzerPopupLabelText">
+        <div id="te_div_titel" class="benutzerPopupLabelText">Titel</div>
+        <div class="benutzerPopupAbstandtInput"><input type="text" id="name" class="benutzerPopupinputAusgabe"></div>
+      </div>
+	  <div id="te_div_beginn" class="benutzerPopupLabelText">Beginn</div>
+      <div class="benutzerPopupAbstandtInput"><input type="text" id="beginn" class="benutzerPopupinputAusgabe"></div>
+  </div>
+ <!-- rechte Spalte -->
+  <div class="rechteSpaltePosition">
+    <div id="te_div_ort" class="benutzerPopupLabelText">Ort</div>
+    <div class="benutzerPopupAbstandtInput"><input type="text" id="ort" class="benutzerPopupinputAusgabe"></div>
+
+    <div id="te_div_ende" class="benutzerPopupLabelText">Ende</div>
+    <input type="text" id="ende" class="benutzerPopupinputAusgabe">
+  </div>
+  </div>
+  <div class="clearer"></div>
+  <div class="linkeSpaltePosition">
+    <div class="benutzerPopupLabelText">Bild</div>
+    <div>
+      <select name="bildauswahl" id="mediaID">
+        <option value="0">Bild/Medium ausw&auml;hlen (vorher bei "Bilder verwalten" anlegen)</option>
+      </select>
+    </div>
+  </div>
+  <div class="clearer"></div>
+  <div id="te_div_teaser">
+    <div id="te_div_teaser_label" class="benutzerPopupLabelText">Teaser</div>
+    <textarea id="teaser" class="benutzerTerminePopupInputAusgabe" rows="10"></textarea>
+  </div>
+  <div id="te_div_beschreibung">
+    <div id="te_div_beschreibung_label" class="benutzerPopupLabelText">Beschreibung</div>
+    <textarea id="beschreibung" class="benutzerTerminePopupInputAusgabe" rows="10"></textarea>
+  </div>
+  <div id="">
+    <div id="te_div_typ" class="benutzerPopupLabelText">Typ</div>
+     <div class="linkeSpaltePosition">
+	   <div class="benutzerPopupAbstandtInputTermine"><input type="radio" id="typID" name="typ" class="benutzerPopupinputChecked" checked></div>
+	   <div class="benutzerPopupLabelTextTermine">Veranstaltung (Standard)</div>
+	   </div>
+    <div class="rechteSpaltePosition">
+	   <div class="benutzerPopupAbstandtInputTermine"><input type="checkbox" id="typID" name="typ" class="benutzerPopupinputChecked"></div>
+	   <div class="benutzerPopupLabelTextTermine">ist auch ein Event</div>
+	</div>
+  </div>
+</div>

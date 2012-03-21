@@ -1,0 +1,55 @@
+<div class="contentLeft"><img src="/images/pageDescriptionImages/bildervideos.png" class="contentDescriptionImage"></div>
+<div class="contentRight"><a href="#media_editor" id="add"><img src="/img/icons/pencil_add.png" />&nbsp;&nbsp;Medien hinzuf&uuml;gen</a></div>
+<div class="clearer"></div>
+
+<div class="liste" id="liste">
+    <?php echo $this->partial ('entriesPerPage.phtml', 'default'); ?>
+    <table class="tableListe">
+        <tr id="paginator" class="paginator">
+            <td colspan="5" align="center">
+                <?php echo $this->partial ('paginator.phtml', 'default'); ?>
+            </td>
+        </tr>
+        <tr class="tableListeZeileHeader">
+            <td>Media-Typ</td>
+            <td>Beschreibung</td>
+            <td>Datei</td>
+            <td  class="tableListeAction">Aktionen</td>
+        </tr>
+        <tr name="tableListeZeile" id="null" class="tableListeZeile" style="display:none">
+            <td id="typ"></td>
+            <td id="beschreibung"></td>
+            <td id="datei"></td>
+            <td><a href="#media_editor" id="edit"><img src="/img/icons/camera_edit.png">&nbsp;&nbsp;Bearbeiten</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#media_editor" id="del"><img src="/img/icons/camera_delete.png">&nbsp;&nbsp;L&ouml;schen</a></td>
+        </tr>
+        <tr id="paginator" class="paginator">
+            <td colspan="5" align="center">
+                <?php echo $this->partial ('paginator.phtml', 'default'); ?>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<!-- lightbox Edit-Fenster -->
+<div style="display:none;">
+    <div id="media_editor" class="">
+        <input type="HIDDEN" id="ID" value="">
+        <table style="width:100%;">
+            <tr><td class="formLightboxText">Media-Typ:</td><td>     
+                    <select  id="me_mediatyp" name="mediatyp" selected="">
+                        <option value="0">bitte Medien-Typ ausw&auml;hlen</option>
+                    </select>
+
+                </td></tr>
+            <tr><td class="formLightboxText">Beschreibung:</td><td><textarea class="textareaLightbox" id="me_beschreibung" name="beschreibung" cols="78" rows="15"></textarea></td></tr>
+            <tr><td class="formLightboxText">Link:</td><td> <input type="text" class="inputText inputTextLightbox"id="me_link" size="72" name="link"></td></tr>
+            <tr>
+                <td colspan="2" id="bild" style="text-align:center;"></td></tr>
+            <tr>
+                <td colspan="2" id="thumbNail" style="text-align:center;"></td>
+            </tr>
+        </table>
+        <input id="buttonSave" class="buttonSave" type="button" value="  speichern"> 
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="termine_liste">
+		<div id="form" >
+				<div id="media_header" mID="<?php echo $mID?>">
+							<div id="mediatyp_header" class="media_listeVorname">
+							<b>Media-Typ</b>
+							</div> 
+							<div id="beschreibung_header" class="media_listeNachname">
+							<b>Beschreibung</b>
+							</div> 
+							<div id="mediadatei_header" class="media_listeOrt">
+						 <b>Dateiname</b>
+							</div> 
+				</div>
+				<?php
+						foreach ($this->medien as $key => $media)
+						{
+								$mID = $media ['mediaID'];
+						?>
+						<div id="media_<?php echo $mID; ?>" mID="<?php echo $mID?>">
+									<div id="mediatyp_<?php echo $mID; ?>" class="media_listeVorname">
+									<?php echo $media ['mediatypdesc']; ?>
+									</div> 
+									<div id="beschreibung_<?php echo $mID; ?>" class="media_listeNachname">
+									<?php echo $media ['mediadesc']; ?>
+									</div> 
+									<div id="mediadatei_<?php echo $mID; ?>" class="media_listeOrt">
+									<?php echo $media ['mediadatei']; ?>
+									</div> 
+									<div id="media_edit" class="media_statusIcons" onClick="javascript: AjaxEdit (<?php echo $mID; ?>);">
+											<img src="/img/action_go.gif">
+									</div>
+									<div id="media_delete" class="media_statusIcons" onClick="javascript: AjaxDelete (<?php echo $mID; ?>);">
+											<img src="/img/delete.png">
+									</div>
+						</div>
+						<div class="clearer"></div>
+						<?php
+						}
+				?>
+				<div id="media_vorlage" style="display:none" class="media_liste">
+							<div id="mediatyp_vorlage" class="media_listeVorname"></div> 
+							<div id="beschreibung_vorlage" class="media_listeNachname">	</div> 
+							<div id="mediadatei_vorlage" class="media_listeOrt"></div> 
+							<div id="termin_edit" class="media_statusIcons" onClick="javascript: AjaxEdit (vorlage);">
+									<img src="/img/action_go.gif">
+							</div>
+							<div id="termin_delete" class="media_statusIcons" onClick="javascript: AjaxDelete (vorlage);">
+									<img src="/img/delete.png">
+							</div>
+				</div>
+		</div>
+	 <div id="neu" class="media_listeNeu">
+    <div class="ansprechpartner_listeNeuAdd"><img src="/img/delete.png"></div>
+neues Medium anlegen
+  </div>
+</div>
+
+<div id="media_editor" class="" style="display:none">
+  <input type="HIDDEN" id="mID" value="">
+  <div class="linkeSpaltePosition">
+  <!-- linke Spalte -->
+  <div id="me_div_typ" class="benutzerPopupLabelText">
+    <div id="me_div_typ" class="benutzerPopupLabelText">Medien-Typ</div>
+    <select id="mediatyp" class="benutzerPopupinputAusgabe">
+    <?php
+    foreach ($this->mediaTypen as $key => $mediaTyp)
+    { 
+    ?>
+    <option id="<?php echo $mediaTyp ['mediatyp']; ?>" name="<?php echo $mediaTyp ['mediatyp']; ?>" value="<?php echo $mediaTyp ['mediatyp']; ?>"><?php echo $mediaTyp ['beschreibung']; ?></option>
+    <?php
+    }
+    ?>
+    </select>
+  </div>
+  </div>
+ 
+  <input type="HIDDEN" id="ajaxpath" value="/media/media.ajax/upload">
+  <form action="" method="post" enctype="multipart/form-data" id="uploadForm">
+  <div id="me_div_daten">
+    <div id="me_div_beschreibung" class="benutzerPopupLabelText">Beschreibung</div>
+    <input type="text" id="beschreibung" class="benutzerPopupinputAusgabe">
+  </div>
+  <div id="hide">
+    <input type="file" id="mediadatei" name="mediadatei" class="benutzerPopupinputAusgabe">
+    <input type="button" id="uploadFile" name="uploadFile" value="hochladen">
+  </div>
+  <div id="loader"></div>
+  </form>
+</div>

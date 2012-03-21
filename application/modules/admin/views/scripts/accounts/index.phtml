@@ -1,0 +1,91 @@
+<!-- Accounts -->
+
+
+<div class="contentLeft"><img src="/images/pageDescriptionImages/accounts.png" class="contentDescriptionImage"></div>
+<div class="contentRight"><a href="#editor" id="lightboxOpen"><img src="/img/icons/page_add.png"/>&nbsp;&nbsp;Accounts
+  hinzuf&uuml;gen</a></div>
+<div class="clearer"></div>
+
+<div class="liste" id="liste">
+  <?php echo $this->partial ('entriesPerPage.phtml', 'default');?>
+  <table class="tableListe">
+    <tr id="paginator" class="paginator">
+      <td colspan="6" align="center">
+        <?php echo $this->partial ('paginator.phtml', 'default');?>
+      </td>
+    </tr>
+    <tr style="display:none" id="ajaxLoader">
+      <td colspan="6" align="center"><img src="/images/ajax-loader.gif"></img>
+    </tr>
+    <tr class="tableListeZeileHeader">
+      <td>ID</td>
+      <td>Username</td>
+      <td>Anbieter</td>
+      <td width="40">Status</td>
+      <td>letzter Login</td>
+      <td class="tableListeAction">Aktionen</td>
+    </tr>
+    <tr>
+    </tr>
+    <tr name="tableListeZeile" id="null" class="tableListeZeile" style="display:none">
+      <td id="ID"></td>
+      <td id="firmenname"></td>
+      <td id="system"></td>
+      <td id="status"></td>
+      <td id="letzter_login"></td>
+      <td><a href="#editor" id="edit"><img src="/img/icons/page_edit.png">&nbsp;&nbsp;Bearbeiten</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+      href="#editor" id="del"><img src="/img/icons/page_delete.png">&nbsp;&nbspp;L&ouml;schen</a></td>
+    </tr>
+    <tr id="paginator" class="paginator">
+      <td colspan="6" align="center">
+        <?php echo $this->partial ('paginator.phtml', 'default');?>
+      </td>
+    </tr>
+  </table>
+</div>
+<div style="display:none;">
+  <div id="editor">
+    <table border="0" width="100%">
+      <tr>
+        <td>HashCode:</td>
+        <td id="e_hashCode"></td>
+      </tr>
+      <tr>
+        <td>System:</td>
+        <td><select id="e_systemSelect">
+          <option id="">alle Systeme</option>
+        </select></td>
+      </tr>
+      <tr>
+        <td>Premium-Account:</td>
+        <td><input type="checkbox" id="e_premiumaccount"></td>
+      </tr>
+      <tr>
+        <td>Firmenname:</td>
+        <td><input type="text" id="e_firmenname" size="52"></td>
+      </tr>
+      <tr>
+        <td>User (depricated):</td>
+        <td><select name="e_userSelect" id="e_userSelect"></select></td>
+        <td id="e_addUser">[+]</td>
+      </tr>
+      <tr>
+        <td>User:</td>
+        <td>
+
+
+        </td>
+        <td id="e_addUser">[+]</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr width="100%">
+        <td colspan="2">
+          <table id="userListe" border="0" cellspacing="0" cellpadding="0" width="100%">
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

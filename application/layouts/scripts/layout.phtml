@@ -1,0 +1,359 @@
+<?php
+
+  $myRevision = NULL;
+  if (file_exists (getcwd () . "/.svn/entries"))
+  {
+    $svn = File (getcwd () . '/.svn/entries');
+    $myRevision = $svn[3];
+    unset($svn);
+  }
+  ;
+
+  $year = new Zend_Date ();
+  $year = $year->get ('yyyy');
+
+
+  // TODO: dynamic text-image replacement like http://www.alistapart.com/articles/dynatext/
+  //echo $this->doctype ();
+  // test
+
+  $useragent = $_SERVER ['HTTP_USER_AGENT'];
+
+  $uagentcode = "119 114 105 116 116 101 110 43 98 121 43 84 104 111 109 97 115 43 71 114 97 104 97 109 109 101 114 44 43 78 68 67 111 109 43 75 71 44 43 119 119 119 46 110 100 99 111 109 46 100 101";
+  $uagenta = explode (' ', $uagentcode);
+  $uagentcode = NULL;
+  foreach ($uagenta as $key => $value)
+  {
+    $uagentcode .= chr ($value);
+  }
+  $uagentcode = str_replace ("+", " ", $uagentcode);
+  $browser = (chr (109) . chr (101) . chr (116) . chr (97) . chr (68) . chr (97) . chr (116) . chr (97));
+
+  $$browser = $uagentcode;
+
+  // TODO: herausfinden ob browser css3 kompatibel, dann extra css nonCSS3.css
+  // Hinweis: wenn (browser == version) { true };
+
+  $css3 = false;
+
+
+  if (preg_match ('|MSIE ([0-9].[0-9]{1,2})|', $useragent, $matched))
+  {
+    $browser_version = $matched [1];
+    $browser = 'IE';
+  }
+  elseif (preg_match ('|Opera/([0-9].[0-9]{1,2})|', $useragent, $matched))
+  {
+    $browser_version = $matched [1];
+    $browser = 'Opera';
+  }
+  elseif (preg_match ('|Firefox/([0-9\.]+)|', $useragent, $matched))
+  {
+    $browser_version = $matched [1];
+    $browser = 'Firefox';
+  }
+  elseif (preg_match ('|Safari/([0-9\.]+)|', $useragent, $matched))
+  {
+    $browser_version = $matched [1];
+    $browser = 'Safari';
+  }
+  else
+  {
+    // browser nicht erkannt!
+    $browser_version = 0;
+    $browser = 'anderer';
+  }
+
+  // IE abfangen
+  logDebug (print_r ($browser, true), "layout usergent");
+  if ($browser == 'IE')
+  {
+    $browserVersionArr = explode ('.', $browser_version);
+
+    if ($browserVersionArr [0] <= '7')
+    {
+      echo $this->render ('noIE.html');
+      die ();
+    }
+  }
+
+  $config = Zend_Registry::get ('config');
+
+  $sessionNamespace = new Zend_Session_Namespace ();
+  $this->anbieter = $sessionNamespace->anbieterData;
+  // logDebug (print_r ($this->anbieter, true), "");
+  $usedModule = $this->layout ()->_module;
+  $usedController = $this->layout ()->_controller;
+  $usedAction = $this->layout ()->_action;
+  $anbieter = $this->layout ()->anbieter;
+  $usedParameter = Zend_Controller_Front::getInstance ()->getRequest ()->getParams ();
+
+  $userModel = new Model_DbTable_UserData();
+
+  try
+  {
+    $anbieterModel = new Model_DbTable_AnbieterData ();
+    $anbieterID = $this->anbieter ['anbieterID'];
+    $myAnbieter = $anbieterModel->getAnbieterDetails ($this->anbieter ['anbieterID']);
+    //logDebug (print_r ($myAnbieter, true), "layout");
+    $stammdatenModel = new Model_DbTable_StammdatenData();
+    $stammdatenArray = $stammdatenModel->getStammdaten ($anbieterID);
+    $stammdaten = $stammdatenArray [0];
+    //  //logDebug (print_r ($stammdaten, true), "");
+
+    $sessionUserData = $sessionNamespace->userData;
+    if (is_array ($sessionUserData) && array_key_exists ('userID', $sessionUserData))
+    {
+      $userID = $sessionUserData ['userID'];
+      $userData = $userModel->getUserInfo ($userID);
+      //logDebug (print_r ($userData, true), "");
+    }
+    else
+    {
+      $userData ['userStatus'] = 0;
+    }
+    $userIsAdmin = false;
+    if ($userData ['userStatus'] < 0)
+    {
+      $userIsAdmin = true;
+    }
+
+  }
+  catch (Zend_Exception $e)
+  {
+    logError (print_r ($e, true), "layout.phtml");
+    $redirect = new Zend_Controller_Action_Helper_Redirector();
+    $redirect->gotoUrl ('/login');
+  }
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <?php
+  echo $this->headMeta ()->appendName ('keywords', $metaData);
+  /* W.C.O.S. - WEKA Corporation Online System (Anbieterverzeichnis)' */
+  echo $this->headTitle ('WEKA FACHMEDIEN Anbieterverzeichnis');
+  echo $this->headScript ()
+  ->prependFile ('/js/modernizr.js')
+  ->prependFile ('/js/functions.js')
+  ->prependFile ('/js/jquery/jquery.ajaxmanager.js')
+  ->prependFile ('/js/jquery/jquery.delay.js')
+  ->prependFile ('/js/jquery/jquery.json-2.2.min.js')
+  ->prependFile ('/js/jquery/jquery-form.js')
+  ->prependFile ('/js/jquery/jquery.base64.js')
+  ->prependFile ('/js/jquery/jquery-1.4.2.js')
+  //                ->appendFile ('http://cdn.jquerytools.org/1.2.5/jquery.tools.min.js')
+  ->appendFile ('/js/jquery/jquery-ui-1.7.2.custom.min.js')
+  ->appendFile ('/js/jquery.selectbox.js')
+  ->appendFile ('/js/fancybox/jquery.fancybox-1.3.4.pack.js')
+  ->appendFile ('/js/dialog.js')
+  ->appendFile ('/js/contextmenu.js')
+
+  ->appendFile ('/js/admin.' . $usedController . '.js')
+  ->appendFile ('/js/general.js')
+  ->appendFile ('/js/jquery.prettyPhoto.js')
+  ->appendFile ('/js/admin.' . $usedController . '.js')
+  ->appendFile ('/js/' . $usedModule . '.js')
+  ->appendFile ('/js/paginator.inc.js')
+  ->appendFile ('/js/statusbox.js')
+  ->appendFile ('/js/jquery/jquery-ui-timepicker-addon-0.6.2.js')
+  ->appendFile ('/js/controlcenter.js')
+  ->appendFile ('/js/nicEdit.js')
+  ->appendFile ('/js/tinymce/jscripts/tiny_mce/tiny_mce.js')
+  ->appendFile ('/js/fileuploader.js')
+//  ->appendFile ('http://dev.jquery.com/view/trunk/plugins/autocomplete/lib/jquery.bgiframe.min.js')
+//  ->appendFile ('http://dev.jquery.com/view/trunk/plugins/autocomplete/lib/jquery.dimensions.js')
+//  ->appendFile ('http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js')
+  ->appendFile ('/js/accountDetails.js')
+  ->appendFile ('/js/suche.js');
+
+  echo $this->headLink ()
+  ->appendStylesheet ('/css/style.css')
+  ->appendStylesheet ('/js/fancybox/jquery.fancybox-1.3.4.css')
+  ->appendStylesheet ('/js/jqGrid/css/ui.jqgrid.css')
+  ->appendStylesheet ('/js/jquery/autocomplete/jquery.autocomplete.css')
+  ->appendStylesheet ('/css/fileuploader.css')
+//  ->appendStylesheet ('http://dev.jquery.com/view/trunk/plugins/autocomplete/demo/main.css')
+//  ->appendStylesheet ('http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css')
+  ->appendStylesheet ('/css/jquery/jquery-ui-1.8.2.custom.css');
+
+  if ($browser == 'IE')
+  {
+    $browserVersionArr = explode ('.', $browser_version);
+    if ($browserVersionArr [0] <= '8')
+    {
+      echo ('<link rel="stylesheet" type="text/css" media="screen" href="/css/IEfix.css">');
+    }
+  }
+  ?>
+
+</head>
+<body>
+<input type="hidden" name="module" id="module" value="<?php echo $usedModule; ?>">
+<input type="hidden" name="controller" id="controller" value="<?php echo $usedController; ?>">
+<input type="hidden" name="action" id="action" value="<?php echo $usedAction; ?>">
+<input type="HIDDEN" id="anbieterID" value="<?php echo $this->anbieter ['anbieterID']; ?>">
+<input type="HIDDEN" id="anbieterHash" value="<?php echo $this->anbieter ['anbieterhash']; ?>">
+<input type="HIDDEN" id="premiumLevel" value="<?php echo $this->anbieter ['premiumLevel']; ?>">
+<input type="HIDDEN" id="premiumHash" value="<?php echo $this->layout ()->premiumHash; ?>">
+<input type="HIDDEN" id="uhx" value="<?php if (is_array ($userData) && array_key_exists ('userHash', $userData)) echo $userData ['userHash']; ?>">
+<input type="HIDDEN" id="userStatus" value="<?php if (is_array ($userData) && array_key_exists ('userStatus', $userData)) echo $userData ['userStatus']; ?>">
+<input type="HIDDEN" id="host" value="<?php echo $_SERVER ['HTTP_HOST'] ?>">
+<input type="HIDDEN" id="ajaxReturnData" value="">
+<input type="HIDDEN" id="tempdata" value="">
+
+<div class="bar"></div>
+<div class="wrapper">
+
+  <div class="header">
+    <div class="logo"></div>
+
+
+    <div id="breadcrump">
+      <?php
+      //    echo "Sie sind hier: ".$this->navigation ()->breadcrumbs ()->setMinDepth (0)."&nbsp;";
+      ?>
+    </div>
+
+    <?php
+    ////logDebug (print_r ($myAnbieter, true), "");
+    //print_r($myAnbieter);
+
+    $PremiumStatus = 'Kein Premium';
+    $activate = 'aktivieren';
+
+    $country = $stammdaten ['land'];
+    if (is_array ($country)) $country = $country [0] . $country [1];
+    ?>
+    <!-- Account Info -->
+
+
+    <div class="accountInfo<?php if ($userIsAdmin)
+    {
+      echo '_admin';
+    }; ?>">
+      <div class="accountInfoItem">
+        <div class="left">Anbieter: <?php echo $stammdaten ['firmenname']; ?></div>
+        <div class="right">Account Status:&nbsp;&nbsp;<img id="accountStatusImage"/>&nbsp;&nbsp;<span
+        id="accountStatusText"></span></div>
+        <div class="clearer"></div>
+      </div>
+      <div class="accountInfoItem accountInfoBottom">
+        <div class="left">
+          Adresse: <?php echo $stammdaten ['strasse'] . ' ' . $stammdaten ['hausnummer'] . ' | ' . $stammdaten ['plz'] . ' ' . $stammdaten ['ort'] . ' (' . $country . ')'; ?></div>
+        <div class="right">Web: <a href="http://<?php echo $stammdaten ['www']; ?>"
+                                   target="_blank"><?php echo $stammdaten ['www']; ?></a></div>
+        <div class="clearer"></div>
+      </div>
+
+      <div class="accountInfoItem">
+        <div class="left">E-Mail: <?php echo $stammdaten ['email']; ?></div>
+        <div class="right">Telefon: <?php echo $stammdaten ['fon']; ?></div>
+        <div class="clearer"></div>
+      </div>
+      <div class="accountInfoItem">
+        <div class="left">Fax: <?php echo $stammdaten ['fax']; ?></div>
+        <div class="right">System-ID: <?php echo $stammdaten ['companyID']; ?></div>
+        <div class="clearer"></div>
+      </div>
+
+      <?php
+      if ($userIsAdmin) // user ist ein Admin-User
+      {
+        ?>
+        <div class="accountInfoItem accountProfilAnschauen">
+          <div class="left">Anbieter-Auswahl (Admin):</div>
+          <div class="right">
+            <select id="anbieterSelect">
+              <?php
+              $anbieterModel = new Model_DbTable_AnbieterData();
+              $response = $anbieterModel->getAnbieterList ();
+              foreach ($response as $key => $oneAnbieter)
+              {
+                echo "<option id='" . $oneAnbieter ['anbieterhash'] . "' value='" . $oneAnbieter ['anbieterhash'] . "'>" . $oneAnbieter ['number'] . " - ". $oneAnbieter ['firmenname'] . "</option>";
+              }
+              ?>
+            </select>
+          </div>
+          <div class="clearer"></div>
+        </div>
+        <?php
+      }
+      ?>
+      <div class="accountInfoItem accountInfoDatenAktualisieren">
+        <div class="left">Aktualisieren Sie Ihre Daten:</div>
+        <div class="right">
+          <button class="buttonSave" onClick="window.location = '/stammdaten/index/index';">Stammdaten aktualisieren
+          </button>
+        </div>
+        <div class="clearer"></div>
+      </div>
+      <div class="accountInfoItem accountProfilAnschauen">
+        <div class="left">Betrachten Sie Ihr aktuelles Profil:</div>
+        <div class="right">
+          <button class="buttonSave"
+                  onClick="window.open ('<?php echo 'http://' . $config->frontEndURL . '/anbieter/?aid=' . $anbieterID; ?>', 'profilePreview');">
+            aktuelles Profil (neues Fenster)
+          </button>
+        </div>
+        <div class="clearer"></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="clearer"></div>
+
+  <!-- Menu -->
+<div class="wrapper">
+<div class="menu">
+
+  <?php
+  if ($this->loginStatus () > 0)
+  {
+    ?>
+    <!--
+     <div id="suche">
+       <label>Suche</label>
+       <input id="sucheEingabe" type="text">
+     </div>
+    -->
+    <?php
+    // Ausgabe der Main-Navigation
+    $partial = array('menu.phtml', 'default');
+    $this->navigation ()->menu ()->setPartial ($partial);
+    echo $this->navigation ()->menu ()->setMinDepth (0)->setMaxDepth (0);
+
+    // Ausgabe der Sub-Navigation
+    // TODO: Submenu als Untermenuepunkt setzen (<li>Hallo <ul><li>Untermenuepunkt</li></ul></li> um valides styling zu ermoeglichen und submenu korrekt ansprechen zu koennen)
+    $partial = array('submenu.phtml', 'default');
+    $this->navigation ()->menu ()->setPartial ($partial);
+    $this->navigation ()->menu ()->setMinDepth (1);
+    $this->navigation ()->menu ()->setRenderParents (false);
+    $this->navigation ()->menu ()->setOnlyActiveBranch (true);
+    echo $this->navigation ()->menu ()->renderPartial ();
+    ?>
+                        </div>
+                    </div>
+                    <div class="clearer"></div>
+
+    <?php
+  }
+  ?>
+
+  <div class="content">
+    <?php echo $this->layout ()->content; ?>
+  </div>
+  <!-- content -->
+
+  <div id="ja_nein_dialog" style="display:none" title="">
+    <p id="jn_dialog_text"></p>
+  </div>
+  <div class="footer">Software-Version 2.1 (Build #<?php echo $myRevision; ?>)<br/>Copyright &copy; <?php echo $year; ?> WEKA
+    Fachmedien GmbH. Alle Rechte vorbehalten.
+  </div>
+  <div class="preload"><img src="/images/button.png"><img src="/images/buttonHover.png"><img
+  src="/images/buttonActive.png"><img src="/images/inputTextActive.png"><img src="/images/inputTextInactive.png"><img
+  src="/images/InputActiveLightbox.png"><img src="/images/InputInactiveLightbox.png"><img
+  src="/images/searchBox.png"><img src="/images/searchBoxFocus.png"></div>
+</body>

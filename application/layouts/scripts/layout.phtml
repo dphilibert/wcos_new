@@ -202,6 +202,7 @@
 <input type="HIDDEN" id="host" value="<?php echo $_SERVER ['HTTP_HOST'] ?>">
 <input type="HIDDEN" id="ajaxReturnData" value="">
 <input type="HIDDEN" id="tempdata" value="">
+<input type="HIDDEN" id="vmkdnrhx" value="<?php if (is_array ($sessionUserData) && array_key_exists ('userDaten', $sessionUserData)) echo base64_encode ($sessionUserData ['userDaten'] ['firmaKundennummer']); ?>">
 
 <div class="bar"></div>
 <div class="wrapper">
@@ -217,7 +218,7 @@
     </div>
 
     <?php
-    ////logDebug (print_r ($myAnbieter, true), "");
+ //logDebug (print_r ($sessionUserData, true), "");
     //print_r($myAnbieter);
 
     $PremiumStatus = 'Kein Premium';

@@ -36,7 +36,7 @@
       // hier wird zunächst geprüft ob der Controller ein Ajax-Controller ist. Das ist dann der Fall wenn nach dem . im Controllernamen ein "ajax" steht
       $controllerNameArray = explode ('.', $controller);
       ////logDebug (print_r ($params, true), "");
-      if ($controller == 'login.ajax')
+      if ($controller == 'login.ajax' || $controller == 'testing')
       {
         return NULL;
       } // hash-prüfung nicht bei login-ajax-anfragen durchführen
@@ -56,9 +56,9 @@
           $hashOK = ($anbieterHash == $hash);
           if (!array_key_exists ('userStatus', $userData) || !$userData ['userStatus'] < 0)
           {
-            if ($hashOK == FALSE || $anbieterID == NULL)
+            if ($hashOK == FALSE || $anbieterID == NULL) // TODO Problemlösung für AnbieterID wegen VM Kundennummer (keine AnbieterID vorhanden)????
             {
-              die ('HashControl::Error #11401');
+             // die ('HashControl::Error #11401');
             }
             // wenn die AJAX Anfrage von einem Nicht-Premium-Kunden kommt und NICHT die Stammdaten betrifft -> error
             if ($params ['module'] != 'stammdaten' && $params ['module'] != 'einfuehrung' && !$anbieterDetails ['PREMIUMLEVEL'] > 0)

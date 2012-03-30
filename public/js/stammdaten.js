@@ -1,16 +1,31 @@
 var userHash = "";
+
+/**
+ * lädt die Daten in das Formular
+ *
+ * @param ID
+ * @return void
+ *
+ */
 var loadFormData = function (ID)
 {
 //alert ($("#i_anrede option[value='Frau']"));
   var anbieterID = $("#anbieterID").val();
   var anbieterHash = $("#anbieterHash").val();
-  var ajaxURL = "/stammdaten/stammdaten.ajax/load/anbieterID/" + anbieterID + "/hash/" + anbieterHash + "/id/" + ID;
+  var ajaxURL = "/stammdaten/stammdaten.ajax/load/";
   var ajaxData = '';
   $.ajax(
   {
     dataType:"json",
-    url:ajaxURL,
-    success:function (ajaxData)
+    type    :"POST",
+    data    :{
+      anbieterID:anbieterID,
+      hash      :anbieterHash,
+      id        :ID,
+      vmkdnrhx  :$('#vmkdxnrhx').val()
+    },
+    url     :ajaxURL,
+    success :function (ajaxData)
     {
       // die Daten des "Forms"
       $('input').each(function (index)
@@ -33,16 +48,17 @@ var AjaxSave = function (selectedField, selectedValue, ID)
   var ajaxURL = "/stammdaten/stammdaten.ajax/save";
   var ajaxData = '';
   $.ajax(
-  {   data:{
-    anbieterID:anbieterID,
-    hash:anbieterHash,
-    id:ID,
-    field:selectedField,
-    value:selectedValue
-  },
+  {
+    data    :{
+      anbieterID:anbieterID,
+      hash      :anbieterHash,
+      id        :ID,
+      field     :selectedField,
+      value     :selectedValue
+    },
     dataType:"json",
-    url:ajaxURL,
-    success:function (ajaxData)
+    url     :ajaxURL,
+    success :function (ajaxData)
     {
     }
   });
@@ -58,12 +74,12 @@ var requestPremiumInfo = function (ret)
     $.ajax(
     {
       dataType:"json",
-      url:ajaxURL,
-      data:{
+      url     :ajaxURL,
+      data    :{
         anbieterID:anbieterID,
-        hash:anbieterHash
+        hash      :anbieterHash
       },
-      success:function (ajaxData)
+      success :function (ajaxData)
       {
         fancyInfoBox("Vielen Dank für Ihre Anfrage. Wir werden Ihnen die gewünschten Informationen zeitnah zukommen lassen.", 300, 100);
         $('#wantPremium').hide();
@@ -117,13 +133,14 @@ $(document).ready(function ()
     $.ajax(
     {
       dataType:"json",
-      data:{
+      type: "POST",
+      data    :{
         anbieterID:anbieterID,
-        hash:anbieterHash,
-        tempdata:tempdata
+        hash      :anbieterHash,
+        tempdata  :tempdata
       },
-      url:ajaxURL,
-      success:function (ajaxData)
+      url     :ajaxURL,
+      success :function (ajaxData)
       {
         fancyError('Ihre Daten wurden erfolgreich gespeichert!');
       }

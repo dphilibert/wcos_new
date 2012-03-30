@@ -67,7 +67,7 @@
             // wir bekommen einen User aus dem ZBVS mit der Anbieter-Kundennummer (firmaKundennumme) des VM
             // damit holen wir uns die Anbieter-Daten aus der Anbieter-Tabelle (respektive VM)
             $firmaKundennummer = $userArray ['userDaten'] ['firmaKundennummer'];
-            logDebug ($firmaKundennummer, "Kundennummer");
+            //logDebug ($firmaKundennummer, "Kundennummer");
             if ($userID > 0)
             {
               $anbieterArray = $anbieterModel->getAnbieterByKundennummer ($firmaKundennummer);

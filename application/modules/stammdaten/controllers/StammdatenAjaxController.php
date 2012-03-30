@@ -11,6 +11,7 @@
   class Stammdaten_StammdatenAjaxController extends Zend_Controller_Action
   {
 
+
     /**
      * preDispatch wird vor dem eigentlichen Dispatching aufgerufen
      *
@@ -62,14 +63,18 @@
     {
       //     Model_History::save2history ();
       $ID = $this->getRequest ()->getParam ('id');
-      $anbieterID = $this->getRequest()->getParam('anbieterID');
+      $anbieterID = $this->getRequest ()->getParam ('anbieterID');
       $model = new Model_DbTable_StammdatenData ();
       $anbieterModel = new Model_DbTable_AnbieterData();
       $selectedField = $this->getRequest ()->getParam ('field');
       $dbField = $selectedField;
       $selectedValue = $this->getRequest ()->getParam ('value');
-      if ($dbField != 'firmenname') $model->saveStammdaten ($dbField, $selectedValue, $ID);
-      if ($dbField == 'firmenname') $anbieterModel->saveAnbieter($dbField, $selectedValue, $anbieterID);
+      if ($dbField != 'firmenname') {
+        $model->saveStammdaten ($dbField, $selectedValue, $ID);
+      }
+      if ($dbField == 'firmenname') {
+        $anbieterModel->saveAnbieter ($dbField, $selectedValue, $anbieterID);
+      }
     }
 
     /**
@@ -79,9 +84,13 @@
      */
     public function loadAction ()
     {
+      $vmkdnrhx = $this->getRequest ()->getParam ('vmkdnrhx');
+      $vmkdnr = base64_decode ($vmkdnrhx);
+      logDebug ("firmaKundennummer: " . $vmkdnr, "");
       $ID = $this->getRequest ()->getParam ('id');
       $model = new Model_DbTable_StammdatenData ();
       $rawData = $model->getStammdaten ($ID);
+      // hier VM-Anbindung rein und als Fallback das o.a. local-Model nehmen
       $response = $rawData [0];
       $this->_helper->json->sendJson ($response);
     }

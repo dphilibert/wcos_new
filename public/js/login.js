@@ -1,3 +1,8 @@
+/**
+ * Passwort anfordern
+ *
+ * @param ret
+ */
 function orderPasswort(ret)
 {
     if (ret == true)

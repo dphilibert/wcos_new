@@ -7,7 +7,11 @@ var anzahlPerPage = 10;
 var anzahlPages = 1;
 var page = 1;
 
-
+/**
+ * setzt das Ajax-List-Grid zusammen
+ *
+ * @constructor
+ */
 var BuildAjaxGrid = function ()
 {
   $("tr[name='ajaxZeile']").remove ();
@@ -54,6 +58,11 @@ var BuildAjaxGrid = function ()
 }
 
 
+/**
+ * liest die Options für ein Pagination per Ajax ein
+ *
+ * @return void
+ */
 
 
 // die Options werden per Ajax eingelesen. Sinn: Man kann sie aus der Session holen damit der User sie nicht staendig neu auswaehlen muss
@@ -128,7 +137,11 @@ var getOptionsPages = function ()
   loadFormData (id);
 }*/
 
-
+/**
+ * öffnet eine Fancybox mit einem Editor für die angegebene Zeile
+ *
+ * @param id
+ */
 var editLine = function (id)
 {
   var anbieterID = $("#anbieterID").val ();
@@ -170,19 +183,32 @@ var editLine = function (id)
   loadFormData (id);
 }
 
-
+/**
+ * löscht eine Zeile per Ajax
+ *
+ * @param id
+ */
 var deleteLine = function (id)
 {
   AjaxDelete (id);
 }
 
+/**
+ * fügt eine neue Zeile per Ajax ein
+ *
+ * @return void
+ */
 
 var newEntry = function ()
 {
   editLine (0);
 }
 
-
+/**
+ * lädt die Formular-Daten per Ajax
+ *
+ * @param ID
+ */
 var loadFormData = function (ID)
 {
       var anbieterID = $("#anbieterID").val ();
@@ -217,7 +243,14 @@ var loadFormData = function (ID)
       });
 };
 
-
+/**
+ * speichert die Änderungen in einem Formular per Ajax
+ *
+ * @param selectedField
+ * @param selectedValue
+ * @param id
+ * @constructor
+ */
 var AjaxSave = function (selectedField, selectedValue, id)
 {
   var anbieterID = $("#anbieterID").val ();
@@ -250,6 +283,12 @@ var AjaxSave = function (selectedField, selectedValue, id)
 
 }
 
+/**
+ * löscht einen Eintrag per Ajax
+ *
+ * @param ID
+ * @constructor
+ */
 
 var AjaxDelete = function (ID)
 {

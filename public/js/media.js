@@ -4,6 +4,13 @@ var endPagination = 10;
 var anzahlPerPage = 10;
 var anzahlPages = 1;
 var page = 1;
+
+/**
+ * setzte das Listen-Grid für die Medien zusammen
+ *
+ * @constructor
+ */
+
 var BuildAjaxGrid = function ()
 {
   $("tr[name='ajaxZeile']").remove();
@@ -51,6 +58,13 @@ var BuildAjaxGrid = function ()
     }
   });
 }
+
+/**
+ * liest die Options für ein Pagination per Ajax ein
+ *
+ * @return void
+ */
+
 // die Options werden per Ajax eingelesen. Sinn: Man kann sie aus der Session holen damit der User sie nicht staendig neu auswaehlen muss
 var getOptionsPages = function ()
 {
@@ -76,7 +90,12 @@ var getOptionsPages = function ()
     }
   });
 }
-// die Options fuer die Termin-Typen-Auswahl
+
+/**
+ * liefert die Options für die Medien-Typen-Auswahl
+ * @return void
+ */
+
 var getOptionsMediaTypen = function ()
 {
   var anbieterID = $("#anbieterID").val();
@@ -101,6 +120,12 @@ var getOptionsMediaTypen = function ()
     }
   });
 }
+
+/**
+ * öffnet eine Fancybox mit einem Editor für die angegebene Zeile
+ *
+ * @param id
+ */
 // als Lightbox-Dialog wird SimpleModal verwendet
 var editLine = function (id)
 {
@@ -110,6 +135,12 @@ var editLine = function (id)
   getOptionsMediaTypen();
   loadFormData(id);
 }
+
+/**
+ * löscht eine Zeile per Ajax
+ *
+ * @param id
+ */
 var deleteLine = function (id)
 {
   fancyConfirm("Wollen Sie das Medium wirklich l&ouml;schen?", function (ret)
@@ -121,10 +152,22 @@ var deleteLine = function (id)
     }
   });
 }
+
+/**
+ * fügt eine neue Zeile per Ajax ein
+ *
+ * @return void
+ */
 var newEntry = function ()
 {
   editLine(0);
 }
+
+/**
+ * lädt die Formular-Daten per Ajax
+ *
+ * @param ID
+ */
 var loadFormData = function (ID)
 {
   var anbieterID = $("#anbieterID").val();
@@ -202,6 +245,15 @@ var loadFormData = function (ID)
     $("tr[name='bildSwitch']").removeClass('switch');
   }
 };
+
+/**
+ * speichert die Änderungen in einem Formular per Ajax
+ *
+ * @param selectedField
+ * @param selectedValue
+ * @param id
+ * @constructor
+ */
 var AjaxSave = function (selectedField, selectedValue, id)
 {
   var anbieterID = $("#anbieterID").val();
@@ -237,6 +289,14 @@ var AjaxSave = function (selectedField, selectedValue, id)
     }
   });
 }
+
+/**
+ * löscht einen Eintrag per Ajax
+ *
+ * @param ID
+ * @constructor
+ */
+
 var AjaxDelete = function (ID)
 {
   var anbieterID = $("#anbieterID").val();
@@ -259,18 +319,37 @@ var AjaxDelete = function (ID)
   });
   $("#" + ID).remove();
 }
+
+/**
+ * zeigt ein Thumbnail zu einer Datei
+ * @param ID
+ * @param fileName
+ * @return void
+ */
 function showThumbnail(ID, fileName)
 {
   var ext = fileName.split('.');
   ext = ext[ext.length - 1];
   $('#thumbNail').html('<img id="bildTN" src="/uploads/thumbnails/' + ID + '.' + ext + '">');
 }
+
+/**
+ * entfernt den Upload-Button
+ *
+ * @return void
+ */
 function removeUploadButton()
 {
   //$('.qq-uploader').remove ();  
   $('.qq-upload-list').remove();
   $('#bildTN').remove();
 }
+
+/**
+ * erzeugt den Ajax-Uploader
+ * @param ID
+ * @return void
+ */
 function createUploader(ID)
 {
   var uploader = new qq.FileUploader({
@@ -298,6 +377,12 @@ function createUploader(ID)
     debug:true
   });
 }
+
+/**
+ * initialisiert das Formular
+ *
+ * @return void
+ */
 function initForm()
 {
   getOptionsMediaTypen();

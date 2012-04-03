@@ -1,3 +1,8 @@
+/**
+ * verschlüsselt die Login-Daten
+ *
+ * @return void
+ */
 var scrambleLoginData = function ()
 {
   $(document).ready(function ()
@@ -9,6 +14,11 @@ var scrambleLoginData = function ()
   });
 }
 
+/**
+ * prüft auf HTML5-Nutzbarkeit
+ *
+ * @return {Boolean}
+ */
 var css3html5Check = function ()
 {
   if ($("html.boxshadow").length == 0)
@@ -21,6 +31,11 @@ var css3html5Check = function ()
   }
 }
 
+/**
+ * Test-Funktion
+ *
+ * @return void
+ */
 var getText = function ()
 {
   var meinname = $("#meinname").val();
@@ -35,7 +50,12 @@ var getText = function ()
   );
 }
 
-
+/**
+ * lädt ein Formular bzw. eine Seite über Ajax incl. Hash-Zugriffsprüfung
+ *
+ * @param ajaxURL
+ * @constructor
+ */
 function AjaxLoadForm(ajaxURL)
 {
   var ajaxData = '';
@@ -61,6 +81,12 @@ $("#bs_alle").click(function ()
 {
   alert('foo');
 });
+
+/**
+ * liest die Options für ein Pagination per Ajax ein
+ *
+ * @return void
+ */
 
 // die Options werden per Ajax eingelesen. Sinn: Man kann sie aus der Session holen damit der User sie nicht staendig neu auswaehlen muss
 
@@ -90,7 +116,11 @@ var getOptionsPages = function ()
   });
 }
 
-
+/**
+ * liest die einzelnen Web-Systeme für Options per Ajax ein
+ *
+ * @return void
+ */
 var getOptionsSysteme = function ()
 {
   var anbieterID = $("#anbieterID").val();

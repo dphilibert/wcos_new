@@ -1,6 +1,5 @@
 <?php
-
-  /**
+ /**
    * Bootstraper
    *
    * @author Thomas Grahammer
@@ -14,6 +13,8 @@
   require_once ('Zend/Loader/Autoloader.php');
   $autoloader = Zend_Loader_Autoloader::getInstance ();
   $autoloader->isFallbackAutoloader (true);
+
+
   /*
     $applicationEnv = 'development';
     if (array_key_exists ('APPLICATION_ENV', $_ENV)) {
@@ -33,6 +34,7 @@
      * @var object Layout
      */
     var $layout = NULL;
+
 
 
     /**

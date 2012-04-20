@@ -47,3 +47,23 @@ ALTER TABLE `firmenportraits` ADD `firmenbeschreibung` TEXT NOT NULL AFTER `firm
 ALTER TABLE `whitepaper` ADD `whitepaper_datei` VARCHAR( 128 ) NOT NULL 
 ALTER TABLE `whitepaper` ADD `whitepaper_datei_originalname` VARCHAR( 128 ) NOT NULL 
 ALTER TABLE `whitepaper` ADD `whitepaper_freigabe_hash` VARCHAR( 128 ) NOT NULL 
+
+
+-- 20.04.2012 --
+
+CREATE TABLE `anbieter` (
+  `id` bigint(128) NOT NULL AUTO_INCREMENT,
+  `anbieterID` bigint(128) NOT NULL,
+  `systemID` varchar(128) NOT NULL DEFAULT '',
+  `companyID` bigint(128) NOT NULL,
+  `stammdatenID` bigint(128) NOT NULL,
+  `firmenname` varchar(128) NOT NULL,
+  `anbieterhash` varchar(128) NOT NULL,
+  `premiumLevel` int(16) NOT NULL,
+  `last_login` varchar(128) NOT NULL,
+  `number` varchar(128) DEFAULT NULL,
+  `LebenszeitID` varchar(128) DEFAULT NULL,
+  `Suchname` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `companyID` (`companyID`)
+) ENGINE=MyISAM AUTO_INCREMENT=19333 DEFAULT CHARSET=latin1;

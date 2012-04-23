@@ -54,7 +54,7 @@ ALTER TABLE `whitepaper` ADD `whitepaper_freigabe_hash` VARCHAR( 128 ) NOT NULL
 CREATE TABLE `anbieter` (
   `id` bigint(128) NOT NULL AUTO_INCREMENT,
   `anbieterID` bigint(128) NOT NULL,
-  `systemID` varchar(128) NOT NULL DEFAULT '',
+  `systems` varchar(128) NOT NULL DEFAULT '',
   `companyID` bigint(128) NOT NULL,
   `stammdatenID` bigint(128) NOT NULL,
   `firmenname` varchar(128) NOT NULL,

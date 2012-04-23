@@ -87,6 +87,59 @@ var requestPremiumInfo = function (ret)
     });
   }
 }
+
+function checkSystems(systemID)
+{
+  var anbieterID = $("#anbieterID").val();
+  var anbieterHash = $("#anbieterHash").val();
+  var ajaxURL = "/stammdaten/stammdaten.ajax/checksystem";
+  var ajaxData = '';
+  $.ajax(
+  {
+    dataType:"json",
+    url     :ajaxURL,
+    async   :true,
+    data    :{
+      anbieterID:anbieterID,
+      hash      :anbieterHash,
+      system    :systemID
+    },
+    success :function (ajaxData)
+    {
+      if (ajaxData == 'true')  $("#" + systemID).css('opacity', '1.0');
+      if (ajaxData == 'false')  $("#" + systemID).css('opacity', '0.2');
+    }
+  });
+
+}
+
+function switchSystem(systemID)
+{
+  var anbieterID = $("#anbieterID").val();
+  var anbieterHash = $("#anbieterHash").val();
+  var ajaxURL = "/stammdaten/stammdaten.ajax/switchsystem";
+  var ajaxData = '';
+  $.ajax(
+  {
+    dataType:"json",
+    url     :ajaxURL,
+    async   :false,
+    data    :{
+      anbieterID:anbieterID,
+      hash      :anbieterHash,
+      system    :systemID
+    },
+    success :function (ajaxData)
+    {
+      $('.systemsImage').each(function (key, value)
+      {
+        checkSystems(value.id);
+      });
+    }
+  });
+
+}
+
 // etwas verbesserte Version als die in admin.user.js :-)
 $(document).ready(function ()
 {
@@ -133,7 +186,7 @@ $(document).ready(function ()
     $.ajax(
     {
       dataType:"json",
-      type: "POST",
+      type    :"POST",
       data    :{
         anbieterID:anbieterID,
         hash      :anbieterHash,
@@ -146,6 +199,28 @@ $(document).ready(function ()
       }
     });
   });
+
+  $('.systemsImage').each(function (key, value)
+  {
+    checkSystems(value.id);
+  });
+
+  $('.systemsImage').click(function ()
+  {
+    switchSystem(this.id);
+  });
+
+  $('.systemsImage').hover(function ()
+  {
+    $(this).css('cursor', 'pointer');
+
+  }, function ()
+  {
+    $(this).css('cursor', 'auto');
+  });
+
 });
+
+
 
 

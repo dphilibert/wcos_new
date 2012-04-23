@@ -69,10 +69,12 @@
       $selectedField = $this->getRequest ()->getParam ('field');
       $dbField = $selectedField;
       $selectedValue = $this->getRequest ()->getParam ('value');
-      if ($dbField != 'firmenname') {
+      if ($dbField != 'firmenname')
+      {
         $model->saveStammdaten ($dbField, $selectedValue, $ID);
       }
-      if ($dbField == 'firmenname') {
+      if ($dbField == 'firmenname')
+      {
         $anbieterModel->saveAnbieter ($dbField, $selectedValue, $anbieterID);
       }
     }
@@ -167,6 +169,65 @@
       {
         $response ['html'] = "file not found";
       }
+      $this->_helper->json->sendJson ($response);
+    }
+
+
+    /**
+     * prüft die Systeme zu einem Anbieter
+     *
+     * @return void
+     */
+    public function checksystemAction ()
+    {
+      $anbieterID = $this->getRequest ()->getParam ('anbieterID');
+      $system2check = $this->getRequest ()->getParam ('system');
+      $model = new Model_DbTable_AnbieterData();
+      $anbieter = $model->getAnbieter ($anbieterID);
+      $systems = $anbieter ['systems'];
+
+      $systemsArray = explode (',', $systems);
+      //logDebug (print_r ($systemsArray, true), "tgr2");
+      $response = 'false';
+      if (in_array ($system2check, $systemsArray))
+      {
+        $response = 'true';
+      }
+      $this->_helper->json->sendJson ($response);
+    }
+
+    public function switchsystemAction ()
+    {
+      logDebug ("switching", "");
+      $anbieterID = $this->getRequest ()->getParam ('anbieterID');
+      $system2check = $this->getRequest ()->getParam ('system');
+      $model = new Model_DbTable_AnbieterData();
+      $anbieter = $model->getAnbieter ($anbieterID);
+      //logDebug (print_r ($system2check, true), "tgr2");
+      $systems = $anbieter ['systems'];
+      $systemsArray = explode (',', $systems);
+      $response = 'false';
+      // prüfen ob system in systems enthalten
+      // wenn ja, entfernen, ansonsten hinzufügen
+      if (in_array ($system2check, $systemsArray))
+      {
+        $sKey = array_search ($system2check, $systemsArray);
+        unset ($systemsArray [$sKey]);
+      }
+      else
+      {
+        $systemsArray [] = $system2check;
+      }
+      // $systemsArray in String zurück und zurückschreiben
+
+      if (count ($systemsArray) > 1)
+      {
+        $systems = implode (",", $systemsArray);
+      } else
+      {
+        $systems = $systemsArray;
+      }
+        $model->saveAnbieter('systems', $systems, $anbieterID);
       $this->_helper->json->sendJson ($response);
     }
   }

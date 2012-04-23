@@ -65,7 +65,7 @@
       $db = Zend_Registry::get ('db');
       $select = $db->select ();
       $select->from (array('a' => 'anbieter'))
-      ->where ('a.systemID = ?', $systemID)
+      //->where ('a.systemID = ?', $systemID) // TODO systems abfragen
       ->order ('a.firmenname ASC');
       // ->limit (10);
       $result = $select->query ();
@@ -87,7 +87,8 @@
      */
     public function getAnbieterDetails ($anbieterID = NULL)
     {
-      if ($anbieterID == NULL) {
+      if ($anbieterID == NULL)
+      {
         throw new Zend_Exception ("Model_DbTable_Anbieter::getAnbieterDetails - ungülige anbieterID");
       }
       $anbieter = NULL;
@@ -325,7 +326,8 @@
         while (ord ($c) != $lineDelimiterASCII)
         {
           $c = fgetc ($fileHandle);
-          if (ord ($c) != $lineDelimiterASCII) {
+          if (ord ($c) != $lineDelimiterASCII)
+          {
             $line .= $c;
           }
         }
@@ -335,10 +337,12 @@
         while ($fieldCount + 1 < $felderAnzahl)
         {
           $c = fgetc ($fileHandle);
-          if (ord ($c) != $lineDelimiterASCII) {
+          if (ord ($c) != $lineDelimiterASCII)
+          {
             $line .= $c;
           }
-          if ($c == "|") {
+          if ($c == "|")
+          {
             $fieldCount++;
           }
         }

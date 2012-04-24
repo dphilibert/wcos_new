@@ -1,0 +1,26 @@
+var class_zend___locale___math =
+[
+    [ "Add", "class_zend___locale___math.html#af30f6c31f1c302210399a0b40dd0e030", null ],
+    [ "Comp", "class_zend___locale___math.html#a36e5477365afabed4d39a7c0f6601cbd", null ],
+    [ "Div", "class_zend___locale___math.html#af1a897a5442b7b562fc6369b0f036ec1", null ],
+    [ "exponent", "class_zend___locale___math.html#a0da72fd4d5ee799e2f4f3047e8ab06e8", null ],
+    [ "isBcmathDisabled", "class_zend___locale___math.html#a0ac4927bb2158d696b505be289dc041d", null ],
+    [ "localize", "class_zend___locale___math.html#a1d831e96c74764bc45d0107f6d4197b2", null ],
+    [ "Mod", "class_zend___locale___math.html#a9eec1ca2c1b36a0be6bc1c030c55cfb0", null ],
+    [ "Mul", "class_zend___locale___math.html#ac9fecb5faf4a4fd570841e3965918706", null ],
+    [ "normalize", "class_zend___locale___math.html#aaeeeac9ca589b4624bf97d52fac9cd14", null ],
+    [ "Pow", "class_zend___locale___math.html#a53e4c46ccea0dc637871e53bbf378a68", null ],
+    [ "round", "class_zend___locale___math.html#a84d90f08d3779aa082ef062c94b308ab", null ],
+    [ "Sqrt", "class_zend___locale___math.html#a3a87d2b0ec4892f7f66bf00ee1e0d230", null ],
+    [ "Sub", "class_zend___locale___math.html#a38700cea9d70e4118585972b2f6e4d8d", null ],
+    [ "$_bcmathDisabled", "class_zend___locale___math.html#aa9eb9902a152d8383af60103ace03e49", null ],
+    [ "$add", "class_zend___locale___math.html#a76aeb354fc71a358526ea9fbd7aae7a4", null ],
+    [ "$comp", "class_zend___locale___math.html#a33c159c17550380a4349e6307985c7ae", null ],
+    [ "$div", "class_zend___locale___math.html#ab0eb26a95466785e09ba1b063512e80b", null ],
+    [ "$mod", "class_zend___locale___math.html#a54322f8babba5ad4bf1e1abb04aea591", null ],
+    [ "$mul", "class_zend___locale___math.html#a9252b7e883ad844a995c87b7140144db", null ],
+    [ "$pow", "class_zend___locale___math.html#a17e6ae37479f46ec7924642accf25c8c", null ],
+    [ "$scale", "class_zend___locale___math.html#a8457a6fc43abd2acbbeae26b8b7aa79f", null ],
+    [ "$sqrt", "class_zend___locale___math.html#a4136c24f056d2f45ad7f27cd7a22ff70", null ],
+    [ "$sub", "class_zend___locale___math.html#a744e14cc367de39c50533a1443fc00d4", null ]
+];

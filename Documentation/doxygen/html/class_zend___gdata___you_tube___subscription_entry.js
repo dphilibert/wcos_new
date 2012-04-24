@@ -1,0 +1,26 @@
+var class_zend___gdata___you_tube___subscription_entry =
+[
+    [ "__construct", "class_zend___gdata___you_tube___subscription_entry.html#a2d77b03abc8180b73a92795d789aad24", null ],
+    [ "getCountHint", "class_zend___gdata___you_tube___subscription_entry.html#a33fb349b3572ca9f903ef43647c55a30", null ],
+    [ "getDOM", "class_zend___gdata___you_tube___subscription_entry.html#a01cd18436bd2d46e2273df7360a4831f", null ],
+    [ "getFeedLink", "class_zend___gdata___you_tube___subscription_entry.html#ad3fc451bd2dc0e5d45cf9eb67b729bfe", null ],
+    [ "getMediaThumbnail", "class_zend___gdata___you_tube___subscription_entry.html#a541a4597114e5cbf441912d7d54e0dce", null ],
+    [ "getPlaylistId", "class_zend___gdata___you_tube___subscription_entry.html#a6997827db4ccc9faae98a550ae9a7ced", null ],
+    [ "getPlaylistTitle", "class_zend___gdata___you_tube___subscription_entry.html#af67af691d05e9f3fb8faa63949d504eb", null ],
+    [ "getQueryString", "class_zend___gdata___you_tube___subscription_entry.html#abd75dd4eab9b40cbe4ca9f8fc0dd462c", null ],
+    [ "getUsername", "class_zend___gdata___you_tube___subscription_entry.html#a81b37a3c9d639574e394f80c1138c75e", null ],
+    [ "setFeedLink", "class_zend___gdata___you_tube___subscription_entry.html#ae4b489017d7187baa7904d8a40328f11", null ],
+    [ "setPlaylistId", "class_zend___gdata___you_tube___subscription_entry.html#a4c7387a6468beda84354b995ece79046", null ],
+    [ "setPlaylistTitle", "class_zend___gdata___you_tube___subscription_entry.html#ae17bc98c1288a2961ef7770f283c8811", null ],
+    [ "setQueryString", "class_zend___gdata___you_tube___subscription_entry.html#a4961d9d29216715d9fb6e4220622fdde", null ],
+    [ "setUsername", "class_zend___gdata___you_tube___subscription_entry.html#a9e872a9622c27bd087c79a70793c5540", null ],
+    [ "takeChildFromDOM", "class_zend___gdata___you_tube___subscription_entry.html#ae4f8042ec6720b807bb9456bd920773f", null ],
+    [ "$_countHint", "class_zend___gdata___you_tube___subscription_entry.html#ae5086a40c22960a4fd29c7385b5067d4", null ],
+    [ "$_entryClassName", "class_zend___gdata___you_tube___subscription_entry.html#a9618351651f8d4ab72694d957975a9c1", null ],
+    [ "$_feedLink", "class_zend___gdata___you_tube___subscription_entry.html#a7161222293f1c57c50666745729e98c2", null ],
+    [ "$_mediaThumbnail", "class_zend___gdata___you_tube___subscription_entry.html#aecb3c7609e55867f0b4a8890ede72723", null ],
+    [ "$_playlistId", "class_zend___gdata___you_tube___subscription_entry.html#a29774fdb4db89bc2cfb4b4583e822d37", null ],
+    [ "$_playlistTitle", "class_zend___gdata___you_tube___subscription_entry.html#a0aa954b98dc29f2c19c29db560c394dc", null ],
+    [ "$_queryString", "class_zend___gdata___you_tube___subscription_entry.html#a21c18f06e64d4633da77bbd1394726d5", null ],
+    [ "$_username", "class_zend___gdata___you_tube___subscription_entry.html#a640f1b7a8258bcfcaa5d7f7ea81210da", null ]
+];

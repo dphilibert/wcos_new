@@ -1,0 +1,26 @@
+var class_zend___gdata___spreadsheets =
+[
+    [ "__construct", "class_zend___gdata___spreadsheets.html#ae991db98798d93e61655afc581c9a70b", null ],
+    [ "deleteRow", "class_zend___gdata___spreadsheets.html#a936e4350ea4f15fb36b3289a480725c0", null ],
+    [ "getCellEntry", "class_zend___gdata___spreadsheets.html#a91c584a5ff48704341efdcc880a6c15a", null ],
+    [ "getCellFeed", "class_zend___gdata___spreadsheets.html#ac894eac459f74ba9391c94e1f9ab4eda", null ],
+    [ "getListEntry", "class_zend___gdata___spreadsheets.html#a357ced7752ec5a5d85d64312f7a4960b", null ],
+    [ "getListFeed", "class_zend___gdata___spreadsheets.html#a4f38c319a0eca97a7c936b51d6078f02", null ],
+    [ "getSpreadsheetCellFeedContents", "class_zend___gdata___spreadsheets.html#aabe9fdfc5b073bd660af43a641466c8e", null ],
+    [ "getSpreadsheetEntry", "class_zend___gdata___spreadsheets.html#ab6ac9aedb99081dfedc05495dd520848", null ],
+    [ "getSpreadsheetFeed", "class_zend___gdata___spreadsheets.html#a7e52e605cbab6939a87249f0387ce7e0", null ],
+    [ "getSpreadsheetListFeedContents", "class_zend___gdata___spreadsheets.html#a3f3a4fa1d55c92fa51fab906475b384b", null ],
+    [ "getSpreadsheets", "class_zend___gdata___spreadsheets.html#af5bc863a5f8162af19e5e6f5079ea110", null ],
+    [ "GetWorksheetEntry", "class_zend___gdata___spreadsheets.html#aa99c97dd452c485e3b3fb57f5d3d3d21", null ],
+    [ "getWorksheetFeed", "class_zend___gdata___spreadsheets.html#addd894e230747d146342be0814cc5575", null ],
+    [ "insertRow", "class_zend___gdata___spreadsheets.html#a7cc1fbace48ea8114163427bdeaaa287", null ],
+    [ "updateCell", "class_zend___gdata___spreadsheets.html#a8a415ddc65db6f1f41cb891b0bee5a87", null ],
+    [ "updateRow", "class_zend___gdata___spreadsheets.html#aef8adb38f35cba7274dadbddbe16b12a", null ],
+    [ "$namespaces", "class_zend___gdata___spreadsheets.html#a5a7d9500de9f7c938443d65cef9a074e", null ],
+    [ "AUTH_SERVICE_NAME", "class_zend___gdata___spreadsheets.html#abb604012456068ed2686cd8b2df3cbab", null ],
+    [ "CELL_FEED_LINK_URI", "class_zend___gdata___spreadsheets.html#a06e5f4694adca561f32537fdbc4387c1", null ],
+    [ "LIST_FEED_LINK_URI", "class_zend___gdata___spreadsheets.html#afccae476b25c7daaf322a8316334cbaa", null ],
+    [ "SPREADSHEETS_FEED_URI", "class_zend___gdata___spreadsheets.html#a71f451e220c1c50c104b27488494efd3", null ],
+    [ "SPREADSHEETS_POST_URI", "class_zend___gdata___spreadsheets.html#ab08339862ad8f0185fb55d3012dc3785", null ],
+    [ "WORKSHEETS_FEED_LINK_URI", "class_zend___gdata___spreadsheets.html#ac8e2c05e20e80d2c1c0edb55e66e79cf", null ]
+];

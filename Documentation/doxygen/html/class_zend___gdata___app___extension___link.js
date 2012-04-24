@@ -1,0 +1,25 @@
+var class_zend___gdata___app___extension___link =
+[
+    [ "__construct", "class_zend___gdata___app___extension___link.html#a0a9f188f830806fca21816f55ea1ad5f", null ],
+    [ "getDOM", "class_zend___gdata___app___extension___link.html#a01cd18436bd2d46e2273df7360a4831f", null ],
+    [ "getHref", "class_zend___gdata___app___extension___link.html#a98bd5986dd5f4db27ec8595b293c5e32", null ],
+    [ "getHrefLang", "class_zend___gdata___app___extension___link.html#a478301ba88df6ab89d96131d74505310", null ],
+    [ "getLength", "class_zend___gdata___app___extension___link.html#ab5488c3ac7166d1612dc1d53bcac3984", null ],
+    [ "getRel", "class_zend___gdata___app___extension___link.html#a68dd007dc83172f8007560eff46cfe90", null ],
+    [ "getTitle", "class_zend___gdata___app___extension___link.html#a95e859a4588a39a1824b717378a84c29", null ],
+    [ "getType", "class_zend___gdata___app___extension___link.html#a830b5c75df72b32396701bc563fbe3c7", null ],
+    [ "setHref", "class_zend___gdata___app___extension___link.html#a00a1259cd83fdb44fac0a5f3cbb8e515", null ],
+    [ "setHrefLang", "class_zend___gdata___app___extension___link.html#a712d4fb0e31707cfe65ced064c135470", null ],
+    [ "setLength", "class_zend___gdata___app___extension___link.html#a81d4515a5348419c29cd15ad6b29e189", null ],
+    [ "setRel", "class_zend___gdata___app___extension___link.html#a240b4e92c3fd7e9810d23137eed83a09", null ],
+    [ "setTitle", "class_zend___gdata___app___extension___link.html#a433e2310d9190d9157c7d98bda7a8b0d", null ],
+    [ "setType", "class_zend___gdata___app___extension___link.html#a66a90ba0873d37237743c9e80d9a190c", null ],
+    [ "takeAttributeFromDOM", "class_zend___gdata___app___extension___link.html#ad603d21389049c6338043b32fc319720", null ],
+    [ "$_href", "class_zend___gdata___app___extension___link.html#a75b5717569a39d901bb51062287b2163", null ],
+    [ "$_hrefLang", "class_zend___gdata___app___extension___link.html#af98803e33328e5f36fcdeaf7ac9d3744", null ],
+    [ "$_length", "class_zend___gdata___app___extension___link.html#a546cba78c19d16ed5c2098c390fdc1d7", null ],
+    [ "$_rel", "class_zend___gdata___app___extension___link.html#a9cbba36171cfcd4e599a7d0726d125fc", null ],
+    [ "$_rootElement", "class_zend___gdata___app___extension___link.html#a1c4ffc9ef6ad6d12488b6383a6ee986b", null ],
+    [ "$_title", "class_zend___gdata___app___extension___link.html#a49d523a090a700a0689f154d79932063", null ],
+    [ "$_type", "class_zend___gdata___app___extension___link.html#a41480551826add2f719e24e0d44b9715", null ]
+];

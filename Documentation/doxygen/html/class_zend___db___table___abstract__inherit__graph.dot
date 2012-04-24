@@ -1,0 +1,43 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Zend_Db_Table_Abstract",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Model_DbTable_AnbieterData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___anbieter_data.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Model_DbTable_Anreden",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___anreden.html"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Model_DbTable_AnsprechpartnerData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___ansprechpartner_data.html"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Model_DbTable_FirmenportraitData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___firmenportrait_data.html"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Model_DbTable_GeneralData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___general_data.html"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Model_DbTable_History",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___history.html"];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Model_DbTable_JobsData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___jobs_data.html"];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="Model_DbTable_LaufzeitData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___laufzeit_data.html"];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="Model_DbTable_MediaData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___media_data.html"];
+  Node1 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="Model_DbTable_Menu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___menu.html"];
+  Node1 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="Model_DbTable_StammdatenData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___stammdaten_data.html"];
+  Node1 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="Model_DbTable_TermineData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___termine_data.html"];
+  Node1 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="Model_DbTable_UserData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___user_data.html"];
+  Node1 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="Model_DbTable_WhitepaperData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model___db_table___whitepaper_data.html"];
+  Node1 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="Zend_Db_Table",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___db___table.html"];
+  Node1 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="Zend_Queue_Adapter_Db_Message",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___queue___adapter___db___message.html"];
+  Node1 -> Node18 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="Zend_Queue_Adapter_Db_Queue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___queue___adapter___db___queue.html"];
+  Node1 -> Node19 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node19 [label="Zend_Session_SaveHandler_DbTable",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___session___save_handler___db_table.html"];
+}

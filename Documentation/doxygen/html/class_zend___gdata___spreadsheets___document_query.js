@@ -1,0 +1,27 @@
+var class_zend___gdata___spreadsheets___document_query =
+[
+    [ "__construct", "class_zend___gdata___spreadsheets___document_query.html#a095c5d389db211932136b53f25f39685", null ],
+    [ "getDocumentType", "class_zend___gdata___spreadsheets___document_query.html#ac8f3b08d4758133fdd9af2cd273e814a", null ],
+    [ "getProjection", "class_zend___gdata___spreadsheets___document_query.html#af8dab98be3186539b2cb887380db9392", null ],
+    [ "getQueryString", "class_zend___gdata___spreadsheets___document_query.html#abd75dd4eab9b40cbe4ca9f8fc0dd462c", null ],
+    [ "getQueryUrl", "class_zend___gdata___spreadsheets___document_query.html#a40281ca454b5d8c9820f4b1a31c49293", null ],
+    [ "getSpreadsheetKey", "class_zend___gdata___spreadsheets___document_query.html#aa07c036b791a8d954495843d1978eb00", null ],
+    [ "getTitle", "class_zend___gdata___spreadsheets___document_query.html#a95e859a4588a39a1824b717378a84c29", null ],
+    [ "getTitleExact", "class_zend___gdata___spreadsheets___document_query.html#a9b3b01c70f8665d9385dc42500943a3f", null ],
+    [ "getVisibility", "class_zend___gdata___spreadsheets___document_query.html#a292b98b1e11ce740774e4d99a8276904", null ],
+    [ "getWorksheetId", "class_zend___gdata___spreadsheets___document_query.html#a153a1b804fbdcd8d07e949b7cd891e7a", null ],
+    [ "setDocumentType", "class_zend___gdata___spreadsheets___document_query.html#aa844782cf3c1e7b7190f0426441d5a25", null ],
+    [ "setProjection", "class_zend___gdata___spreadsheets___document_query.html#a48b5b5161f32af5786f4d8ca533adcd3", null ],
+    [ "setSpreadsheetKey", "class_zend___gdata___spreadsheets___document_query.html#a5ec01648fe28dcc441d9a063519a6ffe", null ],
+    [ "setTitle", "class_zend___gdata___spreadsheets___document_query.html#a433e2310d9190d9157c7d98bda7a8b0d", null ],
+    [ "setTitleExact", "class_zend___gdata___spreadsheets___document_query.html#a769c6cd33e85047158f86c3d495c04c3", null ],
+    [ "setVisibility", "class_zend___gdata___spreadsheets___document_query.html#a1d1f34cc77a34efdcbbeea344a0260a4", null ],
+    [ "setWorksheetId", "class_zend___gdata___spreadsheets___document_query.html#a15c00aefbfa21cca0de16ffb6830ed59", null ],
+    [ "$_defaultFeedUri", "class_zend___gdata___spreadsheets___document_query.html#adb9a523c6341d3eafe22f8fc3bfef6f6", null ],
+    [ "$_documentType", "class_zend___gdata___spreadsheets___document_query.html#afe657d3bf32303814099ed40644d12ea", null ],
+    [ "$_projection", "class_zend___gdata___spreadsheets___document_query.html#a5f7705b1dbbdc3c386f3338205766605", null ],
+    [ "$_spreadsheetKey", "class_zend___gdata___spreadsheets___document_query.html#ad0da00a445b6a9b1369669ef0c59f865", null ],
+    [ "$_visibility", "class_zend___gdata___spreadsheets___document_query.html#a7b59816b6fe96a7af588bd8643a9997b", null ],
+    [ "$_worksheetId", "class_zend___gdata___spreadsheets___document_query.html#a27859114cd0d50b8c57eb3cd79fe6738", null ],
+    [ "SPREADSHEETS_FEED_URI", "class_zend___gdata___spreadsheets___document_query.html#a71f451e220c1c50c104b27488494efd3", null ]
+];

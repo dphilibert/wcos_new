@@ -1,0 +1,26 @@
+var class_zend___pdf___resource___image___png =
+[
+    [ "__construct", "class_zend___pdf___resource___image___png.html#a5a824ba1a83fd033ac6e9a0ef356c3a0", null ],
+    [ "getPixelHeight", "class_zend___pdf___resource___image___png.html#a4c2095ef2584bc7c7b195446bdb8156e", null ],
+    [ "getPixelWidth", "class_zend___pdf___resource___image___png.html#a3b93c108c244cea391af4e44b705cfbb", null ],
+    [ "getProperties", "class_zend___pdf___resource___image___png.html#ad92c14b6c86304d3f1fb86b2936d3408", null ],
+    [ "$_height", "class_zend___pdf___resource___image___png.html#a5cffbfdc5a9fa6c67626de8541eca825", null ],
+    [ "$_imageProperties", "class_zend___pdf___resource___image___png.html#a85ea117734f91daafd737038cf015ef3", null ],
+    [ "$_width", "class_zend___pdf___resource___image___png.html#a0153b16f2f595226bcf8e7ae691623c9", null ],
+    [ "PNG_CHANNEL_GRAY", "class_zend___pdf___resource___image___png.html#a224c487a844b31ece4457ff3f1db6a59", null ],
+    [ "PNG_CHANNEL_GRAY_ALPHA", "class_zend___pdf___resource___image___png.html#a80e7a9a0e69e9fe6ffbcc1d51d918144", null ],
+    [ "PNG_CHANNEL_INDEXED", "class_zend___pdf___resource___image___png.html#a14f094d53829f0be4dafb1f0fc77d115", null ],
+    [ "PNG_CHANNEL_RGB", "class_zend___pdf___resource___image___png.html#a7492628e1616252e798be28d10ce0562", null ],
+    [ "PNG_CHANNEL_RGB_ALPHA", "class_zend___pdf___resource___image___png.html#aeaa846fd26669441cb62b6b908f1f2c8", null ],
+    [ "PNG_COMPRESSION_DEFAULT_STRATEGY", "class_zend___pdf___resource___image___png.html#a42036cb8e1e98b888c4efb111da052a2", null ],
+    [ "PNG_COMPRESSION_FILTERED", "class_zend___pdf___resource___image___png.html#aecb206ef3fc555af37df52e2e5b965b2", null ],
+    [ "PNG_COMPRESSION_HUFFMAN_ONLY", "class_zend___pdf___resource___image___png.html#a75375c99dbdd3e2edb9dc1ed5fde3eb0", null ],
+    [ "PNG_COMPRESSION_RLE", "class_zend___pdf___resource___image___png.html#a9400687daa606cc0431302368973f1bd", null ],
+    [ "PNG_FILTER_AVERAGE", "class_zend___pdf___resource___image___png.html#a6aa06d2f5567ff47bd8daf9716d35ed1", null ],
+    [ "PNG_FILTER_NONE", "class_zend___pdf___resource___image___png.html#a619fb961f26a22d659f8d95d232c6ca3", null ],
+    [ "PNG_FILTER_PAETH", "class_zend___pdf___resource___image___png.html#a2525f8c0d073f40856724b0001eb8399", null ],
+    [ "PNG_FILTER_SUB", "class_zend___pdf___resource___image___png.html#a850338d31387dffa9843878a1583b36c", null ],
+    [ "PNG_FILTER_UP", "class_zend___pdf___resource___image___png.html#a2afdc91ac050be2961efc4fadda9981c", null ],
+    [ "PNG_INTERLACING_DISABLED", "class_zend___pdf___resource___image___png.html#a942c643de6de455562f20729b4ac16f6", null ],
+    [ "PNG_INTERLACING_ENABLED", "class_zend___pdf___resource___image___png.html#ad9c4b6826e21b50ba6f0b35bbf992f98", null ]
+];

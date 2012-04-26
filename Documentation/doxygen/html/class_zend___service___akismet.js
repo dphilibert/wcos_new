@@ -1,0 +1,25 @@
+var class_zend___service___akismet =
+[
+    [ "__construct", "class_zend___service___akismet.html#a3744c72135ebb28bc361de8d453776f1", null ],
+    [ "_makeApiCall", "class_zend___service___akismet.html#a226b105c6789a14df59540f9fb32ed46", null ],
+    [ "_post", "class_zend___service___akismet.html#ab9b096b7e524a0f42429d8b2c6df4a60", null ],
+    [ "getApiKey", "class_zend___service___akismet.html#afdd5b6b54737f556694975ca3d93d773", null ],
+    [ "getBlogUrl", "class_zend___service___akismet.html#a7200db03e36b82ff47e24f3e8e379ce1", null ],
+    [ "getCharset", "class_zend___service___akismet.html#abca2d528da8311b6fcfe040768cbaa24", null ],
+    [ "getPort", "class_zend___service___akismet.html#afd4db46d3c12f47f0bee19cd2101be64", null ],
+    [ "getUserAgent", "class_zend___service___akismet.html#a48e8658a82c25e220a9524c1f1a42d5d", null ],
+    [ "isSpam", "class_zend___service___akismet.html#a23cd0b254e83c27022fbc865bc6fa173", null ],
+    [ "setApiKey", "class_zend___service___akismet.html#a418ebc2194526fe95a66e1cd6f808fe3", null ],
+    [ "setBlogUrl", "class_zend___service___akismet.html#a4fb4be556fdf35877ab8a9bddfc26433", null ],
+    [ "setCharset", "class_zend___service___akismet.html#a81ee11b0f5fadecaece55170fea54b29", null ],
+    [ "setPort", "class_zend___service___akismet.html#a000ce1ff20433f6ac9297e01c31d0678", null ],
+    [ "setUserAgent", "class_zend___service___akismet.html#ac3abfe8b343b4a2f8cd3ff90d9df92f7", null ],
+    [ "submitHam", "class_zend___service___akismet.html#aa72f2c82d156ef6f826d5b2ec4e7058e", null ],
+    [ "submitSpam", "class_zend___service___akismet.html#a70e31d260bc0484675d59b749ba10a1c", null ],
+    [ "verifyKey", "class_zend___service___akismet.html#ab21b2bef80edb58bd5b55faa00a5807d", null ],
+    [ "$_apiKey", "class_zend___service___akismet.html#a30d859488ed1921f08a7e8191363d9a4", null ],
+    [ "$_blogUrl", "class_zend___service___akismet.html#ad4b0506e574e8aeae293df3968f86936", null ],
+    [ "$_charset", "class_zend___service___akismet.html#ad6b00a32790b456a2f1668b2010a262e", null ],
+    [ "$_port", "class_zend___service___akismet.html#a13773f1d0509d899a7f5ab3ffda1e67f", null ],
+    [ "$_userAgent", "class_zend___service___akismet.html#a901ed68c5b7f6b758cc90b00197ca88b", null ]
+];

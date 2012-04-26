@@ -1,0 +1,25 @@
+var class_zend___search___lucene___storage___file =
+[
+    [ "_fread", "class_zend___search___lucene___storage___file.html#ad8a55fc491ec4ef5ee7417e9981f7abc", null ],
+    [ "_fwrite", "class_zend___search___lucene___storage___file.html#a85bcb1182388816bde21237dfc230524", null ],
+    [ "flush", "class_zend___search___lucene___storage___file.html#a7751f77b5263bcf940ece6e824a05b38", null ],
+    [ "lock", "class_zend___search___lucene___storage___file.html#a204a00b7586d851577d8f7ddb8dde32c", null ],
+    [ "readBinary", "class_zend___search___lucene___storage___file.html#a133b516f53d9ad735aac8286395089d8", null ],
+    [ "readByte", "class_zend___search___lucene___storage___file.html#a73692e32dc6adb6363f1af4745dd0561", null ],
+    [ "readBytes", "class_zend___search___lucene___storage___file.html#ac2f744acc4cde0cc2667c5e57922fb0c", null ],
+    [ "readInt", "class_zend___search___lucene___storage___file.html#ad92ed4b81abdbae5fc79c0330b910196", null ],
+    [ "readLong", "class_zend___search___lucene___storage___file.html#ac5f400c7098f94a1cf0cd1a02e808874", null ],
+    [ "readLong32Bit", "class_zend___search___lucene___storage___file.html#ad78e5b491331286be6f293e60c9b9156", null ],
+    [ "readString", "class_zend___search___lucene___storage___file.html#abcd1063b925c2bdc4ddfc42d99327f53", null ],
+    [ "readVInt", "class_zend___search___lucene___storage___file.html#a3028143df388cab75fd5f649adadadd9", null ],
+    [ "seek", "class_zend___search___lucene___storage___file.html#aa2ee0a47a0c37ae7ca7a04df34fc6d7a", null ],
+    [ "tell", "class_zend___search___lucene___storage___file.html#a8153e55ed7b27a62988843a2dd66c845", null ],
+    [ "unlock", "class_zend___search___lucene___storage___file.html#afb061ecbff1e66db62b9eddfea6e915f", null ],
+    [ "writeByte", "class_zend___search___lucene___storage___file.html#a35b1e3bfaeb45894f86c0b23d9b4c9fa", null ],
+    [ "writeBytes", "class_zend___search___lucene___storage___file.html#afaf7b5ed6d22479e50cf8c1ccccf0114", null ],
+    [ "writeInt", "class_zend___search___lucene___storage___file.html#aabf711e3eafd5308fca9b7c47e8f17c2", null ],
+    [ "writeLong", "class_zend___search___lucene___storage___file.html#a0b18d3ad39f4860b6dce9df8a781a8a2", null ],
+    [ "writeLong32Bit", "class_zend___search___lucene___storage___file.html#aed6b8db57e4665a591c8a2a51158d0d6", null ],
+    [ "writeString", "class_zend___search___lucene___storage___file.html#ac3316e1c872fce8c73b8599e706a327f", null ],
+    [ "writeVInt", "class_zend___search___lucene___storage___file.html#abd5305474d59e6b044719191c2342791", null ]
+];

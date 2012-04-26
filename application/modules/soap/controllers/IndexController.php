@@ -163,6 +163,29 @@
       $whitepaperDetails = $model->getWhitepaperList ($anbieterID);
       return $whitepaperDetails;
     }
+
+
+    /**
+     * liefert den Produktbaum
+     *
+     */
+    public function getProduktbaum ($anbieterID)
+    {
+      $model = new Model_DbTable_ProduktcodesData();
+      $produktcodesArray = $model->getProduktcodes($anbieterID);
+      foreach ($produktcodesArray as $key => $produktDatensatz)
+      {
+        $hauptbegriff = $produktDatensatz ['hauptbegriff'];
+        $oberbegriff = $produktDatensatz ['oberbegriff'];
+        $branchenname = $produktDatensatz ['branchenname'];
+        $branchenname_nummer = $produktDatensatz ['branchenname_nummer'];
+
+        $produktBaum [$hauptbegriff] [$oberbegriff]  = $branchenname;
+      }
+      return $produktBaum;
+      //logDebug (print_r ($produktcodesArray, true), "");
+
+    }
   }
 
 

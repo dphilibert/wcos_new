@@ -1,0 +1,28 @@
+var class_zend___validate___file___image_size =
+[
+    [ "__construct", "class_zend___validate___file___image_size.html#ae8b8e1144b807ac13f20a916fd073b32", null ],
+    [ "_throw", "class_zend___validate___file___image_size.html#a02eddf80afa4a9e9e3d345d297905dc0", null ],
+    [ "getImageHeight", "class_zend___validate___file___image_size.html#a016a47f9304f25fd4a27f194a4a34078", null ],
+    [ "getImageMax", "class_zend___validate___file___image_size.html#a81acbcaa6057445119faa7babb7bcec7", null ],
+    [ "getImageMin", "class_zend___validate___file___image_size.html#a5fe9428c7ea620edf679798e6b191d99", null ],
+    [ "getImageWidth", "class_zend___validate___file___image_size.html#a8d815106ec99cbc4923c983cc5039461", null ],
+    [ "isValid", "class_zend___validate___file___image_size.html#a4c64e22c3400b190836ceb80b2fdf41a", null ],
+    [ "setImageHeight", "class_zend___validate___file___image_size.html#a4bd82830f5f7532962a11cc349a29986", null ],
+    [ "setImageMax", "class_zend___validate___file___image_size.html#a6aef3b545be1bfec02790d4b95dab166", null ],
+    [ "setImageMin", "class_zend___validate___file___image_size.html#a0ec54340e8500bd096fe2d7f65974938", null ],
+    [ "setImageWidth", "class_zend___validate___file___image_size.html#afc9a93f5d084ba5fa41ac0a7b835962a", null ],
+    [ "$_height", "class_zend___validate___file___image_size.html#a5cffbfdc5a9fa6c67626de8541eca825", null ],
+    [ "$_maxheight", "class_zend___validate___file___image_size.html#af65ae2fe2f66f17305c11b46e32ab819", null ],
+    [ "$_maxwidth", "class_zend___validate___file___image_size.html#aa19de24d534fa88cc2b8a3248877fa7a", null ],
+    [ "$_messageTemplates", "class_zend___validate___file___image_size.html#a08fff24101dd36bbe298c233a66ea0d7", null ],
+    [ "$_messageVariables", "class_zend___validate___file___image_size.html#aca4e98b2c3fbfeba7bd3a6db0ece0563", null ],
+    [ "$_minheight", "class_zend___validate___file___image_size.html#a8e55cf6d26bf41ecc5048872faeb7e49", null ],
+    [ "$_minwidth", "class_zend___validate___file___image_size.html#a220d95d7d25184d150b9a852d455f4ca", null ],
+    [ "$_width", "class_zend___validate___file___image_size.html#a0153b16f2f595226bcf8e7ae691623c9", null ],
+    [ "HEIGHT_TOO_BIG", "class_zend___validate___file___image_size.html#afb3492d413a4cbb3b912ab04a3f2e192", null ],
+    [ "HEIGHT_TOO_SMALL", "class_zend___validate___file___image_size.html#ab7b6a3e276b4d73e1c29623fd206adba", null ],
+    [ "NOT_DETECTED", "class_zend___validate___file___image_size.html#ab6129b880e7090a660baf862f52ba60a", null ],
+    [ "NOT_READABLE", "class_zend___validate___file___image_size.html#a8ca704c11d0f8636b753d330c2ebdbe6", null ],
+    [ "WIDTH_TOO_BIG", "class_zend___validate___file___image_size.html#a7cf34d0bbd6f8a925f8ec7fb465524cc", null ],
+    [ "WIDTH_TOO_SMALL", "class_zend___validate___file___image_size.html#ae14453238755efc719b324164bbf1f9d", null ]
+];

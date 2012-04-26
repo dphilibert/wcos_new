@@ -1,0 +1,19 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Zend_View_Helper_Navigation_Helper",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Zend_View_Helper_Navigation_HelperAbstract",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___view___helper___navigation___helper_abstract.html"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Zend_View_Helper_Navigation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___view___helper___navigation.html"];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Zend_View_Helper_Navigation_Breadcrumbs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___view___helper___navigation___breadcrumbs.html"];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Zend_View_Helper_Navigation_Links",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___view___helper___navigation___links.html"];
+  Node2 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Zend_View_Helper_Navigation_Menu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___view___helper___navigation___menu.html"];
+  Node2 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Zend_View_Helper_Navigation_Sitemap",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___view___helper___navigation___sitemap.html"];
+}

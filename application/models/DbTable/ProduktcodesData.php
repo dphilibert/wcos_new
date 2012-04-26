@@ -1,0 +1,43 @@
+<?php
+  /**
+   * Datenbank-Model für Produktcodes
+   *
+   * @author Thomas Grahammer
+   * @version $id$
+   *
+   */
+  class Model_DbTable_ProduktcodesData extends Zend_Db_Table_Abstract
+  {
+    /**
+     *
+     * ininitales Init
+     *
+     * @return void
+     *
+     */
+    public function init ()
+    {
+    }
+
+    /**
+     * liefert die Stammdaten eines Anbieters
+     *
+     * @param int $ID anbieterID
+     *
+     * @return mixed
+     */
+    public function getProduktcodes ($anbieterID)
+    {
+      $db = Zend_Registry::get ('db');
+      $select = $db->select ();
+      $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'))
+      ->join (array('pc' => 'vm_produktcodes'), 'pc.branchenname_nummer = pc2kd.produktcode');
+      $select->where ("pc2kd.vmKundennummer = ?", $anbieterID);
+      $result = $select->query ();
+      $data = $result->fetchAll ();
+      ////logDebug (print_r ($data, true), "getStammdaten");
+      return $data;
+    }
+  }
+
+?>

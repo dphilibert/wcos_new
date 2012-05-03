@@ -50,10 +50,32 @@
     public function produkteAction ()
     {
       $location_soap_wcos = "http://wcos/soap";
-      $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
       //$result = $soap_client->searchAnbieter ('weka');
-      $result = $soap_client->getProduktSpektrum (0); // alle
-      //logDebug (print_r ($result, true), "Produktcodes-Test");
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->getProduktSpektrum (0); // alle
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "Produktcodes-Test");
+    }
+
+
+    public function searchbyproduktcodeAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->searchByProduktcode (1,3366);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "Produktcodes-Test");
     }
   }
 

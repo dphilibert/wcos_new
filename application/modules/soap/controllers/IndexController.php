@@ -125,13 +125,23 @@
     }
 
     /**
-     * liefert das Firmenportrait eines Anbieters
+     * liefert die Details zu einem Termin
+     *
+     * @param $terminID
+     */
+    public function getTermineDetails ($terminID)
+    {
+      // TODO Funktionalität
+    }
+
+    /**
+     * liefert das Firmenprofil eines Anbieters
      *
      * @param int $anbieterID AnbieterID
      *
      * @return mixed
      */
-    public function getFirmenportrait ($anbieterID)
+    public function getFirmenprofil ($anbieterID)
     {
       $model = new Model_DbTable_FirmenportraitData ();
       $firmenportrait = $model->getFirmenportrait ($anbieterID);
@@ -202,25 +212,132 @@
       $i = 0;
       foreach ($produktcodesArray as $key => $produktDatensatz)
       {
-        $hauptbegriff = htmlentities ($produktDatensatz ['hauptbegriff']);
-        $oberbegriff = htmlentities ($produktDatensatz ['oberbegriff']);
-        $branchenname = htmlentities ($produktDatensatz ['branchenname']);
+        $hauptbegriff = str_replace ('&', '&amp;amp;', $produktDatensatz ['hauptbegriff']);
+        $oberbegriff = str_replace ('&', '&amp;amp;', $produktDatensatz ['oberbegriff']);
+        $branchenname = str_replace ('&', '&amp;amp;', $produktDatensatz ['branchenname']);
         $branchenname_nummer = $produktDatensatz ['branchenname_nummer'];
         if (@$produktBaum [$hauptbegriff] [$oberbegriff] [$i - 1] ['ProduktcodeID'] != $branchenname_nummer)
         {
           $produktBaum [$hauptbegriff] [$oberbegriff] [$i] ['ProduktcodeID'] = $branchenname_nummer;
           $produktBaum [$hauptbegriff] [$oberbegriff] [$i] ['ProduktcodeName'] = $branchenname;
-          $firmen4produktcode = $model->getFirmen4Produktcode($branchenname_nummer);
+          $firmen4produktcode = $model->countFirmen4Produktcode ($systemID, $branchenname_nummer);
           $produktBaum [$hauptbegriff] [$oberbegriff] [$i] ['Anzahl Firmen'] = $firmen4produktcode ['anzahl'];
           $i++;
         }
       }
-      logDebug (print_r ($produktBaum, true), "IndexController::getProduktSpektrum");
+      //logDebug (print_r ($produktBaum, true), "IndexController::getProduktSpektrum");
       return $produktBaum;
       //logDebug (print_r ($produktcodesArray, true), "");
     }
-  }
 
+    /**
+     * liefert ein Array von n-Premium-Einträgen für das angegebene System, absteigend nach Häufigkeit der Anzeige sortiert
+     *
+     * @param $systemID
+     * @param $anzahlDerEintraege
+     */
+    public function getMostSeen ($systemID, $anzahlDerEintraege)
+    {
+      // TODO Funktionalität
+    }
+
+
+    /**
+     * liefert ein Array von n-Premium-Einträgen für das angegebene System, absteigend nach Erstelldatum sortiert
+     *
+     * @param $systemID
+     * @param $anzahlDerEintraege
+     */
+    public function getNewest ($systemID, $anzahlDerEintraege)
+    {
+      // TODO Funktionalität
+    }
+
+    /**
+     * liefert ein Array von n-Premium-Einträgen für das angegebene System, absteigend nach Datum der letzten Änderung sortiert
+     *
+     * @param $systemID
+     * @param $anzahlDerEintraege
+     */
+    public function getLastActivities ($systemID, $anzahlDerEintraege)
+    {
+      // TODO Funktionalität
+    }
+
+    /**
+     * liefert ein Array von n-Premium-Einträgen für das angegebene System, zufällig Anzeige sortiert
+     *
+     * @param $systemID
+     * @param $anzahlDerEintraege
+     */
+    public function getRandomAccounts ($systemID, $anzahlDerEintraege)
+    {
+      // TODO Funktionalität
+    }
+
+
+    /**
+     * sucht anhang des angegebenen Produktcodes die entsprechenden Firmen
+     *
+     * @param $systemID
+     * @param $produktCode
+     */
+    public function searchByProduktcode ($systemID, $produktCode)
+    {
+      $pc_model = new Model_DbTable_ProduktcodesData();
+      $pc_data = $pc_model->getFirmen4Produktcode ($systemID, $produktCode);
+      foreach ($pc_data as $key => $dataset)
+      {
+        $anbieter_model = new Model_DbTable_AnbieterData();
+        $anbieterData = $anbieter_model->getAnbieterByKundennummer($dataset ['vmKundennummer']);
+        // TODO in $anbieterData noch die Stammdaten-Daten reinschreiben
+        $premiumStatus = $anbieterData ['premiumLevel'];
+        if ($premiumStatus == 1)
+        {
+          $data ['PREMIUM'] [] = $anbieterData;
+        }
+        else
+        {
+          $data ['STANDARD'] [] = $anbieterData;
+        }
+      }
+      return $data;
+    }
+
+
+    /**
+     * sucht anhand des Firmennamens
+     *
+     * @param $systemID
+     * @param $firmenName
+     */
+    public function searchByName ($systemID, $firmenName)
+    {
+      // TODO Funktionalität
+    }
+
+
+    /**
+     * liefert den vollständigen Kundendatensatz
+     *
+     * @param $vmKundennummer
+     */
+    public function getAdress ($vmKundennummer)
+    {
+      // TODO Funktionalität
+    }
+
+    /**
+     * liefert das Produktspektrum einer Firma
+     *
+     * @param $systemID
+     * @param $vmKundennummer
+     */
+    public function getProduktSpektrum4Firma ($systemID, $vmKundennummer)
+    {
+      // TODO Funktionalität
+    }
+  }
 
   /**
    * IndexController des SOAP-Service

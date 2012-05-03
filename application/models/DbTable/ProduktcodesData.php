@@ -52,7 +52,8 @@
       $select = $db->select ();
       $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'))
       ->join (array('pc' => 'vm_produktcodes'), 'pc.branchenname_nummer = pc2kd.produktcode');
-      if ($systemID > 0) {
+      if ($systemID > 0)
+      {
         $select->where ("pc2kd.systems like '%$systemID%'");
       }
       $result = $select->query ();
@@ -61,16 +62,32 @@
       return $data;
     }
 
-    public function getFirmen4Produktcode ($produktcodeID)
+    public function countFirmen4Produktcode ($systemID, $produktcodeID)
     {
       $db = Zend_Registry::get ('db');
       $select = $db->select ();
-      $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'), array ("count(*) as anzahl"))
-              ->where ("pc2kd.produktcode = ?", $produktcodeID);
+      $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'), array("count(*) as anzahl"))
+      ->where ("pc2kd.produktcode = ?", $produktcodeID)
+      ->where ("pc2kd.systems like '%$systemID%'");
       $result = $select->query ();
       $data = $result->fetch ();
-     //logDebug (print_r ($select->__toString (), true), "getFirmen4Produktcode");
-     //logDebug (print_r ($data, true), "");
+      //logDebug (print_r ($select->__toString (), true), "getFirmen4Produktcode");
+      //logDebug (print_r ($data, true), "");
+      return $data;
+    }
+
+
+    public function getFirmen4Produktcode ($systemID, $produktcodeID)
+    {
+      $db = Zend_Registry::get ('db');
+      $select = $db->select ();
+      $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'), array("*"))
+      ->where ("pc2kd.produktcode = ?", $produktcodeID)
+      ->where ("pc2kd.systems like '%$systemID%'");
+      $result = $select->query ();
+      $data = $result->fetchAll ();
+      //logDebug (print_r ($select->__toString (), true), "getFirmen4Produktcode");
+      //logDebug (print_r ($data, true), "");
       return $data;
     }
   }

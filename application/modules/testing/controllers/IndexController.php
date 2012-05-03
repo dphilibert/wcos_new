@@ -52,9 +52,8 @@
       $location_soap_wcos = "http://wcos/soap";
       $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
       //$result = $soap_client->searchAnbieter ('weka');
-      $result = $soap_client->getProduktbaum (16319); // Glyn
-
-      logDebug (print_r ($result, true), "Produktcodes-Test");
+      $result = $soap_client->getProduktSpektrum (0); // alle
+      //logDebug (print_r ($result, true), "Produktcodes-Test");
     }
   }
 

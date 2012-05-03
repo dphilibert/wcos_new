@@ -68,7 +68,8 @@
       foreach ($media as $key => $value)
       {
         $mediaFilePath = $config->uploads->path . '/' . $value ['mediaID'] . '.' . $value ['mediaExtension'];
-        if (file_exists ($mediaFilePath)) {
+        if (file_exists ($mediaFilePath))
+        {
           $mediaFile = file_get_contents ($mediaFilePath);
         }
         $mediaData [$key] ['typ'] = $value ['mediatyp'];
@@ -95,7 +96,8 @@
       foreach ($media as $key => $value)
       {
         $mediaFilePath = $config->uploads->path . '/' . $value ['mediaID'] . '.' . $value ['mediaExtension'];
-        if (file_exists ($mediaFilePath)) {
+        if (file_exists ($mediaFilePath))
+        {
           $mediaFile = file_get_contents ($mediaFilePath);
         }
         $mediaData [$key] ['typ'] = $value ['mediatyp'];
@@ -172,19 +174,50 @@
     public function getProduktbaum ($anbieterID)
     {
       $model = new Model_DbTable_ProduktcodesData();
-      $produktcodesArray = $model->getProduktcodes($anbieterID);
+      $produktcodesArray = $model->getProduktcodes ($anbieterID);
       foreach ($produktcodesArray as $key => $produktDatensatz)
       {
         $hauptbegriff = $produktDatensatz ['hauptbegriff'];
         $oberbegriff = $produktDatensatz ['oberbegriff'];
         $branchenname = $produktDatensatz ['branchenname'];
         $branchenname_nummer = $produktDatensatz ['branchenname_nummer'];
-
-        $produktBaum [$hauptbegriff] [$oberbegriff]  = $branchenname;
+        $produktBaum [$hauptbegriff] [$oberbegriff] = $branchenname;
       }
       return $produktBaum;
       //logDebug (print_r ($produktcodesArray, true), "");
+    }
 
+
+    /**
+     * liefert das Produktspektrum für das angegebene System
+     *
+     * @param $systemID
+     *
+     * @return mixed
+     */
+    public function getProduktSpektrum ($systemID)
+    {
+      $model = new Model_DbTable_ProduktcodesData();
+      $produktcodesArray = $model->getProduktSpektrum ($systemID);
+      $i = 0;
+      foreach ($produktcodesArray as $key => $produktDatensatz)
+      {
+        $hauptbegriff = htmlentities ($produktDatensatz ['hauptbegriff']);
+        $oberbegriff = htmlentities ($produktDatensatz ['oberbegriff']);
+        $branchenname = htmlentities ($produktDatensatz ['branchenname']);
+        $branchenname_nummer = $produktDatensatz ['branchenname_nummer'];
+        if (@$produktBaum [$hauptbegriff] [$oberbegriff] [$i - 1] ['ProduktcodeID'] != $branchenname_nummer)
+        {
+          $produktBaum [$hauptbegriff] [$oberbegriff] [$i] ['ProduktcodeID'] = $branchenname_nummer;
+          $produktBaum [$hauptbegriff] [$oberbegriff] [$i] ['ProduktcodeName'] = $branchenname;
+          $firmen4produktcode = $model->getFirmen4Produktcode($branchenname_nummer);
+          $produktBaum [$hauptbegriff] [$oberbegriff] [$i] ['Anzahl Firmen'] = $firmen4produktcode ['anzahl'];
+          $i++;
+        }
+      }
+      logDebug (print_r ($produktBaum, true), "IndexController::getProduktSpektrum");
+      return $produktBaum;
+      //logDebug (print_r ($produktcodesArray, true), "");
     }
   }
 
@@ -206,8 +239,6 @@
      */
     public function indexAction ()
     {
-//$ws = new wcosWebservice ();
-//$ws->searchAnbieter ('K');
       $this->_helper->layout ()->disableLayout ();
       $this->_helper->viewRenderer->setNoRender (true);
       if (isset ($_GET ['wsdl']))

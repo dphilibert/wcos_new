@@ -20,7 +20,7 @@
     }
 
     /**
-     * liefert die Stammdaten eines Anbieters
+     * liefert die Produktcodes eines Anbieters
      *
      * @param int $ID anbieterID
      *
@@ -36,6 +36,41 @@
       $result = $select->query ();
       $data = $result->fetchAll ();
       ////logDebug (print_r ($data, true), "getStammdaten");
+      return $data;
+    }
+
+    /**
+     * liefert das Produktspektrum zu einem System
+     *
+     * @param $systemID
+     *
+     * @return mixed
+     */
+    public function getProduktSpektrum ($systemID = 0)
+    {
+      $db = Zend_Registry::get ('db');
+      $select = $db->select ();
+      $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'))
+      ->join (array('pc' => 'vm_produktcodes'), 'pc.branchenname_nummer = pc2kd.produktcode');
+      if ($systemID > 0) {
+        $select->where ("pc2kd.systems like '%$systemID%'");
+      }
+      $result = $select->query ();
+      $data = $result->fetchAll ();
+      ////logDebug (print_r ($data, true), "getStammdaten");
+      return $data;
+    }
+
+    public function getFirmen4Produktcode ($produktcodeID)
+    {
+      $db = Zend_Registry::get ('db');
+      $select = $db->select ();
+      $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'), array ("count(*) as anzahl"))
+              ->where ("pc2kd.produktcode = ?", $produktcodeID);
+      $result = $select->query ();
+      $data = $result->fetch ();
+     //logDebug (print_r ($select->__toString (), true), "getFirmen4Produktcode");
+     //logDebug (print_r ($data, true), "");
       return $data;
     }
   }

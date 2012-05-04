@@ -52,7 +52,8 @@
           {
             $i++;
             $orCond .= "m.mediatyp = '$value'";
-            if ($i < count ($typSelect)) {
+            if ($i < count ($typSelect))
+            {
               $orCond .= " OR ";
             }
           }
@@ -129,7 +130,8 @@
         try
         {
           $newName = $mediaID . '.' . $extension;
-          if (file_exists ($newName)) {
+          if (file_exists ($newName))
+          {
             @unlink ($newName);
           } // falls die Datei schon existiert - erst löschen
           if (@rename ($tmpName, $uploadDestination . '/' . $newName)) // ... dann rename von tmp-file auf newName
@@ -139,7 +141,8 @@
             $_imgWidth = $_imgSize [0];
             $_imgHeight = $_imgSize [1];
             $_maxWidth = 220;
-            if (isset ($config->uploads->maxWidth)) {
+            if (isset ($config->uploads->maxWidth))
+            {
               $_maxWidth = $config->uploads->maxWidth;
             }
             if ($_imgWidth > $_maxWidth)
@@ -308,13 +311,8 @@
      * @depricated null $minimumTyp
      * @return array
      */
-    public function getAllMedia ($aID, $minimumTyp = NULL)
+    public function getAllMedia ($aID, $Typ = NULL)
     {
-      $minimumTypWhere = '';
-      if ($minimumTyp != NULL)
-      {
-        $minimumTypWhere = "and m.mediatyp >= $minimumTyp";
-      }
       $db = Zend_Registry::get ('db');
       $select = $db->select ("mt.beschreibung as mediatypdesc, *");
       $select->from (array('m' => 'media'));
@@ -322,9 +320,14 @@
         'mt.mediatyp = m.mediatyp');
       $select->where ("m.anbieterID = ?", $aID);
       $select->where ("m.status = ?", 1);
+      if ($Typ != NULL)
+      {
+        $select->where ("m.mediatyp = ?", $Typ);
+      }
       $select->order ("position ASC");
       $result = $select->query ();
       $data = $result->fetchAll ();
+      //logDebug (print_r ($select->__toString (), true), "");
       return $data;
     }
   }

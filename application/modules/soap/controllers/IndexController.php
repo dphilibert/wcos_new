@@ -231,6 +231,18 @@
     }
 
     /**
+     * liefert die Stammdaten zu einer vmKundennummer aus der Stammdaten-Tabelle
+     *
+     * @param $vmKundennummer
+     */
+    public function getStammdaten ($vmKundennummer)
+    {
+      $model = new Model_DbTable_StammdatenData();
+      $stammdaten = $model->getStammdaten ($vmKundennummer);
+      return $stammdaten;
+    }
+
+    /**
      * liefert ein Array von n-Premium-Einträgen für das angegebene System, absteigend nach Häufigkeit der Anzeige sortiert
      *
      * @param $systemID
@@ -288,17 +300,42 @@
       $pc_data = $pc_model->getFirmen4Produktcode ($systemID, $produktCode);
       foreach ($pc_data as $key => $dataset)
       {
+        $vmKundennummer = $dataset ['vmKundennummer'];
         $anbieter_model = new Model_DbTable_AnbieterData();
-        $anbieterData = $anbieter_model->getAnbieterByKundennummer($dataset ['vmKundennummer']);
+        $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
+        $media_model = new Model_DbTable_MediaData();
+        $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
+        $stammdaten_model = new Model_DbTable_StammdatenData();
+        $stammdaten = $stammdaten_model->getStammdaten($vmKundennummer);
+        $stammdaten = $stammdaten [0];
+        //logDebug (count  ($media), "");
+        $firmenlogo = NULL;
+        $retData = NULL;
+        if (count ($media) > 0)
+        {
+          $firmenlogo = $media [0] ['mediadatei'];
+        }
         // TODO in $anbieterData noch die Stammdaten-Daten reinschreiben
         $premiumStatus = $anbieterData ['premiumLevel'];
+        $retData ['Kundennummer'] = $vmKundennummer;
+        $retData ['Name 1'] = $anbieterData ['firmenname'];
+        $retData ['Name 2'] = ''; // TODO wo kommt der her?
+        $retData ['Name 3'] = ''; // TODO wo kommt der her?
+        $retData ['Name 4'] = ''; // TODO wo kommt der her?
+        $retData ['Land'] = $stammdaten ['land'];
+        $retData ['PLZ'] = $stammdaten ['plz'];
+        $retData ['Ort'] = $stammdaten ['ort'];
+        if ($firmenlogo != NULL)
+        {
+          $retData ['Logo'] = $firmenlogo;
+        }
         if ($premiumStatus == 1)
         {
-          $data ['PREMIUM'] [] = $anbieterData;
+          $data ['PREMIUM'] [] = $retData;
         }
         else
         {
-          $data ['STANDARD'] [] = $anbieterData;
+          $data ['STANDARD'] [] = $retData;
         }
       }
       return $data;

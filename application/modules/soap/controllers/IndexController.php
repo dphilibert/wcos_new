@@ -143,9 +143,25 @@
      */
     public function getFirmenprofil ($anbieterID)
     {
+      $data = NULL;
       $model = new Model_DbTable_FirmenportraitData ();
-      $firmenportrait = $model->getFirmenportrait ($anbieterID);
-      return $firmenportrait [0];
+      $modelData = $model->getFirmenportrait ($anbieterID);
+      //logDebug (print_r ($firmenportrait, true), "");
+      $firmenportrait = $modelData [0];
+      if (count ($firmenportrait) > 0)
+      {
+        $data ['Firmenbeschreibung'] = $firmenportrait ['firmenbeschreibung'];
+        $data ['Produkte/Linecard'] = $firmenportrait ['produkte'];
+        $data ['Firmenausrichtung'] = $firmenportrait ['firmenausrichtung'];
+        $data ['Dienstleistungen'] = $firmenportrait ['dienstleistungen'];
+        $data ['Präsenz'] = $firmenportrait ['praesenz'];
+        $data ['Zielmärkte'] = $firmenportrait ['zielmaerkte'];
+        $data ['Standorte/Lager'] = $firmenportrait ['standorte'];
+        $data ['Qualitätsmanagement'] = $firmenportrait ['qualitaetsmanagement'];
+        $data ['Gründungsjahr'] = $firmenportrait ['gruendungsjahr'];
+        $data ['Mitarbeiter'] = $firmenportrait ['mitarbeiter'];
+      }
+      return $data;
     }
 
     /**
@@ -177,6 +193,24 @@
     }
 
 
+    public function getWhitepaper ($anbieterID)
+    {
+      $whitepaper = NULL;
+      $wpListe = NULL;
+      $wpListe = $this->getWhitepaperListe ($anbieterID);
+      if (count ($wpListe) > 0)
+      {
+        $i = 0;
+        foreach ($wpListe as $key => $wp)
+        {
+          $whitepaper [$i] ['Titel'] = $wp ['whitepaper_beschreibung'];
+          $whitepaper [$i] ['URL'] = $wp ['whitepaper_link'];
+          $i++;
+        }
+        return $whitepaper;
+      }
+    }
+
     /**
      * liefert den Produktbaum
      *
@@ -199,16 +233,16 @@
 
 
     /**
-     * liefert das Produktspektrum für das angegebene System
+     * liefert das Produktspektrum für das angegebene System und ggf. eine Kundennummer
      *
      * @param $systemID
      *
      * @return mixed
      */
-    public function getProduktSpektrum ($systemID)
+    public function getProduktSpektrum ($systemID, $vmKundennummer = NULL)
     {
       $model = new Model_DbTable_ProduktcodesData();
-      $produktcodesArray = $model->getProduktSpektrum ($systemID);
+      $produktcodesArray = $model->getProduktSpektrum ($systemID, $vmKundennummer);
       $i = 0;
       foreach ($produktcodesArray as $key => $produktDatensatz)
       {
@@ -296,49 +330,52 @@
      */
     public function searchByProduktcode ($systemID, $produktCode)
     {
+      $data = NULL;
       $pc_model = new Model_DbTable_ProduktcodesData();
       $pc_data = $pc_model->getFirmen4Produktcode ($systemID, $produktCode);
-      foreach ($pc_data as $key => $dataset)
+      if ($count ($pc_data) > 0)
       {
-        $vmKundennummer = $dataset ['vmKundennummer'];
-        $anbieter_model = new Model_DbTable_AnbieterData();
-        $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
-        $media_model = new Model_DbTable_MediaData();
-        $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
-        $stammdaten_model = new Model_DbTable_StammdatenData();
-        $stammdaten = $stammdaten_model->getStammdaten($vmKundennummer);
-        $stammdaten = $stammdaten [0];
-        //logDebug (count  ($media), "");
-        $firmenlogo = NULL;
-        $retData = NULL;
-        if (count ($media) > 0)
+        foreach ($pc_data as $key => $dataset)
         {
-          $firmenlogo = $media [0] ['mediadatei'];
+          $vmKundennummer = $dataset ['vmKundennummer'];
+          $anbieter_model = new Model_DbTable_AnbieterData();
+          $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
+          $media_model = new Model_DbTable_MediaData();
+          $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
+          $stammdaten_model = new Model_DbTable_StammdatenData();
+          $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
+          $stammdaten = $stammdaten [0];
+          //logDebug (count  ($media), "");
+          $firmenlogo = NULL;
+          $retData = NULL;
+          if (count ($media) > 0)
+          {
+            $firmenlogo = $media [0] ['mediadatei'];
+          }
+          $premiumStatus = $anbieterData ['premiumLevel'];
+          $retData ['Kundennummer'] = $vmKundennummer;
+          $retData ['Name 1'] = $anbieterData ['firmenname'];
+          $retData ['Name 2'] = '';
+          $retData ['Name 3'] = '';
+          $retData ['Name 4'] = '';
+          $retData ['Land'] = $stammdaten ['land'];
+          $retData ['PLZ'] = $stammdaten ['plz'];
+          $retData ['Ort'] = $stammdaten ['ort'];
+          if ($firmenlogo != NULL)
+          {
+            $retData ['Logo'] = $firmenlogo;
+          }
+          if ($premiumStatus == 1)
+          {
+            $data ['PREMIUM'] [] = $retData;
+          }
+          else
+          {
+            $data ['STANDARD'] [] = $retData;
+          }
         }
-        // TODO in $anbieterData noch die Stammdaten-Daten reinschreiben
-        $premiumStatus = $anbieterData ['premiumLevel'];
-        $retData ['Kundennummer'] = $vmKundennummer;
-        $retData ['Name 1'] = $anbieterData ['firmenname'];
-        $retData ['Name 2'] = ''; // TODO wo kommt der her?
-        $retData ['Name 3'] = ''; // TODO wo kommt der her?
-        $retData ['Name 4'] = ''; // TODO wo kommt der her?
-        $retData ['Land'] = $stammdaten ['land'];
-        $retData ['PLZ'] = $stammdaten ['plz'];
-        $retData ['Ort'] = $stammdaten ['ort'];
-        if ($firmenlogo != NULL)
-        {
-          $retData ['Logo'] = $firmenlogo;
-        }
-        if ($premiumStatus == 1)
-        {
-          $data ['PREMIUM'] [] = $retData;
-        }
-        else
-        {
-          $data ['STANDARD'] [] = $retData;
-        }
+        return $data;
       }
-      return $data;
     }
 
 
@@ -350,7 +387,56 @@
      */
     public function searchByName ($systemID, $firmenName)
     {
-      // TODO Funktionalität
+      $data = NULL;
+      $model = new Model_DbTable_AnbieterData();
+      if ($systemID == 0)
+      {
+        $systemID = NULL;
+      }
+      $resData = $model->searchAnbieter ($firmenName, $systemID);
+      if (count ($resData) > 0)
+      {
+        foreach ($resData ['hits'] as $key => $dataset)
+        {
+          $vmKundennummer = $dataset ['anbieterID'];
+          $anbieter_model = new Model_DbTable_AnbieterData();
+          $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
+          $media_model = new Model_DbTable_MediaData();
+          $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
+          $stammdaten_model = new Model_DbTable_StammdatenData();
+          $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
+          $stammdaten = $stammdaten [0];
+          //logDebug (count  ($media), "");
+          $firmenlogo = NULL;
+          $retData = NULL;
+          if (count ($media) > 0)
+          {
+            $firmenlogo = $media [0] ['mediadatei'];
+          }
+          $premiumStatus = $anbieterData ['premiumLevel'];
+          $retData ['Kundennummer'] = $vmKundennummer;
+          $retData ['Name 1'] = $anbieterData ['firmenname'];
+          $retData ['Name 2'] = '';
+          $retData ['Name 3'] = '';
+          $retData ['Name 4'] = '';
+          $retData ['Land'] = $stammdaten ['land'];
+          $retData ['PLZ'] = $stammdaten ['plz'];
+          $retData ['Ort'] = $stammdaten ['ort'];
+          if ($firmenlogo != NULL)
+          {
+            $retData ['Logo'] = $firmenlogo;
+          }
+          if ($premiumStatus == 1)
+          {
+            $data ['PREMIUM'] [] = $retData;
+          }
+          else
+          {
+            $data ['STANDARD'] [] = $retData;
+          }
+        }
+        return $data;
+      }
     }
 
 
@@ -361,7 +447,47 @@
      */
     public function getAdress ($vmKundennummer)
     {
-      // TODO Funktionalität
+      $data = NULL;
+      $model = new Model_DbTable_StammdatenData();
+      $resData = $model->getStammdaten ($vmKundennummer);
+      //logDebug (print_r ($resData, true), "resData");
+      if (count ($resData) > 0)
+      {
+        $anbieter_model = new Model_DbTable_AnbieterData();
+        $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
+        $media_model = new Model_DbTable_MediaData();
+        $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
+        $stammdaten_model = new Model_DbTable_StammdatenData();
+        $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
+        $stammdaten = $stammdaten [0];
+        //logDebug (count  ($media), "");
+        $firmenlogo = NULL;
+        $retData = NULL;
+        if (count ($media) > 0)
+        {
+          $firmenlogo = $media [0] ['mediadatei'];
+        }
+        $retData ['Premium'] = $anbieterData ['premiumLevel'];
+        $retData ['Name 1'] = $anbieterData ['firmenname'];
+        $retData ['Name 2'] = '';
+        $retData ['Name 3'] = '';
+        $retData ['Name 4'] = '';
+        $retData ['Land'] = $stammdaten ['land'];
+        $retData ['PLZ'] = $stammdaten ['plz'];
+        $retData ['Ort'] = $stammdaten ['ort'];
+        $retData ['Straße'] = $stammdaten ['strasse'];
+        $retData ['Hausnummer'] = $stammdaten ['hausnummer'];
+        $retData ['Telefon'] = $stammdaten ['fon'];
+        $retData ['Telefax'] = $stammdaten ['fax'];
+        $retData ['E-Mail'] = $stammdaten ['email'];
+        $retData ['Internetadresse'] = $stammdaten ['www'];
+        if ($firmenlogo != NULL)
+        {
+          $retData ['Logo'] = $firmenlogo;
+        }
+        $data [] = $retData;
+        return $data;
+      }
     }
 
     /**

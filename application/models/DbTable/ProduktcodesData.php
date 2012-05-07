@@ -40,13 +40,13 @@
     }
 
     /**
-     * liefert das Produktspektrum zu einem System
+     * liefert das Produktspektrum zu einem System und ggf. zu einer Kundennummer
      *
      * @param $systemID
      *
      * @return mixed
      */
-    public function getProduktSpektrum ($systemID = 0)
+    public function getProduktSpektrum ($systemID = 0, $vmKundennummer = NULL)
     {
       $db = Zend_Registry::get ('db');
       $select = $db->select ();
@@ -56,6 +56,7 @@
       {
         $select->where ("pc2kd.systems like '%$systemID%'");
       }
+      if ($vmKundennummer != NULL) $select->where ("pc2kd.vmKundennummer = ?", $vmKundennummer);
       $result = $select->query ();
       $data = $result->fetchAll ();
       ////logDebug (print_r ($data, true), "getStammdaten");

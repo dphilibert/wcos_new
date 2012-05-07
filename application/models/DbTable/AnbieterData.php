@@ -24,7 +24,7 @@
      * @return mixed
      *
      */
-    public function searchAnbieter ($searchPhrase)
+    public function searchAnbieter ($searchPhrase, $systemID = NULL)
     {
       $db = Zend_Registry::get ('db');
       $select = $db->select ();
@@ -40,14 +40,25 @@
       ->join (array('sd' => 'stammdaten'), 'a.stammdatenID = sd.stammdatenID')
       ->where ('a.firmenname like "' . $searchPhrase . '%"')
       ->order (array('a.firmenname ASC'));
+      if ($systemID != NULL) {
+        $select->where ("a.systems like '%?%'", $systemID);
+      }
       $result = $select->query ();
       $data = $result->fetchAll ();
       //array_walk_recursive ($data, 'utfEncode');
-      foreach ($data as $key => $hit)
+      $i = 0;
+      if (count ($data) > 1)
       {
-        $anbieter ['hits'] [$key] = $hit;
+        foreach ($data as $key => $hit)
+        {
+          $i++;
+          $anbieter ['hits'] [$key] = $hit;
+        }
       }
-      return $anbieter;
+      if ($i > 0) {
+        return $anbieter;
+      }
+      return NULL;
     }
 
 

@@ -137,6 +137,19 @@
       return $bilder;
     }
 
+
+
+    public function getProduktcodeName ($produktCode)
+    {
+      $retData = NULL;
+      $model = new Model_DbTable_ProduktcodesData();
+      $data = $model->getProduktcodeName($produktCode);
+      if (count ($data) > 0)
+      {
+        $retData ['Produktcodename'] = $data ['branchenname'];
+      }
+      return $retData;
+    }
     /**
      * liefert ein angegebenes oder alle Videos zu einem Anbieter
      *
@@ -683,7 +696,7 @@
      */
     public function getProduktSpektrum4Firma ($systemID, $vmKundennummer)
     {
-      // TODO Funktionalität
+      return $this->getProduktSpektrum($systemID, $vmKundennummer);
     }
   }
 

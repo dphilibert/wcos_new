@@ -68,6 +68,7 @@
       {
         $model = new Model_DbTable_AnbieterData ();
         $model->saveAnbieter ("premiumLevel", "1", $anbieterFound [0]['anbieterID']);
+        $model->saveAnbieter ("created", "now()", $anbieterFound [0]['anbieterID']);
         $model = new Model_DbTable_LaufzeitData ();
         $model->setLaufzeit ($anbieterFound [0]['anbieterID'], 12); // TODO Laufzeit variabel machen
         echo 'Der Premium-Account für den Anbieter "' . $anbieterFound [0]['firmenname'] . '" wurde aktiviert!';

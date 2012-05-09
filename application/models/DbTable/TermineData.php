@@ -86,7 +86,9 @@
       {
         $db = Zend_Registry::get ('db');
         $select = $db->select ();
-        $select->from (array('t' => 'termine'));
+        $select->from (array('t' => 'termine'))
+         ->join (array('tt' => 'terminTypen'),
+                  'tt.terminTypID = t.typID');
         $select->where ("t.termineID = ?", $tID);
         $result = $select->query ();
         $data = $result->fetchAll ();

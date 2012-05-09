@@ -139,6 +139,149 @@
       }
       logDebug (print_r ($result, true), "getWhitepaper-Test");
     }
+
+
+    public function terminelisteAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->getTermineListe (1057850);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "getTermineliste-Test");
+    }
+
+
+    public function termindetailsAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->getTermineDetails (83);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "getTerminDetails-Test");
+    }
+
+
+    public function bildAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->getBild (8803443, 3);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "getBild-Test");
+    }
+
+
+    public function videoAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->getVideo (615320);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "getVideos-Test");
+    }
+
+
+    public function apAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->getAnsprechpartnerListe (1057850);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "apAction-Test");
+    }
+
+
+    public function risevisitsAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->riseVisitCounter (8808980);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      //logDebug (print_r ($result, true), "riseVisitCounter-Test");
+    }
+
+    public function getlastchangedAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->getLastActivities (1, 10);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "getlastchanged-Test");
+    }
+
+
+    public function newestAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->getNewest (1, 10);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "getlastchanged-Test");
+    }
+
+
+    public function mostseenAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->getMostSeen (1, 10);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "getlastchanged-Test");
+    }
   }
 
 ?>

@@ -67,3 +67,14 @@ CREATE TABLE `anbieter` (
   PRIMARY KEY (`id`),
   KEY `companyID` (`companyID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=19333 DEFAULT CHARSET=latin1;
+
+-- 08.05.2012 --
+
+update stammdaten sd set anbieterID=(select a.anbieterID from anbieter a where a.stammdatenID=sd.stammdatenID);
+
+-- 09.05.2012 --
+
+TRIGGER, für jede änderbare Tabelle (##table##) anwenden
+
+CREATE TRIGGER ##table##_##insert|update## ON INSERT|UPDATE FOR EACH ROW UPDATE anbieter a SET lastChange = SYSDATE() WHERE a.anbieterID=NEW.anbieterID
+

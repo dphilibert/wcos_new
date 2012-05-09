@@ -47,9 +47,37 @@
      */
     public function getAnsprechpartnerListe ($anbieterID)
     {
+      $ansprechpartner = NULL;
       $model = new Model_DbTable_AnsprechpartnerData ();
-      $ansprechpartnerDetails = $model->getAnsprechpartnerList (NULL, $anbieterID);
-      return $ansprechpartnerDetails;
+      $ansprechpartnerListe = $model->getAnsprechpartnerList (NULL, $anbieterID);
+      //logDebug (print_r ($ansprechpartnerListe, true), "");
+      if (count ($ansprechpartnerListe) > 0)
+      {
+        $i = 0;
+        foreach ($ansprechpartnerListe as $ap)
+        {
+          $ansprechpartner [$i] ['Vorname'] = $ap ['vorname'];
+          $ansprechpartner [$i] ['Name'] = $ap ['nachname'];
+          $ansprechpartner [$i] ['Position'] = $ap ['position'];
+          $ansprechpartner [$i] ['Abteilung'] = $ap ['abteilung'];
+          $ansprechpartner [$i] ['Telefon'] = $ap ['telefon'];
+          $ansprechpartner [$i] ['Telefax'] = $ap ['telefax'];
+          $ansprechpartner [$i] ['E-Mail'] = $ap ['email'];
+          $mediaID = $ap ['mediaID'];
+          $media_model = new Model_DbTable_MediaData();
+          if ($mediaID != '')
+          {
+            $medium = $media_model->getMedia ($mediaID);
+            if (count ($medium) > 0)
+            {
+              $ansprechpartner [$i] ['Bild'] = $medium [0] ['mediaID'] . "." . $medium [0] ['mediaExtension'];
+            }
+          }
+          $i++;
+        }
+      }
+      //logDebug (print_r ($ap, true), "");
+      return $ansprechpartner;
     }
 
     /**
@@ -79,6 +107,68 @@
       }
       return $mediaData;
     }
+
+    /**
+     * liefert ein angegebenes oder alle Bilder zu einem Anbieter
+     *
+     * @param $anbieterID
+     * @param null $bildNummer
+     *
+     * @return array
+     */
+    public function getBild ($anbieterID, $bildNummer = NULL)
+    {
+      $bilder = NULL;
+      $model = new Model_DbTable_MediaData ();
+      $media = $model->getAllMedia ($anbieterID, "BILD");
+      //logDebug (print_r ($media, true), "");
+      $i = 1;
+      foreach ($media as $bild)
+      {
+        $bilder [$i] ['Dateiname'] = $bild ['mediaID'] . "." . $bild ['mediaExtension'];
+        $bilder [$i] ['Bildbeschreibung'] = $bild ['desc'];
+        $bilder [$i] ['URL'] = $bild ['link'];
+        $i++;
+      }
+      if ($bildNummer != NULL)
+      {
+        return $bilder [$bildNummer];
+      }
+      return $bilder;
+    }
+
+    /**
+     * liefert ein angegebenes oder alle Videos zu einem Anbieter
+     *
+     * @param $anbieterID
+     * @param null $videoNummer
+     *
+     * @return array
+     */
+    public function getVideo ($anbieterID, $videoNummer = NULL)
+    {
+      $videos = NULL;
+      $model = new Model_DbTable_MediaData ();
+      $media = $model->getAllMedia ($anbieterID, "VIDEO");
+      //logDebug (print_r ($media, true), "");
+      $i = 1;
+      foreach ($media as $video)
+      {
+        $videos [$i] ['Dateiname'] = $video ['mediaID'] . "." . $video ['mediaExtension'];
+        $videos [$i] ['Bildbeschreibung'] = $video ['desc'];
+        $videos [$i] ['URL'] = $video ['link'];
+        if ($video ['embed'] != '') {
+          $videos [$i] ['Embedcode'] = $video ['embed'];
+        }
+        $i++;
+      }
+      if ($videoNummer != NULL)
+      {
+        return $videos [$videoNummer];
+      }
+      return $videos;
+    }
+
 
     /**
      * liefert alle Medien zu einem Anbieter
@@ -119,9 +209,31 @@
      */
     public function getTermineListe ($anbieterID)
     {
+      $termine = NULL;
       $model = new Model_DbTable_TermineData ();
-      $termineDetails = $model->getTermineList ($anbieterID);
-      return $termineDetails;
+      $termineListe = $model->getTermineList ($anbieterID);
+      if (count ($termineListe) > 0)
+      {
+        $i = 0;
+        foreach ($termineListe as $termin)
+        {
+          $termine [$i] ['Termin-Art'] = $termin ['terminTyp'];
+          $termine [$i] ['Termin-ID'] = $termin ['termineID'];
+          $termine [$i] ['Name'] = $termin ['name'];
+          $termine [$i] ['Beginn'] = $termin ['beginn'];
+          $termine [$i] ['Ende'] = $termin ['ende'];
+          $termine [$i] ['Ort'] = $termin ['ort'];
+          $mediaID = $termin ['mediaID'];
+          $media_model = new Model_DbTable_MediaData();
+          $medium = $media_model->getMedia ($mediaID);
+          if (count ($medium) > 0)
+          {
+            $termine [$i] ['Logo'] = $medium [0] ['mediaID'] . "." . $medium [0] ['mediaExtension'];
+          }
+          $i++;
+        }
+      }
+      return $termine;
     }
 
     /**
@@ -131,7 +243,30 @@
      */
     public function getTermineDetails ($terminID)
     {
-      // TODO Funktionalität
+      $termin = NULL;
+      $model = new Model_DbTable_TermineData();
+      $data = $model->getTermin ($terminID);
+      //logDebug (print_r ($data, true), "");
+      if (count ($data) > 0)
+      {
+        $data = $data [0];
+        $termin ['Termin-Art'] = $data ['terminTyp'];
+        $termin ['Termin-ID'] = $data ['termineID'];
+        $termin ['Name'] = $data ['name'];
+        $termin ['Beginn'] = $data ['beginn'];
+        $termin ['Ende'] = $data ['ende'];
+        $termin ['Ort'] = $data ['ort'];
+        $termin ['Kurzbeschreibung'] = $data ['teaser'];
+        $termin ['Beschreibung'] = $data ['beschreibung'];
+        $mediaID = $data ['mediaID'];
+        $media_model = new Model_DbTable_MediaData();
+        $medium = $media_model->getMedia ($mediaID);
+        if (count ($medium) > 0)
+        {
+          $termin ['Logo'] = $medium [0] ['mediaID'] . "." . $medium [0] ['mediaExtension'];
+        }
+      }
+      return $termin;
     }
 
     /**
@@ -241,6 +376,7 @@
      */
     public function getProduktSpektrum ($systemID, $vmKundennummer = NULL)
     {
+      $produktBaum = NULL;
       $model = new Model_DbTable_ProduktcodesData();
       $produktcodesArray = $model->getProduktSpektrum ($systemID, $vmKundennummer);
       $i = 0;
@@ -284,7 +420,19 @@
      */
     public function getMostSeen ($systemID, $anzahlDerEintraege)
     {
-      // TODO Funktionalität
+      $retData = NULL;
+      $model = new Model_DbTable_AnbieterData();
+      $data = $model->getMostSeen ($systemID, $anzahlDerEintraege);
+      if (count ($data) > 0)
+      {
+        $i = 0;
+        foreach ($data as $anbieter)
+        {
+          $retData [$i] ['Kundennummer'] = $anbieter ['vmKundennummer'];
+          $i++;
+        }
+      }
+      return $retData;
     }
 
 
@@ -296,7 +444,19 @@
      */
     public function getNewest ($systemID, $anzahlDerEintraege)
     {
-      // TODO Funktionalität
+      $retData = NULL;
+      $model = new Model_DbTable_AnbieterData();
+      $data = $model->getNewest ($systemID, $anzahlDerEintraege);
+      if (count ($data) > 0)
+      {
+        $i = 0;
+        foreach ($data as $anbieter)
+        {
+          $retData [$i] ['Kundennummer'] = $anbieter ['anbieterID'];
+          $i++;
+        }
+      }
+      return $retData;
     }
 
     /**
@@ -307,7 +467,19 @@
      */
     public function getLastActivities ($systemID, $anzahlDerEintraege)
     {
-      // TODO Funktionalität
+      $retData = NULL;
+      $model = new Model_DbTable_AnbieterData();
+      $data = $model->getLastChanged ($systemID, $anzahlDerEintraege);
+      if (count ($data) > 0)
+      {
+        $i = 0;
+        foreach ($data as $anbieter)
+        {
+          $retData [$i] ['Kundennummer'] = $anbieter ['anbieterID'];
+          $i++;
+        }
+      }
+      return $retData;
     }
 
     /**
@@ -321,6 +493,20 @@
       // TODO Funktionalität
     }
 
+
+    /**
+     * erzeugt einen Eintrag in der statsVisits-Tabelle
+     *
+     * @param $anbieterID
+     *
+     * @return 0 kein Fehler
+     */
+    public function riseVisitCounter ($anbieterID)
+    {
+      $model = new Model_DbTable_GeneralData();
+      $model->saveVisit ($anbieterID);
+      return 0;
+    }
 
     /**
      * sucht anhang des angegebenen Produktcodes die entsprechenden Firmen
@@ -350,7 +536,7 @@
           $retData = NULL;
           if (count ($media) > 0)
           {
-            $firmenlogo = $media [0] ['mediadatei'];
+            $firmenlogo = $medium [0] ['mediaID'] . "." . $medium [0] ['mediaExtension'];
           }
           $premiumStatus = $anbieterData ['premiumLevel'];
           $retData ['Kundennummer'] = $vmKundennummer;
@@ -411,7 +597,7 @@
           $retData = NULL;
           if (count ($media) > 0)
           {
-            $firmenlogo = $media [0] ['mediadatei'];
+            $firmenlogo = $medium [0] ['mediaID'] . "." . $medium [0] ['mediaExtension'];
           }
           $premiumStatus = $anbieterData ['premiumLevel'];
           $retData ['Kundennummer'] = $vmKundennummer;
@@ -485,8 +671,7 @@
         {
           $retData ['Logo'] = $firmenlogo;
         }
-        $data [] = $retData;
-        return $data;
+        return $retData;
       }
     }
 

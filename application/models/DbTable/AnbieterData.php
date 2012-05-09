@@ -40,7 +40,8 @@
       ->join (array('sd' => 'stammdaten'), 'a.stammdatenID = sd.stammdatenID')
       ->where ('a.firmenname like "' . $searchPhrase . '%"')
       ->order (array('a.firmenname ASC'));
-      if ($systemID != NULL) {
+      if ($systemID != NULL)
+      {
         $select->where ("a.systems like '%?%'", $systemID);
       }
       $result = $select->query ();
@@ -55,7 +56,8 @@
           $anbieter ['hits'] [$key] = $hit;
         }
       }
-      if ($i > 0) {
+      if ($i > 0)
+      {
         return $anbieter;
       }
       return NULL;
@@ -280,6 +282,88 @@
       return $data;
     }
 
+    /**
+     * liefert die zuletzt geänderten Anbieter
+     *
+     * @param $systemID
+     * @param $limit
+     *
+     * @return mixed
+     */
+    public function getLastChanged ($systemID, $limit)
+    {
+      $db = Zend_Registry::get ('db');
+      $select = $db->select ();
+      $select->from (array('a' => 'anbieter'));
+      if ($systemID > 0)
+      {
+        $select->where ("a.systems like '%$systemID%'");
+      }
+      $select->order ("lastChange desc")
+      ->limit ($limit);
+      try
+      {
+        $result = $select->query ();
+      } catch (Zend_Exception $e)
+      {
+        logError ($e->getMessage (), "");
+      }
+      $data = $result->fetchAll ();
+      return $data;
+    }
+
+    /**
+     * liefert die neuesten Anbieter (created)
+     *
+     * @param $systemID
+     * @param $limit
+     *
+     * @return mixed
+     */
+    public function getNewest ($systemID, $limit)
+    {
+      $db = Zend_Registry::get ('db');
+      $select = $db->select ();
+      $select->from (array('a' => 'anbieter'));
+      if ($systemID > 0)
+      {
+        $select->where ("a.systems like '%$systemID%'");
+      }
+      $select->order ("created desc")
+      ->limit ($limit);
+      try
+      {
+        $result = $select->query ();
+      } catch (Zend_Exception $e)
+      {
+        logError ($e->getMessage (), "");
+      }
+      $data = $result->fetchAll ();
+      return $data;
+    }
+
+    /**
+         * liefert die meist gesehenen Anbieter
+         *
+         * @param $systemID
+         * @param $limit
+         *
+         * @return mixed
+         */
+        public function getMostSeen ($systemID, $limit)
+        {
+          $db = Zend_Registry::get ('db');
+          $sql = "select vmKundennummer, count(*) as anzahl from stats_visits group by vmKundennummer order by anzahl desc limit $limit";
+          try
+          {
+            $result = $db->query ($sql);
+          } catch (Zend_Exception $e)
+          {
+            logError ($e->getMessage (), "");
+          }
+          $data = $result->fetchAll ();
+          return $data;
+        }
 
     /**
      *

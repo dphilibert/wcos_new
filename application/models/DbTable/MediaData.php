@@ -314,8 +314,8 @@
     public function getAllMedia ($aID, $Typ = NULL)
     {
       $db = Zend_Registry::get ('db');
-      $select = $db->select ("mt.beschreibung as mediatypdesc, *");
-      $select->from (array('m' => 'media'));
+      $select = $db->select ();
+      $select->from (array('m' => 'media'), array ("mt.beschreibung as mediatypdesc", "m.beschreibung as desc", "m.*"));
       $select->join (array('mt' => 'mediatypen'),
         'mt.mediatyp = m.mediatyp');
       $select->where ("m.anbieterID = ?", $aID);

@@ -21,13 +21,13 @@ var BuildAjaxGrid = function ()
   $.ajax(
   {
     dataType:"json",
-    url:ajaxURL,
-    type:"POST",
-    data:{
+    url     :ajaxURL,
+    type    :"POST",
+    data    :{
       anbieterID:anbieterID,
-      hash:anbieterHash
+      hash      :anbieterHash
     },
-    success:function (ajaxData)
+    success :function (ajaxData)
     {
       var anzahlDatensaetze = ajaxData.length;
       var ungerundeteSeitenanzahl = anzahlDatensaetze / anzahlPerPage;
@@ -75,13 +75,13 @@ var getOptionsPages = function ()
   $.ajax(
   {
     dataType:"json",
-    url:ajaxURL,
-    type:"POST",
-    data:{
+    url     :ajaxURL,
+    type    :"POST",
+    data    :{
       anbieterID:anbieterID,
-      hash:anbieterHash
+      hash      :anbieterHash
     },
-    success:function (ajaxData)
+    success :function (ajaxData)
     {
       $.each(ajaxData ['anzahlEintraegeOptions'], function (k, v)
       {
@@ -105,13 +105,13 @@ var getOptionsMediaTypen = function ()
   $.ajax(
   {
     dataType:"json",
-    url:ajaxURL,
-    type:"POST",
-    data:{
+    url     :ajaxURL,
+    type    :"POST",
+    data    :{
       anbieterID:anbieterID,
-      hash:anbieterHash
+      hash      :anbieterHash
     },
-    success:function (ajaxData)
+    success :function (ajaxData)
     {
       $.each(ajaxData, function (k, v)
       {
@@ -187,21 +187,23 @@ var loadFormData = function (ID)
   $.ajax(
   {
     dataType:"json",
-    url:ajaxURL,
-    async:makeAsync,
-    type:"POST",
-    data:{
+    url     :ajaxURL,
+    async   :makeAsync,
+    type    :"POST",
+    data    :{
       anbieterID:anbieterID,
-      hash:anbieterHash,
-      id:ID
+      hash      :anbieterHash,
+      id        :ID
     },
-    success:function (ajaxData)
+    success :function (ajaxData)
     {
       // die Daten des "Forms"
       ID = ajaxData.mediaID;
       $("#ID").val(ajaxData.mediaID);
       $("#me_beschreibung").val(ajaxData.beschreibung);
       $("#me_link").val(ajaxData.link);
+      $("#me_embed").val(ajaxData.embed);
+      $("#row_embed").hide ();
       $("#me_mediatyp option[value='" + ajaxData.mediatyp + "']").attr('selected', 'selected');
       if (ajaxData.mediatyp == 'LINK')
       {
@@ -229,6 +231,7 @@ var loadFormData = function (ID)
       }
       if (ajaxData.mediatyp == 'VIDEO')
       {
+        $("#row_embed").show ();
         $("tr[name='bildSwitch']").removeClass('switch');
         showThumbnail(ajaxData.mediaID, ajaxData.mediadatei);
       }
@@ -263,16 +266,16 @@ var AjaxSave = function (selectedField, selectedValue, id)
   $.ajax(
   {
     dataType:"json",
-    url:ajaxURL,
-    type:"POST",
-    data:{
+    url     :ajaxURL,
+    type    :"POST",
+    data    :{
       anbieterID:anbieterID,
-      hash:anbieterHash,
-      id:id,
-      field:selectedField,
-      value:selectedValue
+      hash      :anbieterHash,
+      id        :id,
+      field     :selectedField,
+      value     :selectedValue
     },
-    success:function (ajaxData)
+    success :function (ajaxData)
     {
       if (selectedField == 'me_beschreibung')
       {
@@ -285,6 +288,10 @@ var AjaxSave = function (selectedField, selectedValue, id)
       if (selectedField == 'me_link')
       {
         $("#" + id + " td[id='link']").html(selectedValue);
+      }
+      if (selectedField == 'me_embed')
+      {
+        $("#" + id + " td[id='embed']").html(selectedValue);
       }
     }
   });
@@ -306,14 +313,14 @@ var AjaxDelete = function (ID)
   $.ajax(
   {
     dataType:"json",
-    url:ajaxURL,
-    type:"POST",
-    data:{
+    url     :ajaxURL,
+    type    :"POST",
+    data    :{
       anbieterID:anbieterID,
-      hash:anbieterHash,
-      id:ID
+      hash      :anbieterHash,
+      id        :ID
     },
-    success:function (ajaxData)
+    success :function (ajaxData)
     {
     }
   });
@@ -353,9 +360,9 @@ function removeUploadButton()
 function createUploader(ID)
 {
   var uploader = new qq.FileUploader({
-    element:document.getElementById('bild'),
-    action:'/media/upload/',
-    multiple:false,
+    element   :document.getElementById('bild'),
+    action    :'/media/upload/',
+    multiple  :false,
     onComplete:function (id, fileName, responseJSON)
     {
       mediaExtension = responseJSON ['MEDIAEXTENSION'];
@@ -366,15 +373,15 @@ function createUploader(ID)
       removeUploadButton();
       showThumbnail(ID, fileName);
     },
-    params:{
+    params    :{
       mediaID:ID
     },
-    template:'<div class="qq-uploader">' +
+    template  :'<div class="qq-uploader">' +
     '<div class="qq-upload-drop-area"><span>Drop files here to upload</span></div>' +
     '<div class="qq-upload-button">Datei hochladen</div>' +
     '<ul class="qq-upload-list"></ul>' +
     '</div>',
-    debug:true
+    debug     :true
   });
 }
 
@@ -415,6 +422,13 @@ $(document).ready(function ()
     if ($("#me_mediatyp").val() != 'LINK')
     {
       $("tr[name='bildSwitch']").removeClass('switch');
+    }
+    if ($("#me_mediatyp").val() == 'VIDEO')
+    {
+      $("#row_embed").show ();
+    } else
+    {
+      $("#row_embed").hide ();
     }
   });
   $("#anzahlEintraege").change(function ()
@@ -457,55 +471,55 @@ $(document).ready(function ()
     }
   });
   $("#lightboxOpen").fancybox({
-    'width':800,
-    'height':600,
-    'autoScale':false,
-    'autoDimensions':false,
-    'transitionIn':'elastic',
-    'transitionOut':'elastic',
-    'centerOnScroll':true,
+    'width'             :800,
+    'height'            :600,
+    'autoScale'         :false,
+    'autoDimensions'    :false,
+    'transitionIn'      :'elastic',
+    'transitionOut'     :'elastic',
+    'centerOnScroll'    :true,
     'hideOnOverlayClick':true,
-    'titleShow':false,
-    'showCloseButton':true,
+    'titleShow'         :false,
+    'showCloseButton'   :true,
     'enableEscapeButton':true
   });
   $("#add").fancybox({
-    'width':800,
-    'height':600,
-    'autoScale':false,
-    'autoDimensions':false,
-    'transitionIn':'elastic',
-    'transitionOut':'elastic',
-    'centerOnScroll':true,
+    'width'             :800,
+    'height'            :600,
+    'autoScale'         :false,
+    'autoDimensions'    :false,
+    'transitionIn'      :'elastic',
+    'transitionOut'     :'elastic',
+    'centerOnScroll'    :true,
     'hideOnOverlayClick':true,
-    'titleShow':false,
-    'showCloseButton':true,
+    'titleShow'         :false,
+    'showCloseButton'   :true,
     'enableEscapeButton':true
   });
   $("#edit").fancybox({
-    'width':800,
-    'height':600,
-    'autoScale':false,
-    'autoDimensions':false,
-    'transitionIn':'elastic',
-    'transitionOut':'elastic',
-    'centerOnScroll':true,
+    'width'             :800,
+    'height'            :600,
+    'autoScale'         :false,
+    'autoDimensions'    :false,
+    'transitionIn'      :'elastic',
+    'transitionOut'     :'elastic',
+    'centerOnScroll'    :true,
     'hideOnOverlayClick':true,
-    'titleShow':false,
-    'showCloseButton':true,
+    'titleShow'         :false,
+    'showCloseButton'   :true,
     'enableEscapeButton':true
   });
   $("a.del").fancybox({
-    'width':800,
-    'height':400,
-    'autoScale':false,
-    'autoDimensions':false,
-    'transitionIn':'elastic',
-    'transitionOut':'elastic',
-    'centerOnScroll':true,
+    'width'             :800,
+    'height'            :400,
+    'autoScale'         :false,
+    'autoDimensions'    :false,
+    'transitionIn'      :'elastic',
+    'transitionOut'     :'elastic',
+    'centerOnScroll'    :true,
     'hideOnOverlayClick':true,
-    'titleShow':false,
-    'showCloseButton':true,
+    'titleShow'         :false,
+    'showCloseButton'   :true,
     'enableEscapeButton':true
   });
 });

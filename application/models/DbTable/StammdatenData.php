@@ -26,14 +26,14 @@
      *
      * @return mixed
      */
-    public function getStammdaten ($ID)
+    public function getStammdaten ($anbieterID)
     {
       $db = Zend_Registry::get ('db');
       $select = $db->select ();
       $select->from (array('a' => 'anbieter'))
       ->join (array('s' => 'stammdaten'),
-        'a.stammdatenID = s.stammdatenID');
-      $select->where ("a.anbieterID = ?", $ID);
+        'a.anbieterID = s.anbieterID');
+      $select->where ("a.anbieterID = ?", $anbieterID);
       $result = $select->query ();
       $data = $result->fetchAll ();
       ////logDebug (print_r ($data, true), "getStammdaten");

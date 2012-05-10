@@ -54,7 +54,8 @@
       ->join (array('pc' => 'vm_produktcodes'), 'pc.branchenname_nummer = pc2kd.produktcode');
       if ($systemID > 0)
       {
-        $select->where ("pc2kd.systems like '%$systemID%'");
+        if ($vmKundennummer != NULL) $select->where ("pc2kd.systems like '%$systemID%'");
+        $select->where ("pc.systems like '%$systemID%'");
       }
       if ($vmKundennummer != NULL) {
         $select->where ("pc2kd.vmKundennummer = ?", $vmKundennummer);

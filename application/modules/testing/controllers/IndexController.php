@@ -54,7 +54,7 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->getProduktSpektrum (0, 16319); // alle
+        $result = $soap_client->getProduktSpektrum (2); // alle
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");

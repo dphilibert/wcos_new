@@ -138,18 +138,18 @@
     }
 
 
-
     public function getProduktcodeName ($produktCode)
     {
       $retData = NULL;
       $model = new Model_DbTable_ProduktcodesData();
-      $data = $model->getProduktcodeName($produktCode);
+      $data = $model->getProduktcodeName ($produktCode);
       if (count ($data) > 0)
       {
         $retData ['Produktcodename'] = $data ['branchenname'];
       }
       return $retData;
     }
+
     /**
      * liefert ein angegebenes oder alle Videos zu einem Anbieter
      *
@@ -170,7 +170,8 @@
         $videos [$i] ['Dateiname'] = $video ['mediaID'] . "." . $video ['mediaExtension'];
         $videos [$i] ['Bildbeschreibung'] = $video ['desc'];
         $videos [$i] ['URL'] = $video ['link'];
-        if ($video ['embed'] != '') {
+        if ($video ['embed'] != '')
+        {
           $videos [$i] ['Embedcode'] = $video ['embed'];
         }
         $i++;
@@ -503,9 +504,59 @@
      */
     public function getRandomAccounts ($systemID, $anzahlDerEintraege)
     {
-      // TODO Funktionalität
+      $data = NULL;
+      $model = new Model_DbTable_AnbieterData();
+      if ($systemID == 0)
+      {
+        $systemID = NULL;
+      }
+      $resData = $model->getAnbieterRandom ($systemID, $anzahlDerEintraege);
+      //logDebug (print_r ($resData, true), "");
+      if (count ($resData) > 0)
+      {
+        foreach ($resData ['hits'] as $key => $dataset)
+        {
+          $medium = NULL;
+          $vmKundennummer = $dataset ['anbieterID'];
+          $anbieter_model = new Model_DbTable_AnbieterData();
+          $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
+          $media_model = new Model_DbTable_MediaData();
+          $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
+          $stammdaten_model = new Model_DbTable_StammdatenData();
+          $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
+          $stammdaten = $stammdaten [0];
+          //logDebug (count  ($media), "");
+          $firmenlogo = NULL;
+          $retData = NULL;
+          if (count ($media) > 0)
+          {
+            $firmenlogo = $media [0] ['mediaID'] . "." . $media [0] ['mediaExtension'];
+          }
+          $premiumStatus = $anbieterData ['premiumLevel'];
+          $retData ['Kundennummer'] = $vmKundennummer;
+          $retData ['Name 1'] = $anbieterData ['firmenname'];
+          $retData ['Name 2'] = '';
+          $retData ['Name 3'] = '';
+          $retData ['Name 4'] = '';
+          $retData ['Land'] = $stammdaten ['land'];
+          $retData ['PLZ'] = $stammdaten ['plz'];
+          $retData ['Ort'] = $stammdaten ['ort'];
+          if ($firmenlogo != NULL)
+          {
+            $retData ['Logo'] = $firmenlogo;
+          }
+          if ($premiumStatus == 1)
+          {
+            $data ['PREMIUM'] [] = $retData;
+          }
+          else
+          {
+            $data ['STANDARD'] [] = $retData;
+          }
+        }
+        return $data;
+      }
     }
-
 
     /**
      * erzeugt einen Eintrag in der statsVisits-Tabelle
@@ -514,7 +565,8 @@
      *
      * @return 0 kein Fehler
      */
-    public function riseVisitCounter ($anbieterID)
+    public
+    function riseVisitCounter ($anbieterID)
     {
       $model = new Model_DbTable_GeneralData();
       $model->saveVisit ($anbieterID);
@@ -527,7 +579,8 @@
      * @param $systemID
      * @param $produktCode
      */
-    public function searchByProduktcode ($systemID, $produktCode)
+    public
+    function searchByProduktcode ($systemID, $produktCode)
     {
       $data = NULL;
       $pc_model = new Model_DbTable_ProduktcodesData();
@@ -577,14 +630,14 @@
       }
     }
 
-
     /**
      * sucht anhand des Firmennamens
      *
      * @param $systemID
      * @param $firmenName
      */
-    public function searchByName ($systemID, $firmenName)
+    public
+    function searchByName ($systemID, $firmenName)
     {
       $data = NULL;
       $model = new Model_DbTable_AnbieterData();
@@ -638,13 +691,13 @@
       }
     }
 
-
     /**
      * liefert den vollständigen Kundendatensatz
      *
      * @param $vmKundennummer
      */
-    public function getAdress ($vmKundennummer)
+    public
+    function getAdress ($vmKundennummer)
     {
       $data = NULL;
       $model = new Model_DbTable_StammdatenData();
@@ -694,9 +747,10 @@
      * @param $systemID
      * @param $vmKundennummer
      */
-    public function getProduktSpektrum4Firma ($systemID, $vmKundennummer)
+    public
+    function getProduktSpektrum4Firma ($systemID, $vmKundennummer)
     {
-      return $this->getProduktSpektrum($systemID, $vmKundennummer);
+      return $this->getProduktSpektrum ($systemID, $vmKundennummer);
     }
   }
 

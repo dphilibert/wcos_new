@@ -297,6 +297,22 @@
       }
       logDebug (print_r ($result, true), "getlastchanged-Test");
     }
+
+
+    public function randomAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->getRandomAccounts (1,10);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "getlastchanged-Test");
+    }
   }
 
 ?>

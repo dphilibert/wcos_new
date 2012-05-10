@@ -152,6 +152,50 @@
       return $data;
     }
 
+    /**
+     * liefert die angegebene Zahl von zufälligen Accounts
+     *
+     * @param $anbieterID
+     *
+     * @return array
+     */
+    public function getAnbieterRandom ($systemID, $anzahlDerEintraege)
+    {
+      $db = Zend_Registry::get ('db');
+      $select = $db->select ();
+      $select->from (array('a' => 'anbieter'))
+      ->join (array('sd' => 'stammdaten'), 'a.stammdatenID = sd.stammdatenID')
+      ->where ('a.premiumLevel = ?', 1)
+      ->order (array('RAND()'))
+      ->limit ($anzahlDerEintraege);
+      if ($systemID != NULL)
+      {
+        $select->where ("a.systems like '%?%'", $systemID);
+      }
+      try
+      {
+        $result = $select->query ();
+      } catch (Zend_Exception $e)
+      {
+        logError ($e->getMessage(), "");
+      }
+      $data = $result->fetchAll ();
+      //array_walk_recursive ($data, 'utfEncode');
+      $i = 0;
+      if (count ($data) > 1)
+      {
+        foreach ($data as $key => $hit)
+        {
+          $i++;
+          $anbieter ['hits'] [$key] = $hit;
+        }
+      }
+      if ($i > 0)
+      {
+        return $anbieter;
+      }
+      return NULL;
+    }
 
     /**
      *
@@ -343,27 +387,27 @@
     }
 
     /**
-         * liefert die meist gesehenen Anbieter
-         *
-         * @param $systemID
-         * @param $limit
-         *
-         * @return mixed
-         */
-        public function getMostSeen ($systemID, $limit)
-        {
-          $db = Zend_Registry::get ('db');
-          $sql = "select vmKundennummer, count(*) as anzahl from stats_visits group by vmKundennummer order by anzahl desc limit $limit";
-          try
-          {
-            $result = $db->query ($sql);
-          } catch (Zend_Exception $e)
-          {
-            logError ($e->getMessage (), "");
-          }
-          $data = $result->fetchAll ();
-          return $data;
-        }
+     * liefert die meist gesehenen Anbieter
+     *
+     * @param $systemID
+     * @param $limit
+     *
+     * @return mixed
+     */
+    public function getMostSeen ($systemID, $limit)
+    {
+      $db = Zend_Registry::get ('db');
+      $sql = "select vmKundennummer, count(*) as anzahl from stats_visits group by vmKundennummer order by anzahl desc limit $limit";
+      try
+      {
+        $result = $db->query ($sql);
+      } catch (Zend_Exception $e)
+      {
+        logError ($e->getMessage (), "");
+      }
+      $data = $result->fetchAll ();
+      return $data;
+    }
 
     /**
      *

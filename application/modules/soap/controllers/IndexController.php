@@ -585,7 +585,7 @@
       $data = NULL;
       $pc_model = new Model_DbTable_ProduktcodesData();
       $pc_data = $pc_model->getFirmen4Produktcode ($systemID, $produktCode);
-      if ($count ($pc_data) > 0)
+      if (count ($pc_data) > 0)
       {
         foreach ($pc_data as $key => $dataset)
         {

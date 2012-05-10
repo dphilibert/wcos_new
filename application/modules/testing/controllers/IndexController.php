@@ -70,7 +70,7 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->searchByProduktcode (1, 3366);
+        $result = $soap_client->searchByProduktcode (1, 3701);
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");

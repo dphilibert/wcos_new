@@ -646,7 +646,7 @@
         $systemID = NULL;
       }
       $resData = $model->searchAnbieter ($firmenName, $systemID);
-      logDebug (print_r ($resData, true), "");
+      //logDebug (print_r ($resData, true), "");
       if (count ($resData) > 0)
       {
         foreach ($resData ['hits'] as $key => $dataset)

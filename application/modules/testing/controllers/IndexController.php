@@ -90,6 +90,7 @@
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
       }
+      print_r ($result);
       logDebug (print_r ($result, true), "searchbyfirmenname-Test");
     }
 

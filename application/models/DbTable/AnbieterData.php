@@ -48,7 +48,7 @@
       $data = $result->fetchAll ();
       //array_walk_recursive ($data, 'utfEncode');
       $i = 0;
-      if (count ($data) > 1)
+      if (count ($data) > 0)
       {
         foreach ($data as $key => $hit)
         {

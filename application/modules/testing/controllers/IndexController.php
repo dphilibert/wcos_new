@@ -85,7 +85,7 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->searchByName (0, 'geh');
+        $result = $soap_client->searchByName (1, 'weka');
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");

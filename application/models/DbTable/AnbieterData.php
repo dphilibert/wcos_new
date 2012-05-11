@@ -42,7 +42,7 @@
       ->order (array('a.firmenname ASC'));
       if ($systemID != NULL)
       {
-        $select->where ("a.systems like '%?%'", $systemID);
+        $select->where ("a.systems like '%$systemID%'");
       }
       $result = $select->query ();
       $data = $result->fetchAll ();

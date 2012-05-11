@@ -664,7 +664,7 @@
           $retData = NULL;
           if (count ($media) > 0)
           {
-            $firmenlogo = $medium [0] ['mediaID'] . "." . $medium [0] ['mediaExtension'];
+            $firmenlogo = $media [0] ['mediaID'] . "." . $media [0] ['mediaExtension'];
           }
           $premiumStatus = $anbieterData ['premiumLevel'];
           $retData ['Kundennummer'] = $vmKundennummer;

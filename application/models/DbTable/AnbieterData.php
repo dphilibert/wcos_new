@@ -180,7 +180,7 @@
       ->where ('a.premiumLevel = ?', 1)
       ->order (array('RAND()'))
       ->limit ($anzahlDerEintraege);
-      logDebug (print_r ($select->__toString ()), "");
+      //logDebug (print_r ($select->__toString ()), "");
       if ($systemID != NULL)
       {
         $select->where ("a.systems like ?", '%'.$systemID.'%');

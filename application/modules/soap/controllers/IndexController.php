@@ -697,13 +697,12 @@
      *
      * @param $vmKundennummer
      */
-    public
-    function getAdress ($vmKundennummer)
+    public function getAdress ($vmKundennummer)
     {
       $data = NULL;
       $model = new Model_DbTable_StammdatenData();
       $resData = $model->getStammdaten ($vmKundennummer);
-      //logDebug (print_r ($resData, true), "resData");
+      logDebug (print_r ($resData, true), "resData");
       if (count ($resData) > 0)
       {
         $anbieter_model = new Model_DbTable_AnbieterData();

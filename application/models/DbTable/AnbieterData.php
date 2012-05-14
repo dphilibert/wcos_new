@@ -61,6 +61,18 @@
         return $anbieter;
       }
       return NULL;
+
+      /*
+      $operator = 'AND';
+         $keywords = explode(" ",$phrase);
+         $where = array();
+         foreach($keywords as $keyword) {
+          $where[] = "(`name`LIKE '%".$keyword."%' OR  `name_zusatz` LIKE '%".$keyword."%' )";
+         }
+         $where = implode("\n ".$operator." ",$where);
+        
+         $sql = "SELECT  * FROM `anbieter_company` WHERE   ".$where." ";
+      */
     }
 
 
@@ -168,9 +180,10 @@
       ->where ('a.premiumLevel = ?', 1)
       ->order (array('RAND()'))
       ->limit ($anzahlDerEintraege);
+      logDebug (print_r ($select->__toString ()), "");
       if ($systemID != NULL)
       {
-        $select->where ("a.systems like '%?%'", $systemID);
+        $select->where ("a.systems like ?'", '%'.$systemID.'%');
       }
       try
       {

@@ -85,7 +85,7 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->searchByName (1, 'weka');
+        $result = $soap_client->searchByName (1, 'automation gmbh');
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
@@ -97,7 +97,7 @@
 
     public function getadressAction ()
     {
-      $location_soap_wcos = "http://wcos/soap";
+      $location_soap_wcos = "http://testing.wcos.weka-fachmedien.de/soap";
       //$result = $soap_client->searchAnbieter ('weka');
       try
       {

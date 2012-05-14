@@ -36,10 +36,16 @@
       */
       //           ->orWhere ('ud.nachname like "'.$searchPhrase.'%"', $searchPhrase)
       //           ->orWhere ('ud.vorname like "'.$searchPhrase.'%"');
-      $select->from (array('a' => 'anbieter'))
-      ->join (array('sd' => 'stammdaten'), 'a.stammdatenID = sd.stammdatenID')
-      ->where ('a.firmenname like "' . $searchPhrase . '%"')
-      ->order (array('a.firmenname ASC'));
+      $keywords = explode (' ', $searchPhrase);
+      $select->from (array('a' => 'anbieter'));
+      foreach ($keywords as $keyword)
+      {
+        $select->orWhere ("a.firmenname like '%$keyword%'");
+      }
+      $select->join (array('sd' => 'stammdaten'), 'a.stammdatenID = sd.stammdatenID');
+      //->where ('a.firmenname like "' . $searchPhrase . '%"')
+      $select->order (array('a.firmenname ASC'));
+      //logDebug (print_r ($select->__toString (), true), "");
       if ($systemID != NULL)
       {
         $select->where ("a.systems like '%$systemID%'");
@@ -61,7 +67,6 @@
         return $anbieter;
       }
       return NULL;
-
       /*
       $operator = 'AND';
          $keywords = explode(" ",$phrase);
@@ -183,14 +188,14 @@
       //logDebug (print_r ($select->__toString ()), "");
       if ($systemID != NULL)
       {
-        $select->where ("a.systems like ?", '%'.$systemID.'%');
+        $select->where ("a.systems like ?", '%' . $systemID . '%');
       }
       try
       {
         $result = $select->query ();
       } catch (Zend_Exception $e)
       {
-        logError ($e->getMessage(), "");
+        logError ($e->getMessage (), "");
       }
       $data = $result->fetchAll ();
       //array_walk_recursive ($data, 'utfEncode');

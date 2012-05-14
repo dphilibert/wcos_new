@@ -183,7 +183,7 @@
       logDebug (print_r ($select->__toString ()), "");
       if ($systemID != NULL)
       {
-        $select->where ("a.systems like ?'", '%'.$systemID.'%');
+        $select->where ("a.systems like ?", '%'.$systemID.'%');
       }
       try
       {

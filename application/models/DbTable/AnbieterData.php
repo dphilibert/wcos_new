@@ -33,14 +33,14 @@
       $where = array();
       foreach ($keywords as $keyword)
       {
-        $where[] = "(name1 LIKE '%" . $keyword . "%' OR name2 LIKE '%" . $keyword . "%' OR name3 LIKE '%" . $keyword . "%')";
+        $where[] = "(firmenname LIKE '%" . $keyword . "%' OR name1 LIKE '%" . $keyword . "%' OR name2 LIKE '%" . $keyword . "%' OR name3 LIKE '%" . $keyword . "%')";
       }
       $where = implode (" " . $operator . " ", $where);
       $sql = "SELECT * FROM anbieter a
               INNER JOIN stammdaten sd ON a.stammdatenID = sd.stammdatenID
               LEFT JOIN media m ON a.anbieterID = m.anbieterID AND m.mediatyp='FIRMENLOGO' WHERE " . $where . " GROUP BY a.anbieterID ORDER BY a.firmenname, a.name1 ASC";
 
-      //logDebug ($sql, "");
+      logDebug ($sql, "");
       try
       {
         $stmt = $db->query ($sql);

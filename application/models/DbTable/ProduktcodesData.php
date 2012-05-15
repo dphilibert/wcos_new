@@ -60,6 +60,7 @@
       if ($vmKundennummer != NULL) {
         $select->where ("pc2kd.vmKundennummer = ?", $vmKundennummer);
       }
+      $select->order ('hauptbegriff, oberbegriff, branchenname');
       $result = $select->query ();
       $data = $result->fetchAll ();
       ////logDebug (print_r ($data, true), "getStammdaten");

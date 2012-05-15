@@ -26,39 +26,31 @@
      */
     public function searchAnbieter ($searchPhrase, $systemID = NULL)
     {
+      $anbieter = NULL;
       $db = Zend_Registry::get ('db');
-      $select = $db->select ();
-      /*
-          $select->from (array ('u' => 'user'))
-                 ->join (array ('ud' => 'userDetails'), 'u.userDetailID = ud.userDetail_ID')
-                 ->join (array ('land' => 'laender'), 'ud.landID = land.laenderID')
-                 ->where ('ud.firmenname like "'.$searchPhrase.'%"', $searchPhrase);
-      */
-      //           ->orWhere ('ud.nachname like "'.$searchPhrase.'%"', $searchPhrase)
-      //           ->orWhere ('ud.vorname like "'.$searchPhrase.'%"');
-      $keywords = explode (' ', $searchPhrase);
-      $select->from (array('a' => 'anbieter'));
+      $operator = 'AND';
+      $keywords = explode (" ", $searchPhrase);
+      $where = array();
       foreach ($keywords as $keyword)
       {
-        $select->orWhere ("a.firmenname like '%$keyword%'");
+        $where[] = "(name1 LIKE '%" . $keyword . "%' OR name2 LIKE '%" . $keyword . "%' OR name3 LIKE '%" . $keyword . "%')";
       }
-      $select->join (array('sd' => 'stammdaten'), 'a.stammdatenID = sd.stammdatenID');
-      //LEFT JOIN media AS m ON m.anbieterID=a.anbieterID AND m.mediatyp='FIRMENLOGO'
-      $select->joinLeft (array ('m' => 'media'), 'a.anbieterID = m.anbieterID AND m.mediatyp="FIRMENLOGO"');
-      //->where ('a.firmenname like "' . $searchPhrase . '%"')
-      $select->group ('a.anbieterID');
-      $select->order (array('a.firmenname ASC'));
+      $where = implode (" " . $operator . " ", $where);
+      $sql = "SELECT * FROM anbieter a
+              INNER JOIN stammdaten sd ON a.stammdatenID = sd.stammdatenID
+              LEFT JOIN media m ON a.anbieterID = m.anbieterID AND m.mediatyp='FIRMENLOGO' WHERE " . $where . " GROUP BY a.anbieterID ORDER BY a.firmenname, a.name1 ASC";
 
-      //logDebug (print_r ($select->__toString (), true), "");
-      if ($systemID != NULL)
+      //logDebug ($sql, "");
+      try
       {
-        $select->where ("a.systems like '%$systemID%'");
+        $stmt = $db->query ($sql);
+        $data = $stmt->fetchAll ();
+      } catch (Zend_Exception $e)
+      {
+        logError (print_r ($e->getMessage (), true), "");
       }
-      //logDebug (print_r ($select->__toString (), true), "");
-      $result = $select->query ();
-      $data = $result->fetchAll ();
-      //array_walk_recursive ($data, 'utfEncode');
-      //array_walk_recursive ($data, 'utfEncode');
+
+      //logDebug (print_r ($data, true), "test2");
       $i = 0;
       if (count ($data) > 0)
       {

@@ -97,12 +97,12 @@
 
     public function getadressAction ()
     {
-      $location_soap_wcos = "http://testing.wcos.weka-fachmedien.de/soap";
+      $location_soap_wcos = "http://wcos/soap";
       //$result = $soap_client->searchAnbieter ('weka');
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->getAdress (8817778);
+        $result = $soap_client->getAdress (16319);
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
@@ -181,7 +181,7 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->getBild (8803443, 3);
+        $result = $soap_client->getBild (16319, 1);
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");

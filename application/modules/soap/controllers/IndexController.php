@@ -726,7 +726,8 @@
         $retData = NULL;
         if (count ($media) > 0)
         {
-          $firmenlogo = $media [0] ['mediadatei'];
+          $media = $media [0];
+          $firmenlogo = $media ['mediaID'] . "." . $media ['mediaExtension'];
         }
         $retData ['Premium'] = $anbieterData ['premiumLevel'];
         $retData ['Name 1'] = $anbieterData ['firmenname'];
@@ -744,6 +745,7 @@
         $retData ['Internetadresse'] = $stammdaten ['www'];
         if ($firmenlogo != NULL)
         {
+
           $retData ['Logo'] = $firmenlogo;
         }
         return $retData;

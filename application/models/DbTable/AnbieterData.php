@@ -43,6 +43,8 @@
         $select->orWhere ("a.firmenname like '%$keyword%'");
       }
       $select->join (array('sd' => 'stammdaten'), 'a.stammdatenID = sd.stammdatenID');
+      //LEFT JOIN media AS m ON m.anbieterID=a.anbieterID AND m.mediatyp='FIRMENLOGO'
+      $select->joinLeft (array ('m' => 'media'), 'a.anbieterID = m.anbieterID AND m.mediatyp="FIRMENLOGO"');
       //->where ('a.firmenname like "' . $searchPhrase . '%"')
       $select->order (array('a.firmenname ASC'));
       //logDebug (print_r ($select->__toString (), true), "");
@@ -50,8 +52,10 @@
       {
         $select->where ("a.systems like '%$systemID%'");
       }
+      //logDebug (print_r ($select->__toString (), true), "");
       $result = $select->query ();
       $data = $result->fetchAll ();
+      //array_walk_recursive ($data, 'utfEncode');
       //array_walk_recursive ($data, 'utfEncode');
       $i = 0;
       if (count ($data) > 0)

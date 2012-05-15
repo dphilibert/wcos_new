@@ -636,8 +636,7 @@
      * @param $systemID
      * @param $firmenName
      */
-    public
-    function searchByName ($systemID, $firmenName)
+    public function searchByName ($systemID, $firmenName)
     {
       $data = NULL;
       $model = new Model_DbTable_AnbieterData();
@@ -649,32 +648,42 @@
       //logDebug (print_r ($resData, true), "");
       if (count ($resData) > 0)
       {
-        foreach ($resData ['hits'] as $key => $dataset)
+        foreach ($resData ['hits'] as $key => $anbieterData)
         {
-          $vmKundennummer = $dataset ['anbieterID'];
+          $vmKundennummer = $anbieterData ['anbieterID'];
           $anbieter_model = new Model_DbTable_AnbieterData();
-          $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
-          $media_model = new Model_DbTable_MediaData();
-          $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
+          //        $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
+          //  $media_model = new Model_DbTable_MediaData();
+          // $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
+          /*
           $stammdaten_model = new Model_DbTable_StammdatenData();
           $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
           $stammdaten = $stammdaten [0];
+          */
           //logDebug (count  ($media), "");
           $firmenlogo = NULL;
           $retData = NULL;
-          if (count ($media) > 0)
+          if (array_key_exists ('mediaID', $anbieterData) && $anbieterData ['mediaID'] != NULL)
           {
-            $firmenlogo = $media [0] ['mediaID'] . "." . $media [0] ['mediaExtension'];
+            $firmenlogo = $anbieterData ['mediaID'] . "." . $anbieterData ['mediaExtension'];
           }
           $premiumStatus = $anbieterData ['premiumLevel'];
           $retData ['Kundennummer'] = $vmKundennummer;
-          $retData ['Name 1'] = $anbieterData ['firmenname'];
-          $retData ['Name 2'] = '';
-          $retData ['Name 3'] = '';
-          $retData ['Name 4'] = '';
-          $retData ['Land'] = $stammdaten ['land'];
-          $retData ['PLZ'] = $stammdaten ['plz'];
-          $retData ['Ort'] = $stammdaten ['ort'];
+          if (!array_key_exists ('name1', $retData) || $retData ['name1'] == NULL)
+          {
+            $retData ['Name 1'] = $anbieterData ['firmenname'];
+          }
+          else
+          {
+            $retData ['Name 1'] = $anbieterData ['name1'];
+          }
+          $retData ['Name 2'] = $anbieterData ['name2'];
+          ;
+          $retData ['Name 3'] = $anbieterData ['name3'];
+          $retData ['Name 4'] = $anbieterData ['name4'];
+          $retData ['Land'] = $anbieterData ['land'];
+          $retData ['PLZ'] = $anbieterData ['plz'];
+          $retData ['Ort'] = $anbieterData ['ort'];
           if ($firmenlogo != NULL)
           {
             $retData ['Logo'] = $firmenlogo;

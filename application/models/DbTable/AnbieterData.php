@@ -46,7 +46,9 @@
       //LEFT JOIN media AS m ON m.anbieterID=a.anbieterID AND m.mediatyp='FIRMENLOGO'
       $select->joinLeft (array ('m' => 'media'), 'a.anbieterID = m.anbieterID AND m.mediatyp="FIRMENLOGO"');
       //->where ('a.firmenname like "' . $searchPhrase . '%"')
+      $select->group ('a.anbieterID');
       $select->order (array('a.firmenname ASC'));
+
       //logDebug (print_r ($select->__toString (), true), "");
       if ($systemID != NULL)
       {

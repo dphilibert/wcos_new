@@ -354,7 +354,8 @@
     {
       $db = Zend_Registry::get ('db');
       $select = $db->select ();
-      $select->from (array('a' => 'anbieter'));
+      $select->from (array('a' => 'anbieter'))
+      ->where ('a.premiumLevel = ?', 1);
       if ($systemID > 0)
       {
         $select->where ("a.systems like '%$systemID%'");
@@ -384,7 +385,8 @@
     {
       $db = Zend_Registry::get ('db');
       $select = $db->select ();
-      $select->from (array('a' => 'anbieter'));
+      $select->from (array('a' => 'anbieter'))
+      ->where ('a.premiumLevel = ?', 1);
       if ($systemID > 0)
       {
         $select->where ("a.systems like '%$systemID%'");

@@ -39,7 +39,6 @@
       $sql = "SELECT *, a.anbieterID as anbieterID, m.mediaID as mediaID FROM anbieter a
               INNER JOIN stammdaten sd ON a.stammdatenID = sd.stammdatenID
               LEFT JOIN media m ON a.anbieterID = m.anbieterID AND m.mediatyp='FIRMENLOGO' WHERE " . $where . " GROUP BY a.anbieterID ORDER BY a.firmenname, a.name1 ASC";
-
       logDebug ($sql, "");
       try
       {
@@ -49,7 +48,59 @@
       {
         logError (print_r ($e->getMessage (), true), "");
       }
+      //logDebug (print_r ($data, true), "test2");
+      $i = 0;
+      if (count ($data) > 0)
+      {
+        foreach ($data as $key => $hit)
+        {
+          $i++;
+          $anbieter ['hits'] [$key] = $hit;
+        }
+      }
+      if ($i > 0)
+      {
+        return $anbieter;
+      }
+      return NULL;
+      /*
+      $operator = 'AND';
+         $keywords = explode(" ",$phrase);
+         $where = array();
+         foreach($keywords as $keyword) {
+          $where[] = "(`name`LIKE '%".$keyword."%' OR  `name_zusatz` LIKE '%".$keyword."%' )";
+         }
+         $where = implode("\n ".$operator." ",$where);
+        
+         $sql = "SELECT  * FROM `anbieter_company` WHERE   ".$where." ";
+      */
+    }
 
+
+    public function searchAnbieterInAlphabet ($searchPhrase, $systemID = NULL)
+    {
+      $anbieter = NULL;
+      $db = Zend_Registry::get ('db');
+      $operator = 'AND';
+      $keywords = explode (" ", $searchPhrase);
+      $where = array();
+      foreach ($keywords as $keyword)
+      {
+        $where[] = "(firmenname LIKE '" . $keyword . "%' OR name1 LIKE '" . $keyword . "%' OR name2 LIKE '" . $keyword . "%' OR name3 LIKE '" . $keyword . "%')";
+      }
+      $where = implode (" " . $operator . " ", $where);
+      $sql = "SELECT *, a.anbieterID as anbieterID, m.mediaID as mediaID FROM anbieter a
+                  INNER JOIN stammdaten sd ON a.stammdatenID = sd.stammdatenID
+                  LEFT JOIN media m ON a.anbieterID = m.anbieterID AND m.mediatyp='FIRMENLOGO' WHERE " . $where . " GROUP BY a.anbieterID ORDER BY a.firmenname, a.name1 ASC";
+      logDebug ($sql, "");
+      try
+      {
+        $stmt = $db->query ($sql);
+        $data = $stmt->fetchAll ();
+      } catch (Zend_Exception $e)
+      {
+        logError (print_r ($e->getMessage (), true), "");
+      }
       //logDebug (print_r ($data, true), "test2");
       $i = 0;
       if (count ($data) > 0)

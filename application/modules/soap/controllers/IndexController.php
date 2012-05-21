@@ -601,10 +601,9 @@
           //logDebug (count  ($media), "");
           $firmenlogo = NULL;
           $retData = NULL;
-
           if (count ($media) > 0)
           {
-           // logDebug (print_r ($media, true), "");
+            // logDebug (print_r ($media, true), "");
             $firmenlogo = $media [0] ['mediaID'] . "." . $media [0] ['mediaExtension'];
           }
           $premiumStatus = $anbieterData ['premiumLevel'];
@@ -704,6 +703,73 @@
       }
     }
 
+
+    public function searchByNameInAlphabet ($systemID, $firmenName)
+    {
+      $data = NULL;
+      $model = new Model_DbTable_AnbieterData();
+      if ($systemID == 0)
+      {
+        $systemID = NULL;
+      }
+      $resData = $model->searchAnbieterInAlphabet ($firmenName, $systemID);
+      //logDebug (print_r ($resData, true), "");
+      if (count ($resData) > 0)
+      {
+        foreach ($resData ['hits'] as $key => $anbieterData)
+        {
+          $vmKundennummer = $anbieterData ['anbieterID'];
+          $anbieter_model = new Model_DbTable_AnbieterData();
+          //        $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
+          //  $media_model = new Model_DbTable_MediaData();
+          // $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
+          /*
+          $stammdaten_model = new Model_DbTable_StammdatenData();
+          $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
+          $stammdaten = $stammdaten [0];
+          */
+          //logDebug (count  ($media), "");
+          $firmenlogo = NULL;
+          $retData = NULL;
+          if (array_key_exists ('mediaID', $anbieterData) && $anbieterData ['mediaID'] != NULL)
+          {
+            $firmenlogo = $anbieterData ['mediaID'] . "." . $anbieterData ['mediaExtension'];
+          }
+          $premiumStatus = $anbieterData ['premiumLevel'];
+          $retData ['Kundennummer'] = $vmKundennummer;
+          if (!array_key_exists ('name1', $retData) || $retData ['name1'] == NULL)
+          {
+            $retData ['Name 1'] = $anbieterData ['firmenname'];
+          }
+          else
+          {
+            $retData ['Name 1'] = $anbieterData ['name1'];
+          }
+          $retData ['Name 2'] = $anbieterData ['name2'];
+          ;
+          $retData ['Name 3'] = $anbieterData ['name3'];
+          $retData ['Name 4'] = $anbieterData ['name4'];
+          $retData ['Land'] = $anbieterData ['land'];
+          $retData ['PLZ'] = $anbieterData ['plz'];
+          $retData ['Ort'] = $anbieterData ['ort'];
+          if ($firmenlogo != NULL)
+          {
+            $retData ['Logo'] = $firmenlogo;
+          }
+          if ($premiumStatus == 1)
+          {
+            $data ['PREMIUM'] [] = $retData;
+          }
+          else
+          {
+            $data ['STANDARD'] [] = $retData;
+          }
+        }
+        return $data;
+      }
+    }
+
+
     /**
      * liefert den vollständigen Kundendatensatz
      *
@@ -749,7 +815,6 @@
         $retData ['Internetadresse'] = $stammdaten ['www'];
         if ($firmenlogo != NULL)
         {
-
           $retData ['Logo'] = $firmenlogo;
         }
         return $retData;

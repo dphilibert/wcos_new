@@ -103,13 +103,13 @@
     public function getFirmen4Produktcode ($systemID, $produktcodeID)
     {
       $db = Zend_Registry::get ('db');
-      $select = $db->select ();
+      $select = $db->select ()->distinct();
       $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'), array("*"))
       ->where ("pc2kd.produktcode = ?", $produktcodeID)
       ->where ("pc2kd.systems like '%$systemID%'");
       $result = $select->query ();
       $data = $result->fetchAll ();
-      //logDebug (print_r ($select->__toString (), true), "getFirmen4Produktcode");
+      logDebug (print_r ($select->__toString (), true), "getFirmen4Produktcode");
       //logDebug (print_r ($data, true), "");
       return $data;
     }

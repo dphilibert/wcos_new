@@ -41,13 +41,14 @@
         }
         $select->where ("t.status >= 0");
         $select->where ("t.anbieterID = ?", $anbieterID);
-        $select->order (array("t.beginn ASC", "t.ende ASC", "t.ort ASC"));
+        $select->order (array("DATE_FORMAT(t.beginn, '%d.%m.%Y') ASC", "DATE_FORMAT(t.ende,'%d.%m.%Y') ASC", "t.ort ASC"));
         $result = $select->query ();
         $data = $result->fetchAll ();
       } catch (Zend_Exception $e)
       {
         //logDebug ($e->getMessage (), "Exception:Model_DbTable_TermineData:getTermineList");
       }
+      logDebug (print_r ($select->__toString (), true), "");
       return $data;
     }
 

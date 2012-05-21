@@ -596,13 +596,16 @@
           $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
           $stammdaten_model = new Model_DbTable_StammdatenData();
           $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
+          //logDebug (print_r ($stammdaten, true), "");
           $stammdaten = $stammdaten [0];
           //logDebug (count  ($media), "");
           $firmenlogo = NULL;
           $retData = NULL;
+
           if (count ($media) > 0)
           {
-            $firmenlogo = $medium [0] ['mediaID'] . "." . $medium [0] ['mediaExtension'];
+           // logDebug (print_r ($media, true), "");
+            $firmenlogo = $media [0] ['mediaID'] . "." . $media [0] ['mediaExtension'];
           }
           $premiumStatus = $anbieterData ['premiumLevel'];
           $retData ['Kundennummer'] = $vmKundennummer;
@@ -722,6 +725,7 @@
         $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
         $stammdaten = $stammdaten [0];
         //logDebug (count  ($media), "");
+        //logDebug (print_r ($media, true), "");
         $firmenlogo = NULL;
         $retData = NULL;
         if (count ($media) > 0)

@@ -70,7 +70,7 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->searchByProduktcode (1, 3701);
+        $result = $soap_client->searchByProduktcode (1, 3542);
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
@@ -85,7 +85,7 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->searchByName (1, 'weka');
+        $result = $soap_client->searchByName (1, 'siemens');
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
@@ -102,7 +102,7 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->getAdress (16319);
+        $result = $soap_client->getAdress (1011199);
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
@@ -110,6 +110,21 @@
       logDebug (print_r ($result, true), "getAdress-Test");
     }
 
+
+    public function gettermineAction ()
+    {
+      $location_soap_wcos = "http://wcos/soap";
+      //$result = $soap_client->searchAnbieter ('weka');
+      try
+      {
+        $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
+        $result = $soap_client->getTermineListe (9033378);
+      } catch (SoapFault $e)
+      {
+        logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
+      }
+      logDebug (print_r ($result, true), "getTermine-Test");
+    }
 
     public function profilAction ()
     {
@@ -307,7 +322,7 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->getRandomAccounts (1,10);
+        $result = $soap_client->getRandomAccounts (1, 10);
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");

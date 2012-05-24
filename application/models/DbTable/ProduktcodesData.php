@@ -108,7 +108,9 @@
       ->join (array('a' => 'anbieter'), 'a.anbieterID = pc2kd.vmKundennummer')
       ->where ("pc2kd.produktcode = ?", $produktcodeID)
       ->where ("pc2kd.systems like '%$systemID%'")
-      ->order ('a.name1');
+      ->order ('a.firmenname')
+      ->order ('a.name1')
+      ->order ('a.name2');
       $result = $select->query ();
       $data = $result->fetchAll ();
       logDebug (print_r ($select->__toString (), true), "getFirmen4Produktcode");

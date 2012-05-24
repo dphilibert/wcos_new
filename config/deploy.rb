@@ -16,14 +16,14 @@ set :scm_verbose, true
 
 task :staging do
   role :web, "colonia.weka-fachmedien.de", :primary => true
-  set :deploy_to, "/www2/staging/crn"
+  set :deploy_to, "/srv/www/staging/wcos.weka-fachmedien.de"
   set :app_environment, "staging"
   set :branch, "master"
 end
 
 task :production do
   role :web, "colonia.weka-fachmedien.de", :primary => true
-  set :deploy_to, "/www2/production/crn"
+  set :deploy_to, "/srv/www/live/wcos.weka-fachmedien.de"
   set :app_environment, "production"
   set :branch, "master"
 end

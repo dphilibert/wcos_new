@@ -54,12 +54,12 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->getProduktSpektrum (2); // alle
+        $result = $soap_client->getProduktSpektrum (1, 16319); // alle
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
       }
-      logDebug (print_r ($result, true), "Produktcodes-Test");
+      //logDebug (print_r ($result, true), "Produktcodes-Test");
     }
 
 
@@ -70,7 +70,7 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->searchByProduktcode (1, 3542);
+        $result = $soap_client->searchByProduktcode (1, 3170);
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");
@@ -85,7 +85,7 @@
       try
       {
         $soap_client = new SoapClient(null, array('location' => $location_soap_wcos, 'uri' => 'wcos'));
-        $result = $soap_client->searchByName (1, 'siemens');
+        $result = $soap_client->searchByNameInAlphabet (1, 'gly');
       } catch (SoapFault $e)
       {
         logDebug (print_r ($e->getMessage (), true), "Exception geschmissen!");

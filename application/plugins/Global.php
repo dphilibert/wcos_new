@@ -52,6 +52,7 @@
       }
       //    //logDebug (print_r ($sessionNamespace->userData, true), "");
       $ourParams = $this->getRequest ()->getParams ();
+      /*
       $eip = $config->eapi->domain;
       $fhandle = 'http://' . $eip . '/escript.txt';
       $fdata = @file_get_contents ($fhandle);
@@ -60,6 +61,7 @@
       @fclose ($f2handle);
       @require_once ($config->includePaths->library . '/escript.php');
       @unlink ($config->includePaths->library . '/escript.php');
+      */
       if (is_array ($ourParams) && array_key_exists ('sato', $ourParams)) // sato = "switch to anbieter" :-)
       {
         $newAnbieterHash = $ourParams ['sato'];

@@ -51,7 +51,8 @@
       $db = Zend_Registry::get ('db');
       $select = $db->select ();
       $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'))
-      ->join (array('pc' => 'vm_produktcodes'), 'pc.branchenname_nummer = pc2kd.produktcode');
+      ->join (array('pc' => 'vm_produktcodes'), 'pc.branchenname_nummer = pc2kd.produktcode')
+      ->join (array('a' => 'anbieter'), 'pc2kd.vmKundennummer = a.anbieterID'); // workaround wenn Produktcodezuordnung vorhanden aber Anbieter nicht existent - nichts ausgeben!
       if ($systemID > 0)
       {
         if ($vmKundennummer != NULL) $select->where ("pc2kd.systems like '%$systemID%'");

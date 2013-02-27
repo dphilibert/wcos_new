@@ -15,10 +15,12 @@ set :deploy_via, :remote_cache
 set :scm_verbose, true
 
 task :staging do
+  print "Which branch should be deployed (wcos 2, master)? "
+  branch = $stdin.gets.chomp
   role :web, "colonia.weka-fachmedien.de", :primary => true
   set :deploy_to, "/srv/www/staging/wcos.weka-fachmedien.de"
   set :app_environment, "staging"
-  set :branch, "master"
+  set :branch, branch
 end
 
 task :production do
@@ -43,7 +45,8 @@ namespace :deploy do
       run "chmod -R g+w #{releases_path}/#{release_name}"
       run "rm -rf #{releases_path}/#{release_name}/public/uploads"
       run "ln -s /srv/www/#{app_environment}/wcos.weka-fachmedien.de/uploads #{releases_path}/#{release_name}/public/uploads"
-      run "cp /srv/www/testing/_config/wcos.#{app_environment}.htaccess.conf #{releases_path}/#{release_name}/public/.htaccess"
+      #run "cp /srv/www/_config/wcos.#{app_environment}.local.php #{releases_path}/#{release_name}/config/autoload/local.php"
+      run "cp /srv/www/_config/wcos.#{app_environment}.htaccess.conf #{releases_path}/#{release_name}/public/.htaccess"
     end
   end
 

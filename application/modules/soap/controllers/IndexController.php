@@ -163,14 +163,14 @@
       $videos = NULL;
       $model = new Model_DbTable_MediaData ();
       $media = $model->getAllMedia ($anbieterID, "VIDEO");
-      //logDebug (print_r ($media, true), "");
       $i = 1;
       foreach ($media as $video)
       {
-        $videos [$i] ['Dateiname'] = $video ['mediaID'] . "." . $video ['mediaExtension'];
-        $videos [$i] ['Bildbeschreibung'] = $video ['desc'];
-        $videos [$i] ['URL'] = $video ['link'];
-        if ($video ['embed'] != '')
+        $videos[$i]['Dateiname']		= $video ['mediaID'] . "." . $video ['mediaExtension'];
+        $videos[$i]['Bildbeschreibung']	= $video ['desc'];
+        $videos[$i]['URL']				= $video ['link'];
+        
+        if ($video['embed'] != '')
         {
           $videos [$i] ['Embedcode'] = $video ['embed'];
         }
@@ -178,11 +178,20 @@
       }
       if ($videoNummer != NULL)
       {
-        return $videos [$videoNummer];
+		 return $videos[$videoNummer];
+		
       }
       return $videos;
     }
 
+    public function getStartbild ($anbieterID, $beschreibung)
+    {
+		#$data = array();
+		$model = new Model_DbTable_MediaData ();
+		#$data = $model->getVideoStartbild($anbieterID,$beschreibung);
+		#$startbild	= $data['mediaID'] . "." . $data['mediaExtension'];
+		return $model->getVideoStartbild($anbieterID,$beschreibung);
+	}
 
     /**
      * liefert alle Medien zu einem Anbieter
@@ -777,10 +786,9 @@
      */
     public function getAdress ($vmKundennummer)
     {
-      $data = NULL;
+      #$data = NULL;
       $model = new Model_DbTable_StammdatenData();
       $resData = $model->getStammdaten ($vmKundennummer);
-      logDebug (print_r ($resData, true), "resData");
       if (count ($resData) > 0)
       {
         $anbieter_model = new Model_DbTable_AnbieterData();
@@ -788,10 +796,8 @@
         $media_model = new Model_DbTable_MediaData();
         $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
         $stammdaten_model = new Model_DbTable_StammdatenData();
-        $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
+		$stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
         $stammdaten = $stammdaten [0];
-        //logDebug (count  ($media), "");
-        //logDebug (print_r ($media, true), "");
         $firmenlogo = NULL;
         $retData = NULL;
         if (count ($media) > 0)

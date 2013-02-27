@@ -330,6 +330,21 @@
       //logDebug (print_r ($select->__toString (), true), "");
       return $data;
     }
+    
+	public function getVideoStartbild ($anbieterID,$beschreibung)
+	{
+      $db = Zend_Registry::get ('db');
+      $select = $db->select ();
+		$select->from('media')
+				->where('anbieterID = ?', $anbieterID)
+				->where('beschreibung = ?',$beschreibung)
+				->where('mediatyp = "VIDEOSTART"');
+		$result = $select->query();
+		$data = $result->fetchAll();
+		$bild = $data[0]['mediaID'].'.'.$data[0]['mediaExtension'];
+		return $bild;
+		
+	}
   }
 
 ?>

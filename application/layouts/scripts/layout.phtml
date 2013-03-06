@@ -242,8 +242,9 @@
       </div>
       <div class="accountInfoItem accountInfoBottom">
         <div class="left">
-          Adresse: <?php echo $stammdaten ['strasse'] . ' ' . $stammdaten ['hausnummer'] . ' | ' . $stammdaten ['plz'] . ' ' . $stammdaten ['ort'] . ' (' . $country . ')'; ?></div>
-        <div class="right">Web: <a href="http://<?php echo $stammdaten ['www']; ?>"
+          Adresse: <?php echo $stammdaten ['strasse'] . ' ' . $stammdaten ['hausnummer'] . ' | ' . $stammdaten ['plz'] . ' ' . $stammdaten ['ort'] . ' (' . $country . ')'; ?>
+		</div>
+        <div class="left">Web: <a href="http://<?php echo $stammdaten ['www']; ?>"
                                    target="_blank"><?php echo $stammdaten ['www']; ?></a></div>
         <div class="clearer"></div>
       </div>
@@ -258,30 +259,7 @@
         <div class="right">System-ID: <?php echo $stammdaten ['companyID']; ?></div>
         <div class="clearer"></div>
       </div>
-
-      <?php
-      if ($userIsAdmin) // user ist ein Admin-User
-      {
-        ?>
-        <div class="accountInfoItem accountProfilAnschauen">
-          <div class="left">Anbieter-Auswahl (Admin):</div>
-          <div class="right">
-            <select id="anbieterSelect">
-              <?php
-              $anbieterModel = new Model_DbTable_AnbieterData();
-              $response = $anbieterModel->getAnbieterList ();
-              foreach ($response as $key => $oneAnbieter)
-              {
-                echo "<option id='" . $oneAnbieter ['anbieterhash'] . "' value='" . $oneAnbieter ['anbieterhash'] . "'>" . $oneAnbieter ['number'] . " - ". $oneAnbieter ['firmenname'] . "</option>";
-              }
-              ?>
-            </select>
-          </div>
-          <div class="clearer"></div>
-        </div>
-        <?php
-      }
-      ?>
+	
       <div class="accountInfoItem accountInfoDatenAktualisieren">
         <div class="left">Aktualisieren Sie Ihre Daten:</div>
         <div class="right">
@@ -301,6 +279,31 @@
         <div class="clearer"></div>
       </div>
 
+      <?php
+      if ($userIsAdmin) // user ist ein Admin-User
+      {
+        ?>
+		<br />
+        <div class="accountInfoItem accountProfilAnschauen">
+          <div class="left">Anbieter-Auswahl (Admin):</div>
+          <div class="right">
+            <select id="anbieterSelect">
+              <?php
+              $anbieterModel = new Model_DbTable_AnbieterData();
+              $response = $anbieterModel->getAnbieterList ();
+              foreach ($response as $key => $oneAnbieter)
+              {
+                echo "<option id='" . $oneAnbieter ['anbieterhash'] . "' value='" . $oneAnbieter ['anbieterhash'] . "'>" . $oneAnbieter ['number'] . " - ". $oneAnbieter ['firmenname'] . "</option>";
+              }
+              ?>
+            </select>
+          </div>
+          <div class="clearer"></div>
+        </div>
+        <?php
+      }
+      ?>
+	
     </div>
   </div>
   <div class="clearer"></div>

@@ -840,6 +840,66 @@
     }
   }
 
+   /**
+     * liefert den vollständigen Kundendatensatz
+     *
+     * @param $vmKundennummer
+     */
+    public function getAdress2 ($vmKundennummer,$systemID)
+    {
+      $data = NULL;
+      $model = new Model_DbTable_StammdatenData();
+      $resData = $model->getStammdaten ($vmKundennummer);
+      logDebug (print_r ($resData, true), "resData");
+      if (count ($resData) > 0)
+      {
+        $anbieter_model = new Model_DbTable_AnbieterData();
+        $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
+        $media_model = new Model_DbTable_MediaData();
+        $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
+        $stammdaten_model = new Model_DbTable_StammdatenData();
+        $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
+        $stammdaten = $stammdaten [0];
+        //logDebug (count  ($media), "");
+        //logDebug (print_r ($media, true), "");
+        $firmenlogo = NULL;
+        $retData = NULL;
+        if (count ($media) > 0)
+        {
+          $media = $media [0];
+          $firmenlogo = $media ['mediaID'] . "." . $media ['mediaExtension'];
+        }
+
+		$systems = explode(",", $anbieterData ['systems']);
+		if ((is_array($systems) AND in_array($systemID,$systems)) OR $systems == $systemID)
+		{
+			   $retData ['Premium'] = $anbieterData ['premiumLevel'];
+		}
+		else
+		{
+			 $retData ['Premium'] = 0;
+		}
+        $retData ['Name 1'] = $anbieterData ['firmenname'];
+        $retData ['Name 2'] = '';
+        $retData ['Name 3'] = '';
+        $retData ['Name 4'] = '';
+        $retData ['Land'] = $stammdaten ['land'];
+        $retData ['PLZ'] = $stammdaten ['plz'];
+        $retData ['Ort'] = $stammdaten ['ort'];
+        $retData ['Straße'] = $stammdaten ['strasse'];
+        $retData ['Hausnummer'] = $stammdaten ['hausnummer'];
+        $retData ['Telefon'] = $stammdaten ['fon'];
+        $retData ['Telefax'] = $stammdaten ['fax'];
+        $retData ['E-Mail'] = $stammdaten ['email'];
+        $retData ['Internetadresse'] = $stammdaten ['www'];
+        if ($firmenlogo != NULL)
+        {
+          $retData ['Logo'] = $firmenlogo;
+        }
+        return $retData;
+      }
+    }
+  
   /**
    * IndexController des SOAP-Service
    *

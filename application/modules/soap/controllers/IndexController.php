@@ -838,7 +838,7 @@
     {
       return $this->getProduktSpektrum ($systemID, $vmKundennummer);
     }
-  }
+
 
    /**
      * liefert den vollständigen Kundendatensatz
@@ -899,6 +899,7 @@
         return $retData;
       }
     }
+  }
   
   /**
    * IndexController des SOAP-Service

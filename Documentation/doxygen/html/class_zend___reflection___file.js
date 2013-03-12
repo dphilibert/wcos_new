@@ -1,0 +1,26 @@
+var class_zend___reflection___file =
+[
+    [ "__construct", "class_zend___reflection___file.html#a8ef77288a5f940c68ebc57fdf0102078", null ],
+    [ "__toString", "class_zend___reflection___file.html#a7516ca30af0db3cdbf9a7739b48ce91d", null ],
+    [ "_checkFileDocBlock", "class_zend___reflection___file.html#addce6e0e83b65ff903e622c00cb6fa77", null ],
+    [ "_reflect", "class_zend___reflection___file.html#a681dc3bf2327675c26cdc6b87fdd04b5", null ],
+    [ "export", "class_zend___reflection___file.html#a278338a00e1596bbb1e906bdcf6b0a18", null ],
+    [ "findRealpathInIncludePath", "class_zend___reflection___file.html#ac010d5635b4c97d2eca2368d709c88dd", null ],
+    [ "getClass", "class_zend___reflection___file.html#ade6ee25b7ffaab65c84309224d70e6ee", null ],
+    [ "getClasses", "class_zend___reflection___file.html#ae3ded6b87e5e61e68a1518c73a0e5d5e", null ],
+    [ "getContents", "class_zend___reflection___file.html#a14814e04b348120748912692645f3a75", null ],
+    [ "getDocblock", "class_zend___reflection___file.html#a223e7344245a127ff3ea10a2220fd6d4", null ],
+    [ "getDocComment", "class_zend___reflection___file.html#a7ad315042ad7fc45bd7e7d979647738a", null ],
+    [ "getEndLine", "class_zend___reflection___file.html#a7ad149e4075bba710a8933065263fe0e", null ],
+    [ "getFileName", "class_zend___reflection___file.html#afdeebfe3fcf5806fc79c074a6a3a6eb1", null ],
+    [ "getFunctions", "class_zend___reflection___file.html#af6eabbc585068f50ddc9ee8cd58f8730", null ],
+    [ "getStartLine", "class_zend___reflection___file.html#a0c5336ffcf8d85709d6f212bd49c7bb4", null ],
+    [ "$_classes", "class_zend___reflection___file.html#a429c9bf2a1a7123e7d350631751eff67", null ],
+    [ "$_contents", "class_zend___reflection___file.html#a2d8e5c7da9c9225c38df9c20f018bf97", null ],
+    [ "$_docComment", "class_zend___reflection___file.html#a38ddf0099cef89801f28bfd4db4efd4e", null ],
+    [ "$_endLine", "class_zend___reflection___file.html#ab128cd7818ba95ec7c1801e08c500d83", null ],
+    [ "$_filepath", "class_zend___reflection___file.html#ab3697b6d3a28ba565ecb0c01540c5446", null ],
+    [ "$_functions", "class_zend___reflection___file.html#a9e0deada4b914ed776ccf0a6c808ef78", null ],
+    [ "$_requiredFiles", "class_zend___reflection___file.html#a403cc2ca5f8184fce997f971a9042002", null ],
+    [ "$_startLine", "class_zend___reflection___file.html#abae2002a923e5b98df05242539604d56", null ]
+];

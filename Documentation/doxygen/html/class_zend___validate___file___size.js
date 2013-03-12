@@ -1,0 +1,25 @@
+var class_zend___validate___file___size =
+[
+    [ "__construct", "class_zend___validate___file___size.html#ae8b8e1144b807ac13f20a916fd073b32", null ],
+    [ "_fromByteString", "class_zend___validate___file___size.html#a048f3a1f43076702aead2ef632a2dd25", null ],
+    [ "_getSize", "class_zend___validate___file___size.html#a3d12a91a297f88c36e191e69a5b171fa", null ],
+    [ "_setSize", "class_zend___validate___file___size.html#a7d01c8f3c231ecbde436f14c4f7ce963", null ],
+    [ "_throw", "class_zend___validate___file___size.html#a02eddf80afa4a9e9e3d345d297905dc0", null ],
+    [ "_toByteString", "class_zend___validate___file___size.html#ac2b63e2d59001df4494925a9ad2408b7", null ],
+    [ "getMax", "class_zend___validate___file___size.html#a8e968c1f7c3bef40e647654624d12544", null ],
+    [ "getMin", "class_zend___validate___file___size.html#aa09e1d5acede0532b07c9f9f1268e8ad", null ],
+    [ "isValid", "class_zend___validate___file___size.html#a4c64e22c3400b190836ceb80b2fdf41a", null ],
+    [ "setMax", "class_zend___validate___file___size.html#a093b1809e991c58b31276ce42e36b838", null ],
+    [ "setMin", "class_zend___validate___file___size.html#a84e58d78d0b53edec6ee6f18f7855e2e", null ],
+    [ "setUseByteString", "class_zend___validate___file___size.html#a927f1f26887b22adaf719ce0198d60df", null ],
+    [ "useByteString", "class_zend___validate___file___size.html#ada9a00b13b208db87fad0ab92d15d708", null ],
+    [ "$_max", "class_zend___validate___file___size.html#a03d7199ef0a0f57557579b2c68c903fd", null ],
+    [ "$_messageTemplates", "class_zend___validate___file___size.html#a08fff24101dd36bbe298c233a66ea0d7", null ],
+    [ "$_messageVariables", "class_zend___validate___file___size.html#aca4e98b2c3fbfeba7bd3a6db0ece0563", null ],
+    [ "$_min", "class_zend___validate___file___size.html#ae268ad2868ae3e63e753d709ea83ff8c", null ],
+    [ "$_size", "class_zend___validate___file___size.html#a3f3a27f0a14f4760227dbc5ae3288681", null ],
+    [ "$_useByteString", "class_zend___validate___file___size.html#a94ee50737b4493000dc2d15a99e7a8ea", null ],
+    [ "NOT_FOUND", "class_zend___validate___file___size.html#a7f901f6b28533c0b7d5407eb5b7e5318", null ],
+    [ "TOO_BIG", "class_zend___validate___file___size.html#ab43ff78b9c9b5e6dad881adcbfe533bf", null ],
+    [ "TOO_SMALL", "class_zend___validate___file___size.html#aaed9df5a4c2b7446a078e468b2f5c966", null ]
+];

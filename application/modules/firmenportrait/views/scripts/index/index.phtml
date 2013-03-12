@@ -1,0 +1,30 @@
+<img src="/images/pageDescriptionImages/firmenportrait.png" class="contentDescriptionImage">
+<div class="liste" id="liste">
+  <table class="tableListe">
+    <tr class="tableListeZeileHeader">
+      <td>&nbsp;</td>
+      <td style="width:100px;">Aktionen</td>
+    </tr>
+    <tr name="tableListeZeile" id="null" class="tableListeZeile" style="display:none">
+      <td id="eintrag"></td>
+      <td><a href="#firmenportrait_editor" id="edit" onClick="tinymceInit();"><img src="/img/icons/date_edit.png">&nbsp;&nbsp;Bearbeiten</td>
+    </tr>
+  </table>
+</div>
+
+<!-- lightbox Edit-Fenster -->
+<div style="display:none;">
+<div id="firmenportrait_editor">
+<input type="HIDDEN" id="ID" value="">
+<table border="0" width=100%>
+<tr>
+  <td id="tinyMCETD"><textarea id="editor" rows="25" cols="90"></textarea></td>
+</tr>
+  <tr>
+    <td colspan="5" align="center">
+      <input id="buttonSave" class="buttonSave" type="button" value="  speichern">
+    </td>
+  </tr>
+</table>
+</div>
+</div>

@@ -1,0 +1,12 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="Zend_Controller_Request_Http",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Zend_Controller_Request_Abstract",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___controller___request___abstract.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Zend_Controller_Request_Apache404",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___controller___request___apache404.html"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Zend_Controller_Request_HttpTestCase",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___controller___request___http_test_case.html"];
+}

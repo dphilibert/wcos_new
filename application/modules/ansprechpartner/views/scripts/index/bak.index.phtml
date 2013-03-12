@@ -1,0 +1,105 @@
+<div class="liste" id="liste">
+  <table class="tableListe">
+    <tr class="tableListeZeileHeader">
+      <td>Vorname</td>
+      <td>Nachname</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  <?php
+    $zeile = 0;
+    foreach ($this->ansprechpartner as $key => $ansprechpartner)
+    {
+      $zeile++;
+      $apID = $ansprechpartner ['ansprechpartnerID'];
+    ?>
+    <!-- die abstrakten Klassen row1-4 werden fuer jquery gebraucht -->
+    <tr id="ansprechpartner_<?php echo $apID; ?>" apID="<?php echo $apID?>" class="tableListeZeile">
+       <td id="ap_vorname_<?php echo $apID; ?>" class="row1">
+       <?php echo $ansprechpartner ['vorname']; ?>
+       </td> 
+       <td id="ap_nachname_<?php echo $apID; ?>" class="row2">
+       <?php echo $ansprechpartner ['nachname']; ?>
+       </td> 
+       <td id="ap_edit">
+         <img src="/img/icons/user_edit.png" class="row3" onClick="editDialog (<?php echo $apID; ?>);">
+       </td>
+       <td id="ap_delete">
+         <img src="/img/icons/user_delete.png" class="row4" onClick = "delDialog (<?php echo $apID; ?>);">
+       </td>
+    </tr>
+    <?php
+    }
+  ?>
+  <tr id="ap_neu">
+  	<td><img src="/img/icons/user_add.png"></td>
+  </tr>
+  </table>
+</div>
+
+
+<div id="ansprechpartner_editor" class="" style="display:none">
+  <input type="HIDDEN" id="apID" value="">
+  <table>
+  <tr>
+    <td>Anrede</td>
+    <td>
+      <select id="ap_anrede" class="benutzerPopupinputAusgabeSelekt">
+      <?php
+      foreach ($this->anreden as $anredeKey => $anrede)
+      {
+      ?>
+        <option value="<?php echo $anrede ['anredeID']; ?>"><?php echo $anrede ['anrede']; ?></option>
+      <?php
+      }
+      ?>
+      </select>
+    </td>
+   </tr>
+   <tr>
+    <td>Vorname</td>
+	   <td><input type="text" id="ap_vorname" value="<?php echo $this->data->vorname; ?>"></td>
+    <td>Nachname</td>
+	   <td><input type="text" id="ap_nachname" value="<?php echo $this->data->nachname; ?>"></td>
+   </tr>
+   <tr>
+     <td>Abteilung</td>
+     <td><input type="text" id="ap_abteilung"  value="<?php echo $this->data->abteilung; ?>"></td>
+     <td>Telefon</td>
+	    <td><input type="text" id="ap_telefon"  value="<?php echo $this->data->telefon; ?>"></td>
+   </tr>
+   <tr>
+     <td>Position</td>
+     <td><input type="text" id="ap_position"  value="<?php echo $this->data->position; ?>"></td>
+     <td>Telefax</td>
+	    <td><input type="text" id="ap_telefax"  value="<?php echo $this->data->telefax; ?>"></td>
+   </tr>
+   <tr>
+     <td>eMail</td>
+     <td><input type="text" id="ap_email"  value="<?php echo $this->data->email; ?>"></td>
+     <td>Bemerkung</td>
+	    <td><input type="text" id="ap_bemerkung"  value="<?php echo $this->data->bemerkung; ?>"></td>
+   </tr>
+   <tr>
+    <td colspan="3">Ansprechpartner Bild (vorher im MediaManager anlegen)</td>
+    <td>
+								<select name="ansprechpartnerlogo" id="xxxmediaID" class="benutzerPopupinputAusgabe">
+								<option value="0">kein Bild</option>
+								<?php
+//logDebug (print_r ($this->medien, true));
+								foreach ($this->medien as $key => $media)
+								{
+								?>
+										<option value="<?php echo $media ['mediaID']; ?>"><?php echo $media ['mediadesc']; ?></option>
+								<?php
+								}
+								?>
+								</select>
+				  </td>
+    </tr> 
+    </table>
+ <!-- preload the images -->
+    <div style='display:none'>
+      <img src='/img/simpleModal/x.png' alt='' />
+    </div>
+</div>

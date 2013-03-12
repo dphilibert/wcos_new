@@ -1,0 +1,25 @@
+var class_zend___loader___plugin_loader =
+[
+    [ "__construct", "class_zend___loader___plugin_loader.html#a637c6078950b534d56bc1c8a7f1b4bdb", null ],
+    [ "_appendIncFile", "class_zend___loader___plugin_loader.html#a8507b474908be5bb8a5be2166b1fd362", null ],
+    [ "_formatName", "class_zend___loader___plugin_loader.html#ace739d97022581ed5684a395f7b55ef9", null ],
+    [ "_formatPrefix", "class_zend___loader___plugin_loader.html#a6d18da774a3515782407e5591ff48526", null ],
+    [ "addPrefixPath", "class_zend___loader___plugin_loader.html#a262985f7fc9985ef0641fb2ae5d082d8", null ],
+    [ "clearPaths", "class_zend___loader___plugin_loader.html#a2f48b1b7f25f08eacb2a281a3341fb2c", null ],
+    [ "getClassName", "class_zend___loader___plugin_loader.html#a54476f4deb4913d9303f59995d9f2c90", null ],
+    [ "getClassPath", "class_zend___loader___plugin_loader.html#ada7bea2217a29e2c72028ab243eea2ae", null ],
+    [ "getIncludeFileCache", "class_zend___loader___plugin_loader.html#aec0299fce7ee08acb6d256e48e4675c6", null ],
+    [ "getPaths", "class_zend___loader___plugin_loader.html#a6d4b8c5d517806d49c6eb9fb9988b7d8", null ],
+    [ "isLoaded", "class_zend___loader___plugin_loader.html#aa8f8e361f944bc10f7ad45ec268b20ba", null ],
+    [ "load", "class_zend___loader___plugin_loader.html#a5e1455fa7f1e7373af2b01a5335667e2", null ],
+    [ "removePrefixPath", "class_zend___loader___plugin_loader.html#a64fb6d042ddddb08f65d0ddde6343f9e", null ],
+    [ "setIncludeFileCache", "class_zend___loader___plugin_loader.html#ad89c60b681bfcacd8d37e760abe3c6a7", null ],
+    [ "$_includeFileCache", "class_zend___loader___plugin_loader.html#a239546a59cf3ac55abfe767dde113e4c", null ],
+    [ "$_loadedPluginPaths", "class_zend___loader___plugin_loader.html#a50e95558f61fbaf9231466ecbcb9fe54", null ],
+    [ "$_loadedPlugins", "class_zend___loader___plugin_loader.html#ac3f902b19f6a90c28b2849a2a510cf63", null ],
+    [ "$_prefixToPaths", "class_zend___loader___plugin_loader.html#a64be554b9f270b9d3563942e1d24c416", null ],
+    [ "$_staticLoadedPluginPaths", "class_zend___loader___plugin_loader.html#a01e6dcc9ecbd7d270caacb869d1a5ca0", null ],
+    [ "$_staticLoadedPlugins", "class_zend___loader___plugin_loader.html#a68b7ba298f1b59372d19ce0e6de3151c", null ],
+    [ "$_staticPrefixToPaths", "class_zend___loader___plugin_loader.html#a53421c34be82115a6b59e43a58758043", null ],
+    [ "$_useStaticRegistry", "class_zend___loader___plugin_loader.html#ad304469cfc9be01b5344647fc6bec5fc", null ]
+];

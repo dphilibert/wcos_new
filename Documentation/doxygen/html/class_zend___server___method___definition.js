@@ -1,0 +1,26 @@
+var class_zend___server___method___definition =
+[
+    [ "__construct", "class_zend___server___method___definition.html#ae8cda3b1eced24bb5ffaab1fcb107cf7", null ],
+    [ "addPrototype", "class_zend___server___method___definition.html#a6e1644a44eb7ecc1261c10fffefe4650", null ],
+    [ "addPrototypes", "class_zend___server___method___definition.html#a9032b419870769ad3d742a17064ce831", null ],
+    [ "getCallback", "class_zend___server___method___definition.html#acbd215c5bf109a1fe6ecd5dca0b86fda", null ],
+    [ "getInvokeArguments", "class_zend___server___method___definition.html#a4598376afa3ea2766d9cf23793beabe4", null ],
+    [ "getMethodHelp", "class_zend___server___method___definition.html#ae2e6e594302f3c2f55b22974b6883a63", null ],
+    [ "getName", "class_zend___server___method___definition.html#a3d0963e68bb313b163a73f2803c64600", null ],
+    [ "getObject", "class_zend___server___method___definition.html#a8ecaa7401cc1e1144cb98698a9658ebc", null ],
+    [ "getPrototypes", "class_zend___server___method___definition.html#a7164154c84596ce3dee4e5da71fa20c6", null ],
+    [ "setCallback", "class_zend___server___method___definition.html#a49ca4d857049cb3331f40ec4c799764b", null ],
+    [ "setInvokeArguments", "class_zend___server___method___definition.html#acf26167d6c9e00474441b13e891cd83c", null ],
+    [ "setMethodHelp", "class_zend___server___method___definition.html#a60b06c1867c2b59bc7160d2fb46c82af", null ],
+    [ "setName", "class_zend___server___method___definition.html#a2fe666694997d047711d7653eca2f132", null ],
+    [ "setObject", "class_zend___server___method___definition.html#aa134d7b3d91d13aeb01f7abf5f8ec441", null ],
+    [ "setOptions", "class_zend___server___method___definition.html#a673b5e9db470a52ea28b56a44e23e2d0", null ],
+    [ "setPrototypes", "class_zend___server___method___definition.html#a6a174e3195bacdcc131c461f9835fef5", null ],
+    [ "toArray", "class_zend___server___method___definition.html#a658defb34762c8f40085aec87e16ba1a", null ],
+    [ "$_callback", "class_zend___server___method___definition.html#a225c35e9ec50b839420fa144cdb0e84d", null ],
+    [ "$_invokeArguments", "class_zend___server___method___definition.html#a08a3177adabb0bb217f3c5dae9fd7196", null ],
+    [ "$_methodHelp", "class_zend___server___method___definition.html#a193ac9af6ecbdf6ee6d8b67f358eaa84", null ],
+    [ "$_name", "class_zend___server___method___definition.html#a1c89defaf5aa7ac8e526065e8572f580", null ],
+    [ "$_object", "class_zend___server___method___definition.html#a7943a1fdb8789bfab359ae90f133b5ad", null ],
+    [ "$_prototypes", "class_zend___server___method___definition.html#a455ca6b894d15fb773eefccbf29dc9aa", null ]
+];

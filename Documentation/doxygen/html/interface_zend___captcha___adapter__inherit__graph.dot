@@ -1,0 +1,20 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="Zend_Captcha_Adapter",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Zend_Validate_Interface",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interface_zend___validate___interface.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Zend_Captcha_Base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___captcha___base.html"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Zend_Captcha_ReCaptcha",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___captcha___re_captcha.html"];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Zend_Captcha_Word",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___captcha___word.html"];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Zend_Captcha_Dumb",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___captcha___dumb.html"];
+  Node5 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Zend_Captcha_Figlet",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___captcha___figlet.html"];
+  Node5 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Zend_Captcha_Image",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___captcha___image.html"];
+}

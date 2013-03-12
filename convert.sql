@@ -1,0 +1,8 @@
+update ansprechpartner t1 set t1.anbieterID=(select number from anbieter a where t1.anbieterID=a.anbieterID) where t1.anbieterID=(select anbieterID from anbieter a where t1.anbieterID=a.anbieterID);
+update firmenportraits t1 set t1.anbieterID=(select number from anbieter a where t1.anbieterID=a.anbieterID) where t1.anbieterID=(select anbieterID from anbieter a where t1.anbieterID=a.anbieterID);
+update jobs t1 set t1.anbieterID=(select number from anbieter a where t1.anbieterID=a.anbieterID) where t1.anbieterID=(select anbieterID from anbieter a where t1.anbieterID=a.anbieterID);
+update laufzeiten t1 set t1.anbieterID=(select number from anbieter a where t1.anbieterID=a.anbieterID) where t1.anbieterID=(select anbieterID from anbieter a where t1.anbieterID=a.anbieterID);
+update media t1 set t1.anbieterID=(select number from anbieter a where t1.anbieterID=a.anbieterID) where t1.anbieterID=(select anbieterID from anbieter a where t1.anbieterID=a.anbieterID);
+update termine t1 set t1.anbieterID=(select number from anbieter a where t1.anbieterID=a.anbieterID) where t1.anbieterID=(select anbieterID from anbieter a where t1.anbieterID=a.anbieterID);
+update whitepaper t1 set t1.whitepaper_anbieterID=(select number from anbieter a where t1.whitepaper_anbieterID=a.anbieterID) where t1.whitepaper_anbieterID=(select anbieterID from anbieter a where t1.whitepaper_anbieterID=a.anbieterID);
+update anbieter t1 set t1.anbieterID=t1.number;

@@ -1,0 +1,21 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Zend_Log_Writer_Abstract",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Zend_Log_Writer_Db",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___log___writer___db.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Zend_Log_Writer_Firebug",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___log___writer___firebug.html"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Zend_Log_Writer_Mail",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___log___writer___mail.html"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Zend_Log_Writer_Mock",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___log___writer___mock.html"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Zend_Log_Writer_Null",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___log___writer___null.html"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Zend_Log_Writer_Stream",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___log___writer___stream.html"];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Zend_Log_Writer_Syslog",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___log___writer___syslog.html"];
+}

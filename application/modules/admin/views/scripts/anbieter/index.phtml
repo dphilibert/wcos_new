@@ -1,0 +1,61 @@
+<div class="contentLeft"><img src="/images/pageDescriptionImages/anbieter.png" class="contentDescriptionImage">
+</div>
+<div class="contentRight">
+  <a id="neu" href="#anbieter_editor" onClick="newEntry ();"><img src="/img/icons/user_add.png"/>&nbsp;&nbsp;Anbieter
+    hinzuf&uuml;gen</a></a>
+  <!--<a href="#" id="add"><img src="/img/icons/user_add.png" />&nbsp;&nbsp;Ansprechpartner hinzuf&uuml;gen</a>-->
+</div>
+<div class="clearer"></div>
+<div class="liste" id="liste">
+  <div class="searchPageinator">
+    <div class="contentRightBelow"><input type="text" class="searchBox" id="searchBox" name="searchBox"/></div>
+    <div class="clearer"></div>
+  </div>
+
+
+  <table class="tableListe">
+
+    <tr id="paginator" class="paginator">
+      <td colspan="6" align="center">
+        <?php echo $this->partial ('paginator.phtml', 'default');?>
+      </td>
+    </tr>
+
+    <tr class="tableListeZeileHeader">
+      <td>VM-Kundennummer</td>
+      <td>Anbieter-ID</td>
+      <td>Anbietername</td>
+      <td>Ort</td>
+      <td class="tableListeAction">Aktionen</td>
+    </tr>
+    <tr>
+    </tr>
+    <tr name="tableListeZeile" id="null" class="tableListeZeile" style="display:none">
+      <td id="liste_vmkundennummer"></td>
+      <td id="liste_anbieterid"></td>
+      <td id="liste_anbietername"></td>
+      <td id="liste_ort"></td>
+      <td class="tableListeAction"><a href="#anbieter_editor" id="edit"><img
+      src="/img/icons/user_edit.png">&nbsp;&nbsp;Bearbeiten</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+      href="#ansprechpartner_editor" id="del"><img
+      src="/img/icons/user_delete.png">&nbsp;&nbsp;L&ouml;schen</a></td>
+    </tr>
+  </table>
+</div>
+
+<!-- lightbox Edit-Fenster -->
+<div style="display: none;">
+  <div id="ansprechpartner_editor">
+    <input type="HIDDEN" id="apID" value="">
+    <table style="width:100%;">
+
+    </table>
+    <input id="buttonSave" class="buttonSave" type="button" value="Speichern &amp; Schlie&szlig;en">
+  </div>
+</div>
+<!-- Lightbox End-->
+<!-- preload the images -->
+<!-- <div style='display:none'>
+   <img src='/img/simpleModal/x.png' alt='' />
+ </div>-->
+<?php echo $this->partial ('delConfirm.phtml', 'default'); ?>

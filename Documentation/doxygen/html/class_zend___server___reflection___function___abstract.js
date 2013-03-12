@@ -1,0 +1,25 @@
+var class_zend___server___reflection___function___abstract =
+[
+    [ "__construct", "class_zend___server___reflection___function___abstract.html#ae8c9c61e87ea48c68e9e767ad5f0210e", null ],
+    [ "__call", "class_zend___server___reflection___function___abstract.html#a9f1179240d068c94a040021326032bed", null ],
+    [ "__get", "class_zend___server___reflection___function___abstract.html#a4537dad3b44254124991341cc91b28fb", null ],
+    [ "__set", "class_zend___server___reflection___function___abstract.html#a79b36d71c6f1d4f9e6c4c3e34c081456", null ],
+    [ "__wakeup", "class_zend___server___reflection___function___abstract.html#a19dd44fe063cfd1cbafe97452e57666c", null ],
+    [ "_addTree", "class_zend___server___reflection___function___abstract.html#a1dc1e59c443a794e8077140ce7a42149", null ],
+    [ "_buildSignatures", "class_zend___server___reflection___function___abstract.html#aa600c670a7fe794d42314c8d31ebbd75", null ],
+    [ "_buildTree", "class_zend___server___reflection___function___abstract.html#aa7232a06be5eb1f6f21ac64bedfb77cd", null ],
+    [ "_reflect", "class_zend___server___reflection___function___abstract.html#a681dc3bf2327675c26cdc6b87fdd04b5", null ],
+    [ "getDescription", "class_zend___server___reflection___function___abstract.html#a2e7bb35c71bf1824456ceb944cb7a845", null ],
+    [ "getInvokeArguments", "class_zend___server___reflection___function___abstract.html#a4598376afa3ea2766d9cf23793beabe4", null ],
+    [ "getNamespace", "class_zend___server___reflection___function___abstract.html#a2614df64646ac71b70b1e1074258052b", null ],
+    [ "getPrototypes", "class_zend___server___reflection___function___abstract.html#a7164154c84596ce3dee4e5da71fa20c6", null ],
+    [ "setDescription", "class_zend___server___reflection___function___abstract.html#af6bbc3a133cc76f17ec9196a92aac6f6", null ],
+    [ "setNamespace", "class_zend___server___reflection___function___abstract.html#a37949ed2c12b42fb654edc1bac8569ba", null ],
+    [ "$_argv", "class_zend___server___reflection___function___abstract.html#aaadfa554cd648bd6aec7321652f94c5d", null ],
+    [ "$_class", "class_zend___server___reflection___function___abstract.html#a5f1220d251c517b8035d671cc55d7e68", null ],
+    [ "$_config", "class_zend___server___reflection___function___abstract.html#a4d4ad4af1600438042f93a4492f8dbbe", null ],
+    [ "$_description", "class_zend___server___reflection___function___abstract.html#a8117a7944266f3283fa6d3526d5b24dc", null ],
+    [ "$_namespace", "class_zend___server___reflection___function___abstract.html#af5798f1ff14736637728a9f5ac702753", null ],
+    [ "$_prototypes", "class_zend___server___reflection___function___abstract.html#a455ca6b894d15fb773eefccbf29dc9aa", null ],
+    [ "$_reflection", "class_zend___server___reflection___function___abstract.html#a538458f3daffc43c6334602cb77b22a3", null ]
+];

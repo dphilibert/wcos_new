@@ -1,0 +1,25 @@
+var class_zend___measure___acceleration =
+[
+    [ "$_units", "class_zend___measure___acceleration.html#a8f31bc57ad7b20491096c5ec34bdca22", null ],
+    [ "CENTIGAL", "class_zend___measure___acceleration.html#ab04cc292c95c99196b9755ca94554bc1", null ],
+    [ "CENTIMETER_PER_SQUARE_SECOND", "class_zend___measure___acceleration.html#a5f2bed7dfffc928bc53b120e51a08528", null ],
+    [ "DECIGAL", "class_zend___measure___acceleration.html#a7e08b1e1cbe2dd4eb3a170d6700e5927", null ],
+    [ "DECIMETER_PER_SQUARE_SECOND", "class_zend___measure___acceleration.html#a3ab469f9ed30ba145feab80a7e60f8c2", null ],
+    [ "DEKAMETER_PER_SQUARE_SECOND", "class_zend___measure___acceleration.html#a4f9c26a130b0408d9fd0f72cd73679dd", null ],
+    [ "FOOT_PER_SQUARE_SECOND", "class_zend___measure___acceleration.html#a4caadcdd77d996ac13cac5134886044b", null ],
+    [ "G", "class_zend___measure___acceleration.html#a4f433cd90d5a4d0bfbd8e9173110fe1a", null ],
+    [ "GAL", "class_zend___measure___acceleration.html#a09cd5c9edd97fa299b9d3b13c984323c", null ],
+    [ "GALILEO", "class_zend___measure___acceleration.html#a9e83fcb6df8513e26e6f91de2bd6cea1", null ],
+    [ "GRAV", "class_zend___measure___acceleration.html#a28f68fe4bf31b5344664a79e80a9e1ea", null ],
+    [ "HECTOMETER_PER_SQUARE_SECOND", "class_zend___measure___acceleration.html#a9c2461ce54a7078277bf13541a0bdd9e", null ],
+    [ "INCH_PER_SQUARE_SECOND", "class_zend___measure___acceleration.html#a3dd8d2df2a518ee68ba2a445e03fcfab", null ],
+    [ "KILOMETER_PER_HOUR_SECOND", "class_zend___measure___acceleration.html#a51a1f274bb08f654807d8cd4475a12c2", null ],
+    [ "KILOMETER_PER_SQUARE_SECOND", "class_zend___measure___acceleration.html#ac9d386157386ead2f08c65625e31f364", null ],
+    [ "METER_PER_SQUARE_SECOND", "class_zend___measure___acceleration.html#a9ba7c9e3007b1c2b9133bd6f1c7a3ed8", null ],
+    [ "MILE_PER_HOUR_MINUTE", "class_zend___measure___acceleration.html#a834b3615fc112289029b41020832e63f", null ],
+    [ "MILE_PER_HOUR_SECOND", "class_zend___measure___acceleration.html#ab4a11ca72dc647e085004fc010a89f7e", null ],
+    [ "MILE_PER_SQUARE_SECOND", "class_zend___measure___acceleration.html#a4512295d3a9c5517ba60d5106912c849", null ],
+    [ "MILLIGAL", "class_zend___measure___acceleration.html#a0bbbd46e760e9e271dff285e2d3368c3", null ],
+    [ "MILLIMETER_PER_SQUARE_SECOND", "class_zend___measure___acceleration.html#a4dec695716a8ab8f2aee3918e41fcb94", null ],
+    [ "STANDARD", "class_zend___measure___acceleration.html#af1b8ea630d35c5d45af25bdcc9553888", null ]
+];

@@ -1,0 +1,12 @@
+SetEnv APPLICATION_ENV development
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule !\.(js|ico|gif|jpg|png|css|zip)$ index.php
+
+#php_value default_charset "iso-8859-1"
+php_value default_charset "utf8"
+php_value post_max_size 64M

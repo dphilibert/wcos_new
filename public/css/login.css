@@ -1,0 +1,218 @@
+body
+{
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    background-color: #ffffff;
+}
+
+/* font faces */
+
+@font-face 
+{
+    font-family: 'JosefinSansStdLight';
+    src: url('/fonts/JosefinSansStd-Light-webfont.eot');
+    src: url('/fonts/JosefinSansStd-Light-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/JosefinSansStd-Light-webfont.woff') format('woff'),
+        url('/fonts/JosefinSansStd-Light-webfont.ttf') format('truetype'),
+        url('/fonts/JosefinSansStd-Light-webfont.svg#JosefinSansStdLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+input
+{
+    outline: none;
+}
+
+.hidden
+{
+    display: none;
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+}
+
+.bar
+{
+    background-color: #35b1e1;
+    margin: 0px;
+    padding: 0px;
+    height:3px;
+    text-align:center;
+}
+
+.backgroundNormal
+{
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 500px;
+    width: 1000px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.productLogos
+{
+    text-align:center;
+}
+
+.productLogos img 
+{
+    margin-right:1px;
+}
+
+.login
+{
+    /*background-image:url("/images/loginForm.png");*/
+    /*TODO: in non-CSS einbauen*/
+    background-color: #1b7d9e;
+
+    border-radius: 10px;
+    height: 81px;
+    width: 693px;
+    margin: auto;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 100px;
+    box-shadow: 0px 0px 10px #1b7d9e;
+}
+
+.login span
+{
+    font-family: JosefinSansStdLight, Arial;
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 25px;
+    color: #ffffff;
+    font-size: 35px;
+}
+
+.inputField
+{
+    background: none;
+    background-image: url("/images/formField.png");
+    background-repeat: no-repeat;
+    height: 29px;
+    width: 211px;
+    float: left;
+    border: none;
+    font-size: 16px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-right: 15px;
+    margin-top: 21px;
+    padding-left: 10px;
+    color: #000000;
+    padding-right: 15px;
+}
+
+.inputField:focus
+{
+    background: none;
+    background-image: url("/images/formFieldFocus.png");
+    background-repeat: no-repeat;
+    height: 29px;
+    width: 211px;
+    float: left;
+    border: none;
+    font-size: 16px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-right: 15px;
+    margin-top: 21px;
+    padding-left: 10px;
+    color: #000000;
+    padding-right: 15px;
+}
+
+.loginForm
+{
+    padding-left: 120px;
+}
+
+.loginButton
+{
+    background: none;
+    border: none;
+    background-image: url("/images/loginButtonNormal.png");
+    height: 53px;
+    width: 58px;
+    margin-top: 14px;
+    margin-left: -10px;
+}
+
+.loginButton:active
+{
+    background-image: url("/images/loginButtonPressed.png");
+}
+
+.forgotPassword
+{
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+
+    position: absolute;
+    background-color: #000000;
+    opacity: 0;
+    padding: 3px;
+    height: 15px;
+    text-align: center;
+    cursor: pointer;
+    width: 15px;
+    color: #ffffff;
+    border-radius: 4px;
+    margin-left: 565px;
+    margin-top: -37px;
+    /*    visibility: hidden;*/
+}
+
+.forgotPasswordText
+{
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: -3px;
+    margin-left: 370px;
+}
+
+.systemLogos
+{
+    /*float: left;*/
+    width:1000px;
+    margin:auto;
+}
+
+.systemLogos img
+{
+    text-align: center;
+    max-width:16%;
+    /*
+    border-style:solid;
+    border-width: thin;
+    */
+}
+
+.clearer, .clear
+{
+    clear: both;
+}
+
+.wcosName
+{
+    font-family:Arial;
+    font-size:55px;
+    text-align:center;
+    margin-top:160px;
+}

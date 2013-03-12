@@ -1,0 +1,252 @@
+/* @author: Bernd Tiefenbach, Thomas Grahammer - 2011 */
+
+body
+{
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  color: #000000;
+  font-size: 11px;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+li
+{
+  float: left;
+  padding: 5px;
+  margin:2px;
+  height: 36px;
+  border:1px outset;
+  list-style: none;
+  background-color: #FFFFFF;
+  color:#000000;
+}
+
+a
+{
+  color:#1D5588;
+  text-decoration:none;
+}
+
+a:hover
+{
+  color: #1D5588;
+  text-decoration:none;
+}
+
+label
+{
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+img
+{
+  border:0px;
+}
+
+/* id */
+
+#main
+{
+  border: 0px;
+  margin:auto;
+}
+
+#mainContent
+{
+
+}
+
+
+#clearer
+{
+ clear: both;
+}
+
+
+#suche
+{
+  float:right;
+}
+
+#loginFormInnerDiv
+{
+  width:100%;
+  margin:auto;
+}
+
+#content
+{
+  margin:auto;
+  border:0px;
+}
+
+#productname
+{
+  text-align:center;
+  font-size:14px;
+}
+
+#stammdatenEdit
+{
+}
+
+#anbieterAuswahl
+{
+  color: #000000;
+  float:left;
+}
+
+#breadcrump
+{
+  color: #000000;
+  float:left;
+}
+
+#suche
+{
+  color: #000000;
+  float:left;
+}
+
+/* classes */
+
+.inactive
+{
+  background-color: #132D46;
+  color: #FFFFFF;
+}
+
+.inactive a
+{
+  background-color: #132D46;
+  color: #FFFFFF;
+}
+
+.header
+{
+  width:100%;
+  background-color:#1D5789;
+  color:#FFFFFF;
+}
+
+.mainMenu
+{
+  margin:auto;
+}
+
+.subMenu
+{
+  margin:auto;
+}
+
+.menuImage
+{
+  padding:2px;
+  float:left;
+}
+
+.menuText
+{
+  float:left;
+  position:relative;
+  top:10px;
+}
+
+.menuText:hover
+{
+}
+
+.loginForm
+{
+  margin:auto;
+  margin-top:100px;
+  width:20%;
+}
+
+
+.editDialog
+{
+  background-color:#1D5588;
+  border:1px solid;
+}
+
+.tableListe
+{
+  width:1175px;
+  border:1px solid;
+}
+
+.tableListeZeileHeader
+{
+  background-color:#1D5588;
+  color:#FFFFFF;
+}
+
+.tableListeZeile
+{
+	width:98%;
+	margin:auto;
+}
+
+.tableListeZeile:hover
+{
+  background-color:#C3D3E0;
+}
+
+.tableListeZeileGrey:hover
+{
+  background-color:#C3D3E0;
+}
+
+.tableListeZeileGrey
+{
+  background-color:lightgrey;
+}
+
+
+.buttonSave
+{
+  border: 1px solid #D9DDDE;
+  margin: 0px;
+  padding: 0px;
+  background-image:url("../img/icons/disk.gif");
+  background-repeat:no-repeat;
+  background-position: 2px 2px;
+  font-size:12px;
+  width:100px;
+}
+
+
+.switch
+{
+  display:none;
+}
+
+
+.nicEdit-main
+{
+  background-color:#FFFFFF;
+  color:#000000;
+}
+
+.nicEdit-selected {
+  background-color:#FFFFFF;
+}
+
+.nicEdit-panel {
+  background-color: #FFFFFF;
+}
+
+.nicEdit-button {
+  background-color: #FFFFFF;
+}
+
+.userSuggest
+{
+  margin: 0px;
+  background-color: #FFFFFF;
+  width: 400px;
+  height: 50px;
+}
+

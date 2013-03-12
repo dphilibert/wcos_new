@@ -1,0 +1,45 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Zend_Tool_Project_Context_Filesystem_File",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Zend_Tool_Project_Context_Filesystem_Abstract",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___filesystem___abstract.html"];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Zend_Tool_Project_Context_Interface",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interface_zend___tool___project___context___interface.html"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Zend_Tool_Project_Context_System_ProjectProfileFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___system___project_profile_file.html"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Zend_Tool_Project_Context_Zf_ApplicationConfigFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___application_config_file.html"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Zend_Tool_Project_Context_Zf_BootstrapFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___bootstrap_file.html"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Zend_Tool_Project_Context_Zf_ConfigFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___config_file.html"];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Zend_Tool_Project_Context_Zf_ControllerFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___controller_file.html"];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="Zend_Tool_Project_Context_Zf_DbTableFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___db_table_file.html"];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="Zend_Tool_Project_Context_Zf_FormFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___form_file.html"];
+  Node1 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="Zend_Tool_Project_Context_Zf_HtaccessFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___htaccess_file.html"];
+  Node1 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="Zend_Tool_Project_Context_Zf_ModelFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___model_file.html"];
+  Node1 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="Zend_Tool_Project_Context_Zf_ProjectProviderFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___project_provider_file.html"];
+  Node1 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="Zend_Tool_Project_Context_Zf_PublicIndexFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___public_index_file.html"];
+  Node1 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="Zend_Tool_Project_Context_Zf_TestApplicationBootstrapFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___test_application_bootstrap_file.html"];
+  Node1 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="Zend_Tool_Project_Context_Zf_TestApplicationControllerFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___test_application_controller_file.html"];
+  Node1 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="Zend_Tool_Project_Context_Zf_TestLibraryBootstrapFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___test_library_bootstrap_file.html"];
+  Node1 -> Node18 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="Zend_Tool_Project_Context_Zf_TestLibraryFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___test_library_file.html"];
+  Node1 -> Node19 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node19 [label="Zend_Tool_Project_Context_Zf_TestPHPUnitConfigFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___test_p_h_p_unit_config_file.html"];
+  Node1 -> Node20 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node20 [label="Zend_Tool_Project_Context_Zf_ViewScriptFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zend___tool___project___context___zf___view_script_file.html"];
+}

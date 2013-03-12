@@ -1,0 +1,63 @@
+<input type="HIDDEN" id="premiumLevel" value="<?php echo $this->premiumLevel; ?>">
+<img src="/images/pageDescriptionImages/accountdetails.png" class="contentDescriptionImage">
+
+<table border="0" style="width:100%;"> 
+    <tr>
+        <td style="width:30%;">
+            Anbieter:
+        </td>
+        <td style="width:70%;">
+            <a href="#changeData" class="changeDataLightbox"><div class="inputText accountDetailsInput"><?php echo utf8_encode ($this->anbieterDetails ['FIRMENNAME']); ?></div></a>
+        </td>
+    </tr> 
+    <tr>
+        <td>
+            Letzter Login:
+        </td>
+        <td>
+            <div class="inputText accountDetailsInput"><?php echo $this->lastLogin; ?></div>
+        </td>
+    </tr>                
+
+
+    <tr><td colspan="2" style="text-align:center;"><p>Premium Account</p></td></tr>
+    <tr>
+        <td>
+            Status:
+        </td>
+        <td>
+            <a href="#changeData" class="changeDataLightbox"><div class="inputText accountDetailsInput"><img id="accountStatusImageUE" />&nbsp;&nbsp;<span id="accountStatusTextUE"></span></div></a>
+        </td>
+    </tr> 
+
+    <tr>
+        <td>
+            Beginn:
+        </td>
+        <td>
+            <a href="#changeData" class="changeDataLightbox"><div class="inputText accountDetailsInput"><?php echo $this->startdatum; ?></div></a>
+        </td>
+    </tr> 
+    <tr>
+        <td>
+            Ablauf:
+        </td>
+        <td>
+            <a href="#changeData" class="changeDataLightbox"><div class="inputText accountDetailsInput"><?php echo $this->enddatum; ?></div></a>
+        </td>
+    </tr> 
+    <tr>
+        <td>
+            Restlaufzeit:
+        </td>
+        <td>
+            <a href="#changeData" class="changeDataLightbox"><div class="inputText accountDetailsInput"><?php echo $this->restlaufzeit; ?> Tage</div></a>
+        </td>
+    </tr> 
+</table>
+
+<div style="display:none;">
+    <div id="changeData" style="text-align:center;">
+        <h1>M&ouml;chten Sie Ihre Daten &auml;ndern?</h1>
+        Um essentielle Daten Ihres Accounts &auml;ndern zu k&ouml;nnen, m&uuml;ssen Sie uns kontaktieren. Am einfachsten geht dies per E-Mail an Frau Lydia Sattelberger (<a href="mailto:lsattelberger@elektroniknet.de">lsattelberger@elektroniknet.de</a>) oder Telefon unter 089/25556-1303</div>
+</div>

@@ -1,0 +1,94 @@
+.inputText
+{
+	padding-top:6px;	
+	height:24px;
+}
+
+.inputText:focus
+{
+	height:24px;
+	padding-top:6px;	
+}
+
+.inputTextLightbox
+{
+	height:24px;
+	padding-top:6px;
+}
+
+.inputTextLightbox:focus
+{
+	height:24px;
+	padding-top:6px;
+}
+
+.searchBox
+{
+	height:20px;
+	padding-top:5px;
+}
+
+.searchBox:focus
+{
+	background-image:url("../images/searchBoxFocus.png");
+}
+
+.inputField
+{
+	background:none;
+	background-image:url("/images/formField.png");
+	background-repeat:no-repeat;
+	height:29px;
+	width:216px;
+	float:left;
+	border:none;
+	font-size:16px;
+	padding-bottom:5px;
+	margin-right:15px;
+	margin-top:21px;
+	padding-left:10px;
+	padding-right:10px;
+	color:#000000;
+	padding-top:9px;
+	height:25px;
+}
+
+.inputField:focus
+{
+	background:none;
+	background-image:url("/images/formFieldFocus.png");
+	background-repeat:no-repeat;
+	height:29px;
+	width:216px;
+	float:left;
+	border:none;
+	font-size:16px;
+	padding-bottom:5px;
+	margin-right:15px;
+	margin-top:21px;
+	padding-left:10px;
+	padding-right:10px;
+	color:#000000;
+	padding-top:9px;
+	height:25px;
+}
+
+/*.inputText
+{
+	background-image:url("../images/inputTextInactive.png");
+	background-repeat:no-repeat;
+	border:0px;
+	height:30px;
+	width:836px;
+	padding-left:5px;
+}
+
+.inputText:focus
+{
+	background-image:url("../images/inputTextActive.png");
+	background-repeat:no-repeat;
+	border:0px;
+	height:30px;
+	width:836px;
+	padding-left:5px;
+}*/

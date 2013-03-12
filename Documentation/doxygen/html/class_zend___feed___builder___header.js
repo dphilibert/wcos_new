@@ -1,0 +1,25 @@
+var class_zend___feed___builder___header =
+[
+    [ "__construct", "class_zend___feed___builder___header.html#aad0c74f9c0ba556766dd893a80e9c220", null ],
+    [ "__get", "class_zend___feed___builder___header.html#abc8e9e31bb15c8a44c3210ec551407c8", null ],
+    [ "__isset", "class_zend___feed___builder___header.html#ae858fed7cd2822fbceac154138b68baa", null ],
+    [ "__set", "class_zend___feed___builder___header.html#a83c2703c91959192f759992ad5640b67", null ],
+    [ "__unset", "class_zend___feed___builder___header.html#a41af7dd29c879b4c30978876ebdf4ba7", null ],
+    [ "setAuthor", "class_zend___feed___builder___header.html#afde85a369fc83b442db3cf5c6ac31d4a", null ],
+    [ "setCloud", "class_zend___feed___builder___header.html#a32a770ae609a494af73fc3ccca03f0be", null ],
+    [ "setCopyright", "class_zend___feed___builder___header.html#a5556816ecc9a90a6a2d67ae905e5ae9d", null ],
+    [ "setDescription", "class_zend___feed___builder___header.html#a31fad3e39336ea079ea758e051866627", null ],
+    [ "setEmail", "class_zend___feed___builder___header.html#a5ef76eef42d2624386442eeb636d338c", null ],
+    [ "setGenerator", "class_zend___feed___builder___header.html#afe698a1339632e23e3d07f2f87932ea8", null ],
+    [ "setImage", "class_zend___feed___builder___header.html#af785d0fb8da1ba24ec74c2f9f7e27c0a", null ],
+    [ "setITunes", "class_zend___feed___builder___header.html#ae10b4fb5247bcf769c7d15adf4166ea8", null ],
+    [ "setLanguage", "class_zend___feed___builder___header.html#a8a788ae31fddd03d8bd8bd78b01a4686", null ],
+    [ "setLastUpdate", "class_zend___feed___builder___header.html#aac8a9422a6f28e80588860971f219665", null ],
+    [ "setPublishedDate", "class_zend___feed___builder___header.html#a53cb3a1f84c68315cd1c303f6fedfb57", null ],
+    [ "setRating", "class_zend___feed___builder___header.html#a0bda8a5142a1c40476109d41ffac7fa6", null ],
+    [ "setSkipDays", "class_zend___feed___builder___header.html#a6f5b8be110c9fac6731f3895cd70c78f", null ],
+    [ "setSkipHours", "class_zend___feed___builder___header.html#a92df3d32860be3322b08f8dd7352a916", null ],
+    [ "setTextInput", "class_zend___feed___builder___header.html#aafcbee8356b5033be3ae493f8debcaee", null ],
+    [ "setTtl", "class_zend___feed___builder___header.html#a79d7c048fa7e6f6e9680c158b08c4bc4", null ],
+    [ "setWebmaster", "class_zend___feed___builder___header.html#abdafc68563e1a1f7e9da11853b4365d4", null ]
+];

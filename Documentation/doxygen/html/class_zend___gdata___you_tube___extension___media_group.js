@@ -1,0 +1,26 @@
+var class_zend___gdata___you_tube___extension___media_group =
+[
+    [ "__construct", "class_zend___gdata___you_tube___extension___media_group.html#a2d77b03abc8180b73a92795d789aad24", null ],
+    [ "getDOM", "class_zend___gdata___you_tube___extension___media_group.html#a01cd18436bd2d46e2273df7360a4831f", null ],
+    [ "getDuration", "class_zend___gdata___you_tube___extension___media_group.html#ab46fe3d2750728c84bd71ae1bfd08ee8", null ],
+    [ "getMediaCredit", "class_zend___gdata___you_tube___extension___media_group.html#a756644e13cd0b33fa481dca2c0038af3", null ],
+    [ "getMediaRating", "class_zend___gdata___you_tube___extension___media_group.html#a650c7db9bd648ac7a3682d2439395159", null ],
+    [ "getPrivate", "class_zend___gdata___you_tube___extension___media_group.html#a356945f0cd3bff557c11efa81a526936", null ],
+    [ "getUploaded", "class_zend___gdata___you_tube___extension___media_group.html#ae3001c86bb6f73b7dbcd00033602b980", null ],
+    [ "getVideoId", "class_zend___gdata___you_tube___extension___media_group.html#a45ed94d202fa2bc859ef5231ef006423", null ],
+    [ "setDuration", "class_zend___gdata___you_tube___extension___media_group.html#a0cd5a9f2f65c1186281e183159a8e129", null ],
+    [ "setMediaCredit", "class_zend___gdata___you_tube___extension___media_group.html#aadba17b6b581b4e3a9f0759eaed5c8fa", null ],
+    [ "setMediaRating", "class_zend___gdata___you_tube___extension___media_group.html#ac6474fd8801553b407762c6e67f05442", null ],
+    [ "setPrivate", "class_zend___gdata___you_tube___extension___media_group.html#a33bfc716a4e49a9fb62fa30105c56b27", null ],
+    [ "setUploaded", "class_zend___gdata___you_tube___extension___media_group.html#a0c509d08e6907fe02cce2a75f7e5328b", null ],
+    [ "setVideoId", "class_zend___gdata___you_tube___extension___media_group.html#ac526e8d9df50583096bf4df40904e2fd", null ],
+    [ "takeChildFromDOM", "class_zend___gdata___you_tube___extension___media_group.html#ae4f8042ec6720b807bb9456bd920773f", null ],
+    [ "$_duration", "class_zend___gdata___you_tube___extension___media_group.html#adeb3c3e169a42857bf8c46718b5ca65d", null ],
+    [ "$_mediacredit", "class_zend___gdata___you_tube___extension___media_group.html#a3f87aa6cb367a3c95ff008828af79825", null ],
+    [ "$_mediarating", "class_zend___gdata___you_tube___extension___media_group.html#aadcd8efb6e91b279d31b79efc8cd8980", null ],
+    [ "$_private", "class_zend___gdata___you_tube___extension___media_group.html#a21021b6ebbd32b26126079bc8f4dd5dd", null ],
+    [ "$_rootElement", "class_zend___gdata___you_tube___extension___media_group.html#a1c4ffc9ef6ad6d12488b6383a6ee986b", null ],
+    [ "$_rootNamespace", "class_zend___gdata___you_tube___extension___media_group.html#a56eec427b0bc4f36aac09c7830caa646", null ],
+    [ "$_uploaded", "class_zend___gdata___you_tube___extension___media_group.html#ad7fdac208f5f3bb64937856bda1f9c49", null ],
+    [ "$_videoid", "class_zend___gdata___you_tube___extension___media_group.html#af1643ca2d3bb77423bb5838ae7e9bf93", null ]
+];

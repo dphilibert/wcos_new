@@ -15,12 +15,13 @@ set :deploy_via, :remote_cache
 set :scm_verbose, true
 
 task :staging do
-  print "Which branch should be deployed (wcos 2, master)? "
-  branch = $stdin.gets.chomp
+  #print "Which branch should be deployed (wcos 2, master)? "
+  #branch = $stdin.gets.chomp
   role :web, "colonia.weka-fachmedien.de", :primary => true
   set :deploy_to, "/srv/www/staging/wcos.weka-fachmedien.de"
   set :app_environment, "staging"
-  set :branch, branch
+  #set :branch, branch
+  set :branch, "master"
 end
 
 task :production do

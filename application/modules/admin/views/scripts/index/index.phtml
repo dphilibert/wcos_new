@@ -1,4 +1,44 @@
+<h1>Anbieterauswahl</h1>
 
-Admin
+<!-- ANBIETERAUSWAHL //-->
+<div class="provider_select">
+  <br><span>Anbieter:</span> 
+  <select onchange ="window.location.href = '<?= $this->url ($this->url_params, '', true); ?>' + '?sato=' + this.value">
+    <?php foreach ($this->selections AS $hash => $name) : ?>
+      <option value="<?= $hash ?>" <?= ($this->active_provider == $hash) ? 'selected' : ''?>> <?= $name ?></option>
+    <?php endforeach; ?>
+  </select>
+</div>
 
+<!-- SUCHFORMULAR //-->
+<div class="provider_search">
+  <?= $this->form ?>
+</div>
+  
+<div class="clearer"></div>
 
+<!-- SUCHERGEBNISSE LISTE//-->
+<?php if (!empty ($this->search_results_paging)) : ?>
+  <table class="tableListe">
+    <tr class="tableListeZeileHeader">
+      <td>ID</td>
+      <td>Name</td>
+      <td>Strasse</td>
+      <td>Plz</td>
+      <td>Ort</td>    
+    </tr>      
+    <?php foreach ($this->search_results_paging as $search_result_row) : ?>
+      <tr>
+        <td><?= $search_result_row ['anbieterID'] ?></td>
+        <td><a href="<?= $this->url ($this->url_params, '', true).'?sato='.$search_result_row ['anbieterhash']; ?>"><?= $search_result_row ['firmenname'] ?></a></td>
+        <td><?= $search_result_row ['strasse'] ?> <?= $search_result_row ['hausnummer'] ?></td>
+        <td><?= $search_result_row ['plz'] ?></td>
+        <td><?= $search_result_row ['ort'] ?></td>
+      </tr>
+    <?php endforeach; ?>
+  <tr><td colspan="5">&nbsp;</td></tr>    
+  <tr><td colspan="5" align="center"><?= $this->search_results_paging ?></td></tr>    
+  <tr><td colspan="5">&nbsp;</td></tr>  
+  </table>
+<?php endif; ?>
+<br>

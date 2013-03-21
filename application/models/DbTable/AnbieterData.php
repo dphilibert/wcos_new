@@ -144,12 +144,12 @@
       $db = Zend_Registry::get ('db');
       $select = $db->select ();
       $select->from (array('a' => 'anbieter'))
-      //->where ('a.systemID = ?', $systemID) // TODO systems abfragen
+      
       ->order ('a.firmenname ASC');
-      // ->limit (10);
+      
       $result = $select->query ();
       $data = $result->fetchAll ();
-      //array_walk_recursive ($data, 'utfEncode');
+      
       return $data;
     }
 
@@ -685,6 +685,7 @@
         return 2; // Return-Code ==> Fehler beim Speichern
       }
     }
+        
   }
 
 ?>

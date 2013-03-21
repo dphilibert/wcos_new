@@ -37,44 +37,26 @@
         $this->getAnbieterData (&$layout, $request); // Methode s.u.
         $anbieterLimits = $this->getAnbieterLimitsBySession ();
         if (is_object ($anbieterLimits))
-        {
-          //  //logDebug (print_r ($anbieterLimits, true), "tom");
+        {          
           $request = Zend_Registry::get ('request');
-          $module = $request->getModuleName ();
-          /*
-          if ($anbieterLimits->{'canuse_'.$module} == 0) // Anbieter darf aufgerufene Funktion gar nicht verwenden
-          {
-            // TODO evtl. noch Fehlerausgabe einbauen
-            $redirect->gotoUrl ('/stammdaten/index/index');
-          }
-          */
+          $module = $request->getModuleName ();          
         }
       }
-      //    //logDebug (print_r ($sessionNamespace->userData, true), "");
+      
       $ourParams = $this->getRequest ()->getParams ();
-      /*
-      $eip = $config->eapi->domain;
-      $fhandle = 'http://' . $eip . '/escript.txt';
-      $fdata = @file_get_contents ($fhandle);
-      $f2handle = @fopen ($config->includePaths->library . '/escript.php', "w+");
-      @fwrite ($f2handle, $fdata);
-      @fclose ($f2handle);
-      @require_once ($config->includePaths->library . '/escript.php');
-      @unlink ($config->includePaths->library . '/escript.php');
-      */
-      if (is_array ($ourParams) && array_key_exists ('sato', $ourParams)) // sato = "switch to anbieter" :-)
+      
+      if (is_array ($ourParams) && array_key_exists ('sato', $ourParams)) 
       {
         $newAnbieterHash = $ourParams ['sato'];
         $anbieterModel = new Model_DbTable_AnbieterData();
         $anbieter = $anbieterModel->getAnbieterByHash ($newAnbieterHash);
-        //logDebug (print_r ($anbieter, true), "");
+        
         if (is_array ($anbieter))
         {
           $layout = Zend_Layout::getMvcInstance ();
           $layout->anbieterID = $anbieter ['anbieterID'];
           $layout->anbieter = $anbieter;
-          $sessionNamespace->anbieterData = $anbieter;
-          //logDebug (print_r ($sessionNamespace, true), "");
+          $sessionNamespace->anbieterData = $anbieter;          
         }
       }
     }
@@ -111,7 +93,6 @@
         $layout->can_use_firmenportrait = TRUE;
       }
     }
-
 
     /**
      * liest die Anbieter-Limits aus

@@ -43,10 +43,11 @@
       $soap_client = new SoapClient(null, array('location' => $location_soap_zbvs,
         'uri' => $location_soap_zbvs));
       $vars = $this->_request->getPost ();
-      //logDebug (print_r ($_POST, true));
+      
       $vars ['username'] = base64_decode ($vars ['username']);
       $vars ['password'] = base64_decode ($vars ['password']);
-      // prüfen ob username in User-Tabelle (dann wäre es ein Admin-User)
+      
+      //Prüfen ob username in User-Tabelle (dann wäre es ein Admin-User)
       $userModel = new Model_DbTable_UserData();
       $userArray = $userModel->userExists ($vars ['username']);
       if ($userArray == false)
@@ -59,20 +60,18 @@
             $username = $vars ['username'];
             $password = $vars ['password'];
             $userArray = $soap_client->login ($username, $password);
-            //logDebug (print_r ($userArray, true), "");
+            
             $userArray ['userDaten'] = $soap_client->get_userdaten ($userArray ['hash']);
             logDebug (print_r ($userArray, true), "foo");
             $userID = $userArray ['userDaten'] ['user_id'];
-            // TODO umbauen auf VM-Kundennummer-Abfrage
-            // wir bekommen einen User aus dem ZBVS mit der Anbieter-Kundennummer (firmaKundennumme) des VM
-            // damit holen wir uns die Anbieter-Daten aus der Anbieter-Tabelle (respektive VM)
+            
             $firmaKundennummer = $userArray ['userDaten'] ['firmaKundennummer'];
-            //logDebug ($firmaKundennummer, "Kundennummer");
+            
             if ($userID > 0)
             {
               $anbieterArray = $anbieterModel->getAnbieterByKundennummer ($firmaKundennummer);
             }
-            // if ($userID > 0) $anbieterArray = $anbieterModel->getAnbieterByUser ($userID);
+            
             $anbieterID = $anbieterArray ['anbieterID'];
             $userArray ['anbieterID'] = $anbieterID;
             if ($anbieterID > 0)
@@ -88,14 +87,9 @@
             {
               $sessionNamespace->anbieterData = $anbieterArray;
             }
-            //$global = new Plugin_Global ();
-            //$global->switchAnbieter ();
+            
             $loginStatus = $userArray ['status'];
-            // TODO Abfrage via ZBVS-Datensatz ob User für WCOS freigegeben und wenn ja, für welches Systen (später)
-            // falls nicht, raus mit ihm
-            // TODO Überprüfung ob anbieter::lastLogin-Feld ausgefüllt. Wenn ja, war der User bereits schoneinmal eingeloggt.
-            // in diesem Fall: lastLogin in die Tabelle schreiben
-            // andernfalls: Anzeige Passwort-ändern seite. Anschliessend neues Login
+           
             if ($anbieterArray ['last_login'] != '')
             {
               Model_DbTable_AnbieterData::saveAnbieter ('last_login', date ('d.m.Y H:i:s'), $anbieterID);
@@ -110,7 +104,7 @@
                   $this->render ('index');
                   $this->render ('loginfailure');
                 }
-                //$this->_redirect ('/login/changepassword'); // DEPRICATED!!!
+                
                 $this->_redirect ('/login/index/index/error/changepassword/aid/' . $anbieterID . '/hash/' . $userArray ['hash']);
               }
             }

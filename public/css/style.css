@@ -70,11 +70,6 @@ a
 {
     clear:both;	
 }
-/* Header Styles */
-.header
-{
-
-}
 
 .logo
 {
@@ -83,10 +78,6 @@ a
     height:51px;
     width:158px;
     background-repeat:no-repeat;	
-}
-#anbieterSelect
-{
-	width:700px;
 }
 
 .menu
@@ -103,7 +94,6 @@ a
     width:1000px;
     box-shadow:0px 0px 5px #0e2a46;
 
-
     background: #f4f5f7;
     background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y0ZjVmNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNhY2MxZDQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
     background: -moz-linear-gradient(top, #f4f5f7 0%, #acc1d4 100%);
@@ -113,17 +103,33 @@ a
     background: -ms-linear-gradient(top, #f4f5f7 0%,#acc1d4 100%);
     background: linear-gradient(top, #f4f5f7 0%,#acc1d4 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f5f7', endColorstr='#acc1d4',GradientType=0 );
-
-
 }
 
 .menu ul
 {
-    margin:0px;
+    /*margin:0px;*/
     padding:0px;
 }
 
 .menu li
+{
+    -webkit-transition: border 0.5s ease-in-out 0.5s ease-in-out;
+    -moz-transition: border 0.5s ease-in-out 0.5s ease-in-out;
+    -o-transition: border 0.5s ease-in-out 0.5s ease-in-out;
+    -ms-transition: border 0.5s ease-in-out 0.5s ease-in-out;
+    transition: border 0.5s ease-in-out 0.5s ease-in-out;
+
+    margin:0px;
+    padding:0px;
+    list-style-type:none;
+    display:inline;
+    padding-left:10px;
+    padding-right:10px;	
+    padding-top:7px;
+    padding-bottom:19px;
+}
+
+.submenu li
 {
     -webkit-transition: border 0.5s ease-in-out 0.5s ease-in-out;
     -moz-transition: border 0.5s ease-in-out 0.5s ease-in-out;
@@ -147,15 +153,24 @@ a
     text-decoration:none;	
 }
 
-.menu li:hover, .menu li.active, .activeSUB
+.menu li:hover
 {
-    background-color:#0e2a46;
-    border-bottom:7px solid #1f5b91;
+    background-color:#0e2a46;    
     color:#ffffff;
     padding-left:10px;
     padding-right:10px;	
-    /*	box-shadow:0px 0px 10px #000000;*/
+    padding-bottom:7px;    
 }
+
+.menu li.active, .activeSUB
+{
+  background-color:#0e2a46;
+  border-bottom:7px solid #1f5b91;
+  color:#ffffff;
+  padding-left:10px;
+  padding-right:10px;	
+}
+
 
 .menu li:hover a, .menu li.active a, .activeSUB a
 {
@@ -174,31 +189,22 @@ a
 }
 
 /* Submenu */
-
 .submenu
 {
     margin:0px;
     padding:0px;
-    /*height:30px;*/
+    
     display:block;
 }
 
 /* Account Info */
-
 .accountInfo
-{
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-
+{    
     width:700px;
     float:right;
     border:1px solid #35b1e1;
     border-top:none;
-    padding:5px;
-    height:50px;
+    padding:5px;    
     overflow:hidden;
     z-index:100;
 
@@ -207,109 +213,8 @@ a
     background-color:white;
 }
 
-.accountInfo:hover
-{
-    box-shadow:0px 0px 10px #0e2a46;
-    height:160px;
-}
-
-
-.accountInfo_admin
-{
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-
-    width:700px;
-    float:right;
-    border:1px solid #35b1e1;
-    border-top:none;
-    padding:5px;
-    height:50px;
-    overflow:hidden;
-    z-index:100;
-
-    position:absolute;
-    margin-left:288px;
-    background-color:#ffffff;
-}
-
-.accountInfo_admin:hover
-{
-    box-shadow:0px 0px 10px #0e2a46;
-    height:250px;
-}
-
-
-.accountInfoItem
-{    
-    border-bottom:1px dotted #35b1e1;
-    margin-bottom:3px;
-    padding-bottom:3px;
-}
-
-.accountInfo:hover .accountInfoBottom
-{
-    border-bottom:1px dotted #35b1e1;
-    margin-bottom:3px;
-    padding-bottom:3px;
-}
-
-.accountInfoBottom
-{
-    border-bottom:none;
-    margin-bottom:3px;
-    padding-bottom:4px;
-}
-
-.accountInfoDatenAktualisieren
-{
-    padding-top:3px;
-    border-bottom:none;
-    font-weight:bold;
-}
-
-.wantPremium
-{
-    width:100%;
-    margin-top:30px;
-    margin-bottom:20px;
-    padding:5px;
-    margin-left:-5px;
-    height:70px;
-    background-color:#c7d8e6;
-}
-
-.wantPremium p, .wantPremium h3
-{
-    margin-top:25px;
-    margin-left:135px;
-}
-
-.wantPremium h3
-{
-    margin-top:5px;
-}
-
-.wantPremium img
-{
-    position:absolute;
-    margin-top:-20px;
-}
-
-.accountInfoDatenAktualisieren .left
-{
-    padding-top:9px;
-}
-
-.accountProfilAnschauen
-{
-    padding-top:3px;
-    border-bottom:none;
-    font-weight:bold;
-}
+.accountInfo .anbieter {float:left;}
+.accountInfo .status {float:right;}
 
 /* Content Styles */
 .content
@@ -588,4 +493,9 @@ textarea
   cursor:pointer;
   text-align:right;
 }
-/* @TODO Buttons mit CSS3 mit Icon vor dem Button like http://www.red-team-design.com/wp-content/uploads/2011/09/awesome-css3-buttons.html */
+
+/* Admin */
+.provider_select {float:left;}
+.provider_select span {margin:0px 10px 0px 10px;}
+.provider_select select {width:350px;height:21px;}
+.provider_search {float:left;margin-left:150px;}

@@ -95,6 +95,11 @@
       $view->navigation ($this->container);
     }
 
+    protected function _initPaginator ()
+    {
+      Zend_Paginator::setDefaultScrollingStyle ('Sliding');
+      Zend_View_Helper_PaginationControl::setDefaultViewPartial ('paging.phtml');
+    }        
 
     /**
      * startet die Applikation

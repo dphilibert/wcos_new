@@ -105,6 +105,8 @@
       <show>true</show>
       <free>false</free>
     </accountdetails>
+    
+    
     <admin>
       <label>Admin</label>
       <module>admin</module>
@@ -114,6 +116,18 @@
       <resource>admin</resource>
       <showimage>false</showimage>
       <pages>
+        
+        <anbieter>
+          <label>Anbieter</label>
+          <module>admin</module>
+          <controller>Anbieter</controller>
+          <action>index</action>
+          <order>900</order>
+          <resource>admin</resource>
+          <showimage>false</showimage>
+          <show>true</show>
+        </anbieter>
+        
         <accounts>
           <label>Accounts</label>
           <module>admin</module>
@@ -157,6 +171,9 @@
       </pages>
       <show>true</show>
     </admin>
+    
+    
+    
     <logout>
       <label>Logout</label>
       <module>login</module>

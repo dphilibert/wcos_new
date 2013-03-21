@@ -11,21 +11,6 @@
 
 class Admin_AnbieterController extends Zend_Controller_Action
 {
-
-    /**
-     *
-     * initialer call-Handler
-     *
-     * @author: Thomas Grahammer
-     * @param $methodName
-     * @param $args
-     **/
-
-    public function __call($methodName, $args)
-    {
-        //echo "Admin_AccountsController::__call ()<br>";
-    }
-
     /**
      *
      * initialer init-Handler
@@ -55,6 +40,8 @@ class Admin_AnbieterController extends Zend_Controller_Action
 
     public function indexAction()
     {
+      
+      
     }
 
 

@@ -1,0 +1,30 @@
+<?php
+//zusaetzliche Parameter fuer die Paging-Links holen
+$request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+$params = array ();
+if (!empty ($request ['search_term']))
+  $params ['search_term'] = $request ['search_term'];
+
+$previous = array_merge ($params, array ('page' => $this->previous));
+$next = array_merge ($params, array ('page' => $this->next));
+?>
+
+<div class="paginator">      
+  <div class="paginatorPageBwd">
+    <?php if (!empty ($this->previous)) : ?>
+      <a href="<?= $this->url ($previous); ?>">[<<]</a>
+    <?php else : ?>
+      [<<]
+    <?php endif; ?>  
+  </div>      
+  
+  <div class="paginatorCount">Seite <span><?= $this->current ?></span> von <span><?= $this->pageCount ?></span></div>        
+  
+  <div class="paginatorPageFwd">
+    <?php if (!empty ($this->next)) : ?>
+      <a href="<?= $this->url ($next); ?>">[>>]</a>
+    <?php else : ?>
+      [>>]
+    <?php endif; ?>  
+  </div>                
+</div>

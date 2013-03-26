@@ -7,10 +7,25 @@
 
     <div class="accordion">
         <h3><a href="#">Das System</a></h3>
-        <div><p>Das WEKA FACHMEDIEN Anbeiterverzeichnis ist wie eine gewöhnliche Webseite aufgebaut, sodass Sie sich direkt zurecht finden!</p>
-            <p>Im oberen Bereich des Systems, unter der Logo-Zeile, finden Sie ein Menü mit Zugriff auf alle relevanten Module. Neben dem Logo im oberen Bereich finden Sie die Account-Info-Box, in der die wichtigsten Stammdaten zu Ihrem Account angezeigt werden. Bewegen Sie Ihren Mauszeiger über diese Box werden alle Stammdaten angezeigt und können durch einen Klick auf <a href="/stammdaten">"Stammdaten aktualisieren"</a> bearbeitet werden.</p>
-            <p>Eine Vorschau Ihres Profils finden Sie unter "Betrachten Sie Ihr aktuelles Profil" (hier wird auf Ihr Profil auf unserer Seite www.elektroniknet.de verwiesen).</p>
+        
+        
+        <div>
+          <p>
+            Das WEKA FACHMEDIEN Anbeiterverzeichnis ist wie eine gewöhnliche Webseite aufgebaut,
+            sodass Sie sich direkt zurecht finden!
+          </p>
+          <p>
+            Im oberen Bereich des Systems, unter der Logo-Zeile, finden Sie ein Menü mit Zugriff auf alle relevanten Module.
+          </p>
+          
+          <p>
+              Eine Vorschau Ihres Standard-Profils finden Sie <a href="http://www.elektroniknet.de/anbieter?anbieter=<?= $this->anbieterID ?>" target="_blank" style="color:blue;">hier</a>.<br>
+              Wenn Sie wissen möchten, wie Ihr-Premium-Account dargestellt wird, klicken Sie <a href="http://www.elektroniknet.de/anbieter?anbieter=<?= $this->anbieterID ?>&premium_preview=1" target="_blank" style="color:blue;">hier</a>
+          </p>
+                        
         </div>
+        
+        
         <h3><a href="#">Ansprechpartner</a></h3>
         <div><p>Im Modul <a href="/ansprechpartner">Ansprechpartner</a> können Sie mehrere Ansprechpartner für die Anzeige auf den Webseiten der WEKA FACHMEDIEN eingeben und diese verwalten.</p>
 

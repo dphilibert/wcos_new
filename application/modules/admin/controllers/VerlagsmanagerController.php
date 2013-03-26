@@ -35,6 +35,11 @@
     public function indexAction ()
     {
     }
+    
+    public function importAction ()
+    {
+      
+    }        
   }
 
 ?>

@@ -13,14 +13,6 @@
   require_once ('Zend/Loader/Autoloader.php');
   $autoloader = Zend_Loader_Autoloader::getInstance ();
   $autoloader->isFallbackAutoloader (true);
-
-
-  /*
-    $applicationEnv = 'development';
-    if (array_key_exists ('APPLICATION_ENV', $_ENV)) {
-      $applicationEnv = $_ENV ['APPLICATION_ENV'];
-    }
-  */
   $applicationEnv = APPLICATION_ENV;
   $config = new Zend_Config_Ini ('../application/configs/application.ini', $applicationEnv);
   $db = Zend_Db::factory ($config->database);
@@ -35,16 +27,13 @@
      */
     var $layout = NULL;
 
-
-
     /**
      * initialisiert das Layout
      *
      * @return void
      */
     protected function _initLayout ()
-    {
-      //    Zend_Layout::startMvc(APPLICATION_PATH . '/../application/layouts/scripts');
+    {      
       $this->layout = new Zend_Layout ();
       $this->layout->startMvc (APPLICATION_PATH . '/../application/layouts/scripts');
     }
@@ -101,6 +90,13 @@
       Zend_View_Helper_PaginationControl::setDefaultViewPartial ('paging.phtml');
     }        
 
+    protected function _initValidator ()
+    {
+      $config = new Zend_Config (require 'configs/form_errors-de.php');
+      $translator = new Zend_Translate ('array', $config->toArray (), 'de');            
+      Zend_Validate_Abstract::setDefaultTranslator ($translator);      
+    }        
+    
     /**
      * startet die Applikation
      *

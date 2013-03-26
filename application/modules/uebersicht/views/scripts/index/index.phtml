@@ -1,61 +1,55 @@
+
 <input type="HIDDEN" id="premiumLevel" value="<?php echo $this->premiumLevel; ?>">
+
 <img src="/images/pageDescriptionImages/accountdetails.png" class="contentDescriptionImage">
 
+<!-- ANBIETER-ACCOUNT-INFO //-->
 <table border="0" style="width:100%;"> 
     <tr>
-        <td style="width:30%;">
-            Anbieter:
-        </td>
-        <td style="width:70%;">
-            <a href="#changeData" class="changeDataLightbox"><div class="inputText accountDetailsInput"><?php echo utf8_encode ($this->anbieterDetails ['FIRMENNAME']); ?></div></a>
+        <td style="width:30%;">Anbieter:</td>
+        <td style="width:70%;">            
+              <div class="inputText accountDetailsInput"><?= $this->name; ?></div>            
         </td>
     </tr> 
     <tr>
+        <td>Letzter Login:</td>
         <td>
-            Letzter Login:
+            <div class="inputText accountDetailsInput"><?= $this->lastLogin; ?></div>
         </td>
-        <td>
-            <div class="inputText accountDetailsInput"><?php echo $this->lastLogin; ?></div>
-        </td>
-    </tr>                
-
-
-    <tr><td colspan="2" style="text-align:center;"><p>Premium Account</p></td></tr>
+    </tr>                        
     <tr>
+        <td>Status:</td>
         <td>
-            Status:
-        </td>
-        <td>
-            <a href="#changeData" class="changeDataLightbox"><div class="inputText accountDetailsInput"><img id="accountStatusImageUE" />&nbsp;&nbsp;<span id="accountStatusTextUE"></span></div></a>
-        </td>
-    </tr> 
-
-    <tr>
-        <td>
-            Beginn:
-        </td>
-        <td>
-            <a href="#changeData" class="changeDataLightbox"><div class="inputText accountDetailsInput"><?php echo $this->startdatum; ?></div></a>
+            <?php if ($this->userstatus < 0) : ?>
+              <a href="#" id="accountStatusSwitcherUE">
+            <?php else : ?>
+              <a href="#changeData" class="changeDataLightbox">
+            <?php endif; ?>                
+              <div class="inputText accountDetailsInput"><img id="accountStatusImageUE" />&nbsp;&nbsp;<span id="accountStatusTextUE"></span></div>
+            </a>
         </td>
     </tr> 
     <tr>
-        <td>
-            Ablauf:
-        </td>
-        <td>
-            <a href="#changeData" class="changeDataLightbox"><div class="inputText accountDetailsInput"><?php echo $this->enddatum; ?></div></a>
+        <td>Beginn:</td>
+        <td>            
+              <div class="inputText accountDetailsInput"><?= $this->startdatum; ?></div>            
         </td>
     </tr> 
     <tr>
-        <td>
-            Restlaufzeit:
+        <td>Ablauf:</td>
+        <td>            
+          <div class="inputText accountDetailsInput"><?= $this->enddatum; ?></div>            
         </td>
-        <td>
-            <a href="#changeData" class="changeDataLightbox"><div class="inputText accountDetailsInput"><?php echo $this->restlaufzeit; ?> Tage</div></a>
+    </tr> 
+    <tr>
+        <td>Restlaufzeit:</td>
+        <td>            
+          <div class="inputText accountDetailsInput"><?= $this->restlaufzeit; ?> Tage</div>            
         </td>
     </tr> 
 </table>
 
+<!-- POPUP NON-ADMIN //-->
 <div style="display:none;">
     <div id="changeData" style="text-align:center;">
         <h1>M&ouml;chten Sie Ihre Daten &auml;ndern?</h1>

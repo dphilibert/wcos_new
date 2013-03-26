@@ -8,49 +8,52 @@
    */
   class Uebersicht_IndexController extends Zend_Controller_Action
   {
-
-
     /**
-     * setzt alle Grunddaten für die Übersicht im View
+     * Zeigt die Account-Infos an
      *
+     * @param void
      * @return void
      */
     public function indexAction ()
+    { 
+      $model = new Model_DbTable_AnbieterData ();
+      $session = new Zend_Session_Namespace ();                       
+      $provider = $model->getAnbieterDetails ($session->anbieterData ['anbieterID']);
+      
+      if (!empty ($provider ['STARTDATUM']))
+      {  
+        $parts = explode ('-', $provider ['STARTDATUM']); 
+        $timestamp_end = mktime (0, 0, 0, $parts [1] + $provider ['LAUFZEIT'], $parts [2], $parts [0]);
+      }
+            
+      $this->view->startdatum = (!empty ($provider ['STARTDATUM'])) ? date ('d.m.Y', mktime (0, 0, 0, $parts [1], $parts [2], $parts [0])) : '-';            
+      $this->view->enddatum = (!empty ($provider ['STARTDATUM'])) ? date ('d.m.Y', $timestamp_end) : '-';    
+      $this->view->restlaufzeit = (!empty ($provider ['STARTDATUM'])) ? round (($timestamp_end - mktime (0, 0, 0, date ('m'), date ('d'), date ('Y'))) / (60 * 60 * 24)) : '0';
+      $this->view->name = $provider ['FIRMENNAME'];
+      $this->view->premiumLevel = $provider ['PREMIUMLEVEL'];      
+      $this->view->lastLogin = $provider ['LASTCHANGE'];
+      $this->view->userstatus = $session->userData ['userStatus'];
+    }
+    
+    public function statusAction ()
     {
-      $layout = Zend_Layout::getMvcInstance ();
-////logDebug (print_r ($layout, true), "");
-      $this->view->anbieterDetails = $layout->anbieterDetails;
-      $sessionNamespace = new Zend_Session_Namespace ();
-      $userData = $sessionNamespace->userData;
-      $anbieterID = $userData ['anbieterID'];
-      $ansprechpartnerModel = new Model_DbTable_AnsprechpartnerData ();
-      $this->view->anbieterID = $anbieterID;
-      try
-      {
-        $anbieterModel = new Model_DbTable_AnbieterData ();
-        $anbieterDetails = $anbieterModel->getAnbieterDetails ($anbieterID);
-        $this->view->anbieterHash = $anbieterDetails ['ANBIETERHASH'];
+      $this->_helper->_layout->disableLayout ();
+      $this->_helper->viewRenderer->setNoRender (true);
+      
+      $model = new Model_DbTable_AnbieterData ();
+      $anbieter = $model->getAnbieterDetails ($this->_request->getParam ('anbieterID'));                  
+      $session = new Zend_Session_Namespace ();
+            
+      $status_new = ($anbieter ['PREMIUMLEVEL'] == 0) ? 1 : 0;  
+      $session->anbieterData ['premiumLevel'] = $status_new;
+      $model->saveAnbieter ('premiumLevel', $status_new, $this->_request->getParam ('anbieterID'));      
+      if ($status_new == 1)
+      {  
+        $time_model = new Model_DbTable_LaufzeitData ();           
+        $time_model->setLaufzeit ($this->_request->getParam ('anbieterID'), 12);
       }
-      catch (Zend_Exception $e)
-      {
-        $redirect = new Zend_Controller_Action_Helper_Redirector();
-        $redirect->gotoUrl ('/login');
-      }
-      $this->view->premiumLevel = $anbieterDetails ['PREMIUMLEVEL'];
-      $startDatum = $anbieterDetails ['STARTDATUM'];
-      $laufzeit = $anbieterDetails ['LAUFZEIT'];
-      $startdatumArray = explode ('-', $startDatum);
-      $endDatum_ts = mktime (0, 0, 0, $startdatumArray [1] + $laufzeit, $startdatumArray [2], $startdatumArray [0]);
-      $startDatum_ts = mktime (0, 0, 0, $startdatumArray [1], $startdatumArray [2], $startdatumArray [0]);
-      $now_ts = mktime (0, 0, 0, date ('m'), date ('d'), date ('Y'));
-      $endDatum = date ('d.m.Y', $endDatum_ts);
-      $startDatum = date ('d.m.Y', $startDatum_ts);
-      $nowDatum = date ('d.m.Y', $now_ts);
-      $restlaufzeit = round (($endDatum_ts - $now_ts) / (60 * 60 * 24));
-      $this->view->restlaufzeit = $restlaufzeit;
-      $this->view->startdatum = $startDatum;
-      $this->view->enddatum = $endDatum;
-      $this->view->lastLogin = $anbieterDetails ['LAST_LOGIN'];
+      
+      $this->_helper->json->sendJson (array ('status' => $status_new));                     
     }
   }
 

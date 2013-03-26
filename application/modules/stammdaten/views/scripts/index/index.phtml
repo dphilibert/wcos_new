@@ -24,6 +24,9 @@
             <td>
               <img src="/images/et.png" style="opacity: 0.2;" class="systemsImage" id="405">
             </td>
+            <td>
+              <img src="/images/crn_logo.png" style="opacity: 0.2;" class="systemsImage" id="999">
+            </td>
           </tr>
         </table>
       </td>
@@ -118,44 +121,34 @@
         ?>
       </select>
     </td>
-  </tr>
-  <!--<tr>
-         <td colspan="4" align="center">						<input type="button" name="save" id="save" value="Speichern" helper="formSubmit" />
- </td>
- </tr> -->
+  </tr>  
 </table>
 
-
-<?php
-  if ($stammdaten ['premiumLevel'] == 0)
-  {
-    ?>
-  <div class="wantPremium">
-    <img id="premiumTeaser" src="/images/premiumTeaser.png">
-
-    <h3>Präsentieren Sie Ihr Unternehmen, wie es sein soll! - Erweitern Sie auf unseren Premium Account!</h3>
-
-    <p>Wie sieht das Ganze aus? <span id="infoPremiumAccount" class="pointer" style="color:#1D5588;">Werfen Sie einen Blick auf die Vorschau</span>!
-      <span class="right">Ich möchte einen Premium-Account. Bitte kontaktieren Sie mich hierzu: <input type="checkbox"
-                                                                                                       name="infoPremiumAccountCheckbox"
-                                                                                                       id="infoPremiumAccountCheckbox"
-                                                                                                       value=""/></span>
-    </p>
+<?php if ($stammdaten ['premiumLevel'] == 0) { ?>
+  <div class="wantPremium">    
+    <div class="left">
+      <img id="premiumTeaser" src="/images/premiumTeaser.png">
+    </div>     
+    <div class="left">
+      <h3>Präsentieren Sie Ihr Unternehmen, wie es sein soll! - Erweitern Sie auf unseren Premium Account!</h3>
+      <p>
+        Wie sieht das Ganze aus?
+        <span id="infoPremiumAccount" class="pointer" style="color:#1D5588;">
+          Werfen Sie einen Blick auf die Vorschau
+        </span>!
+        <br>      
+        <input type="checkbox" name="infoPremiumAccountCheckbox" id="infoPremiumAccountCheckbox" value=""/>
+          Ich möchte einen Premium-Account. Bitte kontaktieren Sie mich hierzu
+      </p>  
+    </div>    
+    <div class="clearer"></div>          
   </div>
-  <?php
-  }
-  if ($stammdaten ['premiumLevel'] == -1)
-  {
-    ?>
+  <?php } if ($stammdaten ['premiumLevel'] == -1) { ?>
   <tr>
     <td colspan="2">Ihr Anliegen zum Premium-Account wird gerade bearbeitet. Wir bitten noch um etwas Geduld.</td>
   </tr>
-  <?php
-  }
-?>
+  <?php } ?>
 
-
-
-
-<center>
+<center>  
   <button class="buttonSave saveStammdaten" style="margin-bottom:10px;" id="saveStammdaten">Sichern</button>
+</center>

@@ -378,6 +378,8 @@ a
     box-shadow:0px 0px 5px #0e2a46;
 }
 
+.tableListe tr.tableData:hover td {background-color:lightblue;}
+
 .tableListeZeileHeader
 {
     background-color:#146681;
@@ -487,6 +489,7 @@ textarea
   float:left;
   text-align:center;
 }
+
 .paginatorPageFwd
 {
   float:right;
@@ -499,3 +502,6 @@ textarea
 .provider_select span {margin:0px 10px 0px 10px;}
 .provider_select select {width:350px;height:21px;}
 .provider_search {float:left;margin-left:150px;}
+
+/* Zend_Form */
+.errors li {list-style-type:none; color:red;}

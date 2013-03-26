@@ -40,6 +40,8 @@ var loadFormData = function (ID)
     }
   });
 };
+
+
 var AjaxSave = function (selectedField, selectedValue, ID)
 {
   var anbieterID = $("#anbieterID").val();
@@ -63,6 +65,8 @@ var AjaxSave = function (selectedField, selectedValue, ID)
     }
   });
 }
+
+
 var requestPremiumInfo = function (ret)
 {
   if (ret == true)
@@ -149,10 +153,13 @@ $(document).ready(function ()
   {
     fancyInfoBox("<img src=\"/images/screenshot_1.png\">", 0, 0);
   });
+  
   $('#premiumTeaser').click(function ()
   {
     fancyInfoBox("<img src=\"/images/screenshot_1.png\">", 0, 0);
   });
+  
+  
   $('#infoPremiumAccountCheckbox').click(function ()
   {
     // TODO fancybox öffnen mit Info über Kosten usw.
@@ -165,24 +172,30 @@ $(document).ready(function ()
     }
     //requestPremiumInfo ();
   });
+  
   $('#save').click(function ()
   {
     $.modal.close();
   });
+  
+  
   $("input,select").blur(function ()
-  {
+  {    
     var selectedField = $(this).attr('id');
 //    var selectedValue = $(eval (selectedField)).val ();
     var selectedValue = $(this).val();
     var ID = $("#stammdatenID").val();
     if ($(this).is('input') || $(this).is('select')) AjaxSave(selectedField, selectedValue, ID);
   });
+  
+  
   loadFormData(anbieterID);
+  
   $('#saveStammdaten').click(function ()
-  {
-    var tempdata = $('#tempdata').val();
-    var ajaxURL = "/stammdaten/stammdaten.ajax/sendchangemail";
-    var ajaxData = '';
+  {        
+    /*var tempdata = $('#tempdata').val();
+    
+    var ajaxURL = "/stammdaten/stammdaten.ajax/sendchangemail";    
     $.ajax(
     {
       dataType:"json",
@@ -193,11 +206,13 @@ $(document).ready(function ()
         tempdata  :tempdata
       },
       url     :ajaxURL,
-      success :function (ajaxData)
+      complete :function (response, status)
       {
+        
         fancyError('Ihre Daten wurden erfolgreich gespeichert!');
       }
-    });
+    });*/
+    fancyError('Ihre Daten wurden erfolgreich gespeichert!');
   });
 
   $('.systemsImage').each(function (key, value)

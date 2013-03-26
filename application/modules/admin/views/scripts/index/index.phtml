@@ -28,7 +28,7 @@
       <td>Ort</td>    
     </tr>      
     <?php foreach ($this->search_results_paging as $search_result_row) : ?>
-      <tr>
+      <tr class="tableData">
         <td><?= $search_result_row ['anbieterID'] ?></td>
         <td><a href="<?= $this->url ($this->url_params, '', true).'?sato='.$search_result_row ['anbieterhash']; ?>"><?= $search_result_row ['firmenname'] ?></a></td>
         <td><?= $search_result_row ['strasse'] ?> <?= $search_result_row ['hausnummer'] ?></td>
@@ -36,6 +36,7 @@
         <td><?= $search_result_row ['ort'] ?></td>
       </tr>
     <?php endforeach; ?>
+            
   <tr><td colspan="5">&nbsp;</td></tr>    
   <tr><td colspan="5" align="center"><?= $this->search_results_paging ?></td></tr>    
   <tr><td colspan="5">&nbsp;</td></tr>  

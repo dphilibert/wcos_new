@@ -20,7 +20,7 @@
       <order>100</order>
       <resource>stammdaten</resource>
       <showimage>false</showimage>
-      <show>false</show>
+      <show>true</show>
       <free>false</free>
     </stammdaten>
     <ansprechpartner>

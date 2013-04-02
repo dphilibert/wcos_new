@@ -28,6 +28,7 @@ var BuildAjaxGrid = function ()
       endPagination = Number(startPagination) + Number(anzahlPerPage) - 1;
       if (ungerundeteSeitenanzahl > anzahlPages) anzahlPages++;
       $(".paginatorPageNo").html('Seite ' + page + ' von ' + anzahlPages);
+      $('.paginator_maxPages').html(anzahlPages);
       for (var i = startPagination; i <= endPagination; i++)
       {
         if (i < anzahlDatensaetze)
@@ -119,6 +120,7 @@ var deleteLine = function (id)
 }
 var newEntry = function ()
 {
+  $("[id^=we_]").val('');
   editLine(0);
 }
 var loadFormData = function (ID)

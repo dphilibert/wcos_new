@@ -5,7 +5,7 @@
   <br><span>Anbieter:</span> 
   <select onchange ="window.location.href = '<?= $this->url ($this->url_params, '', true); ?>' + '?sato=' + this.value">
     <?php foreach ($this->selections AS $hash => $name) : ?>
-      <option value="<?= $hash ?>" <?= ($this->active_provider == $hash) ? 'selected' : ''?>> <?= $name ?></option>
+      <option value="<?= $hash ?>"> <?= $name ?></option>
     <?php endforeach; ?>
   </select>
 </div>
@@ -16,9 +16,10 @@
 </div>
   
 <div class="clearer"></div>
+<br>
 
 <!-- SUCHERGEBNISSE LISTE//-->
-<?php if (!empty ($this->search_results_paging)) : ?>
+<?php if (!empty ($this->search_results_paging)) : ?>  
   <table class="tableListe">
     <tr class="tableListeZeileHeader">
       <td>ID</td>
@@ -26,20 +27,24 @@
       <td>Strasse</td>
       <td>Plz</td>
       <td>Ort</td>    
+      <td>Aktionen</td>
     </tr>      
     <?php foreach ($this->search_results_paging as $search_result_row) : ?>
       <tr class="tableData">
         <td><?= $search_result_row ['anbieterID'] ?></td>
-        <td><a href="<?= $this->url ($this->url_params, '', true).'?sato='.$search_result_row ['anbieterhash']; ?>"><?= $search_result_row ['firmenname'] ?></a></td>
+        <td><?= $search_result_row ['firmenname'] ?></td>
         <td><?= $search_result_row ['strasse'] ?> <?= $search_result_row ['hausnummer'] ?></td>
         <td><?= $search_result_row ['plz'] ?></td>
         <td><?= $search_result_row ['ort'] ?></td>
+        <td class="tableListeAction">
+          <a href="<?= $this->url ($this->url_params, '', true).'?sato='.$search_result_row ['anbieterhash']; ?>"><img src="/img/icons/application_get.png">Auswählen</a>          
+        </td>
       </tr>
     <?php endforeach; ?>
             
-  <tr><td colspan="5">&nbsp;</td></tr>    
-  <tr><td colspan="5" align="center"><?= $this->search_results_paging ?></td></tr>    
-  <tr><td colspan="5">&nbsp;</td></tr>  
+  <tr><td colspan="6">&nbsp;</td></tr>    
+  <tr><td colspan="6" align="center"><?= $this->search_results_paging ?></td></tr>    
+  <tr><td colspan="6">&nbsp;</td></tr>  
   </table>
 <?php endif; ?>
 <br>

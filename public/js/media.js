@@ -31,11 +31,11 @@ var BuildAjaxGrid = function ()
     {
       var anzahlDatensaetze = ajaxData.length;
       var ungerundeteSeitenanzahl = anzahlDatensaetze / anzahlPerPage;
-      anzahlPages = Math.round(ungerundeteSeitenanzahl);
-      $('.paginator_maxPages').html(anzahlPages);
+      anzahlPages = Math.round(ungerundeteSeitenanzahl);     
       endPagination = Number(startPagination) + Number(anzahlPerPage) - 1;
       if (ungerundeteSeitenanzahl > anzahlPages) anzahlPages++;
       $(".paginatorPageNo").html('Seite ' + page + ' von ' + anzahlPages);
+       $('.paginator_maxPages').html(anzahlPages);
       for (var i = startPagination; i <= endPagination; i++)
       {
         if (i < anzahlDatensaetze)
@@ -160,6 +160,8 @@ var deleteLine = function (id)
  */
 var newEntry = function ()
 {
+  $("[id^=me_]").val('');
+  $('#bildTN').remove ();
   editLine(0);
 }
 

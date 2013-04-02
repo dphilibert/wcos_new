@@ -140,9 +140,16 @@ function tinymceInit(dbFeld)
     mode                           :"textareas",
     theme                          :"advanced",
     plugins                        :"safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount",
-    width                          :790,
+    width                          :775,
+    height                         :400,
     // Theme options
-    theme_advanced_buttons1        :"bold,italic,underline,strikethrough,|,fontselect,fontsizeselect,bullist,numlist,forecolor,backcolor,|,justifyleft,justifycenter,justifyright,justifyfull,hr,removeformat,visualaid,separator,sub,sup,separator,charmap",
+    theme_advanced_buttons1        :"pastetext,pasteword,|,bold,italic,underline,strikethrough,|, link,unlink,|,bullist,numlist,|,justifyleft,justifycenter,justifyright,justifyfull,hr,removeformat,visualaid,separator,sub,sup,separator,charmap,code",
+    
+    paste_auto_cleanup_on_paste : true,
+    paste_remove_styles: true,
+    paste_remove_styles_if_webkit: true,
+    paste_strip_class_attributes: true,
+    
     theme_advanced_buttons2        :"",
     theme_advanced_buttons3        :"",
     theme_advanced_toolbar_location:"top",

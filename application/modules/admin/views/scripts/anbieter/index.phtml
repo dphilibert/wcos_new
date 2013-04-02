@@ -5,7 +5,7 @@
 
 <div class="left">
   <div class="contentRight">
-    <a href="#" onclick="call_action_fancy ('/admin/Anbieter/new', 350, 650);"><img src="/img/icons/user_add.png"/>Anbieter hinzufügen</a>  
+    <a href="#" onclick="call_action_fancy ('/admin/Anbieter/new', 450, 650);"><img src="/img/icons/user_add.png"/>Anbieter hinzufügen</a>  
   </div>
 </div>
 
@@ -16,8 +16,8 @@
 <div class="clearer"></div>
 <br>
 
+<?php if (!empty ($this->provider_paging)) : ?>
   <table class="tableListe">
-
     <tr>
       <td colspan="6" align="center">
         <?= $this->provider_paging ;?>
@@ -41,7 +41,7 @@
         <td><?= $provider ['ort']; ?></td>
         <td><?= $provider ['premiumLevel']; ?></td>
         <td class="tableListeAction">
-          <a href="#" style="margin-right:20px;" onclick="call_action_fancy ('/admin/Anbieter/edit/provider_id/<?= $provider ['anbieterID'] ?>', 350, 650);"><img src="/img/icons/user_edit.png">Bearbeiten</a>
+          <a href="#" style="margin-right:20px;" onclick="call_action_fancy ('/admin/Anbieter/edit/provider_id/<?= $provider ['anbieterID'] ?>', 450, 650);"><img src="/img/icons/user_edit.png">Bearbeiten</a>
           <a href="#" onclick="call_action ('/admin/Anbieter/delete/provider_id/<?= $provider ['anbieterID'] ?>');"><img src="/img/icons/user_delete.png">Löschen</a>
         </td>
       </tr>
@@ -54,3 +54,4 @@
     </tr>
     
   </table>
+<?php endif; ?>

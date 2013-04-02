@@ -37,9 +37,9 @@ class Admin_AnbieterController extends Zend_Controller_Action
     $form->populate ($this->params);
     $this->view->search_form = $form;
     
-    $this->view->provider_paging = $model->paging (
-            (empty ($this->params ['search_term'])) ? $model->provider_list () : $model->provider_search ($this->params ['search_term']),
-            (!empty ($this->params ['page'])) ? $this->params ['page'] : 1, 35);
+    $list_elements = (empty ($this->params ['search_term'])) ? $model->provider_list () : $model->provider_search ($this->params ['search_term']);
+    if (!empty ($list_elements))
+      $this->view->provider_paging = $model->paging ($list_elements, (!empty ($this->params ['page'])) ? $this->params ['page'] : 1, 35);
   }
 
   /**

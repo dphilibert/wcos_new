@@ -18,6 +18,7 @@
 <br>
 
 <!-- BENUTZER LISTE //-->
+<?php if (!empty ($this->userlist_paging)) : ?>
 <table class="tableListe">    
     <tr>
       <td colspan="6" align="center">
@@ -52,7 +53,8 @@
       <td colspan="6" align="center">
         <?= $this->userlist_paging; ?>
       </td>
-    </tr>
-    
+    </tr>    
   </table>
+<?php endif; ?>
+
 </div>

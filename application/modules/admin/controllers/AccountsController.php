@@ -29,10 +29,10 @@
       $form->setAction ('/admin/accounts/index');
       $form->populate ($this->params);
       $this->view->search_form = $form;
-            
-      $this->view->userlist_paging = $model->paging (
-              (empty ($this->params ['search_term'])) ? $model->user_list () : $model->user_search ($this->params ['search_term']),
-              (!empty ($this->params ['page'])) ? $this->params ['page'] : 1, 35);       
+                  
+      $list_elements = (empty ($this->params ['search_term'])) ? $model->user_list () : $model->user_search ($this->params ['search_term']);      
+      if (!empty ($list_elements))
+        $this->view->userlist_paging = $model->paging ($list_elements, (!empty ($this->params ['page'])) ? $this->params ['page'] : 1, 35);       
     }
     
     /**

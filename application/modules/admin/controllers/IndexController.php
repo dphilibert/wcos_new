@@ -23,17 +23,22 @@
       unset ($params ['sato'], $params ['submit']);
       $this->view->url_params = $params;
             
-      //Suchformular und Anbieterauswahl
-      $session = new Zend_Session_Namespace ();
+      //Anbieterauswahl           
+      $options = array_merge (array ('0' => '--bitte wählen--'), $model->provider_selections ());      
+      $this->view->selections = $options;                 
+      
+      //Suchformular
       $form = new Form_Search ();
-      $form->populate ($params);
-      $this->view->active_provider = $session->anbieterData ['anbieterhash'];                        
-      $this->view->selections = $model->provider_selections ();                 
+      $form->populate ((!empty ($params ['search_term']) ? $params : array ('search_term' => 'Suche Name/Kdnr.')));
       $this->view->form = $form;
-                          
+      
       //Suchergebnisse
-      if (!empty ($params ['search_term']))                                                              
-        $this->view->search_results_paging = $model->paging ($model->provider_selection_search ($params ['search_term']), $params ['page']);                          
+      if (!empty ($params ['search_term']) AND $params ['search_term'] != 'Suche Name/Kdnr.')
+      {
+        $results = $model->provider_selection_search ($params ['search_term']);
+        if (!empty ($results))
+          $this->view->search_results_paging = $model->paging ($results, $params ['page']);                  
+      }  
     }
   }
 

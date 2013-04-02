@@ -59,16 +59,18 @@ var BuildAjaxGrid = function ()
       filter    :myFilter
     },
     success :function (ajaxData)
-    {
+    {            
       $("tr[name='ajaxZeile']").remove();
       var anzahlDatensaetze = ajaxData.length;
       var ungerundeteSeitenanzahl = anzahlDatensaetze / anzahlPerPage;
       anzahlPages = Math.round(ungerundeteSeitenanzahl);
+                  
       if (anzahlPages < 1) anzahlPages = 1;
       endPagination = Number(startPagination) + Number(anzahlPerPage) - 1;
       if (endPagination > anzahlDatensaetze) endPagination = anzahlDatensaetze;
       if (ungerundeteSeitenanzahl > anzahlPages) anzahlPages++;
       $(".paginatorPageNo").html('Seite ' + page + ' von ' + anzahlPages);
+      $('.paginator_maxPages').html(anzahlPages);
       var counter = 0;
       for (var i = startPagination; i <= endPagination; i++)
       {
@@ -164,6 +166,7 @@ var deleteLine = function (id)
  */
 var newEntry = function ()
 {
+  $("[id^=ap_]").val('');
   editLine(0);
 }
 
@@ -184,7 +187,7 @@ var loadFormData = function (apID)
   }
   if (apID == 0) // bei apID < 0 Ansprechpartner neu anlegen
   {
-    var ajaxURL = "/ansprechpartner/ansprechpartner.ajax/new";
+    var ajaxURL = "/ansprechpartner/ansprechpartner.ajax/new";    
   }
   var ajaxData = '';
   $.ajax(
@@ -199,6 +202,7 @@ var loadFormData = function (apID)
     },
     success :function (ajaxData)
     {
+      
       // die Daten des "Forms"
       $("#ap_anredeID option[value='" + ajaxData.anredeID + "']").attr('selected', true);
       $("#ap_vorname").val(ajaxData.vorname);

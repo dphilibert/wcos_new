@@ -9,8 +9,6 @@
    */
   class Media_IndexController extends Zend_Controller_Action
   {
-
-
     /**
      * setzt Daten für das View
      *
@@ -18,14 +16,9 @@
      */
     public function indexAction ()
     {
-//    $ansprechpartnerModel = new Model_DbTable_AnsprechpartnerData ();
-//    $this->view->ansprechpartner = $ansprechpartnerModel->getAnsprechpartnerList ();
-//    $this->view->anreden = Model_DbTable_Anreden::getAnreden (1);
-//    $this->view->data = $ansprechpartnerModel->getAnsprechpartner ($apID);
       $sessionNamespace = new Zend_Session_Namespace ();
       $userData = $sessionNamespace->userData;
-      $anbieterID = $userData ['anbieterID'];
-      $ansprechpartnerModel = new Model_DbTable_AnsprechpartnerData ();
+      $anbieterID = $userData ['anbieterID'];      
       $this->view->anbieterID = $anbieterID;
       try
       {

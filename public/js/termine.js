@@ -31,6 +31,7 @@ var BuildAjaxGrid = function ()
       endPagination = Number(startPagination) + Number(anzahlPerPage) - 1;
       if (ungerundeteSeitenanzahl > anzahlPages) anzahlPages++;
       $(".paginatorPageNo").html('Seite ' + page + ' von ' + anzahlPages);
+      $('.paginator_maxPages').html(anzahlPages);
       for (var i = startPagination; i <= endPagination; i++)
       {
         if (i < anzahlDatensaetze)
@@ -139,42 +140,8 @@ var editLine = function (id)
   var anbieterHash = $("#anbieterHash").val();
 
   loadFormData(id);
-//  $("#edit").fancybox({
-//    'width'             :800,
-//    'height'            :400,
-//    'autoScale'         :false,
-//    'autoDimensions'    :false,
-//    'transitionIn'      :'elastic',
-//    'transitionOut'     :'elastic',
-//    'centerOnScroll'    :true,
-//    'hideOnOverlayClick':true,
-//    'titleShow'         :false,
-//    'showCloseButton'   :true,
-//    'enableEscapeButton':true,
-//    'onComplete'        :function ()
-//    {
-//    },
-//    'onCleanup'         :function (dialog)
-//    {
-//      var ajaxURL = "/termine/termine.ajax/cleartable";
-//      var ajaxData = '';
-//      $.ajax(
-//      {
-//        dataType:"json",
-//        url     :ajaxURL,
-//        type    :"POST",
-//        data    :{
-//          anbieterID:anbieterID,
-//          hash      :anbieterHash
-//        },
-//        success :function (ajaxData)
-//        {
-//          $.fancybox.close();
-//        }
-//      });
-//    }
-//  });
 }
+
 function tinymceInit(id)
 {
   tinyMCE.init({
@@ -183,8 +150,15 @@ function tinymceInit(id)
     'width'                        :790,
     theme                          :"advanced",
     plugins                        :"safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount",
+    
     // Theme options
-    theme_advanced_buttons1        :"bold,italic,underline,strikethrough,|,fontselect,fontsizeselect,bullist,numlist,forecolor,backcolor,|,justifyleft,justifycenter,justifyright,justifyfull,hr,removeformat,visualaid,separator,sub,sup,separator,charmap",
+    theme_advanced_buttons1        :"pastetext,pasteword,|,bold,italic,underline,strikethrough,|, link,unlink,|,bullist,numlist,|,justifyleft,justifycenter,justifyright,justifyfull,hr,removeformat,visualaid,separator,sub,sup,separator,charmap,code",
+    
+    paste_auto_cleanup_on_paste : true,
+    paste_remove_styles: true,
+    paste_remove_styles_if_webkit: true,
+    paste_strip_class_attributes: true,
+    
     theme_advanced_buttons2        :"",
     theme_advanced_buttons3        :"",
     theme_advanced_toolbar_location:"top",
@@ -196,6 +170,7 @@ function tinymceInit(id)
     elements                       :"te_beschreibung"
   });
 }
+
 function tinymceKill()
 {
   $("#teaserMCE").html('<textarea id="te_teaser" name="teaser" cols=70 rows=4></textarea>');
@@ -214,6 +189,7 @@ var deleteLine = function (id)
 }
 var newEntry = function ()
 {
+  $("[id^=te_]").val('');
   editLine(0);
 }
 var loadFormData = function (tID)
@@ -257,6 +233,7 @@ var loadFormData = function (tID)
     }
   });
 };
+
 var AjaxSave = function (selectedField, selectedValue, id)
 {
   var anbieterID = $("#anbieterID").val();
@@ -292,6 +269,7 @@ var AjaxSave = function (selectedField, selectedValue, id)
     }
   });
 }
+
 var AjaxDelete = function (tID)
 {
   var anbieterID = $("#anbieterID").val();

@@ -37,7 +37,6 @@
       $this->view->medien = $mediaModel->getMedienList ($anbieterID, 6);
       $this->view->ansprechpartner = $ansprechpartnerModel->getAnsprechpartnerList (NULL, $anbieterID);
       $this->view->anreden = Model_DbTable_Anreden::getAnreden (1);
-//    $this->view->myAnsprechpartner = $ansprechpartnerModel->getAnsprechpartner ($apID);
     }
   }
 

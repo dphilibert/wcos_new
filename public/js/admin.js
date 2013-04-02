@@ -6,8 +6,8 @@ $(document).ready(function()
   fancy_config = {    
     'autoScale' : false,
     'autoDimensions' : false,
-    'transitionIn' : 'elastic',
-    'transitionOut' : 'elastic',
+    'transitionIn' : 'none',
+    'transitionOut' : 'none',
     'centerOnScroll' : true,
     'hideOnOverlayClick' : true,
     'titleShow' : false,

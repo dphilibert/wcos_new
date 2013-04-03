@@ -15,7 +15,7 @@ class Form_Search extends Zend_Form
     $this->setAction ($this->action)->setName ($this->name)->setMethod ($this->method);
     
     $search = new Zend_Form_Element_Text ('search_term');
-    $search->setAttrib ('class', 'searchBox')->setAttrib ('onclick', 'this.select();')->addDecorators ($this->decorators)->removeDecorator ('Label');
+    $search->setAttrib ('class', 'searchBox')->setAttrib ('placeholder', 'Suche Name/ID')->addDecorators ($this->decorators)->removeDecorator ('Label');
                     
     $this->addElements (array (
        $search       

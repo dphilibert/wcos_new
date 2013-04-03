@@ -29,11 +29,11 @@
       
       //Suchformular
       $form = new Form_Search ();
-      $form->populate ((!empty ($params ['search_term']) ? $params : array ('search_term' => 'Suche Name/Kdnr.')));
+      $form->populate ($params);
       $this->view->form = $form;
       
       //Suchergebnisse
-      if (!empty ($params ['search_term']) AND $params ['search_term'] != 'Suche Name/Kdnr.')
+      if (!empty ($params ['search_term']))
       {
         $results = $model->provider_selection_search ($params ['search_term']);
         if (!empty ($results))

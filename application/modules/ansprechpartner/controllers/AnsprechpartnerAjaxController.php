@@ -24,8 +24,7 @@
       // TODO Authentzifizierung des Users erforderlich. Achtung: Session-Hijacking!!!
       $sessionNamespace = new Zend_Session_Namespace ();
       $sessionUserHash = $sessionNamespace->userData ['hash'];
-      $paramUserHash = $this->getRequest ()->getParam ('userhash');
-      ////logDebug ("Session UserHash: $sessionUserHash / Param-UserHash: $paramUserHash", "tgr");
+      $paramUserHash = $this->getRequest ()->getParam ('userhash');     
     }
 
 
@@ -58,8 +57,7 @@
      * @return void
      */
     public function saveAction ()
-    {
-      //logDebug ("Ansprechpartner save", "saveAction");
+    {      
       Model_History::save2history ();
       $apID = $this->getRequest ()->getParam ('apid');
       $model = new Model_DbTable_AnsprechpartnerData ();
@@ -82,8 +80,7 @@
       $apID = $this->getRequest ()->getParam ('apid');
       $model = new Model_DbTable_AnsprechpartnerData ();
       $rawData = $model->getAnsprechpartner ($apID);
-      $response = $rawData [0];
-      logDebug (print_r ($response, true), "");
+      $response = $rawData [0];      
       $this->_helper->json->sendJson ($response);
     }
 
@@ -103,8 +100,7 @@
       $anbieterData = $sessionNamespace->anbieterData;
       $aID = $anbieterData ['anbieterID'];
       $model = new Model_DbTable_AnsprechpartnerData ();
-      $rawData = $model->getAnsprechpartnerList ($filter, $aID);
-      ////logDebug (print_r ($rawData, true), "loadAction");
+      $rawData = $model->getAnsprechpartnerList ($filter, $aID);      
       $response = $rawData;
       $this->_helper->json->sendJson ($response);
     }

@@ -77,7 +77,6 @@
         $key = strtoupper ($key);
         $anbieter [$key] = $value;
       }
-////logDebug (print_r ($anbieter, true), "tgr");
       return $anbieter;
     }
   }

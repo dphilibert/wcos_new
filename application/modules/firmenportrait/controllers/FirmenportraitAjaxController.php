@@ -23,7 +23,6 @@
       $sessionNamespace = new Zend_Session_Namespace ();
       $sessionUserHash = $sessionNamespace->userData ['hash'];
       $paramUserHash = $this->getRequest ()->getParam ('userhash');
-////logDebug ("Session UserHash: $sessionUserHash / Param-UserHash: $paramUserHash", "tgr");
     }
 
 
@@ -54,16 +53,12 @@
      *
      */
     public function saveAction ()
-    {
-      // Model_History::save2history ();
+    {      
       $anbieterID = $this->getRequest ()->getParam ('anbieterID');
       $ID = $this->getRequest ()->getParam ('id');
       $model = new Model_DbTable_FirmenportraitData ();
       $selectedField = $this->getRequest ()->getParam ('field');
-      $selectedValue = $this->getRequest ()->getParam ('value');
-      ////logDebug ($anbieterID." / ".$selectedField." / ". $selectedValue, "");
-      //$selectedValue = str_replace ("<p>", "", $selectedValue);
-      //$selectedValue = str_replace ("</p>", "", $selectedValue);
+      $selectedValue = $this->getRequest ()->getParam ('value');      
       $model->saveFirmenportrait ($selectedField, $selectedValue, $ID, $anbieterID);
     }
 

@@ -57,13 +57,11 @@
      */
     public function saveAction ()
     {
-//     Model_History::save2history ();
       $ID = $this->getRequest ()->getParam ('id');
       $model = new Model_DbTable_StammdatenData ();
       $selectedField = $this->getRequest ()->getParam ('field');
       $dbField = $selectedField;
       $selectedValue = $this->getRequest ()->getParam ('value');
-////logDebug ("$dbField / $selectedValue", "tgr");
       $model->saveStammdaten ($dbField, $selectedValue, $ID);
     }
 
@@ -100,7 +98,6 @@
       $premiumLink = 'http://' . $_SERVER ['SERVER_NAME'] . '/stammdaten/index/makeitpremium/hash/' . $premiumHash;
       $mail = new Zend_Mail ();
       $mailHtml = 'Der Anbieter "' . $anbieterData ['firmenname'] . '" wünscht Informationen über einen Premium-Account.<br><br>';
-////logDebug (print_r ($anbieterData, true), "");
       $mailHtml .= "Firmenname: " . $anbieterData ['firmenname'] . "<br>";
       $mailHtml .= "Anschrift: " . $stammdaten ['strasse'] . " " . $stammdaten ['hausnummer'] . "<br>";
       $mailHtml .= "Plz/Ort: " . $stammdaten ['plz'] . " " . $stammdaten ['ort'] . "<br>";

@@ -315,20 +315,22 @@
       */
       $imgFullPath = getcwd () . '/' . $uploadDirectory . $filename . '.' . $ext;
       $unlinkStatus = @unlink ($imgFullPath);
-      if ($this->file->save ($uploadDirectory . $filename . '.' . $ext) && !$isVideo) // Upload ist ein Bild
+      
+      $this->file->save ($uploadDirectory . $filename . '.' . $ext);
+                  
+      if ($isVideo) // Upload ist vermutlich ein Video
+      {
+        $result = array('success' => true, 'MEDIAEXTENSION' => $ext, "MEDIATYP" => "video", "FILENAME" => $filename);
+      }elseif (strtolower ($ext) == 'pdf' OR strtolower ($ext) == 'doc' OR strtolower ($ext) == 'docx') // Upload ist vermutlich ein Dokument
+      {
+        $result = array('success' => true, 'MEDIAEXTENSION' => $ext, "MEDIATYP" => "pdf", "FILENAME" => $filename);
+      } else //Upload vermutlich ein Bild
       {
         $result = array('success' => true, 'MEDIAEXTENSION' => $ext, "MEDIATYP" => "bild", "FILENAME" => $filename);
         $this->file->saveThumbnail ($uploadDirectory, $filename . '.' . $ext);
         $this->file->formatImage ($uploadDirectory, $filename . '.' . $ext);
       }
-      if ($isVideo) // Upload ist ein Video
-      {
-        $result = array('success' => true, 'MEDIAEXTENSION' => $ext, "MEDIATYP" => "video", "FILENAME" => $filename);
-      }
-      if (strtolower ($ext) == 'pdf') // Upload ist ein PDF
-      {
-        $result = array('success' => true, 'MEDIAEXTENSION' => $ext, "MEDIATYP" => "pdf", "FILENAME" => $filename);
-      }
+                    
       return $result;
     }
   }

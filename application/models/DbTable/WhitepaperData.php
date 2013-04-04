@@ -62,7 +62,7 @@ class Model_DbTable_WhitepaperData extends Zend_Db_Table_Abstract
    */
 
   public function saveWhitepaper ($field = NULL, $value, $ID)
-  {
+  {    
     $db = Zend_Registry::get ('db');
     if ($field != NULL)
     {
@@ -114,16 +114,15 @@ class Model_DbTable_WhitepaperData extends Zend_Db_Table_Abstract
   
   public function lockWhitepaper ($ID, $hashCode)
   {
-    $db = Zend_Registry::get ('db');
-    $data = array ($field => $value);
+    $db = Zend_Registry::get ('db');   
     try {
          $n = $db->update ("whitepaper", array ('whitepaper_freigabe_hash' => $hashCode), "whitepaperID = $ID");
         } catch (Exception $e)
           {
             logError ($e->getMessage (), "WhitepaperAjaxController::lockWhitepaper");
-            return 2; // Return-Code ==> Fehler beim Speichern
+            return 2; 
           }
-    return 0; // Return-Code ==> Speichern erfolgreich
+    return 0; 
   }
   
   public function unlockWhitepaper ($hashCode)
@@ -146,5 +145,11 @@ class Model_DbTable_WhitepaperData extends Zend_Db_Table_Abstract
   }
   
 
+  public function hardDelWhitepaper ($whitepaper_id)
+  {
+    $db = Zend_Registry::get ('db');     
+    $db->delete ('whitepaper', 'whitepaperID = '.$whitepaper_id);
+  }        
+  
 }
 

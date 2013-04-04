@@ -38,8 +38,7 @@
       $where = implode (" " . $operator . " ", $where);
       $sql = "SELECT *, a.anbieterID as anbieterID, m.mediaID as mediaID FROM anbieter a
               INNER JOIN stammdaten sd ON a.stammdatenID = sd.stammdatenID
-              LEFT JOIN media m ON a.anbieterID = m.anbieterID AND m.mediatyp='FIRMENLOGO' WHERE " . $where . " GROUP BY a.anbieterID ORDER BY a.firmenname, a.name1 ASC";
-      logDebug ($sql, "");
+              LEFT JOIN media m ON a.anbieterID = m.anbieterID AND m.mediatyp='FIRMENLOGO' WHERE " . $where . " GROUP BY a.anbieterID ORDER BY a.firmenname, a.name1 ASC";      
       try
       {
         $stmt = $db->query ($sql);
@@ -47,8 +46,7 @@
       } catch (Zend_Exception $e)
       {
         logError (print_r ($e->getMessage (), true), "");
-      }
-      //logDebug (print_r ($data, true), "test2");
+      }      
       $i = 0;
       if (count ($data) > 0)
       {
@@ -91,8 +89,7 @@
       $where = implode (" " . $operator . " ", $where);
       $sql = "SELECT *, a.anbieterID as anbieterID, m.mediaID as mediaID FROM anbieter a
                   INNER JOIN stammdaten sd ON a.stammdatenID = sd.stammdatenID
-                  LEFT JOIN media m ON a.anbieterID = m.anbieterID AND m.mediatyp='FIRMENLOGO' WHERE " . $where . " GROUP BY a.anbieterID ORDER BY a.firmenname, a.name1 ASC";
-      logDebug ($sql, "");
+                  LEFT JOIN media m ON a.anbieterID = m.anbieterID AND m.mediatyp='FIRMENLOGO' WHERE " . $where . " GROUP BY a.anbieterID ORDER BY a.firmenname, a.name1 ASC";      
       try
       {
         $stmt = $db->query ($sql);
@@ -100,8 +97,7 @@
       } catch (Zend_Exception $e)
       {
         logError (print_r ($e->getMessage (), true), "");
-      }
-      //logDebug (print_r ($data, true), "test2");
+      }      
       $i = 0;
       if (count ($data) > 0)
       {
@@ -233,8 +229,7 @@
       ->join (array('sd' => 'stammdaten'), 'a.stammdatenID = sd.stammdatenID')
       ->where ('a.premiumLevel = ?', 1)
       ->order (array('RAND()'))
-      ->limit ($anzahlDerEintraege);
-      //logDebug (print_r ($select->__toString ()), "");
+      ->limit ($anzahlDerEintraege);      
       if ($systemID != NULL)
       {
         $select->where ("a.systems like ?", '%' . $systemID . '%');
@@ -331,13 +326,11 @@
       $firmenname = str_replace ("'", "\'", $firmenname);
       $db = Zend_Registry::get ('db');
       $sql = "INSERT INTO stammdaten (userID, strasse, hausnummer, land, plz, ort, fon, fax, email, www) VALUES
-                                   (0, '$strasse', '$hausnummer', '$land', '$plz', '$ort', '$fon', '$fax', '$email', '$www')";
-      //    //logDebug ($sql, $lastID);
+                                   (0, '$strasse', '$hausnummer', '$land', '$plz', '$ort', '$fon', '$fax', '$email', '$www')";      
       $db->query ($sql);
       $lastID = $db->lastInsertId ();
       $sql = "INSERT INTO anbieter (anbieterID, systemID, companyID, stammdatenID, firmenname) VALUES
-                                 ($anbieterID, 1, $companyID, $lastID, '$firmenname')";
-      //    //logDebug ($sql, $lastID);
+                                 ($anbieterID, 1, $companyID, $lastID, '$firmenname')";      
       $db->query ($sql);
     }
 
@@ -567,8 +560,7 @@
      *
      */
     public function importData ()
-    {
-      //logDebug ("Starte Import");
+    {      
       ini_set ("max_execution_time", "3800");
       $db = Zend_Registry::get ('db');
       $fileName = $this->csvPath . $this->csvFileName;
@@ -612,10 +604,7 @@
         }
         $sql .= ")";
         if ($anzahlHeaderFelder != $anzahlFelder)
-        {
-          //logDebug ($sql, "fatal error: Unterschiedliche Feldanzahl ($anzahlHeaderFelder / $anzahlFelder)");
-          //logDebug (print_r ($fields, true), "");
-          //logDebug (print_r ($headerFields, true), "");
+        {          
           die ();
         }
         else

@@ -23,7 +23,6 @@
       $sessionNamespace = new Zend_Session_Namespace ();
       $sessionUserHash = $sessionNamespace->userData->userHash;
       $paramUserHash = $this->getRequest ()->getParam ('userhash');
-////logDebug ("Session UserHash: $sessionUserHash / Param-UserHash: $paramUserHash", "tgr");
     }
 
     /**

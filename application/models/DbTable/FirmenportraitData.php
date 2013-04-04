@@ -79,7 +79,7 @@
         $n = $db->update ($tableName, $data, $whereCond);
       } catch (Exception $e)
       {
-        //logDebug ($tableName. " / ". print_r ($data, true) . " / ". $whereCond);
+        
         logError ($e->getMessage (), "FirmenportraitAjaxController::saveFirmenportrait UPDATE");
         return 2; // Return-Code ==> Fehler beim Speichern
       }

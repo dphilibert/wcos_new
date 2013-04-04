@@ -111,8 +111,7 @@
       $_controller = $request->getControllerName ();
       $this->layout->_module = $_module;
       $this->layout->_controller = $request->getControllerName ();
-      $this->layout->_action = $request->getActionName ();
-      ////logDebug ($_module."/".$request->getControllerName ()."/".$request->getActionName ());
+      $this->layout->_action = $request->getActionName ();     
       $this->bootstrap ('frontController');
       $frontController = $this->getResource ('frontController');
       $frontController->setParam ('useDefaultControllerAlways', false);

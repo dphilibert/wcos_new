@@ -1,0 +1,1 @@
+ALTER TABLE whitepaper ADD (whitepaper_freigabe_hash text, whitepaper_datei_originalname text, whitepaper_datei text);

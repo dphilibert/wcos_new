@@ -49,8 +49,7 @@
     {
       $ansprechpartner = NULL;
       $model = new Model_DbTable_AnsprechpartnerData ();
-      $ansprechpartnerListe = $model->getAnsprechpartnerList (NULL, $anbieterID);
-      //logDebug (print_r ($ansprechpartnerListe, true), "");
+      $ansprechpartnerListe = $model->getAnsprechpartnerList (NULL, $anbieterID);      
       if (count ($ansprechpartnerListe) > 0)
       {
         $i = 0;
@@ -75,8 +74,7 @@
           }
           $i++;
         }
-      }
-      //logDebug (print_r ($ap, true), "");
+      }      
       return $ansprechpartner;
     }
 
@@ -120,8 +118,7 @@
     {
       $bilder = NULL;
       $model = new Model_DbTable_MediaData ();
-      $media = $model->getAllMedia ($anbieterID, "BILD");
-      //logDebug (print_r ($media, true), "");
+      $media = $model->getAllMedia ($anbieterID, "BILD");      
       $i = 1;
       foreach ($media as $bild)
       {
@@ -268,8 +265,7 @@
     {
       $termin = NULL;
       $model = new Model_DbTable_TermineData();
-      $data = $model->getTermin ($terminID);
-      //logDebug (print_r ($data, true), "");
+      $data = $model->getTermin ($terminID);     
       if (count ($data) > 0)
       {
         $data = $data [0];
@@ -303,8 +299,7 @@
     {
       $data = NULL;
       $model = new Model_DbTable_FirmenportraitData ();
-      $modelData = $model->getFirmenportrait ($anbieterID);
-      //logDebug (print_r ($firmenportrait, true), "");
+      $modelData = $model->getFirmenportrait ($anbieterID);     
       $firmenportrait = $modelData [0];
       if (count ($firmenportrait) > 0)
       {
@@ -385,8 +380,7 @@
         $branchenname_nummer = $produktDatensatz ['branchenname_nummer'];
         $produktBaum [$hauptbegriff] [$oberbegriff] = $branchenname;
       }
-      return $produktBaum;
-      //logDebug (print_r ($produktcodesArray, true), "");
+      return $produktBaum;     
     }
 
 
@@ -418,9 +412,8 @@
           $i++;
         }
       }
-      //logDebug (print_r ($produktBaum, true), "IndexController::getProduktSpektrum");
-      return $produktBaum;
-      //logDebug (print_r ($produktcodesArray, true), "");
+      
+      return $produktBaum;      
     }
 
     /**
@@ -520,7 +513,7 @@
         $systemID = NULL;
       }
       $resData = $model->getAnbieterRandom ($systemID, $anzahlDerEintraege);
-      //logDebug (print_r ($resData, true), "");
+     
       if (count ($resData) > 0)
       {
         foreach ($resData ['hits'] as $key => $dataset)
@@ -534,7 +527,7 @@
           $stammdaten_model = new Model_DbTable_StammdatenData();
           $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
           $stammdaten = $stammdaten [0];
-          //logDebug (count  ($media), "");
+         
           $firmenlogo = NULL;
           $retData = NULL;
           if (count ($media) > 0)
@@ -605,14 +598,14 @@
           $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
           $stammdaten_model = new Model_DbTable_StammdatenData();
           $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
-          //logDebug (print_r ($stammdaten, true), "");
+          
           $stammdaten = $stammdaten [0];
-          //logDebug (count  ($media), "");
+          
           $firmenlogo = NULL;
           $retData = NULL;
           if (count ($media) > 0)
           {
-            // logDebug (print_r ($media, true), "");
+            
             $firmenlogo = $media [0] ['mediaID'] . "." . $media [0] ['mediaExtension'];
           }
           $premiumStatus = $anbieterData ['premiumLevel'];
@@ -656,22 +649,14 @@
         $systemID = NULL;
       }
       $resData = $model->searchAnbieter ($firmenName, $systemID);
-      //logDebug (print_r ($resData, true), "");
+      
       if (count ($resData) > 0)
       {
         foreach ($resData ['hits'] as $key => $anbieterData)
         {
           $vmKundennummer = $anbieterData ['anbieterID'];
           $anbieter_model = new Model_DbTable_AnbieterData();
-          //        $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
-          //  $media_model = new Model_DbTable_MediaData();
-          // $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
-          /*
-          $stammdaten_model = new Model_DbTable_StammdatenData();
-          $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
-          $stammdaten = $stammdaten [0];
-          */
-          //logDebug (count  ($media), "");
+         
           $firmenlogo = NULL;
           $retData = NULL;
           if (array_key_exists ('mediaID', $anbieterData) && $anbieterData ['mediaID'] != NULL)
@@ -722,22 +707,14 @@
         $systemID = NULL;
       }
       $resData = $model->searchAnbieterInAlphabet ($firmenName, $systemID);
-      //logDebug (print_r ($resData, true), "");
+      
       if (count ($resData) > 0)
       {
         foreach ($resData ['hits'] as $key => $anbieterData)
         {
           $vmKundennummer = $anbieterData ['anbieterID'];
           $anbieter_model = new Model_DbTable_AnbieterData();
-          //        $anbieterData = $anbieter_model->getAnbieterByKundennummer ($vmKundennummer);
-          //  $media_model = new Model_DbTable_MediaData();
-          // $media = $media_model->getAllMedia ($vmKundennummer, "FIRMENLOGO");
-          /*
-          $stammdaten_model = new Model_DbTable_StammdatenData();
-          $stammdaten = $stammdaten_model->getStammdaten ($vmKundennummer);
-          $stammdaten = $stammdaten [0];
-          */
-          //logDebug (count  ($media), "");
+          
           $firmenlogo = NULL;
           $retData = NULL;
           if (array_key_exists ('mediaID', $anbieterData) && $anbieterData ['mediaID'] != NULL)

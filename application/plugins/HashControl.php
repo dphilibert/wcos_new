@@ -30,12 +30,10 @@
       $userData = $sessionNamespace->userData;
       $hashOK = TRUE;
       $config = Zend_Registry::get ('config');
-      $params = $this->getRequest ()->getParams ();
-      //logDebug (print_r ($params, true), "HashControl:preDispatch");
+      $params = $this->getRequest ()->getParams ();      
       $controller = $params ['controller'];
       // hier wird zunächst geprüft ob der Controller ein Ajax-Controller ist. Das ist dann der Fall wenn nach dem . im Controllernamen ein "ajax" steht
-      $controllerNameArray = explode ('.', $controller);
-      ////logDebug (print_r ($params, true), "");
+      $controllerNameArray = explode ('.', $controller);      
       if ($controller == 'login.ajax' || $controller == 'testing')
       {
         return NULL;
@@ -74,15 +72,13 @@
         $allowedUserString = $config->admin->allowedUser;
         $allowedUserArray = explode (',', $allowedUserString);
         $sessionNamespace = new Zend_Session_Namespace ();
-        $userData = $sessionNamespace->userData;
-        logDebug (print_r ($userData, true), "userData");
+        $userData = $sessionNamespace->userData;        
         $userIsAdmin = false;
         if (is_array ($userData) && array_key_exists ('userHash', $userData))
         {
           $userHash = $userData ['userHash'];
           $userModel = new Model_DbTable_UserData();
-          $userByHash = $userModel->getUserByHash ($userHash);
-          logDebug (print_r ($userByHash, true), "userData");
+          $userByHash = $userModel->getUserByHash ($userHash);          
           $userIsAdmin = ($userByHash['userHash'] == $userHash);
         }
         if (!$userIsAdmin) {

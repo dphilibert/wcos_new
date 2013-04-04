@@ -614,7 +614,9 @@ qq.extend(qq.FileUploader.prototype, {
         var item = this._getItemByFileId(id);                
         qq.remove(this._find(item, 'cancel'));
         qq.remove(this._find(item, 'spinner'));
-        
+                        
+              
+                        
         if (result.success){
             qq.addClass(item, this._classes.success);    
         } else {
@@ -1211,7 +1213,7 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         var size = this.getSize(id);
         
         this._options.onProgress(id, name, size, size);
-                
+                                           
         if (xhr.status == 200){
             this.log("xhr - server response received");
             this.log("responseText = " + xhr.responseText);

@@ -32,14 +32,9 @@
      */
     public function indexAction ()
     {
-//    $ansprechpartnerModel = new Model_DbTable_AnsprechpartnerData ();
-//    $this->view->ansprechpartner = $ansprechpartnerModel->getAnsprechpartnerList ();
-//    $this->view->anreden = Model_DbTable_Anreden::getAnreden (1);
-//    $this->view->data = $ansprechpartnerModel->getAnsprechpartner ($apID);
       $sessionNamespace = new Zend_Session_Namespace ();
       $userData = $sessionNamespace->userData;
-      $anbieterID = $userData ['anbieterID'];
-      $ansprechpartnerModel = new Model_DbTable_AnsprechpartnerData ();
+      $anbieterID = $userData ['anbieterID'];      
       $this->view->anbieterID = $anbieterID;
       try
       {
@@ -65,11 +60,10 @@
      *
      * @return void
      */
-    public function unlockAction () // Eintrag freigeben
+    public function unlockAction ()
     {
       $this->_helper->_layout->disableLayout ();
-      $this->_helper->viewRenderer->setNoRender (true);
-      //TODO Freigabe-Hash entfernen. Damit wird der Eintrag im Frontend angezeigt
+      $this->_helper->viewRenderer->setNoRender (true);     
       $unlockHash = $this->getRequest ()->getParam ('hash');
       $this->model->unlockWhitepaper ($unlockHash);
       die ('<center>Der Eintrag wurde freigegeben!</center>');

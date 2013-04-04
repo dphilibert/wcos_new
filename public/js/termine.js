@@ -28,6 +28,8 @@ var BuildAjaxGrid = function ()
       var anzahlDatensaetze = ajaxData.length;
       var ungerundeteSeitenanzahl = anzahlDatensaetze / anzahlPerPage;
       anzahlPages = Math.round(ungerundeteSeitenanzahl);
+      
+      if (anzahlPages < 1) anzahlPages = 1;
       endPagination = Number(startPagination) + Number(anzahlPerPage) - 1;
       if (ungerundeteSeitenanzahl > anzahlPages) anzahlPages++;
       $(".paginatorPageNo").html('Seite ' + page + ' von ' + anzahlPages);

@@ -68,8 +68,7 @@
       $model = new Model_DbTable_WhitepaperData ();
       $selectedField = $this->getRequest ()->getParam ('field');
       $dbField = $selectedField;
-      $selectedValue = $this->getRequest ()->getParam ('value');
-      //logDebug ("id: $tID", "whitepaper");
+      $selectedValue = $this->getRequest ()->getParam ('value');            
       $model->saveWhitepaper ($dbField, $selectedValue, $tID);
     }
 
@@ -144,7 +143,7 @@
       $aID = $anbieterData ['anbieterID'];
       $model = new Model_DbTable_WhitepaperData ();
       $new_ID = $model->newWhitepaper ($aID);
-      logDebug ("newID: $new_ID", "whitepaper");
+      //logDebug ("newID: $new_ID", "whitepaper");
       $response = array('whitepaperID' => $new_ID);
       $this->_helper->json->sendJson ($response);
     }
@@ -165,7 +164,7 @@
       $aID = $anbieterData ['anbieterID'];
       $originalFilename = $this->getRequest ()->getParam ('fname');
       $whitepaperID = $this->getRequest ()->getParam ('id');
-      ////logDebug ("Eintrag $whitepaperID wurde gelockt!", "lockentryAction");
+      
       $whitepaper = $this->model->getWhitepaper ($whitepaperID);
       $wpFilename = $whitepaper [0] ['whitepaper_datei'];
       $uploadPath = getcwd () . '/uploads';
@@ -178,6 +177,8 @@
       $unlockLink = 'http://' . $_SERVER ['SERVER_NAME'] . '/whitepaper/index/unlock/hash/' . $unlockHash;
       $mailHtml = 'Freigabe: <a href="' . $unlockLink . '" target="_new">' . $unlockLink . '</a>';
       $this->model->lockWhitepaper ($whitepaperID, $unlockHash);
+      
+
       //$mail->setBodyText ($mailText);
       $mail->setBodyHtml ($mailHtml);
       $mail->setFrom ($config->mail->from->address, $config->mail->from->text);

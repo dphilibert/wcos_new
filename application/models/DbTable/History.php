@@ -21,8 +21,7 @@ class Model_DbTable_History extends Zend_Db_Table_Abstract
    */
 
   public function save2history ()
-  {
-    //logDebug ('save to history','');
+  {    
   }
 
 }

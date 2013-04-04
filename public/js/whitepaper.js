@@ -25,6 +25,8 @@ var BuildAjaxGrid = function ()
       var anzahlDatensaetze = ajaxData.length;
       var ungerundeteSeitenanzahl = anzahlDatensaetze / anzahlPerPage;
       anzahlPages = Math.round(ungerundeteSeitenanzahl);
+      
+      if (anzahlPages < 1) anzahlPages = 1;
       endPagination = Number(startPagination) + Number(anzahlPerPage) - 1;
       if (ungerundeteSeitenanzahl > anzahlPages) anzahlPages++;
       $(".paginatorPageNo").html('Seite ' + page + ' von ' + anzahlPages);
@@ -115,14 +117,23 @@ var editLine = function (id)
   });
 }
 var deleteLine = function (id)
-{
-  AjaxDelete(id);
+{    
+  fancyConfirm("Wollen Sie den Termin wirklich l&ouml;schen?", function (ret)
+  {
+    if (ret == true)
+    {
+      AjaxDelete(id);
+      BuildAjaxGrid();
+    }
+  });
 }
+
 var newEntry = function ()
 {
   $("[id^=we_]").val('');
   editLine(0);
 }
+
 var loadFormData = function (ID)
 {
   var anbieterID = $("#anbieterID").val();
@@ -158,6 +169,8 @@ var loadFormData = function (ID)
   });
   createUploader(ID);
 };
+
+
 var AjaxSave = function (selectedField, selectedValue, id)
 {
   var anbieterID = $("#anbieterID").val();
@@ -176,8 +189,8 @@ var AjaxSave = function (selectedField, selectedValue, id)
       field:selectedField,
       value:selectedValue,
     },
-    success:function (ajaxData)
-    {
+    complete:function (ajaxData, status)
+    {                        
       if (selectedField == 'kategorien')
       {
         $("#" + id + " td[id='kategorien']").html(selectedValue);
@@ -193,6 +206,8 @@ var AjaxSave = function (selectedField, selectedValue, id)
     }
   });
 }
+
+
 var AjaxLockEntry = function (id, dateiname)
 {
   var anbieterID = $("#anbieterID").val();
@@ -215,12 +230,13 @@ var AjaxLockEntry = function (id, dateiname)
     }
   });
 }
+
 var AjaxDelete = function (ID)
 {
   var anbieterID = $("#anbieterID").val();
   var anbieterHash = $("#anbieterHash").val();
   var ajaxURL = "/whitepaper/whitepaper.ajax/del";
-  var ajaxData = '';
+  
   $.ajax(
   {
     dataType:"json",
@@ -231,12 +247,13 @@ var AjaxDelete = function (ID)
       hash:anbieterHash,
       id:ID,
     },
-    success:function (ajaxData)
-    {
+    complete:function (ajaxData, status)
+    {            
     }
   });
   $("#" + ID).remove();
 }
+
 function createUploader(ID)
 {
   var uploader = new qq.FileUploader({
@@ -244,13 +261,16 @@ function createUploader(ID)
     action:'/whitepaper/upload/',
     multiple:false,
     onComplete:function (id, fileName, responseJSON)
-    {
+    {                        
+      var wp_id = $("#ID").val ();      
       mediaExtension = responseJSON ['MEDIAEXTENSION'];
       generatedFilename = responseJSON ['FILENAME'] + "." + mediaExtension;
-      AjaxSave("whitepaper_datei", generatedFilename, ID);
-      AjaxSave("whitepaper_datei_originalname", fileName, ID);
-      AjaxLockEntry(ID, fileName);
-      removeUploadButton();
+      AjaxSave("whitepaper_datei", generatedFilename, wp_id);
+      AjaxSave("whitepaper_datei_originalname", fileName, wp_id);
+      AjaxLockEntry(wp_id, fileName);
+            
+      if (responseJSON ['success'])
+        $('.qq-upload-button').remove ();
     },
     params:{
       mediaID:ID
@@ -263,6 +283,8 @@ function createUploader(ID)
     debug:true
   });
 }
+
+
 $(document).ready(function ()
 {
   getOptionsPages();
@@ -344,7 +366,7 @@ $(document).ready(function ()
     'showCloseButton':true,
     'enableEscapeButton':true,
   });
-  $("#del").fancybox({
+  /*$("#del").fancybox({
     'width':800,
     'height':400,
     'autoScale':false,
@@ -356,7 +378,7 @@ $(document).ready(function ()
     'titleShow':false,
     'showCloseButton':true,
     'enableEscapeButton':true
-  });
+  });*/
 //	$("#liste img[title]").tooltip();
 });
 

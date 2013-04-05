@@ -278,11 +278,11 @@ class Model_DbTable_Admin extends Zend_Db_Table_Abstract
     $preview_links = array ();
     foreach ($provider_systems as $provider_system)
     { 
-      $url = $systems_config->urls->get ($provider_system).'/anbieter/?anbieter='.$session->anbieterData ['anbieterID'];
+      $url = str_replace ('PROVIDERID', $session->anbieterData ['anbieterID'], $systems_config->provider_urls->get ($provider_system));
       $preview_links [] = array (
         'name' => $systems_config->selections->get ($provider_system),
         'standard' => $url,
-        'premium' =>  $url.'&premium_preview=1',
+        'premium' =>  ($provider_system == 1) ? $url.'&premium_preview=1' : '',
      );
     } 
       

@@ -26,7 +26,11 @@
               <li>
                 <label><?= $preview_link ['name'] ?></label>
                 <a href="<?= $preview_link ['standard'] ?>" target="_blank">Standard</a>
-                <a href="<?= $preview_link ['premium'] ?>" target="_blank">Premium</a>
+                <?php if (!empty ($preview_link ['premium'])) : ?>
+                  <a href="<?= $preview_link ['premium'] ?>" target="_blank">Premium</a>
+                <?php else : ?>
+                  Premium (nicht verfügbar)
+                <?php endif; ?>  
               </li>
               <?php endforeach; ?>
             </ul>

@@ -19,8 +19,17 @@
           </p>
           
           <p>
-              Eine Vorschau Ihres Standard-Profils finden Sie <a href="http://www.elektroniknet.de/anbieter?anbieter=<?= $this->anbieterID ?>" target="_blank" style="color:blue;">hier</a>.<br>
-              Wenn Sie wissen möchten, wie Ihr-Premium-Account dargestellt wird, klicken Sie <a href="http://www.elektroniknet.de/anbieter?anbieter=<?= $this->anbieterID ?>&premium_preview=1" target="_blank" style="color:blue;">hier</a>
+            <b>Vorschau Ihres Firmenprofils:</b>
+            
+            <ul class="preview_links">
+              <?php foreach ($this->preview_links as $preview_link) : ?>
+              <li>
+                <label><?= $preview_link ['name'] ?></label>
+                <a href="<?= $preview_link ['standard'] ?>" target="_blank">Standard</a>
+                <a href="<?= $preview_link ['premium'] ?>" target="_blank">Premium</a>
+              </li>
+              <?php endforeach; ?>
+            </ul>
           </p>
                         
         </div>

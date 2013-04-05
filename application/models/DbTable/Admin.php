@@ -242,6 +242,13 @@ class Model_DbTable_Admin extends Zend_Db_Table_Abstract
     $this->_db->update ('user', $params, 'userID = '.$params ['userID']);
   }        
   
+  /**
+   * Gibt die Benutzerdaten anhand des Suchbegriffs zurueck - 
+   * entweder Benutzername oder ID
+   * 
+   * @param string $search_term
+   * @return array Benutzerdaten 
+   */
   public function user_search ($search_term)
   {
     $query = $this->_db->select ()->from ('user', array ('userID', 'username', 'userStatus'))
@@ -252,6 +259,34 @@ class Model_DbTable_Admin extends Zend_Db_Table_Abstract
       $query->where ('username LIKE "'.$search_term.'%"');
       
     return $this->_db->fetchAll ($query);
+  }       
+  
+  /**
+   * Gibt die Vorschaulinks (standard/premium) fuer den Anbieter zurueck
+   * 
+   * @param void
+   * @return array Vorschaulinks 
+   */
+  public function preview_links ()
+  {
+    $systems_config = new Zend_Config (require APPLICATION_PATH.'/configs/systems.php');    
+    $session = new Zend_Session_Namespace ();
+    
+    $query = $this->_db->select ()->from ('anbieter', 'systems')->where ('anbieterID = '. $session->anbieterData ['anbieterID']);    
+    $provider_systems = explode (',', $this->_db->fetchOne ($query));
+                    
+    $preview_links = array ();
+    foreach ($provider_systems as $provider_system)
+    { 
+      $url = $systems_config->urls->get ($provider_system).'/anbieter/?anbieter='.$session->anbieterData ['anbieterID'];
+      $preview_links [] = array (
+        'name' => $systems_config->selections->get ($provider_system),
+        'standard' => $url,
+        'premium' =>  $url.'&premium_preview=1',
+     );
+    } 
+      
+    return $preview_links;      
   }        
 }
 ?>

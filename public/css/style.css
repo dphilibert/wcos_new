@@ -506,3 +506,10 @@ textarea
 
 /* Zend_Form */
 .errors li {list-style-type:none; color:red;}
+
+/* Preview Links */
+ul.preview_links {list-style-image: url(/img/pfeil_l.gif);}
+ul.preview_links li {padding:1px 0px 1px 0px;}
+ul.preview_links li label {display:inline-block;width:140px;}
+ul.preview_links li a {color:blue;margin:0px 10px 0px 0px;}
+ul.preview_links li a:hover {color:blue;text-decoration: underline;}

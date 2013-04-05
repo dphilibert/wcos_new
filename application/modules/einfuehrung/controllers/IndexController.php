@@ -37,6 +37,9 @@
       $this->view->medien = $mediaModel->getMedienList ($anbieterID, 'FIRMENLOGO');
       $stammdatenModel = new Model_DbTable_StammdatenData ();
       $this->view->stammdaten = $stammdatenModel->getStammdaten ($anbieterID);
+      
+      $admin_model = new Model_DbTable_Admin ();
+      $this->view->preview_links = $admin_model->preview_links ();
     }
 
 

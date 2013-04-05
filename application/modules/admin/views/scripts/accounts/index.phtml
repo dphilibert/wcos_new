@@ -5,7 +5,7 @@
 
 <div class="left">
   <div class="contentRight" style="">
-    <a href="#" onclick="call_action_fancy ('/admin/accounts/new', 400, 200);">
+    <a href="javascript:call_action_fancy ('/admin/accounts/new', 400, 200);">
       <img src="/img/icons/page_add.png" style="margin-right: 5px;"/>Benutzer hinzufügen</a>    
   </div>   
 </div>
@@ -43,8 +43,8 @@
         <td><?= $user ['userStatus']; ?></td>
         <td><?= $user ['last_login']; ?></td>
         <td>
-          <a href="#" style="margin-right:20px;" onclick="call_action_fancy ('/admin/accounts/edit/user_id/<?= $user ['userID'] ?>', 400, 220);"><img src="/img/icons/page_edit.png"> Bearbeiten</a>
-          <a href="#" onclick="call_action ('/admin/accounts/delete/user_id/<?= $user ['userID'] ?>');"><img src="/img/icons/page_delete.png"> Löschen</a>
+          <a href="javascript:call_action_fancy ('/admin/accounts/edit/user_id/<?= $user ['userID'] ?>', 400, 220);" style="margin-right:20px;"><img src="/img/icons/page_edit.png"> Bearbeiten</a>
+          <a href="javascript:call_action ('/admin/accounts/delete/user_id/<?= $user ['userID'] ?>', true);"><img src="/img/icons/page_delete.png"> Löschen</a>
         </td>
       </tr>
     <?php endforeach; ?>

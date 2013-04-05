@@ -28,7 +28,7 @@ var submit_form = function (url, form_name, form_container)
       if (response.responseText == 'success')
       {
         $.fancybox.close ();        
-        window.location.reload ();
+        reload_list ();
       } else
       {        
         $("#" + form_container).html (response.responseText);
@@ -37,16 +37,20 @@ var submit_form = function (url, form_name, form_container)
   });  
 }
 
-//Ausfuehren einer Controller-Action
-var call_action = function (url)
+//Ausfuehren einer Controller-Action - optional mit Bestaetigungsdialog
+var call_action = function (url, confirm)
 {
-  $.ajax ({    
-    url: url,    
-    complete: function (response, status)
-    {            
-      window.location.reload ();
-    }        
-  });  
+  if (confirm === true)
+  {
+    fancyConfirm ("Sind Sie sicher?", function (answer)
+    {
+      if (answer == true)
+        $.ajax ({url: url, complete: function (response, status){reload_list ();}});              
+    });    
+  } else
+  {
+    $.ajax ({url: url, complete: function (response, status){reload_list ();}});
+  }          
 }
 
 //Ausfuehren einer Ajax-Controller-Action mit Rueckgabe in Fancy-Box
@@ -58,4 +62,15 @@ var call_action_fancy = function (url, width, height)
   fancy_config ['href'] = url;
     
   $.fancybox (fancy_config);
+}
+
+//Listenansicht aktualisieren
+var reload_list = function ()
+{
+  var search_term = $('#search_term').val ();
+  var search_term_in_url = window.location.href.search ("/search_term/");  
+  if (search_term_in_url == -1 && search_term.length > 0)
+    window.location.href = window.location.href + '/search_term/' + search_term;
+  else
+    window.location.reload ();    
 }

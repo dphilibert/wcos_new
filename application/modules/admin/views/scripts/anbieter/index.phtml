@@ -5,7 +5,7 @@
 
 <div class="left">
   <div class="contentRight">
-    <a href="#" onclick="call_action_fancy ('/admin/Anbieter/new', 450, 650);"><img src="/img/icons/user_add.png"/>Anbieter hinzufügen</a>  
+    <a href="javascript:call_action_fancy ('/admin/Anbieter/new', 450, 650);"><img src="/img/icons/user_add.png"/>Anbieter hinzufügen</a>  
   </div>
 </div>
 
@@ -41,8 +41,8 @@
         <td><?= $provider ['ort']; ?></td>
         <td><?= $provider ['premiumLevel']; ?></td>
         <td class="tableListeAction">
-          <a href="#" style="margin-right:20px;" onclick="call_action_fancy ('/admin/Anbieter/edit/provider_id/<?= $provider ['anbieterID'] ?>', 450, 650);"><img src="/img/icons/user_edit.png">Bearbeiten</a>
-          <a href="#" onclick="call_action ('/admin/Anbieter/delete/provider_id/<?= $provider ['anbieterID'] ?>');"><img src="/img/icons/user_delete.png">Löschen</a>
+          <a href="javascript:call_action_fancy ('/admin/Anbieter/edit/provider_id/<?= $provider ['anbieterID'] ?>', 450, 650);" style="margin-right:20px;"><img src="/img/icons/user_edit.png">Bearbeiten</a>
+          <a href="javascript:call_action ('/admin/Anbieter/delete/provider_id/<?= $provider ['anbieterID'] ?>', true);"><img src="/img/icons/user_delete.png">Löschen</a>
         </td>
       </tr>
     <?php endforeach; ?>

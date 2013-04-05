@@ -198,23 +198,10 @@ a
 }
 
 /* Account Info */
-.accountInfo
-{    
-    width:700px;
-    float:right;
-    border:1px solid #35b1e1;
-    border-top:none;
-    padding:5px;    
-    overflow:hidden;
-    z-index:100;
-
-    position:absolute;
-    margin-left:288px;
-    background-color:white;
-}
-
-.accountInfo .anbieter {float:left;}
-.accountInfo .status {float:right;}
+div.info {width:700px;height:25px;border:1px solid #35b1e1;border-top:none;float:right;}
+div.info .anbieter {float:left;margin:6px 0px 0px 10px;}
+div.info .status {float:right;margin:4px 10px 0px 0px;}
+div.info .admin_cancel {float:right;margin:4px 10px 0px 0px;cursor:pointer;}
 
 /* Content Styles */
 .content

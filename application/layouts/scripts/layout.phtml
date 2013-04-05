@@ -33,8 +33,7 @@
     $browser = 'anderer';
   }
 
-  //IE abfangen
-  logDebug (print_r ($browser, true), "layout usergent");
+  //IE abfangen  
   if ($browser == 'IE')
   {
     $browserVersionArr = explode ('.', $browser_version);
@@ -109,10 +108,8 @@
   if ($browser == 'IE')
   {
     $browserVersionArr = explode ('.', $browser_version);
-    if ($browserVersionArr [0] <= '8')
-    {
-      echo ('<link rel="stylesheet" type="text/css" media="screen" href="/css/IEfix.css">');
-    }
+    if ($browserVersionArr [0] <= '8')    
+      echo ('<link rel="stylesheet" type="text/css" media="screen" href="/css/IEfix.css">');    
   }
   ?>
 
@@ -139,17 +136,19 @@
     <div class="logo"></div>
    
     <!-- Account Info -->
-    <div class="accountInfo">      
-      <div class="anbieter">Anbieter: <?php echo $this->anbieter ['firmenname']; ?></div>
-      
-      <div class="status">
-      Account Status:&nbsp;&nbsp;<img id="accountStatusImage"/>&nbsp;&nbsp;<span
-      id="accountStatusText"></span>
-      <?php if ($this->userData ['anbieterID'] != $this->anbieter ['anbieterID']) : ?>
-        <input type="button" value="zurück" onclick="window.location.href = '<?= '/'.$usedModule.'/'.$usedController.'/'.$usedAction.'/sato/'.$user_anbieterhash ?>'">
+    <div class="info">      
+      <div class="anbieter">
+        Anbieter: <?php echo $this->anbieter ['firmenname']; ?>
+      </div>     
+      <?php if ($this->userData ['anbieterID'] != $this->anbieter ['anbieterID']) : ?>                           
+        <div class="admin_cancel">
+          <img src="/img/icons/cross.png" title="zurück" onclick="window.location.href = '<?= '/'.$usedModule.'/'.$usedController.'/'.$usedAction.'/sato/'.$user_anbieterhash ?>'">
+        </div>
       <?php endif; ?>
-      </div>                          	
-    </div>
+      <div class="status">       
+        Account Status:&nbsp;&nbsp;<img id="accountStatusImage"/>&nbsp;&nbsp;<span id="accountStatusText"></span>              
+      </div>            
+    </div>    
     <div class="clearer"></div>
   </div>
   <div class="clearer"></div>

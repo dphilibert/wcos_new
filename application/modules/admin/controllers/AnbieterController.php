@@ -54,7 +54,7 @@ class Admin_AnbieterController extends Zend_Controller_Action
     $model = new Model_DbTable_Admin ();
     $form = new Form_Provider ();
     
-    if (!empty ($this->params ['anbieterID']))
+    if (!empty ($this->params ['land']))
       {
         if ($form->isValid ($this->params))
         {                    
@@ -92,7 +92,7 @@ class Admin_AnbieterController extends Zend_Controller_Action
       $form->populate ($this->params);
       echo '<div id="provider_editor2">'.$form.'</div>';
     } else
-    {                
+    {                   
       $form->populate ($model->provider_info ($this->params ['provider_id']));
       echo '<div id="provider_editor2">'.$form.'</div>';
     }      

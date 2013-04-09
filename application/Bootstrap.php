@@ -1,24 +1,9 @@
 <?php
- /**
-   * Bootstraper
-   *
-   * @author Thomas Grahammer
-   * @version $id$
-   *
+     
+  /**
+   * Initialisierungen und Konfiguration
+   *  
    */
-  require_once ('../library/logger.inc.php');
-  require_once ('../library/general.inc.php');
-  require_once ('../library/SimpleImage.php');
-  require_once ('../library/qqFileUploader.inc.php');
-  require_once ('Zend/Loader/Autoloader.php');
-  $autoloader = Zend_Loader_Autoloader::getInstance ();
-  $autoloader->isFallbackAutoloader (true);
-  $applicationEnv = APPLICATION_ENV;
-  $config = new Zend_Config_Ini ('../application/configs/application.ini', $applicationEnv);
-  $db = Zend_Db::factory ($config->database);
-  Zend_Db_Table_Abstract::setDefaultAdapter ($db);
-  Zend_Registry::set ('db', $db);
-  Zend_Registry::set ('config', $config);
   class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
   {
 
@@ -28,7 +13,7 @@
     var $layout = NULL;
 
     /**
-     * initialisiert das Layout
+     * Initialisiert das Layout
      *
      * @return void
      */
@@ -44,13 +29,43 @@
      * @return Zend_Application_Module_Autoloader
      */
     protected function _initAutoload ()
-    {
-      $autoloader = new Zend_Application_Module_Autoloader (
-        array('namespace' => '',
-          'basePath' => dirname (__FILE__)));
+    {                  
+      $autoloader = new Zend_Application_Module_Autoloader (array (
+          'namespace' => '',
+          'basePath' => dirname (__FILE__)
+          ));                  
+      
       return $autoloader;
     }
 
+    /**
+     * Einbinden der Klassen im Verzeichnis "library"
+     *  
+     */
+    protected function _initLibrary ()
+    {
+      //todo: das geht doch besser
+      $library = APPLICATION_PATH.'/library/';
+      Zend_Loader::loadFile ('ProviderValidator.php', $library);
+      Zend_Loader::loadFile ('SimpleImage.php', $library);
+      Zend_Loader::loadFile ('general.inc.php', $library);
+      Zend_Loader::loadFile ('logger.inc.php', $library);
+      Zend_Loader::loadFile ('qqFileUploader.inc.php', $library);
+    }        
+    
+    /**
+     * Initialisiert den Datenbankadapter
+     *  
+     */
+    protected function _initDatabase ()
+    {
+      $config = new Zend_Config_Ini ('../application/configs/application.ini', APPLICATION_ENV);
+      $db = Zend_Db::factory ($config->database);
+      Zend_Db_Table_Abstract::setDefaultAdapter ($db);
+      Zend_Registry::set ('db', $db);
+     
+    }        
+    
     /**
      * initialisiert die Helper
      *
@@ -68,7 +83,6 @@
       Zend_Controller_Action_HelperBroker::addHelper ($ajaxContext);
     }
 
-
     /**
      * initialisiert die Navigation
      *
@@ -84,17 +98,39 @@
       $view->navigation ($this->container);
     }
 
+    /**
+     * Initialisierung des Paginators
+     *  
+     */
     protected function _initPaginator ()
     {
       Zend_Paginator::setDefaultScrollingStyle ('Sliding');
       Zend_View_Helper_PaginationControl::setDefaultViewPartial ('paging.phtml');
     }        
 
+    /**
+     * Initialisierung der Validatoren
+     *  
+     */
     protected function _initValidator ()
     {
       $config = new Zend_Config (require 'configs/form_errors-de.php');
       $translator = new Zend_Translate ('array', $config->toArray (), 'de');            
       Zend_Validate_Abstract::setDefaultTranslator ($translator);      
+    }        
+    
+    /**
+     * Initialisiert die PlugIns
+     *  
+     */
+    protected function _initPlugIns ()
+    {
+      $front = Zend_Controller_Front::getInstance ();
+      $front->registerPlugin (new Zend_Controller_Plugin_ErrorHandler(
+              array ('module' => 'default', 'controller' => 'error', 'action' => 'index')));            
+      $front->registerPlugin (new Plugin_HashControl ());      
+      $front->registerPlugin (new Plugin_GlobalInfo ());
+      $front->registerPlugin (new Plugin_Global ());
     }        
     
     /**
@@ -116,23 +152,11 @@
       $frontController = $this->getResource ('frontController');
       $frontController->setParam ('useDefaultControllerAlways', false);
       $frontController->throwExceptions (true);
-      $frontController->registerPlugin (new Zend_Controller_Plugin_ErrorHandler(
-        array('module' => 'default',
-          'controller' => 'error',
-          'action' => 'index')));
-      $pluginHashControl = new Plugin_HashControl ();
-      $frontController->registerPlugin ($pluginHashControl);
-      $pluginGlobalInfo = new Plugin_GlobalInfo ();
-      $frontController->registerPlugin ($pluginGlobalInfo);
-      $pluginGlobal = new Plugin_Global ();
-      $frontController->registerPlugin ($pluginGlobal);
-      // bei soap-Anfragen und Cron-Jobs erstmal keine zvbs-Auth durchfuehren TODO ggf. noch einbauen
-      if ($_module != 'soap' && $_controller != 'cron')
-      {
-        $pluginZBVS = new Plugin_Zbvs ();
-        $frontController->registerPlugin ($pluginZBVS);
-        $frontController->throwExceptions (true);
-      }
+      
+      //Bei soap-Anfragen und Cron-Jobs erstmal keine zvbs-Auth durchfuehren TODO ggf. noch einbauen
+      if ($_module != 'soap' && $_controller != 'cron')      
+        $frontController->registerPlugin (new Plugin_Zbvs ());
+                    
       Zend_Registry::set ('config', new Zend_Config_Ini ('../application/configs/application.ini', APPLICATION_ENV));
       Zend_Registry::set ('request', $request);
       $this->frontController->dispatch ();

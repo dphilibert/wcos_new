@@ -25,12 +25,16 @@
      */
     public function preDispatch (Zend_Controller_Request_Abstract $request)
     {
+      
+      
       $config = Zend_Registry::get ('config');
       $sessionNamespace = new Zend_Session_Namespace ();
       $userData = $sessionNamespace->userData;
+                  
       $hashOK = TRUE;
       $config = Zend_Registry::get ('config');
       $params = $this->getRequest ()->getParams ();      
+                  
       $controller = $params ['controller'];
       // hier wird zunächst geprüft ob der Controller ein Ajax-Controller ist. Das ist dann der Fall wenn nach dem . im Controllernamen ein "ajax" steht
       $controllerNameArray = explode ('.', $controller);      
@@ -67,6 +71,7 @@
           }
         }
       }
+      
       if ($params ['module'] == "admin")
       {
         $allowedUserString = $config->admin->allowedUser;
@@ -75,14 +80,15 @@
         $userData = $sessionNamespace->userData;        
         $userIsAdmin = false;
         if (is_array ($userData) && array_key_exists ('userHash', $userData))
-        {
+        {         
           $userHash = $userData ['userHash'];
           $userModel = new Model_DbTable_UserData();
           $userByHash = $userModel->getUserByHash ($userHash);          
           $userIsAdmin = ($userByHash['userHash'] == $userHash);
         }
-        if (!$userIsAdmin) {
-          die ('Admin access is not allowed for you!!!');
+        if (!$userIsAdmin) {  
+          $helper = new Zend_Controller_Action_Helper_Redirector ();
+          $helper->gotoUrl ('/einfuehrung/index/index');
         }
       }
     }

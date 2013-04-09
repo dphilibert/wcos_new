@@ -19,7 +19,8 @@ return array (
   //Digits
   'notDigits'                     => "'%value%' darf nur aus nummerischen Zeichen bestehen",
   //EmailAddress
-  'emailAddressInvalid'           => "'%value%' ist keine valide E-Mail Adresse im Format name@domain",
+  'emailAddressInvalid'           => "'%value%' ist keine valide E-Mail Adresse im Format name@domain",  
+  'emailAddressInvalidFormat'     => "'%value%' ist keine valide E-Mail Adresse im Format name@domain",
   'emailAddressInvalidHostname'   => "'%hostname%' ist kein güliger Servername bei der E-Mail Adresse '%value%'",
   'emailAddressInvalidMxRecord'   => "'%hostname%' scheint keinen gültigen MX Eintrag zu haben für die E-Mail Adresse '%value%'",
   'emailAddressDotAtom'           => "'%localPart%' dieser Empfängername stimmt nicht mit dem dot-atom Format überein",

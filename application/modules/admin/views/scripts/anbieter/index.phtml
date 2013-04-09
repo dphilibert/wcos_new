@@ -5,7 +5,7 @@
 
 <div class="left">
   <div class="contentRight">
-    <a href="javascript:call_action_fancy ('/admin/Anbieter/new', 450, 650);"><img src="/img/icons/user_add.png"/>Anbieter hinzufügen</a>  
+    <a href="javascript:call_action_fancy ('/admin/Anbieter/new', 450, 750);"><img src="/img/icons/user_add.png"/>Anbieter hinzufügen</a>  
   </div>
 </div>
 
@@ -39,9 +39,9 @@
         <td><?= $provider ['companyID']; ?></td>
         <td><?= $provider ['firmenname']; ?></td>
         <td><?= $provider ['ort']; ?></td>
-        <td><?= $provider ['premiumLevel']; ?></td>
+        <td><?= ($provider ['premiumLevel']) ? 'Ja' : 'Nein'; ?></td>
         <td class="tableListeAction">
-          <a href="javascript:call_action_fancy ('/admin/Anbieter/edit/provider_id/<?= $provider ['anbieterID'] ?>', 450, 650);" style="margin-right:20px;"><img src="/img/icons/user_edit.png">Bearbeiten</a>
+          <a href="javascript:call_action_fancy ('/admin/Anbieter/edit/provider_id/<?= $provider ['anbieterID'] ?>', 450, 750);" style="margin-right:20px;"><img src="/img/icons/user_edit.png">Bearbeiten</a>
           <a href="javascript:call_action ('/admin/Anbieter/delete/provider_id/<?= $provider ['anbieterID'] ?>', true);"><img src="/img/icons/user_delete.png">Löschen</a>
         </td>
       </tr>

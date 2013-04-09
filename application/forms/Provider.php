@@ -16,15 +16,24 @@ class Form_Provider extends Zend_Form
   );
   
   public function init ()
-  {
-    $this->setAction ($this->action)->setName ($this->name)->setMethod ($this->method);
-    
-    //Metadaten
+  {       
+    $provider_validator = new ProviderValidator ();
+    $this->setAction ($this->action)->setName ($this->name)->setMethod ($this->method);    
+           
+    //Metadaten    
     $id = new Zend_Form_Element_Text ('anbieterID');
-    $id->setLabel ('Kundennummer:*')->setAttrib ('class', 'inputText')->setRequired (true)->addDecorators ($this->decorators);
+    $id->setLabel ('Kundennummer:*')->setAttrib ('class', 'inputText')->setRequired (true)
+            ->addValidator ($provider_validator)->addDecorators ($this->decorators);
     
     $name = new Zend_Form_Element_Text ('firmenname');
     $name->setLabel ('Firmenname:*')->setAttrib ('class', 'inputText')->setRequired (true)->addDecorators ($this->decorators);
+    
+    $search_name = new Zend_Form_Element_Text ('Suchname');
+    $search_name->setLabel ('Suchname:*')->setAttrib ('class', 'inputText')->setRequired (true)->addDecorators ($this->decorators);
+    
+    $lifetime_id = new Zend_Form_Element_Text ('LebenszeitID');
+    $lifetime_id->setLabel ('Lebenszeit-ID:*')->setAttrib ('class', 'inputText')->setRequired (true)
+            ->addValidator ($provider_validator)->addDecorators ($this->decorators);
     
     $config = new Zend_Config (require APPLICATION_PATH . '/configs/systems.php');
     $config = $config->toArray ();
@@ -58,7 +67,7 @@ class Form_Provider extends Zend_Form
     $fax->setLabel ('Fax:')->setAttrib ('class', 'inputText')->addDecorators ($this->decorators);
     
     $email = new Zend_Form_Element_Text ('email');
-    $email->setLabel ('E-Mail:*')->setAttrib ('class', 'inputText')->setRequired (true)->addDecorators ($this->decorators);
+    $email->setLabel ('E-Mail:*')->setAttrib ('class', 'inputText')->setRequired (true)->addValidator ('EmailAddress')->addDecorators ($this->decorators);
     
     $www = new Zend_Form_Element_Text ('www');
     $www->setLabel ('Internet:*')->setAttrib ('class', 'inputText')->setRequired (true)->addDecorators ($this->decorators);
@@ -67,7 +76,7 @@ class Form_Provider extends Zend_Form
     $submit->setLabel ('Speichern')->setAttrib ('class', 'buttonSave ui-corner-all')->setAttrib ('onclick', 'submit_form ("'.$this->action.'", "'.$this->name.'", "provider_editor");');
     
     $this->addElements (array (
-     $id, $name, $systems, $level,
+     $id, $name, $search_name, $lifetime_id, $systems, $level,
      $street, $no, $country, $zip, $city, $fon, $fax, $email, $www,
      $submit
     ));

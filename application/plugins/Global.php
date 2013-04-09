@@ -24,7 +24,7 @@
      * @return void
      */
     public function preDispatch (Zend_Controller_Request_Abstract $request)
-    {
+    {            
       $redirect = new Zend_Controller_Action_Helper_Redirector();
       $config = Zend_Registry::get ('config');
       $sessionNamespace = new Zend_Session_Namespace ();

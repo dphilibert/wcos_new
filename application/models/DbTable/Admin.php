@@ -101,7 +101,7 @@ class Model_DbTable_Admin extends Zend_Db_Table_Abstract
    */
   public function provider_info ($provider_id)
   {
-    $query = $this->_db->select ()->from ('anbieter')->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.stammdatenID')
+    $query = $this->_db->select ()->from ('anbieter')->joinleft ('stammdaten', 'anbieter.stammdatenID = stammdaten.stammdatenID')
             ->where ('anbieter.anbieterID = '.$provider_id);
     return $this->_db->fetchRow ($query);
   }        
@@ -113,29 +113,18 @@ class Model_DbTable_Admin extends Zend_Db_Table_Abstract
    * @return void
    */
   public function provider_new ($params)
-  {
-   //Anbieter Meta
-   $this->_db->insert ('anbieter', array (
-       'anbieterID' => $params ['anbieterID'],
-       'systems' => implode (',', $params ['systems']),
-       'firmenname' => $params ['firmenname'],
-       'anbieterhash' => md5 ($params ['firmenname']),
-       'premiumLevel' => $params ['premiumLevel'],
-       'number' => $params ['anbieterID'],
-       'Suchname' => $params ['firmenname'],
-       'created' => date ('Y-m-d H:i:s')
-       )); 
-   $provider_id = $this->_db->lastInsertId (); 
+  {             
+   //Tabelle anbieter
+   $provider_params = $this->provider_params ($params);
+   $provider_params ['created'] = date ('Y-m-d H:i:s');
+   $this->_db->insert ('anbieter', $provider_params); 
    
-   unset ($params ['systems'], $params ['firmenname'], $params ['premiumLevel']);  
-   $session = new Zend_Session_Namespace ();
-   $params ['userID'] = $session->userData ['userID'];
-   
-   //Anbieter Stamm
-   $this->_db->insert ('stammdaten', $params);
-   $address_id = $this->_db->lastInsertId ();
-   
-   $this->_db->update ('anbieter', array ('stammdatenID' => $address_id, 'companyID' => $address_id), 'id = '. $provider_id);
+   //Tabelle stammdaten
+   $params ['stammdatenID'] = $params ['LebenszeitID'];
+   unset ($params ['systems'], $params ['firmenname'], $params ['premiumLevel'], $params ['LebenszeitID'], $params ['Suchname']);  
+   $session = new Zend_Session_Namespace ();   
+   $params ['userID'] = $session->userData ['userID'];      
+   $this->_db->insert ('stammdaten', $params);         
   }        
   
   /**
@@ -145,29 +134,24 @@ class Model_DbTable_Admin extends Zend_Db_Table_Abstract
    * @return void
    */
   public function provider_update ($params)
-  {
-    //Anbieter Meta
+  {            
+    //Stammdaten-ID
     $query = $this->_db->select ()->from ('anbieter', 'stammdatenID')->where ('id = '. $params ['id']);
     $address_id = $this->_db->fetchOne ($query);
     
-    $this->_db->update ('anbieter',  array (
-       'anbieterID' => $params ['anbieterID'],
-       'systems' => implode (',', $params ['systems']),
-       'firmenname' => $params ['firmenname'],
-       'anbieterhash' => md5 ($params ['firmenname']),
-       'premiumLevel' => $params ['premiumLevel'],
-       'number' => $params ['anbieterID'],
-       'Suchname' => $params ['firmenname']),
-        'id = '. $params ['id']);
+    //Tabelle anbieter
+    $provider_params = $this->provider_params ($params);
+    $provider_params ['lastChange'] = date ('Y-m-d H:i:s');
+    $this->_db->update ('anbieter', $provider_params, 'id = '. $params ['id']);
     
-    unset ($params ['systems'], $params ['firmenname'], $params ['premiumLevel'], $params ['id']);  
+    //Tabelle stammdaten
+    $params ['stammdatenID'] = $params ['LebenszeitID'];
+    unset ($params ['systems'], $params ['firmenname'], $params ['premiumLevel'], $params ['id'], $params ['LebenszeitID'], $params ['Suchname']);  
     $session = new Zend_Session_Namespace ();
-    $params ['userID'] = $session->userData ['userID'];
-    
-    //Anbieter Stamm
+    $params ['userID'] = $session->userData ['userID'];    
     $this->_db->update ('stammdaten', $params, 'stammdatenID = '. $address_id);
   }        
-  
+    
   /**
    * Loescht einen Anbieter
    * 
@@ -287,6 +271,28 @@ class Model_DbTable_Admin extends Zend_Db_Table_Abstract
     } 
       
     return $preview_links;      
+  }   
+          
+  /**
+   * Bereitet die Formularparameter fuer
+   * das schreiben in die Tabelle "anbieter" vor
+   * 
+   * @param array $params Formularparameter
+   * @return array Query-Parameter 
+   */
+  private function provider_params ($params)
+  {        
+    return array (       
+       'anbieterID' => $params ['anbieterID'],
+       'systems' => implode (',', $params ['systems']),
+       'companyID' => $params ['LebenszeitID'],
+       'stammdatenID' => $params ['LebenszeitID'],
+       'firmenname' => $params ['firmenname'],
+       'anbieterhash' => md5 ($params ['firmenname']),
+       'premiumLevel' => $params ['premiumLevel'],
+       'number' => $params ['anbieterID'],
+       'LebenszeitID' => $params ['LebenszeitID'],
+       'Suchname' => $params ['Suchname']);
   }        
 }
 ?>

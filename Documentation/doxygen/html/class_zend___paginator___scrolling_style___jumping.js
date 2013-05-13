@@ -1,4 +1,0 @@
-var class_zend___paginator___scrolling_style___jumping =
-[
-    [ "getPages", "class_zend___paginator___scrolling_style___jumping.html#a3a40f49f221a7fa5fdb91afd8aadcf25", null ]
-];

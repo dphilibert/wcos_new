@@ -1,0 +1,32 @@
+<?php
+//zusaetzliche Parameter fuer die Paging-Links holen
+$request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+$params = array ();
+if (!empty ($request ['search_term']))
+  $params ['search_term'] = $request ['search_term'];
+if (!empty ($request ['system_id']))
+  $params ['system_id'] = $request ['system_id'];
+
+$previous = array_merge ($params, array ('page' => $this->previous));
+$next = array_merge ($params, array ('page' => $this->next));
+?>
+
+<div class="paginator">      
+  <div class="paginatorPageBwd">
+    <?php if (!empty ($this->previous)) : ?>
+      <div class="btn-group"><a class="btn btn-small" href="<?= $this->url ($previous); ?>"><i class="icon-backward"></i></a></div>
+    <?php else : ?>
+      <div class="btn-group"><a class="btn btn-small disabled" href="#"><i class="icon-backward"></i></a></div>
+    <?php endif; ?>  
+  </div>      
+  
+  <div class="paginatorCount"><b><?= $this->current ?></b> von <b><?= $this->pageCount ?></b></div>        
+  
+  <div class="paginatorPageFwd">
+    <?php if (!empty ($this->next)) : ?>
+      <div class="btn-group"><a class="btn btn-small" href="<?= $this->url ($next); ?>"><i class="icon-forward"></i></a></div>
+    <?php else : ?>
+      <div class="btn-group"><a class="btn btn-small disabled" href="#"><i class="icon-forward"></i></a></div>
+    <?php endif; ?>  
+  </div>                
+</div>

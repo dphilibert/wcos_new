@@ -1,104 +1,51 @@
-<input type="hidden" name="anbieterID" value="<?php echo $this->anbieterID; ?>" id="anbieterID" /> 
-<input type="hidden" name="anbieterHash" value="<?php echo $this->anbieterHash; ?>" id="anbieterHash" /> 
-<input type="hidden" name="stamdatenID" value="" id="stammdatenID" /> 
-<!-- <img src="/images/pageDescriptionImages/stammdaten.png" class="contentDescriptionImage"> -->        
-<div style="width:990px;margin:auto;">
-    <h1>Willkommen zum WEKA FACHMEDIEN Anbieterverzeichnis!</h1>
-
-    <div class="accordion">
-        <h3><a href="#">Das System</a></h3>
-        
-        
-        <div>
-          <p>
-            Das WEKA FACHMEDIEN Anbeiterverzeichnis ist wie eine gewöhnliche Webseite aufgebaut,
-            sodass Sie sich direkt zurecht finden!
-          </p>
-          <p>
-            Im oberen Bereich des Systems, unter der Logo-Zeile, finden Sie ein Menü mit Zugriff auf alle relevanten Module.
-          </p>
-          
-          <p>
-            <b>Vorschau Ihres Firmenprofils:</b>
-            
-            <ul class="preview_links">
-              <?php foreach ($this->preview_links as $preview_link) : ?>
-              <li>
-                <label><?= $preview_link ['name'] ?></label>
-                <a href="<?= $preview_link ['standard'] ?>" target="_blank">Standard</a>
-                <?php if (!empty ($preview_link ['premium'])) : ?>
-                  <a href="<?= $preview_link ['premium'] ?>" target="_blank">Premium</a>
-                <?php else : ?>
-                  Premium (nicht verfügbar)
-                <?php endif; ?>  
-              </li>
-              <?php endforeach; ?>
-            </ul>
-          </p>
-                        
-        </div>
-        
-        
-        <h3><a href="#">Ansprechpartner</a></h3>
-        <div><p>Im Modul <a href="/ansprechpartner">Ansprechpartner</a> können Sie mehrere Ansprechpartner für die Anzeige auf den Webseiten der WEKA FACHMEDIEN eingeben und diese verwalten.</p>
-
-            <p>Zum Anlegen eines Ansprechpartners klicken Sie auf „Ansprechpartner hinzufügen“. Füllen Sie die angezeigten Felder des sich öffnenden Dialogfensters aus und klicken Sie anschließend auf „Speichern & Schließen“. Ein neuer Ansprechpartner wurde angelegt.</p>
-
-            <p>Zum Modifizieren eines Ansprechpartners muss in der Tabellenzeile der jeweiligen Person auf "Bearbeiten", zum Löschen, auf "Löschen" des Ansprechpartners, geklickt werden. Wenn ein Ansprechpartner bearbeitet wird, erhalten Sie das selbe Dialogfensters, wie beim Erstellen eines Ansprechpartners, diesmal allerdings vorausgefüllt mit den Daten der zu Bearbeitenden Person.</p>
-            <a href="/ansprechpartner/index/index"><img src="/images/intro/direktZu/ansprechpartner.png" class="right"></a>
-        </div>
-
-        <h3><a href="#">Termine</a></h3>
-        <div><p>Im Anbieterverzeichnis können natürlich auch wichtige Termine für Ihr Unternehmen angelegt werden, dies geschieht im Modul Termine.</p>
-
-            <p>Um einen neuen Termin anzulegen klicken Sie auf „Termin hinzufügen“, ein Dialogfenster öffnet sich, in welchem Sie Daten zu Ihrem Termin eintragen. Unter Beschreibung finden Sie einen graphischen Editor, der Ihnen die Formatierung erleichtert.</p>
-            <p>
-                Zum Bearbeiten eines Termins wählen Sie, in der Tabellenspalte des jeweiligen Termins im Modul, den Punkt „Bearbeiten“, es öffnet sich das selbe Dialogfenster, welches auch zum „Termin erstellen“ genutzt wird. Nun können Sie einen Termin bearbeiten.</p>
-            <p>
-                Zum Löschen eines Termins klicken Sie auf „Löschen“ neben dem Termin in der Tabellenspalte.
-            </p>
-            <a href="/termine/index/index"><img src="/images/intro/direktZu/termine.png" class="right"></a>
-        </div>
-
-        <h3><a href="#">Firmenportrait</a></h3>
-        <div><p>Im Modul Formenportrait können Sie für die Punkte „Firmenbeschreibung“, „Produkte / Linecard“, „Firmenausrichtung“, „Dienstleistungen“, „Präsenz“, „Zielmärkte“, „Standorte / Lager“, „Qualitätsmanagement“, „Gründungsjahr“ und „Mitarbeiter“ Einstellungen treffen und Texte vergeben. Klicken Sie hierzu, neben dem jeweiligen Beschreibungspunkt auf „Bearbeiten“, es öffnet sich ein Dialogfenster, in welchem Sie die Texte, teils mithilfe eines graphischen Editors, zur Formatierungshilfe, definieren können.</p>
-            <a href="/firmenportrait/index/index"><img src="/images/intro/direktZu/firmenportrait.png" class="right"></a>
-        </div>
-
-        <h3><a href="#">Whitepaper</a></h3>
-        <div><p>Im Modul „Whitepaper“ können Sie Dokumente für Ihr Whitepaper zum Download bereitstellen. </p>
-            <p>Wie in den anderen Modulen wird ein neues Whitepaper über „Whitepaper hinzufügen“ erstellt. Beim Klick hierauf öffnet sich eine Dialogbox, in der Sie die Kategorie eines Whitepapers, dessen Beschreibung und einen Link zu diesem angeben können.
-            </p>
-            <p>Zum Bearbeiten eines Whitepapers klicken Sie neben diesem auf Bearbeiten, zum Löschen auf Löschen.</p>
-            <a href="/whitepaper/index/index"><img src="/images/intro/direktZu/whitepaper.png" class="right"></a>
-        </div>
-
-        <h3><a href="#">Bilder &amp; Videos</a></h3>
-        <div><p>Um im Anbieterverzeichnis Bilder und Videos bereitzustellen gibt es den globalen Media Manager unter dem Menüpunkt „Bilder & Videos“.</p>
-            <p>
-                Um neue Medien bereitzustellen klicken Sie auf „Medien hinzufügen“, es öffnet sich ein Dialogfenster. Geben Sie den Medientyp, eine etwaige Beschreibung und einen Link an. Alternativ zur Angabe eines Links zum Medium können Sie auch eine Datei hochladen.
-            </p><p>
-                Zum Löschen einer Mediendatei klicken Sie auf Löschen in der selben Tabellenzeile, zum Bearbeiten auf Bearbeiten.</p>
-            <a href="/media/index/index"><img src="/images/intro/direktZu/media.png" class="right"></a>
-        </div>
-
-        <h3><a href="#">Account-Details</a></h3>
-        <div><p>Unter Account-Details können Sie essentielle Daten zu Ihrem Account einsehen. Diese können nicht geändert werden! Wenn Sie diese Daten ändern möchten, wenden Sie sich bitte an uns, dies geht am einfachsten per E-Mail an Frau Lydia Sattelberger (<a href="mailto:lsattelberger@elektroniknet.de">lsattelberger@elektroniknet.de</a>) oder Telefon unter 089/25556-1303.</p>
-        <a href="/uebersicht/index/index"><img src="/images/intro/direktZu/accountdetails.png" class="right"></a>
-        </div>
-
-        <h3><a href="#">Wichtige Hinweise</a></h3>
-        <div><p>Bitte Beenden Sie Ihre Sitzung im Anbieterverzeichnis immer über den Menüpunkt Logout, um eventuellen Einbrüchen vorzubeugen und somit Ihre Sicherheit zu erhöhen.</p>
-            <p>
-                Haben Sie Fragen, Wünsche, Anregungen oder Kritik? Kontaktieren Sie uns, wir sind über jeden Vorschlag dankbar!
-            </p>
-            <p>Viel Spaß mit dem WEKA FACHMEDIEN Anbieterverzeichnis</p>
-            <img src="/images/intro/direktZu/hinweise.png" class="right">
-        </div>
-    </div>
-
-
-
-    <center><button class="buttonSave saveStammdaten" style="margin-bottom:10px;margin-top:10px;" onClick="window.location = '/ansprechpartner/index/index'" id="saveStammdaten">Anbieterverzeichnis - los geht's!</button>
-
+<div class="page-header">  
+  <div class="fl">
+    <h4>Willkommen zum WEKA FACHMEDIEN Anbieterverzeichnis!</h4>
+  </div>  
+  <div class="fr">
+    <?= $this->partial ('preview.phtml') ?>
+  </div>  
+  <div class="clear"></div>
 </div>
+         
+<table class="table nmb">
+  <thead>
+    <tr>       
+      <th style="width:200px;">Medienmarke</th>
+      <th style="width:200px;">Status</th>
+      <th style="width:200px;">Beginn</th>
+      <th style="width:200px;">Ende</th>
+      <th style="width:200px;">Laufzeit</th>            
+    </tr>  
+  </thead>
+  <tbody>    
+    <?php foreach ($this->overview as $system_id => $row) : ?>
+      <tr>                 
+        <td style="vertical-align:middle;"><img src="/brands/<?= $row ['system'] ?>.png" title="<?= $row ['system'] ?>"/></td>
+        <td style="vertical-align:middle;">          
+          <?php if ($this->user_status == -1) : ?>
+            <?php $ident = sha1 ($row ['system']); ?>
+            <?= $this->partial ('status_dropdown.phtml', array ('system' => $row ['system'], 'system_id' => $system_id, 'premium' => $row ['premium'], 'ident' => $ident)) ?>          
+          <?php else : ?> 
+            <?= ($row ['premium'] == 0) ? 'Standard' : 'Premium' ?>        
+          <?php endif; ?>
+        </td>            
+        <td style="vertical-align:middle;"><?= (!empty ($row ['start'])) ? $row ['start'] : '-' ?></td>            
+        <td style="vertical-align:middle;"><?= (!empty ($row ['end'])) ? $row ['end'] : '-'  ?></td>            
+        <td style="vertical-align:middle;"><?= (!empty ($row ['laufzeit'])) ? $row ['laufzeit'] : '-' ?></td>                
+      </tr>
+      <?php if ($this->user_status == -1) : ?>       
+        <tr id="<?= $ident ?>" class="info" style="display:none;">          
+          <td colspan="5" style="vertical-align:middle;">                        
+            <?php $action = ($row ['premium'] == 1) ? 'premiumedit' : 'premium' ?>
+            <?php $start = (!empty ($row ['start'])) ? $row ['start'] : date ('d.m.Y') ?>
+            <?php $end = (!empty ($row ['end'])) ? $row ['end'] : date ('d.m.Y', mktime (0, 0, 0, date ('m'), date ('d'), date ('y') + 1)) ?>                        
+            <?= $this->partial ('status_form.phtml', array ('ident' => $ident, 'system_id' => $system_id, 'action' => $action, 'start' => $start, 'end' => $end)) ?>                                    
+          </td>                                    
+        </tr>  
+      
+      <?php endif; ?>
+      
+     <?php endforeach; ?> 
+   </tbody>      
+</table>     

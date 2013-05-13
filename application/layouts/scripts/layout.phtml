@@ -6,50 +6,24 @@
 
   //Browser erkennen
   $useragent = $_SERVER ['HTTP_USER_AGENT'];  
-  $matched = array ();
+  $browser = '';
   if (preg_match ('|MSIE ([0-9].[0-9]{1,2})|', $useragent, $matched))
   {
-    $browser_version = $matched [1];
     $browser = 'IE';
-  }
-  elseif (preg_match ('|Opera/([0-9].[0-9]{1,2})|', $useragent, $matched))
-  {
     $browser_version = $matched [1];
-    $browser = 'Opera';
-  }
-  elseif (preg_match ('|Firefox/([0-9\.]+)|', $useragent, $matched))
-  {
-    $browser_version = $matched [1];
-    $browser = 'Firefox';
-  }
-  elseif (preg_match ('|Safari/([0-9\.]+)|', $useragent, $matched))
-  {
-    $browser_version = $matched [1];
-    $browser = 'Safari';
-  } else
-  {
-    //Browser nicht erkannt!
-    $browser_version = 0;
-    $browser = 'anderer';
-  }
-
-  //IE abfangen  
-  if ($browser == 'IE')
-  {
     $browserVersionArr = explode ('.', $browser_version);
-
     if ($browserVersionArr [0] <= '7')
     {
       echo $this->render ('noIE.html');
       die ();
     }
   }
-
+  
   //Anbieter- und User-Daten aus Session holen - werden beim Login gesetzt
-  $sessionNamespace = new Zend_Session_Namespace ();
-  $this->anbieter = $sessionNamespace->anbieterData;
-  $this->userData = $sessionNamespace->userData;
-           
+  $session = new Zend_Session_Namespace ();
+  $this->anbieter = $session->anbieterData;
+  $this->userData = $session->userData;
+               
   //Hash des eigenen Anbieters holen - fuer Zurueck Knopf (Admin)
   $model = new Model_DbTable_AnbieterData ();
   $user_anbieterdata = $model->getAnbieterByKundennummer ($this->userData ['anbieterID']);
@@ -59,6 +33,15 @@
   $usedModule = $this->layout ()->_module;
   $usedController = $this->layout ()->_controller;
   $usedAction = $this->layout ()->_action;  
+  
+  $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();  
+  
+  //Anbieter-Suche
+  $search_form = new Form_Search ();
+  $search_term = $search_form->getElement ('search_term');  
+  $search_term->setAttrib ('placeholder', 'Anbietersuche');   
+  if ($usedModule == 'admin')
+    $search_form->populate ($request);      
 ?>
 
 <!-- Head //-->
@@ -66,45 +49,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <?php
-  //echo $this->headMeta ()->appendName ('keywords', $metaData);  
-  echo $this->headTitle ('WEKA FACHMEDIEN Anbieterverzeichnis');
-  echo $this->headScript ()
-  ->prependFile ('/js/modernizr.js')
-  ->prependFile ('/js/functions.js')
-  ->prependFile ('/js/jquery/jquery.ajaxmanager.js')
-  ->prependFile ('/js/jquery/jquery.delay.js')
-  ->prependFile ('/js/jquery/jquery.json-2.2.min.js')
-  ->prependFile ('/js/jquery/jquery-form.js')
-  ->prependFile ('/js/jquery/jquery.base64.js')
-  ->prependFile ('/js/jquery/jquery-1.4.2.js')  
-  ->appendFile ('/js/jquery/jquery-ui-1.7.2.custom.min.js')
-  //->appendFile ('/js/jquery.selectbox.js')
-  ->appendFile ('/js/fancybox/jquery.fancybox-1.3.4.pack.js')
-  ->appendFile ('/js/dialog.js')
-  //->appendFile ('/js/contextmenu.js')
-  //->appendFile ('/js/admin.' . $usedController . '.js')
-  ->appendFile ('/js/general.js')
-  //->appendFile ('/js/jquery.prettyPhoto.js')
-  //->appendFile ('/js/admin.' . $usedController . '.js')
-  ->appendFile ('/js/' . $usedModule . '.js')
-  ->appendFile ('/js/paginator.inc.js')
-  ->appendFile ('/js/statusbox.js')
-  ->appendFile ('/js/jquery/jquery-ui-timepicker-addon-0.6.2.js')
-  //->appendFile ('/js/controlcenter.js')
-  //->appendFile ('/js/nicEdit.js')
-  ->appendFile ('/js/tinymce/jscripts/tiny_mce/tiny_mce.js')
-  ->appendFile ('/js/fileuploader.js')
-  ->appendFile ('/js/accountDetails.js')
-  ->appendFile ('/js/suche.js');
+  <?php  
+  echo $this->headTitle ('WCOS2');
+  echo $this->headScript ()      
+  ->prependFile ('/js/jquery/jquery-1.9.1.min.js')                             
+  ->appendFile ('/js/fancybox/jquery.fancybox.pack.js')            
+  ->appendFile ('/js/tinymce/jscripts/tiny_mce/tiny_mce.js')        
+  ->appendFile ('/twitter_bootstrap/js/bootstrap.min.js')   
+  ->appendFile ('/js/main.js');
   echo $this->headLink ()
   ->appendStylesheet ('/css/style.css')
-  ->appendStylesheet ('/js/fancybox/jquery.fancybox-1.3.4.css')
-  //->appendStylesheet ('/js/jqGrid/css/ui.jqgrid.css')
-  ->appendStylesheet ('/js/jquery/autocomplete/jquery.autocomplete.css')
-  ->appendStylesheet ('/css/fileuploader.css')
-  ->appendStylesheet ('/css/jquery/jquery-ui-1.8.2.custom.css');
-
+  ->appendStylesheet ('/js/fancybox/jquery.fancybox.css')      
+  ->appendStylesheet ('/css/jquery/jquery-ui-1.8.2.custom.css')
+  ->appendStylesheet ('/twitter_bootstrap/css/bootstrap.css');
+  
   if ($browser == 'IE')
   {
     $browserVersionArr = explode ('.', $browser_version);
@@ -115,64 +73,76 @@
 
 </head>
 <body>
-<input type="hidden" name="module" id="module" value="<?= $usedModule; ?>">
-<input type="hidden" name="controller" id="controller" value="<?= $usedController; ?>">
-<input type="hidden" name="action" id="action" value="<?= $usedAction; ?>">
-<input type="HIDDEN" id="anbieterID" value="<?= $this->anbieter ['anbieterID']; ?>">
-<input type="HIDDEN" id="anbieterHash" value="<?= $this->anbieter ['anbieterhash']; ?>">
-<input type="HIDDEN" id="premiumLevel" value="<?= $this->anbieter ['premiumLevel']; ?>">
-<input type="HIDDEN" id="premiumHash" value="<?= $this->layout ()->premiumHash; ?>">
-<input type="HIDDEN" id="uhx" value="<?= $this->userData ['userHash'] ?>">
-<input type="HIDDEN" id="userStatus" value="<?= $this->userData ['userStatus']; ?>">
-<input type="HIDDEN" id="host" value="<?= $_SERVER ['HTTP_HOST'] ?>">
-<input type="HIDDEN" id="ajaxReturnData" value="">
-<input type="HIDDEN" id="tempdata" value="">
-<input type="HIDDEN" id="vmkdnrhx" value="<?= $this->userData ['anbieterID']; ?>">
-
-<div class="bar"></div>
 <div class="wrapper">
-
   <div class="header">
-    <div class="logo"></div>
-   
-    <!-- Account Info -->
-    <div class="info">      
-      <div class="anbieter">
-        Anbieter: <?php echo $this->anbieter ['firmenname']; ?>
-      </div>     
-      <?php if ($this->userData ['anbieterID'] != $this->anbieter ['anbieterID']) : ?>                           
-        <div class="admin_cancel">
-          <img src="/img/icons/cross.png" title="zurück" onclick="window.location.href = '<?= '/'.$usedModule.'/'.$usedController.'/'.$usedAction.'/sato/'.$user_anbieterhash ?>'">
+       
+    <!-- Contact -->
+    <div id="contact" class="info contact_info">            
+      <div class="fl"><a href="http://www.weka-fachmedien.de" target="_blank"><img src="/images/weka_logo.gif" title="WEKA Fachmedien"/></a></div>
+      <div class="fl">
+        <b>Sie haben Fragen zum Anbieterverzeichnis?</b><br> 
+        Dann können Sie uns unter per Email an <a href="mailto:technik@weka-fachmedien.de" target="_blank">technik@weka-fachmedien.de</a><br>
+        erreichen oder telefonisch unter der Nummer: +49 (0)89.255 56-1000<br>
+      </div>
+      <div class="fl"><a href="mailto:technik@weka-fachmedien.de?subject='WCOS Premium-Account'" target="_blank"><img src="/images/premium.png" /></a></div>
+      <div class="fl"><b>Werden Sie jetzt <a href="mailto:technik@weka-fachmedien.de?subject='WCOS Premium-Account'" target="_blank">Premium-Anbieter!</a></b><br>Präsentieren Sie Ihr Unternehmen<br>im vollen Umfang.</div>
+      <div class="clear"></div>                      
+    </div>  
+    
+    <!-- Infobar -->         
+    <div class="info">     
+      <div class="navbar">
+        <div class="navbar-inner infobar" style="border-top-right-radius:0px;border-top-left-radius:0px;">
+          <ul class="nav">
+            <a class="brand" href="#" style="font-size:14px;" title="Kd.nr.: <?= $this->anbieter ['anbieterID'] ?>"><img src="/images/buttonGreen.png" class="status_img"/><?php echo $this->anbieter ['firmenname']; ?></a>                                  
+          </ul>          
+                    
+          <ul class="nav pull-right">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Aktionen<b class="caret" style="border-top-color: #ffffff;"></b></a>              
+              <ul class="dropdown-menu">
+                <li><a onclick="$('#contact').slideToggle();">Info</a></li>
+                <li class="divider"></li>
+                <?php if ($this->userData ['anbieterID'] != $this->anbieter ['anbieterID']) : ?>                    
+                  <li><a href="<?=  '/'.$usedModule.'/'.$usedController.'/'.$usedAction.'/sato/'.$user_anbieterhash ?>">eigener Anbieter</a></li>           
+                <?php endif; ?>
+                <li><a href="/login/index/logout">Logout</a></li>  
+              </ul>
+            </li>
+          </ul>
+          <?php if ($this->userData ['userStatus'] == -1) : ?>
+            <ul class="nav pull-right" style="margin-top:5px;"><?= $search_form ?></ul>
+          <?php endif; ?>
         </div>
-      <?php endif; ?>
-      <div class="status">       
-        Account Status:&nbsp;&nbsp;<img id="accountStatusImage"/>&nbsp;&nbsp;<span id="accountStatusText"></span>              
-      </div>            
-    </div>    
-    <div class="clearer"></div>
-  </div>
+      </div>               
+    </div>
   <div class="clearer"></div>
-
+  
+<div class="wrapper">  
+    
+  <div class="fl">
+    <h2 style="margin:0px;line-height:20px;"><small>W.C.O.S. Anbieterverzeichnis</small></h2>
+  </div>
+  <div class="fr">
+    <h2 style="margin:0px;line-height:20px;float:left;margin-right:20px;"><small>Sitzung für Medienmarke</small></h2>
+          <span style="float:right;"><?= $this->partial ('systems.phtml', 'default') ?></span>
+          <span class="clear"></span>
+  </div>
+  <div class="clear"></div>
+  
   <!-- Menu -->
-<div class="wrapper">
-  <div class="menu">
-  <?php
-  if ($this->loginStatus () > 0)
-  {
-    // Ausgabe der Main-Navigation
-    $partial = array('menu.phtml', 'default');
-    $this->navigation ()->menu ()->setPartial ($partial);
-    echo $this->navigation ()->menu ()->setMinDepth (0)->setMaxDepth (0);
-
-    // Ausgabe der Sub-Navigation
-    $partial = array('submenu.phtml', 'default');
-    $this->navigation ()->menu ()->setPartial ($partial);
-    $this->navigation ()->menu ()->setMinDepth (1);
-    $this->navigation ()->menu ()->setRenderParents (false);
-    $this->navigation ()->menu ()->setOnlyActiveBranch (true);
-    echo $this->navigation ()->menu ()->renderPartial (); 
-  }
-  ?>
+  <div class="navbar" style="margin-top:20px;">
+    <div class="navbar-inner">  
+      <?php
+      if (!empty ($this->userData))
+      {
+        // Ausgabe der Main-Navigation
+        $partial = array('menu.phtml', 'default');
+        $this->navigation ()->menu ()->setPartial ($partial);
+        echo $this->navigation ()->menu ()->setMinDepth (0)->setMaxDepth (0);        
+      }
+      ?>
+    </div>  
   </div>
 </div>
 
@@ -183,17 +153,10 @@
     <?php echo $this->layout ()->content; ?>
   </div>
   
-
-  <div id="ja_nein_dialog" style="display:none" title="">
-    <p id="jn_dialog_text"></p>
-  </div>
-  
   <!-- footer -->
-  <div class="footer">Software-Version 2.1<br/>Copyright &copy; <?php echo $year; ?> WEKA
-    Fachmedien GmbH. Alle Rechte vorbehalten.
+  <div class="footer">
+    Software-Version 2.1<br/>
+    Copyright &copy; <?php echo $year; ?> WEKA Fachmedien GmbH. Alle Rechte vorbehalten.
   </div>
-  <div class="preload"><img src="/images/button.png"><img src="/images/buttonHover.png"><img
-  src="/images/buttonActive.png"><img src="/images/inputTextActive.png"><img src="/images/inputTextInactive.png"><img
-  src="/images/InputActiveLightbox.png"><img src="/images/InputInactiveLightbox.png"><img
-  src="/images/searchBox.png"><img src="/images/searchBoxFocus.png"></div>
+ 
 </body>

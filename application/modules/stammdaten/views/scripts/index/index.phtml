@@ -1,154 +1,66 @@
-<input type="hidden" name="anbieterID" value="<?php echo $this->anbieterID; ?>" id="anbieterID"/>
-<input type="hidden" name="anbieterHash" value="<?php echo $this->anbieterHash; ?>" id="anbieterHash"/>
-<input type="hidden" name="stamdatenID" value="" id="stammdatenID"/>
-<img src="/images/pageDescriptionImages/stammdaten.png" class="contentDescriptionImage">
+<div class="page-header" style="margin-top:10px;">
+   <button type="button" class="btn" onclick="check_form ();">Stammdaten speichern</button>            
+</div>  
 
-<table border="0" style="width:98%;margin:auto;">
-  <?php
-  if ($this->userIsAdmin)
-  {
-    ?>
-    <tr>
-      <td colspan="3">
-        <table border="0">
-          <tr>
-            <td>
-              <img src="/images/elnet.png" style="opacity: 0.2;" class="systemsImage" id="1">
-            </td>
-            <td>
-              <img src="/images/funkschau_sw.png" style="opacity: 0.2;" class="systemsImage" id="2">
-            </td>
-            <td>
-              <img src="/images/ca.png" style="opacity: 0.2;" class="systemsImage" id="3">
-            </td>
-            <td>
-              <img src="/images/et.png" style="opacity: 0.2;" class="systemsImage" id="405">
-            </td>
-            <td>
-              <img src="/images/crn_logo.png" style="opacity: 0.2;" class="systemsImage" id="999">
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <?php
-  }
-  ?>
-  <?php
-  if ($this->userIsAdmin)
-  {
-    ?>
-    <tr>
-      <td style="width:30%;">
-        <label for="street">Firmenname:</label>
-      </td>
-      <td style="width:70%;">
-        <input type="text" class="inputText inputTextContent" name="street" id="firmenname" value=""/>
-      </td>
-    </tr>
-    <?php
-  }
-  ?>
-  <tr>
-    <td style="width:30%;">
-      <label for="street">Straße *:</label>
-    </td>
-    <td style="width:70%;">
-      <input type="text" class="inputText inputTextContent" name="street" id="strasse" value=""/>
-    </td>
-  </tr>
-
-
-  <tr>
-    <td><label for="number">Hausnummer *:</label></td>
-    <td><input type="text" class="inputText inputTextContent" name="number" id="hausnummer" value=""/></td>
-  </tr>
-  <tr>
-    <td>
-      <label for="zipcode">PLZ *:</label>
-    </td>
-    <td>
-      <input type="text" class="inputText inputTextContent" name="zipcode" id="plz" value=""/>
-    </td>
-  </tr>
-  <tr>
-    <td><label for="city">Ort *:</label></td>
-    <td><input type="text" class="inputText inputTextContent" name="city" id="ort" value=""/></td>
-  </tr>
-  <tr>
-    <td>
-      <label for="telephone">Telefon *:</label>
-    </td>
-    <td>
-      <input type="text" class="inputText inputTextContent" name="telefon" id="fon" value=""/>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <label for="email">E-Mail:</label>
-    </td>
-    <td>
-      <input type="text" class="inputText inputTextContent" name="email" id="email" value=""/>
-    </td>
-  </tr>
-  <tr>
-    <td><label for="fax">FAX:</label></td>
-    <td><input type="text" class="inputText inputTextContent" name="fax" id="fax" value=""/></td>
-  </tr>
-  <tr>
-    <td>Website *:</td>
-    <td><input type="text" class="inputText inputTextContent" name="www" id="www" value=""/></td>
-  </tr>
-  <tr>
-    <td>
-      <label for="logo">Logo **:</label>
-    </td>
-    <td>
-      <select name="firmenlogo" id="mediaID">
-        <option value="0">kein Logo</option>
-        <?php
-        $stammdaten = $this->stammdaten [0];
-        $mediaID = $stammdaten ['mediaID'];
-        foreach ($this->medien as $key => $media)
-        {
-          ?>
-          <option value="<?php echo $media ['mediaID']; ?>" <?php if ($media ['mediaID'] == $mediaID)
-          {
-            echo "selected";
-          } ?>><?php echo $media ['beschreibung']; ?></option>
-          <?php
-        }
-        ?>
-      </select>
-    </td>
-  </tr>  
-</table>
-
-<?php if ($stammdaten ['premiumLevel'] == 0) { ?>
-  <div class="wantPremium">    
-    <div class="left">
-      <img id="premiumTeaser" src="/images/premiumTeaser.png">
-    </div>     
-    <div class="left">
-      <h3>Präsentieren Sie Ihr Unternehmen, wie es sein soll! - Erweitern Sie auf unseren Premium Account!</h3>
-      <p>
-        Wie sieht das Ganze aus?
-        <span id="infoPremiumAccount" class="pointer" style="color:#1D5588;">
-          Werfen Sie einen Blick auf die Vorschau
-        </span>!
-        <br>      
-        <input type="checkbox" name="infoPremiumAccountCheckbox" id="infoPremiumAccountCheckbox" value=""/>
-          Ich möchte einen Premium-Account. Bitte kontaktieren Sie mich hierzu
-      </p>  
-    </div>    
-    <div class="clearer"></div>          
+<form enctype="multipart/form-data" class="form-horizontal" action="/stammdaten/index/edit" name="form_address" method="POST">
+  
+  <div class="control-group">
+    <label class="control-label">Firmenname*</label>
+    <div class="controls">
+      <input type="text" class="input-xxlarge" style="width:437px;" name="name1" value="<?= $this->data ['name1'] ?>">
+    </div>
   </div>
-  <?php } if ($stammdaten ['premiumLevel'] == -1) { ?>
-  <tr>
-    <td colspan="2">Ihr Anliegen zum Premium-Account wird gerade bearbeitet. Wir bitten noch um etwas Geduld.</td>
-  </tr>
-  <?php } ?>
-
-<center>  
-  <button class="buttonSave saveStammdaten" style="margin-bottom:10px;" id="saveStammdaten">Sichern</button>
-</center>
+  
+  <div class="control-group">
+    <label class="control-label"></label>
+    <div class="controls">
+      <input type="text" class="input-xxlarge" style="width:437px;" name="name2" value="<?= $this->data ['name2'] ?>">
+    </div>
+  </div>
+  
+  
+  <div class="control-group">
+    <label class="control-label">Straße, Hnr*</label>
+    <div class="controls controls-row">
+      <input type="text" class="input-xlarge" style="width:330px;" name="strasse" value="<?= $this->data ['strasse'] ?>">
+      <input type="text" class="input-small" name="hausnummer" value="<?= $this->data ['hausnummer'] ?>">
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <label class="control-label">Plz, Ort*</label>
+    <div class="controls">
+      <input type="text" class="input-small" name="plz" value="<?= $this->data ['plz'] ?>">
+      <input type="text" class="input-xlarge" style="width:330px;" name="ort" value="<?= $this->data ['ort'] ?>">
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <label class="control-label" for="fon">Telefon, Fax*</label>
+    <div class="controls">
+      <input type="text" class="input-large" name="fon" value="<?= $this->data ['fon'] ?>">
+      <input type="text" class="input-large" name="fax" value="<?= $this->data ['fax'] ?>">
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <label class="control-label" for="email">Email, WWW*</label>
+    <div class="controls">
+      <input type="text" class="input-large" name="email" value="<?= $this->data ['email'] ?>">
+      <input type="text" class="input-large" name="www" value="<?= $this->data ['www'] ?>">
+    </div>
+  </div>
+      
+  <div class="control-group">
+    <label class="control-label" for="logo">Logo</label>
+    <div class="controls">
+      <input type="file" name="logo">
+      <?php if ($this->logo) : ?>
+        <img src="<?= $this->logo ?>" width="100" title="Firmenlogo"/>
+      <?php endif; ?>
+    </div>
+  </div>
+        
+  <input type="hidden" name="stammdatenID" value="<?= $this->data ['stammdatenID'] ?>">
+  <input type="hidden" name ="anbieterID" value="<?= $this->data ['anbieterID'] ?>">
+</form>

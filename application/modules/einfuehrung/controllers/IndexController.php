@@ -1,72 +1,89 @@
 <?php
 
   /**
-   * Index Aufruf des Moduls Einfuehrung
-   *
-   * @author Thomas Grahammer
-   * @version $id$
-   *
+   * Einfuehrung
+   *     
    */
   class Einfuehrung_IndexController extends Zend_Controller_Action
   {
-
     /**
-     * setzt die View-Informationen für die Einführung
-     *
-     * @return void
+     * Formularparameter
+     * @var array 
+     */
+    var $params;
+    
+    /**
+     * Session
+     * @var object 
+     */
+    var $session;
+    
+    /**
+     * Model
+     * @var object
+     */
+    var $model;
+    
+    /**
+     * Initialisierung - Parameter, Model, Session und Ajax-Context
+     * 
+     */
+    public function init ()
+    {            
+      $params = $this->_request->getParams ();      
+      $action = $params ['action'];
+      if (!empty($params ['_system_id'])) $params ['system_id'] = $params ['_system_id'];
+      unset ($params ['module'], $params ['controller'], $params ['action'], $params ['submit'], $params ['_system_id']);             
+      $this->params = $params;
+                  
+      if ($action == 'nopremium' OR $action == 'deactivate')
+      {
+        $this->_helper->_layout->disableLayout ();
+        $this->_helper->viewRenderer->setNoRender (true);
+      }  
+      
+      $this->model = new Model_DbTable_Admin ();
+      $this->session = new Zend_Session_Namespace ();
+    }        
+    
+    /**
+     * Einführungs-Ansicht "Home"
+     *     
      */
     public function indexAction ()
-    {
-      $sessionNamespace = new Zend_Session_Namespace ();
-      $userData = $sessionNamespace->userData;
-      $anbieterID = $userData ['anbieterID'];
-      $this->view->anbieterID = $anbieterID;
-      try
-      {
-        $anbieterModel = new Model_DbTable_AnbieterData ();
-        $anbieterDetails = $anbieterModel->getAnbieterDetails ($anbieterID);
-        $this->view->anbieterHash = $anbieterDetails ['ANBIETERHASH'];
-      }
-      catch (Zend_Exception $e)
-      {
-        logError (print_r ($e->getMessage (), true), "Stammdaten_IndexController");
-        $redirect = new Zend_Controller_Action_Helper_Redirector();
-        $redirect->gotoUrl ('/login');
-      }
-      $mediaModel = new Model_DbTable_MediaData ();
-      $this->view->medien = $mediaModel->getMedienList ($anbieterID, 'FIRMENLOGO');
-      $stammdatenModel = new Model_DbTable_StammdatenData ();
-      $this->view->stammdaten = $stammdatenModel->getStammdaten ($anbieterID);
-      
-      $admin_model = new Model_DbTable_Admin ();
-      $this->view->preview_links = $admin_model->preview_links ();
+    {                                  
+      $this->view->overview = $this->model->premium_status ();                                                          
+      $this->view->user_status = $this->session->userData ['userStatus'];            
     }
-
 
     /**
-     * setzt für den Account einen Premium-Status
-     *
-     * @return void
+     * Anbieter-Status fuer Medienmarke auf Premium setzten/bearbeiten 
+     *  
+    */
+    public function premiumAction ()
+    {            
+      $this->model->premium ($this->params);
+      $this->_redirect ('/einfuehrung/index/index');
+    }        
+            
+    /**
+     * Anbieter-Status fuer Medienmarke auf Standard setzen
+     *  
      */
-    public function makeitpremiumAction ()
+    public function nopremiumAction ()
+    {           
+      $this->model->nopremium ($this->params ['system_id']);      
+    }        
+      
+    /**
+     * Anbieter-Status fuer Medienmarke deaktivieren
+     *  
+     */
+    public function deactivateAction ()
     {
-      $this->_helper->_layout->disableLayout ();
-      $this->_helper->viewRenderer->setNoRender (true);
-      // check hashcode
-      // set premiumStatus = 99
-      $paramPremiumHash = $this->getRequest ()->getParam ('hash');
-      $anbieterModel = new Model_DbTable_AnbieterData ();
-      $anbieterFound = $anbieterModel->getAnbieterByHash ($paramPremiumHash);
-      if (count ($anbieterFound) > 0)
-      {
-        $model = new Model_DbTable_AnbieterData ();
-        $model->saveAnbieter ("premiumLevel", "1", $anbieterFound [0]['anbieterID']);
-        $model = new Model_DbTable_LaufzeitData ();
-        $model->setLaufzeit ($anbieterFound [0]['anbieterID'], 12); // TODO Laufzeit variabel machen
-        echo 'Der Premium-Account für den Anbieter "' . $anbieterFound [0]['firmenname'] . '" wurde aktiviert!';
-        //logDebug ('make it premium!', "");
-      }
-    }
+      $this->model->deactivate ($this->params ['system_id']);
+    }        
+    
   }
 
 ?>

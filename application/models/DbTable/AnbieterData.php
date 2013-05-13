@@ -171,7 +171,7 @@
       $select = $db->select ();
       $select->from (array('a' => 'anbieter'))
       ->join (array('sd' => 'stammdaten'), 'sd.stammdatenID = a.stammdatenID')
-      ->joinleft (array('lz' => 'laufzeiten'), 'lz.anbieterID = a.anbieterID')
+      //->joinleft (array('lz' => 'laufzeiten'), 'lz.anbieterID = a.anbieterID')
       ->where ('a.anbieterID = ? ', $anbieterID);
       $result = $select->query ();
       $data = $result->fetch ();

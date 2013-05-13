@@ -1,0 +1,19 @@
+<div class="page-header">
+  <div class="fl"> <h4>Produktspektrum auswählen</h4></div>
+  <div class="fr">
+    <?= $this->partial ('copy.phtml', 'default') ?>     
+  </div>
+  <div class="clear"></div>
+</div>
+  
+<div id="provider_product_tree" class="well fl" style="width:390px;padding-left:10px;min-height:400px;"><?= $this->Tree ($this->provider_products, true) ?></div>
+
+<div class="fl" style="margin:150px 0px 0px 45px;">
+  <button id="code-remove" class="btn btn-large disabled" onclick="update_codes ('remove', this);" title="Produkte entfernen">>></button><br><br>
+  <button id="code-add" class="btn btn-large disabled" onclick="update_codes ('add', this);" title="Produkte hinzufügen"><<</button>
+</div>
+
+<div class="well fr" style="width:390px;padding-left:10px;min-height:400px;"><?= $this->Tree ($this->products) ?></div>
+<input type="hidden" id="values_add" value="">
+<input type="hidden" id="values_remove" value="">
+<div class="clear"></div>

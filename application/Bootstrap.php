@@ -45,12 +45,12 @@
     protected function _initLibrary ()
     {
       //todo: das geht doch besser
-      $library = APPLICATION_PATH.'/library/';
-      Zend_Loader::loadFile ('ProviderValidator.php', $library);
+      $library = APPLICATION_PATH.'/library/';      
       Zend_Loader::loadFile ('SimpleImage.php', $library);
       Zend_Loader::loadFile ('general.inc.php', $library);
       Zend_Loader::loadFile ('logger.inc.php', $library);
       Zend_Loader::loadFile ('qqFileUploader.inc.php', $library);
+      Zend_Loader::loadFile ('Profile_Validator.php', $library);
     }        
     
     /**
@@ -105,7 +105,7 @@
     protected function _initPaginator ()
     {
       Zend_Paginator::setDefaultScrollingStyle ('Sliding');
-      Zend_View_Helper_PaginationControl::setDefaultViewPartial ('paging.phtml');
+      Zend_View_Helper_PaginationControl::setDefaultViewPartial (array ('paging.phtml', 'default'));
     }        
 
     /**
@@ -128,11 +128,9 @@
       $front = Zend_Controller_Front::getInstance ();
       $front->registerPlugin (new Zend_Controller_Plugin_ErrorHandler(
               array ('module' => 'default', 'controller' => 'error', 'action' => 'index')));            
-      $front->registerPlugin (new Plugin_HashControl ());      
-      $front->registerPlugin (new Plugin_GlobalInfo ());
-      $front->registerPlugin (new Plugin_Global ());
+      $front->registerPlugin (new Plugin_Main ());            
     }        
-    
+             
     /**
      * startet die Applikation
      *
@@ -143,22 +141,20 @@
       $request = new Zend_Controller_Request_Http();
       $router = new Zend_Controller_Router_Rewrite();
       $router->route ($request);
-      $_module = $request->getModuleName ();
-      $_controller = $request->getControllerName ();
-      $this->layout->_module = $_module;
+      
+      $this->layout->_module = $request->getModuleName ();
       $this->layout->_controller = $request->getControllerName ();
       $this->layout->_action = $request->getActionName ();     
+      
       $this->bootstrap ('frontController');
+      
       $frontController = $this->getResource ('frontController');
       $frontController->setParam ('useDefaultControllerAlways', false);
       $frontController->throwExceptions (true);
-      
-      //Bei soap-Anfragen und Cron-Jobs erstmal keine zvbs-Auth durchfuehren TODO ggf. noch einbauen
-      if ($_module != 'soap' && $_controller != 'cron')      
-        $frontController->registerPlugin (new Plugin_Zbvs ());
-                    
+                                      
       Zend_Registry::set ('config', new Zend_Config_Ini ('../application/configs/application.ini', APPLICATION_ENV));
       Zend_Registry::set ('request', $request);
+      
       $this->frontController->dispatch ();
     }
   }

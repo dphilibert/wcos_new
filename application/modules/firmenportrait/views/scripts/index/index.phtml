@@ -1,30 +1,53 @@
-<img src="/images/pageDescriptionImages/firmenportrait.png" class="contentDescriptionImage">
-<div class="liste" id="liste">
-  <table class="tableListe">
-    <tr class="tableListeZeileHeader">
-      <td>&nbsp;</td>
-      <td style="width:100px;">Aktionen</td>
-    </tr>
-    <tr name="tableListeZeile" id="null" class="tableListeZeile" style="display:none">
-      <td id="eintrag"></td>
-      <td><a href="#firmenportrait_editor" id="edit" onClick="tinymceInit();"><img src="/img/icons/date_edit.png">&nbsp;&nbsp;Bearbeiten</td>
-    </tr>
-  </table>
+<div class="page-header" style="margin-top:10px;">
+  <div class="fl" >
+    <div class="btn-group">
+        <a class="btn" href="javascript:call_action_fancy('/firmenportrait/index/new', 700, 700, true);">
+          <i class="icon-plus icon_cursor"></i>  Firmenporträt
+        </a>
+    </div>      
+  </div>    
+  <div class="fr"><?= $this->partial ('copy.phtml', 'default') ?></div>
+  <div class="clear"></div>  
 </div>
 
-<!-- lightbox Edit-Fenster -->
-<div style="display:none;">
-<div id="firmenportrait_editor">
-<input type="HIDDEN" id="ID" value="">
-<table border="0" width=100%>
-<tr>
-  <td id="tinyMCETD"><textarea id="editor" rows="25" cols="90"></textarea></td>
-</tr>
-  <tr>
-    <td colspan="5" align="center">
-      <input id="buttonSave" class="buttonSave" type="button" value="  speichern">
-    </td>
-  </tr>
+<table class="table">                    
+    <thead>  
+      <tr>
+        <th style="width:200px;">Porträt</th>
+        <th style="width:700px;">&nbsp;</th>
+        <th class="ar">Aktionen</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php if (!empty ($this->data)) : ?>         
+      <?php foreach ($this->data as $type => $portrait) : ?>          
+        <?php if (!empty ($portrait ['text'])) : ?>
+          <?php $ident = sha1 ($type); ?>
+            <tr>
+              <td><span style="margin-left:20px;"><?= $type ?></span></td>              
+              <td style="text-align:center;">
+                <i class="icon-chevron-down" style="cursor:pointer;" onclick="$('#<?= $ident ?>').slideToggle();chevronToggle (this);"></i>
+                <div class="dn" style="text-align:left;" id="<?= $ident ?>"><?= $portrait ['text'] ?></div>
+              </td>
+              
+              <td class="ar">
+                <div class="btn-group">
+                  <a class="btn" title="Bearbeiten" href="javascript:call_action_fancy ('/firmenportrait/index/edit/<?= 'id/'.$portrait ['id'] ?>', 700, 700, true);">
+                    <i class="icon-pencil"></i>
+                  </a>
+                  <a class="btn" title="Löschen" href="javascript:call_action ('/firmenportrait/index/delete/<?= 'id/'.$portrait ['id'] ?>', true);">
+                    <i class ="icon-trash"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+        <?php endif; ?>            
+      <?php endforeach; ?>
+
+    <?php else : ?>
+        <tr class="warning">
+          <td colspan="3" style="text-align: center;"><b>Keine Einträge vorhanden!</b></td>
+        </tr>                  
+    <?php endif; ?>     
+  </tbody>        
 </table>
-</div>
-</div>

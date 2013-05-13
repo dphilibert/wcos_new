@@ -1,72 +1,59 @@
-<div class="contentLeft"><img src="/images/pageDescriptionImages/ansprechpartner.png" class="contentDescriptionImage"></div>
-<div class="contentRight">
-<a id="neu" href="#ansprechpartner_editor" onClick="newEntry ();"><img src="/img/icons/user_add.png" />&nbsp;&nbsp;Ansprechpartner hinzuf&uuml;gen</a></a>
-<!--<a href="#" id="add"><img src="/img/icons/user_add.png" />&nbsp;&nbsp;Ansprechpartner hinzuf&uuml;gen</a>--></div>
-<div class="clearer"></div>
-<div class="liste" id="liste">
-<div class="contentLeftBelow"> <?php echo $this->partial ('entriesPerPage.phtml', 'default');?></div>
-<div class="searchPageinator"><div class="contentRightBelow"><input type="text" class="searchBox" id="searchBox" name="searchBox" /></div>
-<div class="clearer"></div></div>
-      
-  <table class="tableListe">
-    <tr id="paginator" class="paginator">
-      <td colspan="4" align="center">
-        <?php echo $this->partial ('paginator.phtml', 'default');?>
-      </td>
-    </tr>
-    <tr class="tableListeZeileHeader">
-      <td>Vorname</td>
-      <td>Nachname</td>
-      <td class="tableListeAction">Aktionen</td>
-    </tr>
-    <tr>
-    </tr>
-    <tr name="tableListeZeile" id="null" class="tableListeZeile" style="display:none">
-      <td id="vorname"></td>
-      <td id="nachname"></td>
-      <td class="tableListeAction"><a href="#ansprechpartner_editor" id="edit"><img src="/img/icons/user_edit.png">&nbsp;&nbsp;Bearbeiten</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ansprechpartner_editor" id="del"><img src="/img/icons/user_delete.png">&nbsp;&nbsp;L&ouml;schen</a></td>
-    </tr>
-    <tr id="paginator" class="paginator">
-      <td colspan="4" align="center">
-        <?php echo $this->partial ('paginator.phtml', 'default');?>
-      </td>
-    </tr>
-  </table>
+<div class="page-header" style="margin-top:10px;">
+  <div class="fl" style="min-width:150px;margin-right:250px;">
+    <div class="btn-group">
+        <a class="btn" href="javascript:call_action_fancy ('/ansprechpartner/index/new', 375, 450);">
+          <i class="icon-plus"></i>  Ansprechpartner
+        </a>
+    </div>      
+  </div>  
+  <div class="fl"><?= $this->partial ('search.phtml', 'default') ?></div>   
+  <div class="fr"><?= $this->partial ('copy.phtml', 'default') ?></div>
+  <div class="clear"></div>  
 </div>
 
-<!-- lightbox Edit-Fenster -->
-<div style="display: none;">
-<div id="ansprechpartner_editor">
-  <input type="HIDDEN" id="apID" value="">
-  	<table style="width:100%;">
-	<tr><td class="formLightboxText">Anrede:</td><td>      <select id="ap_anredeID" class="benutzerPopupinputAusgabeSelekt">
-      <?php
-      foreach ($this->anreden as $anredeKey => $anrede)
-      {
-      ?>
-        <option value="<?php echo $anrede ['anredeID']; ?>"><?php echo $anrede ['anrede']; ?></option>
-      <?php
-      }
-      ?>
-      </select></td></tr>
-	<tr><td class="formLightboxText">Vorname:</td><td><input type="text" class="inputText inputTextLightbox"id="ap_vorname" value=""></td></tr>
-	<tr><td class="formLightboxText">Nachname:</td><td><input type="text" class="inputText inputTextLightbox"id="ap_nachname" value=""></td></tr>
-    <tr><td class="formLightboxText">Abteilung:</td><td><input type="text" class="inputText inputTextLightbox"id="ap_abteilung"  value=""></td></tr>
-    <tr><td class="formLightboxText">Position:</td><td><input type="text" class="inputText inputTextLightbox"id="ap_position"  value=""></td></tr>
-    <tr><td class="formLightboxText">Telefon:</td><td><input type="text" class="inputText inputTextLightbox"id="ap_telefon"  value=""></td></tr>
-    <tr><td class="formLightboxText">Telefax:</td><td><input type="text" class="inputText inputTextLightbox"id="ap_telefax"  value=""></td></tr>
-    <tr><td class="formLightboxText">eMail:</td><td><input type="text" class="inputText inputTextLightbox"id="ap_email"  value=""></td></tr>
-<!--    <tr><td class="formLightboxText">Bemerkung:</td><td><input type="text" class="inputText inputTextLightbox"id="ap_bemerkung"  value=""></td></tr> -->
-    <tr><td class="formLightboxText">Ansprechpartner Bild (vorher unter Bilder &amp; Videos anlegen):</td><td><select name="mediaID" id="ap_mediaID" class="benutzerPopupinputAusgabe">
-		  						<option value="0">kein Bild</option>
-								</select></td></tr>
-	</table>
-    <center><input id="buttonSave" class="buttonSave" type="button" value="Speichern &amp; Schlie&szlig;en"> </center>
- </div>
- </div>
-<!-- Lightbox End--> 
- <!-- preload the images -->
-<!-- <div style='display:none'>
-   <img src='/img/simpleModal/x.png' alt='' />
- </div>-->
- <?php echo $this->partial ('delConfirm.phtml','default'); ?>
+  <table class="table table-hover">    
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Vorname</th>
+      <th>Nachname</th>
+      <th>Telefon</th>
+      <th>Email</th>      
+      <th class="ar">Aktionen</th>
+    </tr>
+    </thead>         
+          
+     <?php if (!empty ($this->data_paging)) : ?>
+      <tbody>
+        <?php foreach ($this->data_paging as $search_result_row) : ?>
+          <tr>
+            <td><?= $search_result_row ['id'] ?></td>
+            <td><?= $search_result_row ['vorname'] ?></td>
+            <td><?= $search_result_row ['nachname'] ?></td>
+            <td><?= $search_result_row ['telefon'] ?></td>
+            <td><?= $search_result_row ['email'] ?></td>                        
+            <td style="text-align:center;">
+              <div class="btn-group">                
+                <a class="btn" title="Bearbeiten" href="javascript:call_action_fancy ('/ansprechpartner/index/edit/id/<?= $search_result_row ['id'] ?>', 375, 450);">  
+                  <i class="icon-pencil"></i>
+                </a>              
+                <a class="btn" title="Löschen" href="javascript:call_action ('/ansprechpartner/index/delete/id/<?= $search_result_row ['id'] ?>', true);">
+                  <i class="icon-trash"></i>
+                </a>              
+              </div>              
+            </td>
+          </tr>
+        <?php endforeach; ?>            
+        <tr>
+          <td colspan="7" align="center" class="pr">
+            <?= $this->data_paging ?>
+          </td>
+        </tr>
+        <?php else : ?>
+          <tr class="warning">
+            <td colspan="7" style="text-align:center;"><b>Keine Einträge vorhanden!</b></td>
+          </tr>  
+        <?php endif; ?>    
+      </tbody>
+  </table>
+

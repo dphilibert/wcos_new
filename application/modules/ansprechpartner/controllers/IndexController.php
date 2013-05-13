@@ -1,43 +1,132 @@
 <?php
 
-  /**
-   * IndexController Modul Ansprechpartner
-   *
-   * @author Thomas Grahammer
-   * @version $id$
-   *
+  /*
+   * Ansprechpartner
+   * 
    */
   class Ansprechpartner_IndexController extends Zend_Controller_Action
   {
-
     /**
-     * setzt die Ansprechpartnerdaten für das Index-View
-     *
-     * @return void
+     * Parameter
+     * @var array 
+     */
+     var $params;
+              
+     /**
+      * Ansprechpartner-Model
+      * @var object
+      */
+     var $model;
+    
+     /**
+      * Initialisierung - Ajax Context, Parameter, Session und Model
+      *  
+      */
+     public function init ()
+     {
+       $params = $this->_request->getParams ();
+       $action = $params ['action'];
+       unset ($params ['module'], $params ['controller'], $params ['action'], $params ['MAX_FILE_SIZE']);            
+       $this->params = $params;
+       
+       if ($action == 'new' OR $action == 'edit' OR $action == 'delete')
+       {
+         $this->_helper->_layout->disableLayout ();
+         $this->_helper->viewRenderer->setNoRender (true);
+       }  
+              
+       $this->model = new Model_DbTable_AnsprechpartnerData ();
+     }        
+    
+    /**
+     * Ansprechpartner Listenansicht mit Paging und Suche
+     *     
      */
     public function indexAction ()
-    {
-      $sessionNamespace = new Zend_Session_Namespace ();
-      $userData = $sessionNamespace->userData;
-      $anbieterID = $userData ['anbieterID'];
-      $ansprechpartnerModel = new Model_DbTable_AnsprechpartnerData ();
-      $this->view->anbieterID = $anbieterID;
-      try
-      {
-        $anbieterModel = new Model_DbTable_AnbieterData ();
-        $anbieterDetails = $anbieterModel->getAnbieterDetails ($anbieterID);
-        $this->view->anbieterHash = $anbieterDetails ['ANBIETERHASH'];
-      }
-      catch (Zend_Exception $e)
-      {
-        $redirect = new Zend_Controller_Action_Helper_Redirector();
-        $redirect->gotoUrl ('/login');
-      }
-      $mediaModel = new Model_DbTable_MediaData ();
-      $this->view->medien = $mediaModel->getMedienList ($anbieterID, 6);
-      $this->view->ansprechpartner = $ansprechpartnerModel->getAnsprechpartnerList (NULL, $anbieterID);
-      $this->view->anreden = Model_DbTable_Anreden::getAnreden (1);
+    {                                   
+      if (empty ($this->params ['page'])) $this->params ['page'] = 1;      
+      if (empty ($this->params ['search_term'])) $this->params ['search_term'] = '';
+      
+      $list = $this->model->get_contacts_list ($this->params ['search_term']);                     
+      if (!empty ($list))
+        $this->view->data_paging = $this->model->paging ($list, $this->params ['page']);               
     }
+    
+    /**
+     * Neuer Ansprechpartner
+     *  
+     */
+    public function newAction ()
+    {
+      $form = new Form_Contacts ();      
+                     
+      if (isset ($this->params ['anbieterID']))
+      {
+        if ($form->isValidPartial ($this->params))
+        {                        
+          $this->model->add_contact ($this->params);
+          echo 'success';
+        } else
+        {          
+          $form->populate ($this->params);
+          echo $form;
+        }          
+      } else
+      {
+        $form->populate ($this->params);
+        echo $form;
+      }        
+    }        
+    
+    /**
+     * Ansprechpartner bearbeiten
+     *  
+     */
+    public function editAction ()
+    {
+      $form = new Form_Contacts ();
+      $id = new Zend_Form_Element_Hidden ('id');
+      $form->addElement ($id);
+      $button = $form->getElement ('submit');
+      $button->setAttrib ('onclick', 'submit_form ("/ansprechpartner/index/edit");');
+      
+      if (isset ($this->params ['vorname']))
+      {
+        if ($form->isValidPartial ($this->params))
+        {
+          $this->model->update_contact ($this->params);
+          echo 'success';
+        } else
+        {
+          $form->populate ($this->params);
+          echo $form;
+        }          
+      } else
+      {
+        $form->populate ($this->model->get_contact ($this->params ['id']));        
+        echo $form;
+      }        
+    }        
+    
+    /**
+     * Ansprechpartner Loeschen
+     *  
+     */
+    public function deleteAction ()
+    {
+      $this->model->delete_contact ($this->params ['id']);
+    }        
+    
+    /**
+     * Uebernimmt die Ansprechpartner aus einem anderen System
+     *  
+     */
+    public function copyAction ()
+    {
+      $this->model->copy_contacts ($this->params ['from_system']);  
+      $this->_redirect ('/ansprechpartner/index/index');
+    }        
+    
   }
 
 ?>

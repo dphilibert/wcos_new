@@ -1,58 +1,135 @@
 <?php
 
-  /**
-   * Modul Termine - Index
-   *
-   * @author Thomas Grahammer
-   * @version $id$
-   */
-
+/**
+ * Termine
+ * 
+*/
 class Termine_IndexController extends Zend_Controller_Action
 {
 
+  /**
+  * Parameter
+  * @var array 
+  */
+  var $params;
+
+  /**
+  * Termine-Model
+  * @var object
+  */
+  var $model;
+
+  /**
+  * Initialisierung - Ajax Context, Parameter, Session und Model
+  *  
+  */
+  public function init ()
+  {
+    $params = $this->_request->getParams ();
+    $action = $params ['action'];
+    unset ($params ['module'], $params ['controller'], $params ['action'], $params ['MAX_FILE_SIZE']);         
+    $this->params = $params;
+
+    if ($action == 'new' OR $action == 'edit' OR $action == 'delete')
+    {
+      $this->_helper->_layout->disableLayout ();
+      $this->_helper->viewRenderer->setNoRender (true);
+    }  
+    
+    $this->model = new Model_DbTable_TermineData ();
+  }        
+  
  /**
-  * setzt die Termin-Daten für das View
-  *
-  * @return void
+  * Termine-Listenansicht mit Paging und Suche
+  *  
   */
   public function indexAction ()
-  {
-//    $ansprechpartnerModel = new Model_DbTable_AnsprechpartnerData ();
-//    $this->view->ansprechpartner = $ansprechpartnerModel->getAnsprechpartnerList ();
-//    $this->view->anreden = Model_DbTable_Anreden::getAnreden (1);
-//    $this->view->data = $ansprechpartnerModel->getAnsprechpartner ($apID);
-
-    $sessionNamespace = new Zend_Session_Namespace ();
-    $userData = $sessionNamespace->userData;
-    $anbieterID = $userData ['anbieterID'];
-    $ansprechpartnerModel = new Model_DbTable_AnsprechpartnerData ();
-    $this->view->anbieterID = $anbieterID;   
-
-    try 
-    {
-      $anbieterModel = new Model_DbTable_AnbieterData ();
-      $anbieterDetails = $anbieterModel->getAnbieterDetails ($anbieterID);
-      $this->view->anbieterHash = $anbieterDetails ['ANBIETERHASH'];
-    } 
-    catch (Zend_Exception $e)
-    {
-      $redirect = new Zend_Controller_Action_Helper_Redirector();
-      $redirect->gotoUrl ('/login');   
-    }
-    
-
-    $termineModel = new Model_DbTable_TermineData ();
-
-    $sessionNamespace = new Zend_Session_Namespace ();
-    $userData = $sessionNamespace->userData;
-    $anbieterID = $userData ['anbieterID'];
-    $this->view->aID = $anbieterID;
-
-    $this->view->termine = $termineModel->getTermineList ($anbieterID);
+  {        
+    if (empty ($this->params ['search_term'])) $this->params ['search_term'] = '';
+    if (empty ($this->params ['page'])) $this->params ['page'] = 1;
+    $list = $this->model->get_dates_list ($this->params ['search_term']);   
+    if (!empty ($list))
+      $this->view->data_paging = $this->model->paging ($list, $this->params ['page']);
+               
+    $config = new Zend_Config (require APPLICATION_PATH . '/configs/module.php');
+    $this->view->date_types = $config->dates->toArray ();
   }
 
+  /**
+   * neuer Termin
+   *  
+   */
+  public function newAction ()
+  {
+    $form = new Form_Dates ();
+    
+    if (isset($this->params ['title']))
+    {
+      if ($form->isValidPartial ($this->params))
+      {
+        $this->model->add_date ($this->params);
+        echo 'success';
+      } else
+      {
+        $form->populate ($this->params);
+        echo $form;
+      }  
+    } else
+    {
+      $form->populate ($this->params);
+      echo $form;
+    }  
+  }        
 
+  /**
+   * Termin bearbeiten
+   *  
+   */
+  public function editAction ()
+  {
+    $form = new Form_Dates ();
+    $button = $form->getElement ('submit');
+    $button->setAttrib ('onclick', 'submit_form("/termine/index/edit");');
+    $id = new Zend_Form_Element_Hidden ('id');
+    $form->addElement ($id);
+    
+    if (isset($this->params ['title']))
+    {
+      if ($form->isValidPartial ($this->params))
+      {
+        $this->model->edit_date ($this->params);
+        echo 'success';
+      } else
+      {
+        $form->populate ($this->params);
+        echo $form;
+      }  
+    } else
+    {
+      $form->populate ($this->model->get_date ($this->params ['id']));
+      echo $form;
+    }  
+  }        
 
+  /**
+   * Termin loeschen
+   *  
+   */
+  public function deleteAction ()
+  {
+    $this->model->delete_date ($this->params ['id']);
+  }        
+  
+  /**
+   * Termine aus anderen System uebernehmen
+   *  
+   */
+  public function copyAction ()
+  {
+    $this->model->copy_dates ($this->params ['from_system']);
+    $this->_redirect ('/termine/index/index/');
+  }        
+  
 }
 
 ?>

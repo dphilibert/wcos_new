@@ -1,73 +1,129 @@
 <?php
 
   /**
-   * Module Whitepaper
-   *
-   * @author Thomas Grahammer
-   * @version $id$
-   *
+   * Whitepaper
+   *  
    */
   class Whitepaper_IndexController extends Zend_Controller_Action
-  {
+  {   
+    /**
+    * Parameter
+    * @var array 
+    */
+    var $params;
+    
+    /**
+    * Termine-Model
+    * @var object
+    */
+    var $model;
 
     /**
-     * @var object Model
-     */
-    var $model = NULL;
-
-    /**
-     * setzt das Model klassenweit
-     *
-     * @return void
-     */
+    * Initialisierung - Ajax Context, Parameter und Model
+    *  
+    */
     public function init ()
     {
-      $this->model = new Model_DbTable_WhitepaperData ();
-    }
+      $params = $this->_request->getParams ();
+      $action = $params ['action'];
+      unset ($params ['module'], $params ['controller'], $params ['action'], $params ['MAX_FILE_SIZE']);            
+      $this->params = $params;
 
+      if ($action == 'new' OR $action == 'edit' OR $action == 'delete')
+      {
+        $this->_helper->_layout->disableLayout ();
+        $this->_helper->viewRenderer->setNoRender (true);
+      }  
+     
+      $this->model = new Model_DbTable_WhitepaperData ();
+    }        
+    
     /**
-     * setzt die Whitepaper-Daten für das View
-     *
-     * @return void
+     * Whitepaper-Listenansicht mit Paging und Suche
+     *    
      */
     public function indexAction ()
-    {
-      $sessionNamespace = new Zend_Session_Namespace ();
-      $userData = $sessionNamespace->userData;
-      $anbieterID = $userData ['anbieterID'];      
-      $this->view->anbieterID = $anbieterID;
-      try
-      {
-        $anbieterModel = new Model_DbTable_AnbieterData ();
-        $anbieterDetails = $anbieterModel->getAnbieterDetails ($anbieterID);
-        $this->view->anbieterHash = $anbieterDetails ['ANBIETERHASH'];
-      }
-      catch (Zend_Exception $e)
-      {
-        $redirect = new Zend_Controller_Action_Helper_Redirector();
-        $redirect->gotoUrl ('/login');
-      }
-      $model = new Model_DbTable_WhitepaperData ();
-      $sessionNamespace = new Zend_Session_Namespace ();
-      $userData = $sessionNamespace->userData;
-      $anbieterID = $userData ['anbieterID'];
-      $this->view->aID = $anbieterID;
-      $this->view->whitepaper = $model->getWhitepaperList ($anbieterID);
+    {                  
+      if (empty ($this->params ['search_term'])) $this->params ['search_term'] = '';
+      if (empty ($this->params ['page'])) $this->params ['page'] = 1;
+      $list = $this->model->get_whitepaper_list ($this->params ['search_term']);      
+      if (!empty ($list))
+        $this->view->data_paging = $this->model->paging ($list, $this->params ['page']);               
     }
 
     /**
-     * hebt die Preview-Sperre eines Whitepapers auf (Redakteursfunktion)
-     *
-     * @return void
+     * neues Whitepaper
+     *  
      */
-    public function unlockAction ()
+    public function newAction ()
     {
-      $this->_helper->_layout->disableLayout ();
-      $this->_helper->viewRenderer->setNoRender (true);     
-      $unlockHash = $this->getRequest ()->getParam ('hash');
-      $this->model->unlockWhitepaper ($unlockHash);
-      die ('<center>Der Eintrag wurde freigegeben!</center>');
+      $form = new Form_Whitepaper ();
+      
+      if (isset ($this->params ['title']))
+      {
+        if ($form->isValid ($this->params))
+        {
+          $this->model->add_whitepaper ($this->params);
+          echo 'success';
+        } else
+        {
+          $form->populate ($this->params);
+          echo $form;
+        }  
+      } else
+      {        
+        echo $form;
+      }  
+    } 
+    
+    /**
+     * Whitepaper bearbeiten
+     *  
+     */
+    public function editAction ()
+    {
+      $form = new Form_Whitepaper ();
+      $button = $form->getElement ('submit');
+      $button->setAttrib ('onclick', 'submit_form ("/whitepaper/index/edit")');
+      $id = new Zend_Form_Element_Hidden ('id');
+      $form->addElement ($id);
+      
+      if (isset ($this->params ['title']))
+      {
+        if ($form->isValid ($this->params))
+        {
+          $this->model->edit_whitepaper ($this->params);
+          echo 'success';
+        } else
+        {
+          $form->populate ($this->params);
+          echo $form;
+        }  
+      } else
+      {
+        $form->populate ($this->model->get_whitepaper ($this->params ['id']));
+        echo $form;
+      }  
     }
+    
+    /**
+     * Whitepaper loeschen
+     *  
+     */
+    public function deleteAction ()
+    {
+      $this->model->delete_whitepaper ($this->params ['id']);
+    }
+    
+    /**
+     * Whitepaper aus anderen System uebernehmen
+     *  
+     */
+    public function copyAction ()
+    {
+      $this->model->copy_whitepapers ($this->params ['from_system']);
+      $this->_redirect ('/whitepaper/index/index');
+    }        
   }
 
 ?>

@@ -1,0 +1,42 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Beschreibung</th>
+    <th>URL</th>    
+    <th>Datei</th>
+    <th class="ar">Aktionen</th>
+  </tr>
+  </thead>
+  <?php if (!empty ($this->data_paging)) : ?>
+  <tbody>
+    <?php foreach ($this->data_paging as $search_result_row) : ?>
+      <tr>
+        <td><?= $search_result_row ['id'] ?></td>
+        <td><?= $search_result_row ['beschreibung'] ?></td>
+        <td><?= $search_result_row ['link'] ?></td>        
+        <td><?= $search_result_row ['media'] ?></td>                
+        <td style="text-align:center;">
+          <div class="btn-group">
+            <a class="btn" title="Bearbeiten" href="javascript:call_action_fancy ('/media/index/edit/id/<?= $search_result_row ['id'] ?>/media_type/<?= $this->media_type ?>', 400, 400);">
+              <i class="icon-pencil"></i>
+            </a>
+            <a class="btn" title="Löschen" href="javascript:call_action ('/media/index/delete/id/<?= $search_result_row ['id'] ?>', true);">
+              <i class="icon-trash"></i>
+            </a>
+          </div>
+        </td>
+      </tr>      
+    <?php endforeach; ?>           
+    <tr>
+      <td colspan="6" align="center" class="pr">
+        <?= $this->data_paging ?>
+      </td>
+    </tr>
+  <?php else : ?>
+    <tr class="warning">
+      <td colspan="6" style="text-align:center;"><b>Keine Einträge vorhanden!</b></td>
+    </tr>  
+    <?php endif; ?>   
+  </tbody>
+</table>

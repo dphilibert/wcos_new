@@ -1,24 +1,10 @@
 <?php
   /**
-   * Datenbank-Model für Stammdaten
-   *
-   * @author Thomas Grahammer
-   * @version $id$
-   *
+   * Stammdaten-Model
+   *   
    */
-  class Model_DbTable_StammdatenData extends Zend_Db_Table_Abstract
-  {
-    /**
-     *
-     * ininitales Init
-     *
-     * @return void
-     *
-     */
-    public function init ()
-    {
-    }
-
+  class Model_DbTable_StammdatenData extends Model_DbTable_Global
+  {            
     /**
      * liefert die Stammdaten eines Anbieters
      *
@@ -26,63 +12,37 @@
      *
      * @return mixed
      */
-    public function getStammdaten ($anbieterID)
-    {
-      $db = Zend_Registry::get ('db');
-      $select = $db->select ();
-      $select->from (array('a' => 'anbieter'))
-      ->join (array('s' => 'stammdaten'),
-        'a.anbieterID = s.anbieterID');
-      $select->where ("a.anbieterID = ?", $anbieterID);
-      $result = $select->query ();
-      $data = $result->fetchAll ();
-      ////logDebug (print_r ($data, true), "getStammdaten");
-      return $data;
+    public function get_address ()
+    {      
+      $query = $this->_db->select ()->from ('anbieter', array ('stammdatenID', 'name1', 'name2'))->where ('anbieter.anbieterID = '. $this->provider_id)      
+      ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.stammdatenID');                  
+      return $this->_db->fetchRow ($query);
     }
-
-
+    
     /**
-     * speichert die Stammdaten eines Anbieters
-     *
-     * @param string $field DB-Feld
-     * @param string $value DB-Wert
-     * @param $stammdatenID stammdatenID
-     *
-     * @return int 0=erfolgreich, 2=Fehler beim speichern
+     * Führt die Stammdatenaktualisierung anhand der Formularparameter durch
+     * 
+     * @param array $params Formularparameter
+     * @return void 
      */
-    public function saveStammdaten ($field = NULL, $value, $stammdatenID)
-    {
-      $db = Zend_Registry::get ('db');
-      $tableName = "stammdaten";
-      $select = $db->select ();
-      $select->from (array('s' => 'stammdaten'));
-      $select->where ("s.stammdatenID = ?", $stammdatenID);
-      $result = $select->query ();
-      $data = $result->fetchAll ();
-      if (!count ($data) > 0) // Stammdaten gibt es noch nicht => neu anlegen
-      {
-        try
-        {
-          $db->query ("INSERT INTO stammdaten () VALUES ()"); // leeren Datensatz anlegen
-        } catch (Exception $e)
-        {
-          logError ($e->getMessage (), "StammdatenAjaxController::saveStammdaten INSERT");
-        }
-        $ID = $db->lastInsertId ();
-      }
-      $whereCond = "stammdatenID = $stammdatenID";
-      $data = array($field => $value);
-      try
-      {
-        $n = $db->update ($tableName, $data, $whereCond);
-        //dataChangeMail("Stammdaten");
-      } catch (Exception $e)
-      {
-        logError ($e->getMessage (), "StammdatenAjaxController::saveStammham UPDATE");
-        return 2; // Return-Code ==> Fehler beim Speichern
-      }
-      return 0; // Return-Code ==> Speichern erfolgreich
-    }
+    public function update_address ($params)
+    { 
+      $admin_model = new Model_DbTable_Admin ();
+                 
+      if (!empty ($_FILES ['logo']['name']))
+        $admin_model->upload_file ('logo', 5, $params ['stammdatenID']);
+                
+      $provider_id = $params ['anbieterID'];      
+      $root_id = $params ['stammdatenID'];
+      unset ($params ['anbieterID'], $params ['stammdatenID']);         
+      $provider_params = array ('name1' => $params ['name1'], 'name2' => $params ['name2']);
+      unset ($params ['name1'], $params ['name2']);
+      
+      $this->_db->update ('anbieter', $provider_params, 'anbieterID = '. $provider_id);
+      $this->_db->update ('stammdaten', $params, 'stammdatenID = '. $root_id);           
+    } 
+    
+     
   }
 
 ?>

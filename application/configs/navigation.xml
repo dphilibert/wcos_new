@@ -2,7 +2,7 @@
 <configdata>
   <nav>
     <einfuehrung>
-      <label>Einführung</label>
+      <label>Home</label>
       <module>einfuehrung</module>
       <controller>index</controller>
       <action>index</action>
@@ -12,6 +12,7 @@
       <show>true</show>
       <free>true</free>
     </einfuehrung>
+    
     <stammdaten>
       <label>Stammdaten</label>
       <module>stammdaten</module>
@@ -23,167 +24,90 @@
       <show>true</show>
       <free>false</free>
     </stammdaten>
+    
+    <firmenportrait>
+      <label>Firmenportrait</label>
+      <module>firmenportrait</module>
+      <controller>index</controller>
+      <action>index</action>
+      <order>200</order>
+      <resource>firmenportrait</resource>
+      <showimage>false</showimage>
+      <show>true</show>
+      <free>false</free>
+    </firmenportrait>
+    
     <ansprechpartner>
       <label>Ansprechpartner</label>
       <module>ansprechpartner</module>
       <controller>index</controller>
       <action>index</action>
-      <order>200</order>
+      <order>300</order>
       <resource>ansprechpartner</resource>
       <showimage>false</showimage>
       <show>true</show>
       <free>false</free>
     </ansprechpartner>
+    
+    <produkte>
+      <label>Produktspektrum</label>
+      <module>produkte</module>
+      <controller>index</controller>
+      <action>index</action>
+      <order>400</order>
+      <resource>produkte</resource>
+      <showimage>false</showimage>
+      <show>true</show>
+      <free>false</free>
+    </produkte>
+    
+    
+    <media>
+      <label>Media</label>
+      <module>media</module>
+      <controller>index</controller>
+      <action>index</action>
+      <order>500</order>
+      <resource>media</resource>
+      <showimage>false</showimage>
+      <show>true</show>
+      <free>false</free>
+    </media>
+    
     <termine>
       <label>Termine</label>
       <module>termine</module>
       <controller>index</controller>
       <action>index</action>
-      <order>300</order>
+      <order>600</order>
       <resource>termine</resource>
       <showimage>false</showimage>
       <show>true</show>
       <free>false</free>
     </termine>
 
-    <firmenportrait>
-      <label>Firmenportrait</label>
-      <module>firmenportrait</module>
-      <controller>index</controller>
-      <action>index</action>
-      <order>400</order>
-      <resource>firmenportrait</resource>
-      <showimage>false</showimage>
-      <show>true</show>
-      <free>false</free>
-    </firmenportrait>
-
     <whitepaper>
       <label>Whitepaper</label>
       <module>whitepaper</module>
       <controller>index</controller>
       <action>index</action>
-      <order>500</order>
+      <order>700</order>
       <resource>whitepaper</resource>
       <showimage>false</showimage>
       <show>true</show>
       <free>false</free>
     </whitepaper>
-
-    <jobs>
-      <label>Jobangebote</label>
-      <module>jobs</module>
-      <controller>index</controller>
-      <action>index</action>
-      <order>600</order>
-      <resource>jobs</resource>
-      <showimage>false</showimage>
-      <show>false</show>
-      <free>false</free>
-    </jobs>
-
-    <media>
-      <label>Bilder und Videos</label>
-      <module>media</module>
-      <controller>index</controller>
-      <action>index</action>
-      <order>700</order>
-      <resource>media</resource>
-      <showimage>false</showimage>
-      <show>true</show>
-      <free>false</free>
-    </media>
-
-    <accountdetails>
-      <label>Account-Details</label>
-      <module>uebersicht</module>
-      <controller>index</controller>
-      <action>index</action>
-      <order>800</order>
-      <resource>uebersicht</resource>
-      <showimage>false</showimage>
-      <show>true</show>
-      <free>false</free>
-    </accountdetails>
-    
-    
+           
     <admin>
       <label>Admin</label>
       <module>admin</module>
       <controller>index</controller>
       <action>index</action>
-      <order>900</order>
+      <order>800</order>
       <resource>admin</resource>
-      <showimage>false</showimage>
-      <pages>
-        
-        <anbieter>
-          <label>Anbieter</label>
-          <module>admin</module>
-          <controller>Anbieter</controller>
-          <action>index</action>
-          <order>900</order>
-          <resource>admin</resource>
-          <showimage>false</showimage>
-          <show>true</show>
-        </anbieter>
-        
-        <accounts>
-          <label>Accounts</label>
-          <module>admin</module>
-          <controller>accounts</controller>
-          <action>index</action>
-          <order>900</order>
-          <resource>admin</resource>
-          <showimage>false</showimage>
-          <show>true</show>
-        </accounts>
-        <verlagsmanager>
-          <label>Verlagsmanager</label>
-          <module>admin</module>
-          <controller>verlagsmanager</controller>
-          <action>import</action>
-          <order>910</order>
-          <resource>admin</resource>
-          <showimage>false</showimage>
-          <show>true</show>
-        </verlagsmanager>
-        <messen>
-          <label>Messen verwalten</label>
-          <module>admin</module>
-          <controller>messen</controller>
-          <action>index</action>
-          <order>920</order>
-          <resource>admin</resource>
-          <showimage>false</showimage>
-          <show>true</show>
-        </messen>
-        <statistiken>
-          <label>Statistiken</label>
-          <module>admin</module>
-          <controller>statistiken</controller>
-          <action>index</action>
-          <order>930</order>
-          <resource>admin</resource>
-          <showimage>false</showimage>
-          <show>true</show>
-        </statistiken>
-      </pages>
       <show>true</show>
+      <showimage>false</showimage>              
     </admin>
-    
-    
-    
-    <logout>
-      <label>Logout</label>
-      <module>login</module>
-      <controller>index</controller>
-      <action>logout</action>
-      <order>1000</order>
-      <resource>login</resource>
-      <showimage>false</showimage>
-      <show>true</show>
-      <free>true</free>
-    </logout>
+       
   </nav>
 </configdata>

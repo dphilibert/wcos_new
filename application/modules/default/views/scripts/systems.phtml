@@ -1,0 +1,23 @@
+<?php
+$request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+$model = new Model_DbTable_Admin ();
+$systems = $model->system_selection ();
+$url = '/'.$request ['module']. '/'.$request ['controller'].'/'.$request ['action'];
+if ($request ['module'] == 'media')
+  $url .= '/media_type/'.$request ['media_type'];
+
+$session = new Zend_Session_Namespace ();
+$now = $model->get_system ($session->system_id);
+?>
+
+<div class="btn-group">
+  <button class="btn" style="min-width: 80px;"><?= $now ['brand'] ?></button>
+  <a class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <?php foreach ($systems as $system_id => $brand) : ?>                        
+        <li>         
+          <a href="<?= $url.'/system_id/'.$system_id ?>"><?= $brand ?></a>                                                                  
+        </li>            
+      <?php endforeach; ?>
+    </ul>          
+</div>  

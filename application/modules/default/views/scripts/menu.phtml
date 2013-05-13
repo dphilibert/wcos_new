@@ -1,20 +1,25 @@
-<ul>
+<ul class="nav">
 <?php
-
-$sessionNamespace = new Zend_Session_Namespace ();
+$session = new Zend_Session_Namespace ();
 
 foreach ($this->container as $page)
 {
+  $href = '/'.$page->_module.'/'.$page->_controller.'/'.$page->_action;  
   if ($page->show == 'true')    
   {    
-    ($this->layout ()->_module == $page->_module) ? $activeClass = 'active' : $activeClass = 'inactive';
-    $imageName = $page->_module.".png";
-    if (!file_exists (getcwd ()."/images/".$imageName)) $imageName = "noImage.png";
-    if ($page->_module != "admin" OR ($page->_module == "admin" AND $sessionNamespace->userData ['userStatus'] < 0))	
-    {
-      echo "<li class='$activeClass'><a href='/".$page->_module."/".$page->_controller."/".$page->_action."'>";
-      echo $page->label;
-      echo "</a></li>";
+    $active = ($this->layout ()->_module == $page->_module) ? 'active' : '';            
+    if ($page->_module != "admin" OR ($page->_module == "admin" AND $session->userData ['userStatus'] == -1))	
+    {      
+      //Media-Subnavigation
+      if ($page->_module == 'media')
+      {
+        echo '<li class="dropdown '.$active.'"><a class="dropdown-toggle" data-toggle="dropdown" href="#">'.$page->label.'<b class="caret" style="border-top-color: #ffffff;"></b></a>';
+        echo '<ul class="dropdown-menu"><li><a href="/media/index/index/media_type/1">Bilder</a></li><li><a href="/media/index/index/media_type/2">Videos</a></li></ul></li>';
+      } else  
+      {
+        //Menüpunkte
+        echo '<li class="'.$active.'"><a href="'.$href.'">'.$page->label.'</a></li>';
+      }                         
     } 
   }
 }

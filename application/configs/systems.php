@@ -8,12 +8,12 @@ return array (
       405 => 'http://www.energie-und-technik.de',                
       999 => 'http://www.crn.de'
     ),
-    'selections' => array (
-      1	=> 'elektroniknet',
-      2	=> 'funkschau',
-      3	=> 'computer-automation',
-      405 => 'energie-und-technik',           
-      999 => 'crn'  
+    'brands' => array (
+      1	=> 'elektroniknet.de',
+      2	=> 'funkschau.de',
+      3	=> 'computer-automation.de',
+      405 => 'energie-und-technik.de',           
+      999 => 'CRN.de'  
     ),
     'provider_urls' => array (
       1	=> 'http://www.elektroniknet.de/anbieter/?anbieter=PROVIDERID',

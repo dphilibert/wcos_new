@@ -1,53 +1,56 @@
-
-<div class="contentLeft"><img src="/images/pageDescriptionImages/whitepaper.png" class="contentDescriptionImage"></div>
-<div class="contentRight"><a id="new" href="#whitepaper_editor"><img src="/img/icons/page_white_add.png" />&nbsp;&nbsp;Whitepaper hinzuf&uuml;gen</a></div>
-<div class="clearer"></div>
-
-<div class="liste" id="liste">
-    <?php echo $this->partial ('entriesPerPage.phtml', 'default'); ?>
-    <table class="tableListe">
-        <tr id="paginator" class="paginator">
-            <td colspan="4" align="center">
-                <?php echo $this->partial ('paginator.phtml', 'default'); ?>
-            </td>
-        </tr>
-        <tr class="tableListeZeileHeader">
-            <td>Kategorien</td>
-            <td>Beschreibung</td>
-            <td class="tableListeAction">Aktionen</td>
-        </tr>
-        <tr name="tableListeZeile" id="null" class="tableListeZeile" style="display:none">
-            <td id="kategorien"></td>
-            <td id="beschreibung"></td>
-            <td>
-              <a id="edit" href="#whitepaper_editor" style="margin-right:20px;">
-                <img src="/img/icons/page_white_edit.png">  Bearbeiten
-              </a>
-              <a id="del" href="#">
-                <img src="/img/icons/page_white_delete.png">  Löschen
-              </a>
-            </td>
-            <td class="hinweis" style="display:none"><img src="/images/icon_ausrufezeichen_klein.png" title="Dieser Eintrag muss zunächst durch unsere Redaktion geprüft werden. Wir bitten um etwas Geduld."></td>
-        </tr>
-        <tr id="paginator" class="paginator">
-            <td colspan="4" align="center">
-                <?php echo $this->partial ('paginator.phtml', 'default'); ?>
-            </td>
-        </tr>
-    </table>
+<div class="page-header" style="margin-top:10px;">
+  <div class="fl" style="min-width:150px;margin-right:250px;">
+    <div class="btn-group">
+        <a class="btn" href="javascript:call_action_fancy ('/whitepaper/index/new', 400, 400);">
+          <i class="icon-plus"></i>  Whitepaper
+        </a>
+    </div>      
+  </div>  
+  <div class="fl"><?= $this->partial ('search.phtml', 'default') ?></div>   
+  <div class="fr"><?= $this->partial ('copy.phtml', 'default') ?></div>
+  <div class="clear"></div>  
 </div>
 
-<!-- lightbox Edit-Fenster -->
-<div style="display:none;">
-    <div id="whitepaper_editor">
-        <input type="HIDDEN" id="ID" value="">
-        <table style="width:100%;">
-            <tr><td class="formLightboxText">Kategorien:</td><td><input type="text" class="inputText inputTextLightbox"id="we_kategorien"name="whitepaper_kategorie"></td></tr>
-            <tr><td class="formLightboxText">Beschreibung:</td><td>  <textarea class="textareaLightbox" id="we_beschreibung" name="whitepaper_beschreibung" cols=70 rows=4></textarea></td></tr>
-            <tr><td class="formLightboxText">Link:</td><td> <input type="text" class="inputText inputTextLightbox"id="we_link" name="whitepaper_link"></td></tr>
-            <tr><td class="formLightboxText">PDF-Datei:</td><td id="pdf"></td></tr>
-        </table>
-
-        <input id="buttonSave" class="buttonSave" type="button" value="  speichern"> 
-    </div>
-</div>
+        
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th> 
+        <th>Name</th>
+        <th>Beschreibung</th>
+        <th>URL</th>
+        <th class="ar">Aktionen</th>
+      </tr>
+    </thead>  
+    <tbody>
+       <?php if (!empty ($this->data_paging)) : ?>
+        <?php foreach ($this->data_paging as $search_result_row) : ?>
+          <tr>
+            <td><?= $search_result_row ['id'] ?></td>
+            <td><?= $search_result_row ['title'] ?></td>
+            <td><?= $search_result_row ['beschreibung'] ?></td>
+            <td><?= $search_result_row ['link'] ?></td>          
+            <td style="text-align:center;">
+              <div class="btn-group">
+                <a class="btn" title="Bearbeiten" href="javascript:call_action_fancy ('/whitepaper/index/edit/id/<?= $search_result_row ['id'] ?>', 400, 400);">
+                  <i class="icon-pencil"></i>
+                </a>
+                <a class="btn" title="Löschen" href="javascript:call_action ('/whitepaper/index/delete/id/<?= $search_result_row ['id'] ?>', true);">
+                  <i class="icon-trash"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+        <?php endforeach; ?>                      
+        <tr>
+          <td colspan="5" align="center" class="pr">
+            <?= $this->data_paging ?>
+          </td>
+        </tr>
+      <?php else : ?>
+        <tr class="warning">
+          <td colspan="7" style="text-align:center;"><b>Keine Einträge vorhanden!</b></td>
+        </tr>  
+      <?php endif; ?>  
+    </tbody>  
+  </table>

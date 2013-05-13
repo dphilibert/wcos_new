@@ -1,200 +1,96 @@
 <?php
 
   /**
-   * Datenbank-Model für Termine
-   *
-   * @author Thomas Grahammer
-   * @version $id$
+   * Termine-Model
+   *   
    */
-  class Model_DbTable_TermineData extends Zend_Db_Table_Abstract
-  {
+  class Model_DbTable_TermineData extends Model_DbTable_Global
+  {         
     /**
-     *
-     * ininitales Init
-     *
-     * @return void
-     *
+     * liefert die Terminliste fuer die Systeme
+     *     
+     * @param string $search_term Suchbegriff
+     * @return array Termine
      */
-    public function init ()
-    {
+    public function get_dates_list ($search_term = '')
+    {      
+      $query = $this->_db->select ()->from ('termine')->where ('anbieterID = '. $this->provider_id)
+            ->where ('system_id = '. $this->system_id)->order ('id ASC');
+      if (!empty ($search_term))
+        $query->where ('title LIKE "%'.$search_term.'%" OR ort LIKE "%'.$search_term. '%"');
+      
+      return $this->_db->fetchAll ($query);
     }
-
-    /**
-     * liefert Liste mit Terminen
-     *
-     * @param int $anbieterID anbieterID
-     * @param string $token suchtext
-     *
-     * @return mixed
-     */
-    public function getTermineList ($anbieterID, $token = NULL)
-    {
-      try
-      {
-        $db = Zend_Registry::get ('db');
-        $select = $db->select ();
-        $select->from (array('t' => 'termine'))
-        ->join (array('tt' => 'terminTypen'),
-          'tt.terminTypID = t.typID');
-        if ($token != NULL && $token != 'undefined' && $token != '') {
-          $select->where ("t.beginn LIKE '$token%' OR t.ende LIKE '$token%' OR t.ort LIKE '$token%'");
-        }
-        $select->where ("t.status >= 0");
-        $select->where ("t.anbieterID = ?", $anbieterID);
-        $select->order (array("STR_TO_DATE(t.beginn, '%d.%m.%Y') ASC", "STR_TO_DATE(t.ende,'%d.%m.%Y') ASC", "t.ort ASC"));
-        $result = $select->query ();
-        $data = $result->fetchAll ();
-      } catch (Zend_Exception $e)
-      {
-        //logDebug ($e->getMessage (), "Exception:Model_DbTable_TermineData:getTermineList");
-      }
-      #logDebug (print_r ($select->__toString (), true), "");
-      return $data;
-    }
-
-    /**
-     * liefert eine Liste mit Typen von Terminen
-     *
-     * @return mixed
-     */
-    public function getTerminTypenList ()
-    {
-      try
-      {
-        $db = Zend_Registry::get ('db');
-        $select = $db->select ();
-        $select->from (array('tt' => 'terminTypen'));
-        $result = $select->query ();
-        $data = $result->fetchAll ();
-      } catch (Zend_Exception $e)
-      {
-        //logDebug ($e->getMessage (), "Exception:Model_DbTable_TermineData:getTermineList");
-      }
-      return $data;
-    }
-
 
     /**
      * liefert einen Termin
      *
-     * @param int $tID terminID
-     *
-     * @return mixed
+     * @param int $date_id Termin-ID
+     * @return array Termin
      */
-    public function getTermin ($tID)
-    {
-      try
-      {
-        $db = Zend_Registry::get ('db');
-        $select = $db->select ();
-        $select->from (array('t' => 'termine'))
-         ->join (array('tt' => 'terminTypen'),
-                  'tt.terminTypID = t.typID');
-        $select->where ("t.termineID = ?", $tID);
-        $result = $select->query ();
-        $data = $result->fetchAll ();
-      } catch (Zend_Exception $e)
-      {
-        //logDebug ($e->getMessage (), "Exception:Model_DbTable_TermineData:getTermin");
-      }
-      return $data;
-    }
-
-
+    public function get_date ($date_id)
+    {      
+      $query = $this->_db->select ()->from ('termine')->where ('id = '. $date_id);
+      return $this->_db->fetchRow ($query);
+    }    
+    
     /**
-     * speichert einen Termin-Eintrag
-     *
-     * @param string $field DB-Feld
-     * @param string $value DB-Wert
-     * @param int $tID terminID
-     *
-     * @return int 0=erfolgreich, 2=Fehler beim speichern
+     * Termin hinzufuegen
+     * 
+     * @param array $params Formularparameter
+     * @return void 
      */
-    public function saveTermin ($field = NULL, $value, $tID)
+    public function add_date ($params)
     {
-      $db = Zend_Registry::get ('db');
-      $db->getProfiler ()->setEnabled (true);
-      if ($field != NULL) // nur ein Feld des Users speichern
-      {
-        $tableName = "termine";
-        $whereCond = "termineID = $tID";
-      }
-      $data = array($field => $value);
-      $data ['status'] = 1;
-      ////logDebug ($tableName." | ".$whereCond." | ".print_r ($data, true), "saveTermin");
-      try
-      {
-        $n = $db->update ($tableName, $data, $whereCond);
-      } catch (Exception $e)
-      {
-        $profiler = $db->getProfiler ();
-        $foo = $profiler->getLastQueryProfile ();
-        logError ($e->getMessage (), "TermineModel::saveTermin");
-        logError (print_r ($foo, true), "");
-        return 2; // Return-Code ==> Fehler beim Speichern
-      }
-      return 0; // Return-Code ==> Speichern erfolgreich
-    }
-
-
+      $this->_db->insert ('termine', $params);
+      
+    }        
+    
     /**
-     * legt einen neuen, leeren Termin-Datensatz an
-     *
-     * @param int $anbieterID anbieterID
-     *
-     * @return int ID des eingefügten Datensatzes
-     *
+     * Termin bearbeiten
+     * 
+     * @param array $params Formularparameter
+     * @return void 
      */
-    public function newTermin ($anbieterID)
+    public function edit_date ($params)
     {
-      //logDebug ('new Termin', "ajax:newTermin");
-      $db = Zend_Registry::get ('db');
-      try
-      {
-        $db->query ("INSERT INTO termine (anbieterID, status) VALUES ($anbieterID, 0)");
-      } catch (Exception $e)
-      {
-        logError ($e->getMessage (), "TermineModel::newTermin");
-      }
-      return $db->lastInsertId ();
-    }
-
+      $this->_db->update ('termine', $params, 'id = '. $params ['id']);  
+    }        
+    
     /**
-     * direktes löschen des Termins
-     *
-     * @param int $ID terminID
+     * Termin loeschen
+     * 
+     * @param int $date_id Termin-ID
+     * @return void 
      */
-    public function hardDelTermin ($ID)
+    public function delete_date ($date_id)
     {
-      //logDebug ('hard del Termin', "tgr");
-      $db = Zend_Registry::get ('db');
-      try
-      {
-        $db->query ("DELETE FROM termine WHERE termineID = ?", $ID);
-      } catch (Exception $e)
-      {
-        logError ($e->getMessage (), "TermineModel::hardDelTermin");
-      }
-    }
-
-
+      $this->_db->delete ('termine', 'id = '. $date_id);
+    }        
+    
     /**
-     * direktes löschen abgelaufener Termine
-     *
+     * Termine aus einem anderen System uebernehmen
+     *     
+     * @param int $from_system Quellsystem
      * @return void
      */
-    public function delDepartedTermine ()
+    public function copy_dates ($from_system)
     {
-      $db = Zend_Registry::get ('db');
-      try
-      {
-        $dateNow = date ('d.m.Y');
-        $db->query ("DELETE FROM termine WHERE ende < '$dateNow' AND loeschenTimer > 0");
-      } catch (Zend_Exception $e)
-      {
-        logError ($e->getMessage (), "TermineModel::delDepartedTermine");
-      }
-    }
+      $query = $this->_db->select ()->from ('termine')->where ('anbieterID = '. $this->provider_id)->where ('system_id = '. $from_system);
+      $dates = $this->_db->fetchAll ($query);
+      
+      if (!empty ($dates))
+      {  
+        $this->_db->delete ('termine', 'anbieterID = '.$this->provider_id.' AND system_id = '. $this->system_id);      
+        foreach ($dates as $date)
+        {
+          $date ['system_id'] = $this->system_id;
+          unset ($date ['id']);
+          $this->_db->insert ('termine', $date);
+        }
+      }  
+    }        
+    
   }
 
 ?>

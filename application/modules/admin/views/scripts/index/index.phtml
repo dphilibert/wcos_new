@@ -1,50 +1,45 @@
-<h1>Anbieterauswahl</h1>
-
-<!-- ANBIETERAUSWAHL //-->
-<div class="provider_select">
-  <br><span>Anbieter:</span> 
-  <select onchange ="window.location.href = '<?= $this->url ($this->url_params, '', true); ?>' + '?sato=' + this.value">
-    <?php foreach ($this->selections AS $hash => $name) : ?>
-      <option value="<?= $hash ?>"> <?= $name ?></option>
-    <?php endforeach; ?>
-  </select>
-</div>
-
-<!-- SUCHFORMULAR //-->
-<div class="provider_search">
-  <?= $this->form ?>
+<div class="page-header">
+  <div class="fl"> <h4>Anbieterübersicht</h4></div>
+  <div class="fr">
+    <!-- ANBIETERAUSWAHL //-->  
+    <select onchange ="window.location.href = '<?= $this->url ($this->url_params, '', true); ?>' + '?sato=' + this.value">
+      <?php foreach ($this->selections AS $hash => $name) : ?>
+        <option value="<?= $hash ?>"> <?= $name ?></option>
+      <?php endforeach; ?>
+    </select>
+  </div>
+  <div class="clear"></div>
 </div>
   
-<div class="clearer"></div>
-<br>
-
 <!-- SUCHERGEBNISSE LISTE//-->
 <?php if (!empty ($this->search_results_paging)) : ?>  
-  <table class="tableListe">
-    <tr class="tableListeZeileHeader">
-      <td>ID</td>
-      <td>Name</td>
-      <td>Strasse</td>
-      <td>Plz</td>
-      <td>Ort</td>    
-      <td>Aktionen</td>
+  <table class="table table-hover">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Strasse</th>
+      <th>Plz</th>
+      <th>Ort</th>    
+      <th style="text-align:center;">Aktion</th>
     </tr>      
     <?php foreach ($this->search_results_paging as $search_result_row) : ?>
-      <tr class="tableData">
+      <tr>
         <td><?= $search_result_row ['anbieterID'] ?></td>
         <td><?= $search_result_row ['firmenname'] ?></td>
         <td><?= $search_result_row ['strasse'] ?> <?= $search_result_row ['hausnummer'] ?></td>
         <td><?= $search_result_row ['plz'] ?></td>
         <td><?= $search_result_row ['ort'] ?></td>
-        <td class="tableListeAction">
-          <a href="<?= $this->url ($this->url_params, '', true).'?sato='.$search_result_row ['anbieterhash']; ?>"><img src="/img/icons/application_get.png">Auswählen</a>          
+        <td style="text-align:center;">          
+          <a class="btn btn-small" title="Anbieter auswählen" href="<?= $this->url ($this->url_params, '', true).'?sato='.$search_result_row ['anbieterhash']; ?>">
+            <i class="icon-user"></i>
+          </a>          
         </td>
       </tr>
     <?php endforeach; ?>
-            
-  <tr><td colspan="6">&nbsp;</td></tr>    
-  <tr><td colspan="6" align="center"><?= $this->search_results_paging ?></td></tr>    
-  <tr><td colspan="6">&nbsp;</td></tr>  
+                  
+  <tr><td colspan="6" align="center" class="pr"><?= $this->search_results_paging ?></td></tr>        
   </table>
+
+<?php else : ?>
+<div class="alert alert-info" style="text-align:center;">Keine Suchergebnisse</div>  
 <?php endif; ?>
-<br>

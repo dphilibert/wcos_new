@@ -1,0 +1,16 @@
+<?php switch ($this->premium){case 0; $status = 'Standard'; break;case 1; $status = 'Premium';break;case 2; $status = 'deaktiviert';break;} ?>          
+<div class="btn-group">
+  <button class="btn btn-small" style="width:80px;" <?= ($this->premium == 1) ? 'onclick="$(\'#'.$this->ident.'\').show();"' : '' ?>><?= $status ?></button>
+  <a class="btn btn-small dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+  <ul class="dropdown-menu">
+    <?php if ($this->premium != 1) : ?>
+      <li><a href="javascript:$('#<?= $this->ident ?>').show();" target="_blank">Premium</a></li>
+    <?php endif; ?>      
+    <?php if (($this->premium != 0)) : ?>
+      <li><a href="javascript:call_action('/einfuehrung/index/nopremium/system_id/<?= $this->system_id ?>');" target="_blank" >Standard</a></li>
+    <?php endif; ?>    
+    <?php if (($this->premium != 2)) : ?>
+      <li><a href="javascript:call_action('/einfuehrung/index/deactivate/system_id/<?= $this->system_id ?>');" target="_blank">deaktiviert</a></li>
+    <?php endif; ?>                  
+  </ul>  
+</div>

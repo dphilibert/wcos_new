@@ -1,0 +1,19 @@
+<?php
+$model = new Model_DbTable_Admin ();
+$preview_links = $model->preview_links ();
+?>
+
+<div class="btn-group">
+      <button class="btn">Vorschau</button>
+      <a class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <?php foreach ($preview_links as $link) : ?>
+            <li class="dropdown-submenu"><a href="#"><?= $link ['name'] ?></a>
+              <ul class="dropdown-menu">
+                <li><a href="<?= $link ['standard'] ?>" target="_blank">Standard</a></li>
+                <?= (!empty ($link ['premium'])) ? '<li><a href="'.$link ['premium'].'" target="_blank">Premium</a></li>' : '' ?>          
+              </ul>  
+            </li>  
+          <?php endforeach; ?>
+        </ul>          
+    </div>  

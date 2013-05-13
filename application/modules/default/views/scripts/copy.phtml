@@ -1,0 +1,22 @@
+<?php
+$request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+$model = new Model_DbTable_Admin ();
+$systems = $model->system_selection ();
+$session = new Zend_Session_Namespace ();
+$url = '/'.$request ['module']. '/index/copy';
+if ($request ['module'] == 'media')
+  $url .= '/media_type/'.$request ['media_type'];
+
+$now = $session->system_id;
+?>
+
+<div class="btn-group">
+  <button class="btn">Übernehmen aus</button>
+  <a class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <?php foreach ($systems as $system_id => $brand) : ?>                
+        <?php if ($system_id == $now) continue; ?>
+        <li><a href="<?= $url.'/from_system/'.$system_id ?>"><?= $brand ?></a></li>                                             
+      <?php endforeach; ?>
+    </ul>          
+</div>  

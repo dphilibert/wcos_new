@@ -1,143 +1,108 @@
 <?php
   /**
-   * Datenbank-Model für Produktcodes
-   *
-   * @author Thomas Grahammer
-   * @version $id$
-   *
+   * Produkte-Model
+   *   
    */
-  class Model_DbTable_ProduktcodesData extends Zend_Db_Table_Abstract
+  class Model_DbTable_ProduktcodesData extends Model_DbTable_Global
   {
+   
     /**
-     *
-     * ininitales Init
-     *
+     * Holt das Anbieter-Produktspektrum
+     *  
+     * @return array Anbieter-Produktspektrum
+     */
+    public function get_provider_product_tree ()
+    {
+      $query = $this->_db->select ()->from ('product2provider', array ())->where ('anbieterID = '. $this->provider_id)
+              ->where ('product2provider.systems LIKE "%'.$this->system_id.'%"')->join ('products', 'product2provider.product = products.code AND products.systems LIKE "%'.$this->system_id.'%"');  
+      $branches = $this->_db->fetchAll ($query);
+      
+      $product_tree = array ();
+      foreach ($branches as $branch)      
+        $product_tree [$branch ['haupt']][$branch ['ober']][] = array ('name' => $branch ['name'], 'code' => $branch ['code']);
+              
+      return $product_tree;
+    }        
+    
+    /**
+     * Holt das gesamte Produktspektrum eines Systems
+     * 
+     * @return array Produktspektrum 
+     */
+    public function get_product_tree ()
+    {
+      $query = $this->_db->select ()->from ('products')->where ('systems LIKE "%'.$this->system_id.'%"');
+      $branches = $this->_db->fetchAll ($query);
+      
+      $product_tree = array ();
+      foreach ($branches as $branch)      
+        $product_tree [$branch ['haupt']][$branch ['ober']][] = array ('name' => $branch ['name'], 'code' => $branch ['code']);
+              
+      return $product_tree;
+    }        
+    /**
+     * Fuegt Produkte dem Anbieter-Produktspektrum hinzu
+     * 
+     * @param string $codes Produktcodes 
      * @return void
-     *
      */
-    public function init ()
-    {
-    }
-
+    public function add_products ($codes)
+    {      
+      $products = array_filter (explode (',', $codes));
+      $codes = implode (',', $products);      
+      $query = $this->_db->select ()->from ('product2provider', 'product')->where ('anbieterID = '. $this->provider_id)
+              ->where ('systems LIKE "%'.$this->system_id.'%"')->where ('product IN('.$codes.')');          
+      $allready_assigned = $this->_db->fetchCol ($query);      
+      foreach ($products as $code)
+      {  
+        if (in_array ($code, $allready_assigned)) continue;
+        $this->_db->insert ('product2provider', array ('product' => $code, 'anbieterID' => $this->provider_id, 'systems' => $this->system_id));
+      }          
+    }        
+    
     /**
-     * liefert die Produktcodes eines Anbieters
-     *
-     * @param int $ID anbieterID
-     *
-     * @return mixed
+     * Entfernt Produkte aus dem Anbieter-Produktspektrum
+     * 
+     * @param string $codes Produktcodes 
+     * @return void
      */
-    public function getProduktcodes ($anbieterID)
+    public function remove_products ($codes)
     {
-      $db = Zend_Registry::get ('db');
-      $select = $db->select ();
-      $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'))
-      ->join (array('pc' => 'vm_produktcodes'), 'pc.branchenname_nummer = pc2kd.produktcode');
-      $select->where ("pc2kd.vmKundennummer = ?", $anbieterID);
-      $result = $select->query ();
-      $data = $result->fetchAll ();
-      ////logDebug (print_r ($data, true), "getStammdaten");
-      return $data;
-    }
-
+      $products = array_filter (explode (',', $codes));
+      $codes = implode (',', $products);
+      $this->_db->delete ('product2provider', 'product IN('.$codes.') AND anbieterID = '.$this->provider_id.' AND systems LIKE "%'.$this->system_id.'%"');              
+    }        
+    
     /**
-     * liefert das Produktspektrum zu einem System und ggf. zu einer Kundennummer
-     *
-     * @param $systemID
-     *
-     * @return mixed
+     * Übernimmt das Produktspektrum aus einem anderen System
+     * 
+     * @param int $from_system Quellsystem
+     * @return void 
      */
-    public function getProduktSpektrum ($systemID = 0, $vmKundennummer = NULL)
+    public function copy_products ($from_system)
     {
-      $db = Zend_Registry::get ('db');
-      $select = $db->select ();
-      $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'))
-      ->join (array('pc' => 'vm_produktcodes'), 'pc.branchenname_nummer = pc2kd.produktcode')
-      ->join (array('a' => 'anbieter'), 'pc2kd.vmKundennummer = a.anbieterID'); // workaround wenn Produktcodezuordnung vorhanden aber Anbieter nicht existent - nichts ausgeben!
-      if ($systemID > 0)
-      {
-        if ($vmKundennummer != NULL) $select->where ("pc2kd.systems like '%$systemID%'");
-        $select->where ("pc.systems like '%$systemID%'");
-      }
-      if ($vmKundennummer != NULL) {
-        $select->where ("pc2kd.vmKundennummer = ?", $vmKundennummer);
-      }
-      $select->order ('pc.hauptbegriff');
-      $select->order ('pc.oberbegriff');
-      $select->order ('pc.branchenname');
-      $result = $select->query ();
-      $data = $result->fetchAll ();
-      //logDebug (print_r ($select->__toString (), true), "getStammdaten");
-      return $data;
-    }
-
-
-    /**
-     * liefert die Anzahl der Firmen zu einem Produktcode
-     *
-     * @param $systemID
-     * @param $produktcodeID
-     *
-     * @return mixed
-     */
-    public function countFirmen4Produktcode ($systemID, $produktcodeID)
-    {
-      $db = Zend_Registry::get ('db');
-      $select = $db->select ();
-      $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'), array("count(*) as anzahl"))
-      ->join (array('a' => 'anbieter'), 'pc2kd.vmKundennummer = a.anbieterID') // workaround wenn Produktcodezuordnung vorhanden aber Anbieter nicht existent - nichts ausgeben!
-      ->where ("pc2kd.produktcode = ?", $produktcodeID)
-      ->where ("pc2kd.systems like '%$systemID%'");
-      $result = $select->query ();
-      $data = $result->fetch ();
-      //logDebug (print_r ($select->__toString (), true), "getFirmen4Produktcode");
-      //logDebug (print_r ($data, true), "");
-      return $data;
-    }
-
-    /**
-     * liefert die Firmen zu einem Produktcode
-     *
-     * @param $systemID
-     * @param $produktcodeID
-     *
-     * @return mixed
-     */
-    public function getFirmen4Produktcode ($systemID, $produktcodeID)
-    {
-      $db = Zend_Registry::get ('db');
-      $select = $db->select ()->distinct();
-      $select->from (array('pc2kd' => 'vm_produktcode2kdnummer'), array("*"))
-      ->join (array('a' => 'anbieter'), 'a.anbieterID = pc2kd.vmKundennummer')
-      ->where ("pc2kd.produktcode = ?", $produktcodeID)
-      ->where ("pc2kd.systems like '%$systemID%'")
-      ->order ('a.firmenname')
-      ->order ('a.name1')
-      ->order ('a.name2');
-      $result = $select->query ();
-      $data = $result->fetchAll ();
-      logDebug (print_r ($select->__toString (), true), "getFirmen4Produktcode");
-      //logDebug (print_r ($data, true), "");
-      return $data;
-    }
-
-    /**
-     * liefert den Namen eines Produktcodes zu einer ProduktcodeID
-     *
-     * @param $produktcodeID
-     *
-     * @return mixed
-     */
-    public function getProduktcodeName ($produktcodeID)
-    {
-      $db = Zend_Registry::get ('db');
-      $select = $db->select ();
-      $select->from (array('pc' => 'vm_produktcodes'))
-      ->where ("pc.branchenname_nummer = ?", $produktcodeID);
-      $result = $select->query ();
-      $data = $result->fetch ();
-      //logDebug (print_r ($select->__toString (), true), "getFirmen4Produktcode");
-      //logDebug (print_r ($data, true), "");
-      return $data;
+      $query = $this->_db->select ()->from ('product2provider')->where ('anbieterID = '. $this->provider_id)->where ('systems LIKE "%'.$from_system.'%"');
+      $codes = $this->_db->fetchAll ($query);
+            
+      if (!empty ($codes))
+      {  
+        //muss für das zielsystem erlaubt sein
+        foreach ($codes as $key => $code)
+        {
+          $query = $this->_db->select()->from ('products')->where ('code = '.$code ['product'])->where ('systems LIKE "%'.$this->system_id.'%"');
+          $check = $this->_db->fetchRow ($query);
+          if (empty ($check)) unset ($codes [$key]);          
+        }          
+        if (!empty ($codes))
+        {  
+          $this->_db->delete ('product2provider', 'anbieterID = '.$this->provider_id.' AND systems LIKE "%'.$this->system_id.'%"');      
+          foreach ($codes as $code)
+          {                    
+            $code ['systems'] = $this->system_id;          
+            $this->_db->insert ('product2provider', $code);
+          }
+        }        
+      } 
     }
   }
 

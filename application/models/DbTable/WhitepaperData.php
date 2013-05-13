@@ -1,38 +1,25 @@
 <?php
 
-class Model_DbTable_WhitepaperData extends Zend_Db_Table_Abstract
-{
-
-  var $vorname = NULL;
-
+/**
+ * Whitepaper-Model
+ *  
+ */
+class Model_DbTable_WhitepaperData extends Model_DbTable_Global
+{    
   /**
-       *
-       * ininitales Init
-       *
-       * @return void
-       *
-       */
-  public function init ()
-  {
-    
-  }
-
-  /**
-   * liefer eine Liste mit Whitepapern zu einem Anbieter
-   *
-   * @param int $anbieterID anbieterID
-   * @return mixed
+   * liefer eine Liste mit Whitepapern zu einem System
+   *   
+   * @param int $search_term Suchbegriff
+   * @return array Whitepaper
    */
-  public function getWhitepaperList ($anbieterID = NULL)
-  {
-    $db = Zend_Registry::get ('db'); 
-    $db->query ("set character set utf8"); 
-    $select = $db->select();
-    $select->from (array ('w' => 'whitepaper'));
-    $select->where ("w.whitepaper_status >= 0 AND w.whitepaper_anbieterID = ?", $anbieterID);
-    $result = $select->query ();
-    $data = $result->fetchAll ();
-    return $data;
+  public function get_whitepaper_list ($search_term = '')
+  {    
+    $select = $this->_db->select()->from ('whitepaper')->where ('anbieterID = '. $this->provider_id)
+            ->where ('system_id = '. $this->system_id)->order ('id ASC');
+    if (!empty ($search_term))
+      $select->where ('title LIKE "%'.$search_term.'%"');
+          
+    return $this->_db->fetchAll ($select);
   }
 
   /**
@@ -41,115 +28,67 @@ class Model_DbTable_WhitepaperData extends Zend_Db_Table_Abstract
    * @param id $whitepaperID whitepaperID
    * @return mixed
    */
-  public function getWhitepaper ($whitepaperID = NULL)
+  public function get_whitepaper ($whitepaper_id)
   {
-    $db = Zend_Registry::get ('db'); 
-    $db->query ("set character set utf8"); 
-    $select = $db->select();
-    $select->from (array ('w' => 'whitepaper'));
-    $select->where ("w.whitepaper_status >= 0 AND w.whitepaperID = ?", $whitepaperID);
-    $result = $select->query ();
-    $data = $result->fetchAll ();
-    return $data;
+    $query = $this->_db->select ()->from ('whitepaper')->where ('id = '. $whitepaper_id);
+    return $this->_db->fetchRow ($query);
   }
 
   /**
-   *
-   * @param null $field
-   * @param $value
-   * @param $ID
-   * @return int
+   * Whitepaper hinzufuegen
+   * 
+   * @param array $params Formularparameter
+   * @return void
    */
-
-  public function saveWhitepaper ($field = NULL, $value, $ID)
-  {    
-    $db = Zend_Registry::get ('db');
-    if ($field != NULL)
-    {
-      $tableName = "whitepaper";
-      $whereCond = "whitepaperID = $ID";
-    }
-    $data = array ($field => $value);
-    $data ['whitepaper_status'] = 1;
-    try {
-         $n = $db->update ($tableName, $data, $whereCond);
-        } catch (Exception $e)
-          {
-            logError ($e->getMessage (), "WhitepaperAjaxController::saveWhitepaper");
-            logError ($tableName." / ". $data." / ".$whereCond, "");
-            return 2; // Return-Code ==> Fehler beim Speichern
-          }
-    return 0; // Return-Code ==> Speichern erfolgreich
-  }
-
-
-  public function clearWhitepaperTable ()
+  public function add_whitepaper ($params)
   {
-    $db = Zend_Registry::get ('db');
-    try
-    {
-      // nicht vollstaendig angelegte neue Whitepaper raus!
-      $db->query ("DELETE FROM whitepaper WHERE whitepaper_status=0");
-      // geloeschte Whitepaper raus!
-      $db->query ("DELETE FROM whitepaper WHERE whitepaper_status=-1");
-    } catch (Exception $e)
-      {
-        logError ($e->getMessage (), "AjaxController::clearWhitepaperTable");
-      }
-  }
-
-
-  public function newWhitepaper ($anbieterID)
-  {
-    $db = Zend_Registry::get ('db');
-    try
-    {
-      $db->query ("INSERT INTO whitepaper (whitepaper_anbieterID, whitepaper_status) VALUES ($anbieterID, 0)");
-    } catch (Exception $e)
-      {
-        logError ($e->getMessage (), "MediaAjaxController::newWhitepaper");
-      }
-   return $db->lastInsertId ();
-  } 
-  
-  public function lockWhitepaper ($ID, $hashCode)
-  {
-    $db = Zend_Registry::get ('db');   
-    try {
-         $n = $db->update ("whitepaper", array ('whitepaper_freigabe_hash' => $hashCode), "whitepaperID = $ID");
-        } catch (Exception $e)
-          {
-            logError ($e->getMessage (), "WhitepaperAjaxController::lockWhitepaper");
-            return 2; 
-          }
-    return 0; 
-  }
-  
-  public function unlockWhitepaper ($hashCode)
-  {
-    $db = Zend_Registry::get ('db');
-    $db->getProfiler()->setEnabled(true);
-    $data = array ($field => $value);
-    try {
-          $n = $db->update ("whitepaper", array ('whitepaper_freigabe_hash' => ''), "whitepaper_freigabe_hash = '$hashCode'");
-
-        } catch (Exception $e)
-          {
-            logError ($e->getMessage (), "WhitepaperAjaxController::unlockWhitepaper");
-            $profiler = $db->getProfiler();
-            $foo = $profiler->getLastQueryProfile();
-            //logDebug (print_r ($foo, true), "Model_DbTable_Whitepaper::unlockWhitepaper");
-            return 2; // Return-Code ==> Fehler beim Speichern
-          }
-    return 0; // Return-Code ==> Speichern erfolgreich
-  }
-  
-
-  public function hardDelWhitepaper ($whitepaper_id)
-  {
-    $db = Zend_Registry::get ('db');     
-    $db->delete ('whitepaper', 'whitepaperID = '.$whitepaper_id);
+    $this->_db->insert ('whitepaper', $params);
   }        
+  
+  /**
+   * Whitepaper bearbeiten
+   * 
+   * @param array $params Formularparameter
+   * @return void 
+   */
+  public function edit_whitepaper ($params)
+  {
+    $this->_db->update ('whitepaper', $params, 'id = '. $params ['id']);
+  }        
+  
+  /**
+   * Whitepaper loeschen
+   * 
+   * @param int $whitepaper_id Whitepaper-ID
+   * @return void 
+   */
+  public function delete_whitepaper ($whitepaper_id)
+  {
+    $this->_db->delete ('whitepaper', 'id = '.$whitepaper_id);
+  }        
+  
+  /**
+   * Whitepaper aus anderen System uebernehmen
+   *    
+   * @param int $from_system Quell-System
+   * @return void
+   */
+  public function copy_whitepapers ($from_system)
+  {
+    $query = $this->_db->select ()->from ('whitepaper')->where ('anbieterID = '. $this->provider_id)->where ('system_id = '. $from_system);
+    $whitepapers = $this->_db->fetchAll ($query);
+
+    if (!empty ($whitepapers))
+    {  
+      $this->_db->delete ('whitepaper', 'anbieterID = '.$this->provider_id.' AND system_id = '. $this->system_id);      
+      foreach ($whitepapers as $whitepaper)
+      {
+        $whitepaper ['system_id'] = $this->system_id;
+        unset ($whitepaper ['id']);
+        $this->_db->insert ('whitepaper', $whitepaper);
+      }
+    }  
+  }          
   
 }
 

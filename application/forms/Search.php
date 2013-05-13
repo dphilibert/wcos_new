@@ -1,27 +1,30 @@
 <?php
 
 /**
- * Suchformular für das Admin-Modul
+ * Suchformular
  *  
  */
 class Form_Search extends Zend_Form
 {
   var $action = '/admin/index/index';
   var $name = 'search';
-  var $method = 'POST';  
-  var $decorators = array (
-    array ('HtmlTag', array ('tag' => 'div', 'style' => 'float:left;margin-right:20px;')),   
-  );
-        
+  var $method = 'POST';            
+  var $decorators = array ('ViewHelper', array ('HtmlTag', array ('tag' => 'span')));
+  
   public function init ()
   {
-    $this->setAction ($this->action)->setName ($this->name)->setMethod ($this->method);    
+    $session = new Zend_Session_Namespace ();
     
+    $this->setAction ($this->action)->setName ($this->name)->setMethod ($this->method)->setAttrib ('style', 'margin-bottom:0px;');        
     $search = new Zend_Form_Element_Text ('search_term');
-    $search->setAttribs (array ('class' => 'searchBox', 'placeholder' => 'Suche Name/ID', 'autofocus' => 'true'))
-            ->addDecorators ($this->decorators)->removeDecorator ('Label');
+    $search->setAttribs (array ('class' => 'input-medium search-query', 'placeholder' => 'Suche', 'autofocus' => 'true'))
+            ->setDecorators ($this->decorators);        
     
-    $this->addElement ($search);
+    $hidden = new Zend_Form_Element_Hidden ('system_id');
+    $hidden->setDecorators ($this->decorators)->setValue ($session->system_id);
+    
+    $this->setDecorators (array ('FormElements', 'Form'));
+    $this->addElements (array ($search, $hidden));
   }        
   
 }

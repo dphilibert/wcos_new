@@ -1,0 +1,10 @@
+<?php
+$request = Zend_Controller_Front::getInstance ()->getRequest ()->getParams ();
+$form = new Form_Search ();
+$url = '/'.$request ['module'].'/index/index';
+if ($request ['module'] == 'media')
+  $url .= '/media_type/'.$request ['media_type'];  
+$form->setAction ($url);
+$form->populate ($request);
+echo $form;
+?>

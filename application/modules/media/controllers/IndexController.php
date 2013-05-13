@@ -74,8 +74,9 @@
       if (isset ($this->params ['beschreibung']))
       {
         if ($form->isValidPartial ($this->params))
-        {
+        {          
           $this->model->add_media ($this->params);
+          $this->model->history ();
           echo 'success';
         } else
         {
@@ -100,8 +101,9 @@
       if (isset ($this->params ['beschreibung']))
       {
         if ($form->isValidPartial ($this->params))
-        {
+        {          
           $this->model->update_media ($this->params);
+          $this->model->history ();
           echo 'success';
         } else
         {
@@ -120,8 +122,9 @@
      *  
      */
     public function deleteAction ()
-    {
+    {      
       $this->model->delete_media ($this->params ['id']);
+      $this->model->history ();
     } 
     
     /**
@@ -129,8 +132,9 @@
      *  
      */
     public function copyAction ()
-    {
+    {      
       $this->model->copy_media ($this->params ['from_system'], $this->params ['media_type']);
+      $this->model->history ();
       $this->_redirect ('/media/index/index/media_type/'.$this->params ['media_type']);
     }        
   }

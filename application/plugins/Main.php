@@ -10,6 +10,7 @@
      * - wenn Session abgelaufen Umleitung zum Login, 
      * - wenn nicht Admin-Benutzer auf dieses Modul zugreifen wollen - Umleitung auf "Home"
      * - neuen Anbieter in der Session setzen wenn Admin wechselt     
+     * - die aktuell ausgewaehlte Medienmarkte in der Session setzen     
      * 
      */
     public function preDispatch ()
@@ -36,8 +37,7 @@
       }
       
       if (!empty ($params ['system_id']))
-        $session->system_id = $params ['system_id'];
-      
+        $session->system_id = $params ['system_id'];            
     }
   }
 

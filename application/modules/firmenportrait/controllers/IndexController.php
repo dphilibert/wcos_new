@@ -66,8 +66,9 @@
       if (isset ($this->params ['type']))
       {
         if ($form->isValid ($this->params))
-        {          
-          $this->model->add_profile ($this->params);         
+        {                   
+          $this->model->add_profile ($this->params);
+           $this->model->history ();
           echo 'success';
         } else
         {                    
@@ -87,16 +88,14 @@
     public function editAction ()
     {
       $form = new Form_Portraet ();      
-      $id = new Zend_Form_Element_Hidden ('id');          
-      $form->addElement ($id);
-      $button = $form->getElement ('submit');
-      $button->setAttrib ('onclick', 'submit_form ("/firmenportrait/index/edit", "value");');      
+      $this->model->mod_form_edit ($form, 'firmenportrait');
       
       if (isset ($this->params ['type']))
       {
         if ($form->isValid ($this->params))
-        {          
+        {                   
           $this->model->update_profile ($this->params);
+           $this->model->history ();
           echo 'success';
         } else
         {
@@ -115,8 +114,9 @@
      *  
      */
     public function deleteAction ()
-    {
-     $this->model->delete_profile ($this->params ['id']);      
+    {      
+      $this->model->delete_profile ($this->params ['id']);
+      $this->model->history ();
     }        
      
     /**
@@ -124,8 +124,9 @@
      *  
      */
     public function copyAction ()
-    {
+    {      
       $this->model->copy_profiles ($this->params ['from_system']);
+      $this->model->history ();
       $this->_redirect ('/firmenportrait/index/index');
     }        
     

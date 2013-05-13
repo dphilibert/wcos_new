@@ -61,8 +61,9 @@
      *  
     */
     public function premiumAction ()
-    {            
+    {                  
       $this->model->premium ($this->params);
+      $this->model->history ();
       $this->_redirect ('/einfuehrung/index/index');
     }        
             
@@ -71,8 +72,9 @@
      *  
      */
     public function nopremiumAction ()
-    {           
-      $this->model->nopremium ($this->params ['system_id']);      
+    {                 
+      $this->model->nopremium ($this->params ['system_id']);
+      $this->model->history ();
     }        
       
     /**
@@ -80,8 +82,9 @@
      *  
      */
     public function deactivateAction ()
-    {
+    {      
       $this->model->deactivate ($this->params ['system_id']);
+      $this->model->history ();
     }        
     
   }

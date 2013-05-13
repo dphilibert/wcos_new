@@ -66,8 +66,9 @@ class Termine_IndexController extends Zend_Controller_Action
     if (isset($this->params ['title']))
     {
       if ($form->isValidPartial ($this->params))
-      {
+      {        
         $this->model->add_date ($this->params);
+        $this->model->history ();
         echo 'success';
       } else
       {
@@ -88,16 +89,14 @@ class Termine_IndexController extends Zend_Controller_Action
   public function editAction ()
   {
     $form = new Form_Dates ();
-    $button = $form->getElement ('submit');
-    $button->setAttrib ('onclick', 'submit_form("/termine/index/edit");');
-    $id = new Zend_Form_Element_Hidden ('id');
-    $form->addElement ($id);
+    $this->model->mod_form_edit ($form, 'termine');
     
     if (isset($this->params ['title']))
     {
       if ($form->isValidPartial ($this->params))
-      {
+      {        
         $this->model->edit_date ($this->params);
+        $this->model->history ();
         echo 'success';
       } else
       {
@@ -116,8 +115,9 @@ class Termine_IndexController extends Zend_Controller_Action
    *  
    */
   public function deleteAction ()
-  {
+  {    
     $this->model->delete_date ($this->params ['id']);
+    $this->model->history ();
   }        
   
   /**
@@ -125,8 +125,9 @@ class Termine_IndexController extends Zend_Controller_Action
    *  
    */
   public function copyAction ()
-  {
+  {    
     $this->model->copy_dates ($this->params ['from_system']);
+    $this->model->history ();
     $this->_redirect ('/termine/index/index/');
   }        
   

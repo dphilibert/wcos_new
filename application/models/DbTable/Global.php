@@ -116,7 +116,52 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
     return array ('id' => $id, 'brand' => $this->systems [$id]);
   }        
   
+  /**
+   * Modifiziert das Formular fuer die Anforderung der Bearbeitungs-Aktion
+   * 
+   * @param object $form Zend_Form
+   * @param string $module Modul 
+   * @return void
+   */
+  public function mod_form_edit (&$form, $module)
+  {
+    $id = new Zend_Form_Element_Hidden ('id');          
+    $form->addElement ($id);    
+    $button = $form->getElement ('submit');    
+    $rte = ($module == 'firmenportrait') ? ', "value"' : '';
+    $button->setAttrib ('onclick', 'submit_form ("/'.$module.'/index/edit"'.$rte.');');      
+  }        
 
+  /**
+   * Nimmt einen Eintrag in der History-Tabelle vor
+   * 
+   * @param void
+   * @return void
+   */
+  public function history ()
+  {
+    $session = new Zend_Session_Namespace ();    
+    $params = Zend_Controller_Front::getInstance ()->getRequest ()->getParams ();      
+    $object_id = 0;
+    switch ($params ['module'])
+    {
+      case 'einfuehrung': $object_id = $params ['_system_id']; break;
+      case 'stammdaten': $object_id = $params ['stammdatenID']; break;
+      case 'produkte': 
+        if ($params ['action'] == 'add' OR $params ['action'] == 'remove') $object_id = $params ['codes'];  
+        elseif ($params ['action'] == 'copy') $object_id = $params ['from_system'];        
+      break;
+      default:                 
+        if ($params ['action'] == 'edit' OR $params ['action'] == 'delete') $object_id = $params ['id'];
+        elseif ($params ['action'] == 'new') $object_id = $this->_db->lastInsertId ();
+        elseif ($params ['action'] == 'copy') $object_id = $params ['from_system'];
+      break;  
+    }        
+    $this->_db->insert ('history', 
+            array ('user_id' => $session->userData ['user_id'], 'module' => $params ['module'], 'action' => $params ['action'],
+                'anbieterID' => $this->provider_id, 'system_id' => $this->system_id, 'tstamp' => date ('d.m.Y - H:i:s'), 'object_id' => $object_id));
+  }        
+  
 }
 
 ?>

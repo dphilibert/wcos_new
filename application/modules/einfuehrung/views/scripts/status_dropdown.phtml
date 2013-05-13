@@ -7,10 +7,10 @@
       <li><a href="javascript:$('#<?= $this->ident ?>').show();" target="_blank">Premium</a></li>
     <?php endif; ?>      
     <?php if (($this->premium != 0)) : ?>
-      <li><a href="javascript:call_action('/einfuehrung/index/nopremium/system_id/<?= $this->system_id ?>');" target="_blank" >Standard</a></li>
+      <li><a href="javascript:call_action('/einfuehrung/index/nopremium/_system_id/<?= $this->system_id ?>');" target="_blank" >Standard</a></li>
     <?php endif; ?>    
     <?php if (($this->premium != 2)) : ?>
-      <li><a href="javascript:call_action('/einfuehrung/index/deactivate/system_id/<?= $this->system_id ?>');" target="_blank">deaktiviert</a></li>
+      <li><a href="javascript:call_action('/einfuehrung/index/deactivate/_system_id/<?= $this->system_id ?>');" target="_blank">deaktiviert</a></li>
     <?php endif; ?>                  
   </ul>  
 </div>

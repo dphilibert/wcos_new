@@ -63,8 +63,9 @@
       if (isset ($this->params ['anbieterID']))
       {
         if ($form->isValidPartial ($this->params))
-        {                        
+        {                  
           $this->model->add_contact ($this->params);
+          $this->model->history ();
           echo 'success';
         } else
         {          
@@ -85,16 +86,14 @@
     public function editAction ()
     {
       $form = new Form_Contacts ();
-      $id = new Zend_Form_Element_Hidden ('id');
-      $form->addElement ($id);
-      $button = $form->getElement ('submit');
-      $button->setAttrib ('onclick', 'submit_form ("/ansprechpartner/index/edit");');
+      $this->model->mod_form_edit ($form, 'ansprechpartner');
       
       if (isset ($this->params ['vorname']))
       {
         if ($form->isValidPartial ($this->params))
         {
           $this->model->update_contact ($this->params);
+          $this->model->history ();
           echo 'success';
         } else
         {
@@ -113,8 +112,9 @@
      *  
      */
     public function deleteAction ()
-    {
+    {      
       $this->model->delete_contact ($this->params ['id']);
+      $this->model->history ();
     }        
     
     /**
@@ -122,8 +122,9 @@
      *  
      */
     public function copyAction ()
-    {
-      $this->model->copy_contacts ($this->params ['from_system']);  
+    {      
+      $this->model->copy_contacts ($this->params ['from_system']);
+      $this->model->history ();
       $this->_redirect ('/ansprechpartner/index/index');
     }        
     

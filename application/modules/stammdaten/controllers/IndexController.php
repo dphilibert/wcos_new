@@ -47,8 +47,9 @@
      *  
      */
     public function editAction ()
-    {     
+    {           
       $this->model->update_address ($this->params);
+      $this->model->history ();
       $this->_redirect ('/stammdaten/index/index');
     }        
 

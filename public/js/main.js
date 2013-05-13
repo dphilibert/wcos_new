@@ -56,7 +56,7 @@ function fancyConfirm (callback)
       $("#fancyConfirm_cancel").click(function () {ret = false;$.fancybox.close();})
       $("#fancyConfirm_ok").click(function () {ret = true;$.fancybox.close();})
     },
-    onClosed  :function () {callback.call(this, ret);}
+    afterClose : function () {callback.call(this, ret);}
   });  
 }
 
@@ -96,9 +96,9 @@ function submit_form (url, mce_name)
 function call_action (url, confirm)
 {
   if (confirm === true)
-  {
+  {        
     fancyConfirm (function (answer)
-    {
+    {            
       if (answer == true)
         $.ajax ({url: url, complete: function (response, status){reload_list ();}});              
     });    

@@ -62,8 +62,9 @@
       if (isset ($this->params ['title']))
       {
         if ($form->isValid ($this->params))
-        {
+        {          
           $this->model->add_whitepaper ($this->params);
+          $this->model->history ();
           echo 'success';
         } else
         {
@@ -83,16 +84,14 @@
     public function editAction ()
     {
       $form = new Form_Whitepaper ();
-      $button = $form->getElement ('submit');
-      $button->setAttrib ('onclick', 'submit_form ("/whitepaper/index/edit")');
-      $id = new Zend_Form_Element_Hidden ('id');
-      $form->addElement ($id);
+      $this->model->mod_form_edit ($form, 'whitepaper');
       
       if (isset ($this->params ['title']))
       {
         if ($form->isValid ($this->params))
-        {
+        {          
           $this->model->edit_whitepaper ($this->params);
+          $this->model->history ();
           echo 'success';
         } else
         {
@@ -111,8 +110,9 @@
      *  
      */
     public function deleteAction ()
-    {
+    {      
       $this->model->delete_whitepaper ($this->params ['id']);
+      $this->model->history ();
     }
     
     /**
@@ -120,8 +120,9 @@
      *  
      */
     public function copyAction ()
-    {
+    {      
       $this->model->copy_whitepapers ($this->params ['from_system']);
+      $this->model->history ();
       $this->_redirect ('/whitepaper/index/index');
     }        
   }

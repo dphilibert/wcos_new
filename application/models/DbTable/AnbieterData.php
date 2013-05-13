@@ -60,18 +60,7 @@
       {
         return $anbieter;
       }
-      return NULL;
-      /*
-      $operator = 'AND';
-         $keywords = explode(" ",$phrase);
-         $where = array();
-         foreach($keywords as $keyword) {
-          $where[] = "(`name`LIKE '%".$keyword."%' OR  `name_zusatz` LIKE '%".$keyword."%' )";
-         }
-         $where = implode("\n ".$operator." ",$where);
-        
-         $sql = "SELECT  * FROM `anbieter_company` WHERE   ".$where." ";
-      */
+      return NULL;     
     }
 
 
@@ -111,18 +100,7 @@
       {
         return $anbieter;
       }
-      return NULL;
-      /*
-      $operator = 'AND';
-         $keywords = explode(" ",$phrase);
-         $where = array();
-         foreach($keywords as $keyword) {
-          $where[] = "(`name`LIKE '%".$keyword."%' OR  `name_zusatz` LIKE '%".$keyword."%' )";
-         }
-         $where = implode("\n ".$operator." ",$where);
-        
-         $sql = "SELECT  * FROM `anbieter_company` WHERE   ".$where." ";
-      */
+      return NULL;      
     }
 
 
@@ -335,17 +313,7 @@
     }
 
 
-    /**
-     *
-     * synchronisiert die Anbieter-Daten
-     *
-     * @deprecated
-     *
-     * @param array $data Dataset
-     */
-    public function syncAnbieterData ($data)
-    {
-    }
+    
 
 
     /**

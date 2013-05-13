@@ -50,8 +50,9 @@
      *  
      */
     public function addAction ()
-    {
-      $this->model->add_products ($this->params ['codes']);      
+    {      
+      $this->model->add_products ($this->params ['codes']);
+      $this->model->history ();
       echo $this->view->Tree ($this->model->get_provider_product_tree (), true);
     }        
     
@@ -60,8 +61,9 @@
      *  
      */
     public function removeAction ()
-    {
+    {      
       $this->model->remove_products ($this->params ['codes']);
+      $this->model->history ();
       echo $this->view->Tree ($this->model->get_provider_product_tree (), true);
     }        
     
@@ -70,8 +72,9 @@
      *  
      */
     public function copyAction ()
-    {
+    {      
       $this->model->copy_products ($this->params ['from_system']);
+      $this->model->history ();
       $this->_redirect ('/produkte/index/index');
     }        
     

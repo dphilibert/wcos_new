@@ -2,6 +2,7 @@
   <thead>
   <tr>
     <th>ID</th>   
+    <th>Beschreibung</th>
     <th>Code</th>
     <th class="ar">Aktionen</th>
   </tr>
@@ -11,15 +12,21 @@
     <?php foreach ($this->data_paging as $search_result_row) : ?>
       <tr>
         <td><?= $search_result_row ['id'] ?></td>
-        <td><code><?= $search_result_row ['media'] ?></code></td>                
+         <td><?= $search_result_row ['beschreibung'] ?></td>
+         <td><pre><?= htmlentities ($search_result_row ['media']) ?></pre></td>                
         <td style="text-align:center;">
           <div class="btn-group">
-            <a class="btn" title="Bearbeiten" href="javascript:call_action_fancy ('/media/index/edit/id/<?= $search_result_row ['id'] ?>/media_type/<?= $this->media_type ?>', 400, 400);">
+            <a class="btn" title="Bearbeiten" onclick="call_action_fancy ('/media/index/edit/id/<?= $search_result_row ['id'] ?>/media_type/<?= $this->media_type ?>', 400, 400);">
               <i class="icon-pencil"></i>
             </a>
-            <a class="btn" title="Löschen" href="javascript:call_action ('/media/index/delete/id/<?= $search_result_row ['id'] ?>', true);">
+            <a class="btn" title="Löschen" onclick=":call_action ('/media/index/delete/id/<?= $search_result_row ['id'] ?>', true);">
               <i class="icon-trash"></i>
             </a>
+            <?php if (!empty ($search_result_row ['media'])) : ?>
+            <a class="btn" title="Video" onclick="show_preview ('<?= htmlentities ($search_result_row ['media']) ?>', true);"><i class="icon-eye-open"></i></a>
+            <?php else : ?>
+              <a class="btn disabled" title="Bild"><i class="icon-eye-close"></i></a>
+            <?php endif; ?>
           </div>
         </td>
       </tr>      

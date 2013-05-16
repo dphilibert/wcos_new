@@ -59,7 +59,7 @@
     public function newAction ()
     {
       $form = new Form_Contacts ();      
-                     
+                           
       if (isset ($this->params ['anbieterID']))
       {
         if ($form->isValidPartial ($this->params))
@@ -70,12 +70,14 @@
         } else
         {          
           $form->populate ($this->params);
+          if (!empty ($this->params ['file_name']))
+            $form = $this->model->add_file_info ($form->__toString (), $this->params ['file_name_orig']);
           echo $form;
         }          
       } else
       {
         $form->populate ($this->params);
-        echo $form;
+        echo $form;       
       }        
     }        
     
@@ -96,8 +98,10 @@
           $this->model->history ();
           echo 'success';
         } else
-        {
+        {                                  
           $form->populate ($this->params);
+          if (!empty ($this->params ['file_name']))
+            $form = $this->model->add_file_info ($form->__toString (), $this->params ['file_name_orig']);
           echo $form;
         }          
       } else
@@ -127,7 +131,7 @@
       $this->model->history ();
       $this->_redirect ('/ansprechpartner/index/index');
     }        
-    
+             
   }
 
 ?>

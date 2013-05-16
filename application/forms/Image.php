@@ -21,8 +21,8 @@ class Form_Image extends Zend_Form
     $link = new Zend_Form_Element_Text ('link');
     $link->setLabel ('Link')->setDecorators ($this->decorators);
             
-    $media_file = new Zend_Form_Element_File ('media_file');
-    $media_file->setLabel ('Datei*')->addDecorators ($this->decorators)->removeDecorator ('ViewHelper')->setRequired (true);
+    $media_file = new Zend_Form_Element_File ('image');
+    $media_file->setLabel ('Datei')->addDecorators ($this->decorators)->removeDecorator ('ViewHelper')->setAttrib ('onchange', 'upload(this);');
     
     $button = new Zend_Form_Element_Button ('submit');
     $button->setLabel ('speichern')->setDecorators ($this->decorators)
@@ -37,8 +37,14 @@ class Form_Image extends Zend_Form
     $hidden3 = new Zend_Form_Element_Hidden ('media_type');
     $hidden3->setDecorators ($this->decorators)->removeDecorator ('Label');
     
+    $filename = new Zend_Form_Element_Hidden ('file_name');
+    $filename->setDecorators ($this->decorators)->removeDecorator ('Label');
+    
+    $filename_orig = new Zend_Form_Element_Hidden ('file_name_orig');
+    $filename_orig->setDecorators ($this->decorators)->removeDecorator ('Label');
+    
     $this->setDecorators (array ('FormElements', 'Form'));
-    $this->addElements (array ($beschreibung, $link, $media_file, $button, $hidden, $hidden2, $hidden3));        
+    $this->addElements (array ($beschreibung, $link, $media_file, $button, $hidden, $hidden2, $hidden3, $filename, $filename_orig));        
   }        
     
 }

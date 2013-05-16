@@ -26,11 +26,9 @@
      * @return void 
      */
     public function update_address ($params)
-    { 
-      $admin_model = new Model_DbTable_Admin ();
-                 
+    {                                    
       if (!empty ($_FILES ['logo']['name']))
-        $admin_model->upload_file ('logo', 5, $params ['stammdatenID']);
+        $this->upload_file ('logo', 5, $params ['stammdatenID']);
                 
       $provider_id = $params ['anbieterID'];      
       $root_id = $params ['stammdatenID'];

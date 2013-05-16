@@ -5,9 +5,7 @@ var mce_config = {};
 $(document).ready(function()
 {
   fancy_config = {    
-    'autoSize' : false,    
-    'openEffect' : 'fade',
-    'closeEffect' : 'fade',
+    'autoSize' : false,        
     'autoCenter' : false,
     'fitToView' : false,
     'helpers' : {overlay : null}    
@@ -65,7 +63,8 @@ function fancyConfirm (callback)
 function submit_form (url, mce_name)
 {     
   mce_name = (mce_name === undefined) ? '' : mce_name;        
-  var form_data = $(".form-horizontal").serialize ();                                                
+  var form_data = $(".form-horizontal").serialize ();    
+     
   if (mce_name.length > 0)
   {    
     $('[name='+ mce_name + ']').html ('');                            
@@ -111,13 +110,16 @@ function call_action (url, confirm)
 //Ausfuehren einer Ajax-Controller-Action mit Rueckgabe in Fancy-Box
 function call_action_fancy (url, width, height, mce_flag)
 {
-  fancy_config ['width'] = width;
-  fancy_config ['height'] = height;
-  fancy_config ['type'] = 'ajax';
-  fancy_config ['href'] = url;      
+  var config = fancy_config;
+  config ['autoSize'] = false;
+  config ['content'] = null;
+  config ['width'] = width;
+  config ['height'] = height;
+  config ['type'] = 'ajax';
+  config ['href'] = url;      
   if (mce_flag === true)
-    fancy_config ['afterShow'] = function () {tinyMCE.init (mce_config);}    
-  $.fancybox (fancy_config);
+    config ['afterShow'] = function () {tinyMCE.init (mce_config);}    
+  $.fancybox (config);
 }
 
 //Listenansicht aktualisieren
@@ -254,4 +256,62 @@ function code_toggle_all (id, action, icon)
     code_toggle ($(this).attr ('id').replace (action + '_', ''), action);    
   });
   
+}
+
+/* Dateiupload - fuehrt die Ajax-Dateiuebertragung durch und befuellt das Formular */
+function upload (file_input)
+{
+  var file_data = file_input.files [0];
+  $('#file_error').remove ();
+      
+  if (file_data.type.search (/image/) != -1) 
+  {    
+    readFile (file_data, function (file, evt){             
+      $.ajax ({    
+      url: '/admin/index/upload',
+      type: "POST",   
+      data: {
+        filename : file_data.name,
+        image : evt.target.result
+      },
+      complete : function (response, status) {        
+        var data = JSON.parse (response.responseText);        
+        $('#file_name').val (data ['name']);
+        $('#file_name_orig').val (data ['orig']);                     
+        var orig_filename = (data ['orig'].length > 27) ? data ['orig'].substr (0, 23) + '...' : data ['orig'];        
+        $(file_input).after ('<div class="alert alert-success" style="width:170px;"><b>'+ orig_filename +'</b></div>');
+        $(file_input).remove ();
+      }
+      });
+    });
+  } else
+  {
+    $(file_input).val ('');
+    $(file_input).after ('<ul class="errors" id="file_error"><li>Dateiformat nicht erlaubt</li></ul>');        
+  }   
+}
+
+/* Filereader fuer Ajax-Dateiupload */
+function readFile (file, callback)
+{
+  var reader = new FileReader ();
+  reader.onload = function (evt)
+  {
+    if (typeof callback == 'function') callback (file, evt);
+  }  
+  reader.readAsDataURL (file);
+}
+
+/* Zeigt ein Bild in der fancyBox  */
+function show_preview (image, embedded_flag)
+{
+  var config = fancy_config;
+  config ['autoSize'] = true;  
+  
+  if (embedded_flag === true)
+    config ['content'] = image;
+  else  
+    config ['content'] = '<img src="/uploads/'+ image +'" />';
+  
+  $.fancybox (config);
 }

@@ -38,8 +38,8 @@ class Form_Dates extends Zend_Form
     $ort = new Zend_Form_Element_Text ('Ort');
     $ort->setLabel ('Ort*')->setDecorators ($this->decorators)->setRequired (true);
     
-    $file = new Zend_Form_Element_File ('date_logo');
-    $file->setLabel ('Bild')->removeDecorator ('DdDtWrapper')->addDecorators ($this->decorators)->removeDecorator ('ViewHelper');
+    $file = new Zend_Form_Element_File ('images');
+    $file->setLabel ('Bild')->removeDecorator ('DdDtWrapper')->addDecorators ($this->decorators)->removeDecorator ('ViewHelper')->setAttrib ('onchange', 'upload(this);');
     
     $button = new Zend_Form_Element_Button ('submit');
     $button->setLabel ('speichern')->setDecorators ($this->decorators)
@@ -51,8 +51,14 @@ class Form_Dates extends Zend_Form
     $hidden2 = new Zend_Form_Element_Hidden ('system_id');
     $hidden2->setDecorators ($this->decorators)->removeDecorator ('Label')->setValue ($session->system_id);
     
+    $filename = new Zend_Form_Element_Hidden ('file_name');
+    $filename->setDecorators ($this->decorators)->removeDecorator ('Label');
+    
+    $filename_orig = new Zend_Form_Element_Hidden ('file_name_orig');
+    $filename_orig->setDecorators ($this->decorators)->removeDecorator ('Label');    
+    
     $this->setDecorators (array ('FormElements', 'Form'));
-    $this->addElements (array ($abc, $teaser, $beschreibung, $typ, $start, $ende, $ort, $file, $button, $hidden, $hidden2));        
+    $this->addElements (array ($abc, $teaser, $beschreibung, $typ, $start, $ende, $ort, $file, $button, $hidden, $hidden2, $filename, $filename_orig));        
   }        
     
 }

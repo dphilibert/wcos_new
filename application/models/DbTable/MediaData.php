@@ -60,12 +60,14 @@
      */
     public function add_media ($params)
     {
+      if ($params ['media_type'] == 1)
+      {  
+        $params ['media'] = (!empty ($params ['file_name'])) ? $params ['file_name'] : '';
+        unset ($params ['file_name'], $params ['file_name_orig']);       
+      }      
       $this->_db->insert ('media', $params);
       $id = $this->_db->lastInsertId ();
-      $this->_db->update ('media', array ('object_id' => $id), 'id = '. $id);      
-      
-      if (!empty ($_FILES ['media_file']['name']))                      
-        $this->upload_file ('media_file', $params ['media_type'], $id);                    
+      $this->_db->update ('media', array ('object_id' => $id), 'id = '. $id);                            
     }        
     
     /**
@@ -76,10 +78,12 @@
      */
     public function update_media ($params)
     {
-      $this->_db->update ('media', $params, 'id = '. $params ['id']);
-            
-      if (!empty ($_FILES ['media_file']['name']))                      
-        $this->upload_file ('media_file', $params ['media_type'], $params ['object_id']);                    
+      if ($params ['media_type'] == 1)
+      {  
+        $params ['media'] = (!empty ($params ['file_name'])) ? $params ['file_name'] : '';
+        unset ($params ['file_name'], $params ['file_name_orig']);       
+      }     
+      $this->_db->update ('media', $params, 'id = '. $params ['id']);                             
     } 
     
     /**
@@ -133,12 +137,7 @@
         $id = new Zend_Form_Element_Hidden ('id');
         $id->setDecorators ($form->decorators);
         $form->addElement ($id);        
-      }        
-      if ($action_type == 'edit' AND $media_type == 1)
-      {
-        $file = $form->getElement ('media_file');
-        $file->setRequired (false);
-      }        
+      }                  
       $button = $form->getElement ('submit');
       $button->setAttrib ('onclick', 'submit_form ("/media/index/'.$action_type.'/media_type/'. $media_type.'");');
     }        

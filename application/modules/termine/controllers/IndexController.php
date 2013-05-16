@@ -29,13 +29,11 @@ class Termine_IndexController extends Zend_Controller_Action
     $action = $params ['action'];
     unset ($params ['module'], $params ['controller'], $params ['action'], $params ['MAX_FILE_SIZE']);         
     $this->params = $params;
-
     if ($action == 'new' OR $action == 'edit' OR $action == 'delete')
     {
       $this->_helper->_layout->disableLayout ();
       $this->_helper->viewRenderer->setNoRender (true);
-    }  
-    
+    }      
     $this->model = new Model_DbTable_TermineData ();
   }        
   
@@ -67,12 +65,14 @@ class Termine_IndexController extends Zend_Controller_Action
     {
       if ($form->isValidPartial ($this->params))
       {        
-        $this->model->add_date ($this->params);
+        $this->model->add_date ($this->params);        
         $this->model->history ();
         echo 'success';
       } else
       {
         $form->populate ($this->params);
+        if (!empty ($this->params ['file_name']))
+          $form = $this->model->add_file_info ($form->__toString (), $this->params ['file_name_orig']);
         echo $form;
       }  
     } else
@@ -101,6 +101,8 @@ class Termine_IndexController extends Zend_Controller_Action
       } else
       {
         $form->populate ($this->params);
+        if (!empty ($this->params ['file_name']))
+          $form = $this->model->add_file_info ($form->__toString (), $this->params ['file_name_orig']);
         echo $form;
       }  
     } else

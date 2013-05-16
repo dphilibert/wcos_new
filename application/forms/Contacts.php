@@ -42,7 +42,8 @@ class Form_Contacts extends Zend_Form
     $system_id->setLabel ('Medienmarke*')->addMultiOptions ($config->brands->toArray ())->setDecorators ($this->decorators)->setRequired (true);
         
     $image = new Zend_Form_Element_File ('image');
-    $image->setLabel ('Bild')->removeDecorator ('DdDtWrapper')->addDecorators ($this->decorators)->removeDecorator ('ViewHelper');
+    $image->setLabel ('Bild')->removeDecorator ('DdDtWrapper')->addDecorators ($this->decorators)
+            ->removeDecorator ('ViewHelper')->setAttrib ('onchange', 'upload(this);');
     
     $button = new Zend_Form_Element_Button ('submit');
     $button->setLabel ('speichern')->setDecorators ($this->decorators)
@@ -54,8 +55,14 @@ class Form_Contacts extends Zend_Form
     $hidden2 = new Zend_Form_Element_Hidden ('system_id');
     $hidden2->setDecorators ($this->decorators)->removeDecorator ('Label')->setValue ($session->system_id);
     
+    $filename = new Zend_Form_Element_Hidden ('file_name');
+    $filename->setDecorators ($this->decorators)->removeDecorator ('Label');
+    
+    $filename_orig = new Zend_Form_Element_Hidden ('file_name_orig');
+    $filename_orig->setDecorators ($this->decorators)->removeDecorator ('Label');
+    
     $this->setDecorators (array ('FormElements', 'Form'));
-    $this->addElements (array ($vorname, $nachname, $abteilung, $position, $telefon, $telefax, $email, $system_id, $image, $button, $hidden, $hidden2));        
+    $this->addElements (array ($vorname, $nachname, $abteilung, $position, $telefon, $telefax, $email, $system_id, $image, $button, $hidden, $hidden2, $filename, $filename_orig));        
   }        
     
 }

@@ -16,7 +16,8 @@
     public function get_contacts_list ($token = NULL)
     {      
       $select = $this->_db->select ()->from ('ansprechpartner')
-              ->where ('anbieterID = '. $this->provider_id)->where ('system_id = '. $this->system_id)->order ('id ASC');      
+              ->joinleft ('media', 'media.anbieterID = '.$this->provider_id.' AND media.system_id = '.$this->system_id.' AND media_type=4 AND object_id = ansprechpartner.id', array ('media'))
+              ->where ('ansprechpartner.anbieterID = '. $this->provider_id)->where ('ansprechpartner.system_id = '. $this->system_id)->order ('ansprechpartner.id ASC');      
       if (!empty ($token)) 
         $select->where ("vorname LIKE '$token%' OR nachname LIKE '$token%'");      
                              
@@ -44,11 +45,11 @@
      */
     public function add_contact ($params)
     {            
-      $this->_db->insert ('ansprechpartner', $params);
-      $id = $this->_db->lastInsertId ();
-                  
-      if (!empty ($_FILES ['image']['name']))
-        $this->upload_file ('image', 4, $id);                      
+      $filename = (!empty ($params ['file_name'])) ? $params ['file_name'] : '';
+      unset ($params ['file_name'], $params ['file_name_orig']);      
+      $this->_db->insert ('ansprechpartner', $params);                  
+      if (!empty ($filename))
+        $this->new_media ($filename, 4, $this->_db->lastInsertId ());                      
     }        
 
     /**
@@ -58,10 +59,10 @@
      * @return void 
      */
     public function update_contact ($params)
-    {            
-      if (!empty ($_FILES ['image']['name']))
-        $this->upload_file ('image', 4, $params ['id']);
-      
+    {                        
+      if (!empty ($params ['file_name']))
+        $this->new_media ($params ['file_name'], 4, $params ['id']);
+      unset ($params ['file_name'], $params ['file_name_orig']);
       $this->_db->update ('ansprechpartner', $params, 'id = '. $params ['id']);
     } 
     
@@ -74,7 +75,7 @@
     public function delete_contact ($id)
     {
       $this->_db->delete ('ansprechpartner', 'id = '. $id);
-      $this->_db->delete ('media', 'object_id = '. $id);
+      $this->_db->delete ('media', 'media_type=4 AND object_id = '. $id);
     }  
     
     /**

@@ -79,8 +79,10 @@
           $this->model->history ();
           echo 'success';
         } else
-        {
+        {                    
           $form->populate ($this->params);
+          if (!empty ($this->params ['file_name']))
+            $form = $this->model->add_file_info ($form->__toString (), $this->params ['file_name_orig']);
           echo $form;
         }          
       } else
@@ -108,6 +110,8 @@
         } else
         {
           $form->populate ($this->params);
+          if (!empty ($this->params ['file_name']))
+            $form = $this->model->add_file_info ($form->__toString (), $this->params ['file_name_orig']);
           echo $form;
         }          
       } else

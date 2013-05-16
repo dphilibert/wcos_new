@@ -42,6 +42,11 @@
               <a class="btn" title="Löschen" href="javascript:call_action ('/termine/index/delete/id/<?= $search_result_row ['id'] ?>', true)">
                 <i class="icon-trash"></i>
               </a>
+              <?php if (!empty ($search_result_row ['media'])) : ?>
+                <a class="btn" title="Bild" onclick="show_preview ('<?= $search_result_row ['media'] ?>');"><i class="icon-eye-open"></i></a>
+              <?php else : ?>
+                <a class="btn disabled" title="Bild"><i class="icon-eye-close"></i></a>
+              <?php endif; ?>              
             </div>
           </td>
         </tr>

@@ -60,8 +60,7 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
   }        
   
   /**
-   * Prueft und Empfaengt eine hochgeladene Datei -
-   * und nimmt den entsprechenden DB-Eintrag vor TODO: da läuft was noch nicht rund
+   * Empfaengt das hochgeladene Firmenlogo  
    * 
    * @param int $name Formular-Element-Name
    * @param int $type Media-Typ
@@ -70,24 +69,35 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
    */
   public function upload_file ($name, $type, $object_id)
   {    
-    $transfer = new Zend_File_Transfer_Adapter_Http ();
-    //$transfer->addValidator ('IsImage', false);        
-    $transfer->setDestination (APPLICATION_PATH . '/../public/uploads/');
-      
-    $file = $transfer->getFileInfo ($name);
+    $transfer = new Zend_File_Transfer_Adapter_Http ();            
+    $transfer->setDestination (APPLICATION_PATH . '/../public/uploads/');    
     $transfer->receive ($name);
-    
-    //if ($transfer->isValid ($name))
-    //{                              
-      $query = $this->_db->select ()->from ('media')->where ('anbieterID = '. $this->provider_id)
-              ->where ('media_type ='. $type)->where ('object_id = '. $object_id);        
-      $check = $this->_db->fetchRow ($query);
-      if (empty ($check))           
-        $this->_db->insert ('media', array ('anbieterID' => $this->provider_id, 'media_type' => $type, 'media' => $file ['name'], 'object_id' => $object_id));              
-      else        
-        $this->_db->update ('media', array ('media' => $file ['name']), 'id = '. $check ['id']);      
-    //}         
+    $file = $transfer->getFileInfo ($name);
+    $file = $file [$name];
+                            
+    //todo: per md5 neuen dateinamen bauen - Zend_Filter_Rename oder so 
+    $this->new_media ($file ['name'], $type, $object_id);                        
   }        
+  
+  /**
+   * Nimmt einen neuen Eintrag in der Media-Tabelle vor
+   * 
+   * @param int $filename Dateiname - kann auch embedded-code sein
+   * @param int $type Media-Typ
+   * @param int $object_id ID des zugehoerigen Daensatzes der anderen Tabelle
+   * @return void
+   */
+  public function new_media ($filename, $type, $object_id)
+  {
+    $query = $this->_db->select ()->from ('media')->where ('anbieterID = '. $this->provider_id)
+            ->where ('media_type ='. $type)->where ('object_id = '. $object_id)->where ('system_id = '. $this->system_id);        
+    $check = $this->_db->fetchRow ($query);
+    if (empty ($check))           
+      $this->_db->insert ('media', array ('anbieterID' => $this->provider_id, 'media_type' => $type, 'media' => $filename, 'object_id' => $object_id, 'system_id' => $this->system_id));              
+    else        
+      $this->_db->update ('media', array ('media' => $filename), 'id = '. $check ['id']);
+  }        
+  
   
   /**
    * Gibt die erlaubten System-Auswahlen zurueck
@@ -158,8 +168,22 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
       break;  
     }        
     $this->_db->insert ('history', 
-            array ('user_id' => $session->userData ['user_id'], 'module' => $params ['module'], 'action' => $params ['action'],
-                'anbieterID' => $this->provider_id, 'system_id' => $this->system_id, 'tstamp' => date ('d.m.Y - H:i:s'), 'object_id' => $object_id));
+      array ('user_id' => $session->userData ['user_id'], 'module' => $params ['module'], 'action' => $params ['action'],
+        'anbieterID' => $this->provider_id, 'system_id' => $this->system_id, 'tstamp' => date ('d.m.Y - H:i:s'), 'object_id' => $object_id));
+  }        
+  
+  /**
+   * Ersetzt das Eingabefeld für den Upload durch den Infobereich mit dem Dateinamen des hochgeladenen Bilds
+   * 
+   * @param string $form Formular
+   * @param string $file_name Dateiname
+   * @return string Formular 
+   */
+  public function add_file_info ($form, $file_name)
+  {  
+    $file_name = (strlen ($file_name) > 27) ? substr ($file_name, 0, 23).'...' : $file_name;
+    return str_replace ('<input type="file" name="image" id="image" onchange="upload (this);">', 
+            '<div class="alert alert-success" style="width:170px;"><b>'.$file_name.'</b></div>', $form);    
   }        
   
 }

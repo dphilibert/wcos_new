@@ -72,7 +72,7 @@ class Termine_IndexController extends Zend_Controller_Action
       {
         $form->populate ($this->params);
         if (!empty ($this->params ['file_name']))
-          $form = $this->model->add_file_info ($form->__toString (), $this->params ['file_name_orig']);
+          $form = $this->model->add_file_info ($form->__toString (), $this->params ['file_name_orig'], $this->params ['file_name']);
         echo $form;
       }  
     } else
@@ -102,7 +102,7 @@ class Termine_IndexController extends Zend_Controller_Action
       {
         $form->populate ($this->params);
         if (!empty ($this->params ['file_name']))
-          $form = $this->model->add_file_info ($form->__toString (), $this->params ['file_name_orig']);
+          $form = $this->model->add_file_info ($form->__toString (), $this->params ['file_name_orig'], $this->params ['file_name']);
         echo $form;
       }  
     } else

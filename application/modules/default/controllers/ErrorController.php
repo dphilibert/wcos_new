@@ -7,7 +7,7 @@
    * @version $id$
    *
    */
-  class Default_ErrorController extends Zend_Controller_Action
+  class ErrorController extends Zend_Controller_Action
   {
 
     /**
@@ -41,21 +41,12 @@
           // ... Ausgabe fü Anzeige erzeugen...
           $this->_helper->redirector->gotoUrl ('/uebersicht/index/index');
           break;
-        default:
-          // Anwendungsfehler; Fehler Seite anzeigen, aber den
-          // Status Code nicht äern
-          // ...
-          // Ausnahme loggen:
+        default:         
           $exception = $errors->exception;
-          $log = new Zend_Log(
-            new Zend_Log_Writer_Stream(
-              '/tmp/applicationException.log'
-            )
-          );
+          
           $message = $exception->getMessage ();
-          echo $message;
-          $log->debug ($message . "\n" .
-          $exception->getTraceAsString ());
+          
+          echo $message;                    
           break;
       }
     }

@@ -179,11 +179,12 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
    * @param string $file_name Dateiname
    * @return string Formular 
    */
-  public function add_file_info ($form, $file_name)
+  public function add_file_info ($form, $file_name_orig, $file_name)
   {  
-    $file_name = (strlen ($file_name) > 27) ? substr ($file_name, 0, 23).'...' : $file_name;
+    $file_name_orig = (strlen ($file_name_orig) > 27) ? substr ($file_name_orig, 0, 23).'...' : $file_name_orig;
     return str_replace ('<input type="file" name="image" id="image" onchange="upload (this);">', 
-            '<div class="alert alert-success" style="width:170px;"><b>'.$file_name.'</b></div>', $form);    
+            '<div id="upload_info" class="alert alert-success" style="width:190px;padding-left:5px;padding-right:25px;"><b>'.$file_name_orig.'</b>
+            <button type="button" class="close" style="font-size:17px;" onclick="remove_file (\''. $file_name.'\');">x</button></div>', $form);    
   }        
   
 }

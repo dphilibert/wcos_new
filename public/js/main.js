@@ -279,7 +279,8 @@ function upload (file_input)
         $('#file_name').val (data ['name']);
         $('#file_name_orig').val (data ['orig']);                     
         var orig_filename = (data ['orig'].length > 27) ? data ['orig'].substr (0, 23) + '...' : data ['orig'];        
-        $(file_input).after ('<div class="alert alert-success" style="width:170px;"><b>'+ orig_filename +'</b></div>');
+        $(file_input).after ('<div id="upload_info" class="alert alert-success" style="width:190px;padding-left:5px;padding-right:25px;"><b>'+ orig_filename +
+          '</b><button type="button" class="close" style="font-size:17px;" onclick="remove_file (\'' + data ['name'] + '\');">x</button></div>');
         $(file_input).remove ();
       }
       });
@@ -302,16 +303,37 @@ function readFile (file, callback)
   reader.readAsDataURL (file);
 }
 
+/* Loeschen des hochgeladenen Bildes */
+function remove_file (file_name)
+{  
+  $('#upload_info').after ('<input type="file" name="image" id="image" onchange="upload (this);">');
+  $('#file_name').val ('');
+  $('#file_name_orig').val ('');
+  $('#upload_info').remove ();
+  delete_file (file_name);
+}
+
+/* Nimmt das Loeschen eines Bildes vor */
+function delete_file (file_name, reload_flag, media_id)
+{
+  var params = {};
+  params ['file'] = file_name;
+  if (media_id !== undefined)
+    params ['media_id'] = media_id;    
+  $.ajax ({url: '/admin/index/remove',type: 'POST', data: params,
+    complete : function (response, status) {if (reload_flag === true) {$.fancybox.close ();reload_list ();}}    
+  });    
+}
+
 /* Zeigt ein Bild in der fancyBox  */
-function show_preview (image, embedded_flag)
+function show_preview (image, embedded_flag, media_id)
 {
   var config = fancy_config;
-  config ['autoSize'] = true;  
-  
+  config ['autoSize'] = true;    
   if (embedded_flag === true)
     config ['content'] = image;
   else  
-    config ['content'] = '<img src="/uploads/'+ image +'" />';
-  
+    config ['content'] = '<img src="/uploads/' + image + '" />';  
+  config ['content'] += '<br><button class="btn btn-small" onclick="delete_file (\''+ image +'\', true, '+ media_id +');"><i class="icon-trash"></i></button>';  
   $.fancybox (config);
 }

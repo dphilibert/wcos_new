@@ -16,7 +16,7 @@
     public function get_contacts_list ($token = NULL)
     {      
       $select = $this->_db->select ()->from ('ansprechpartner')
-              ->joinleft ('media', 'media.anbieterID = '.$this->provider_id.' AND media.system_id = '.$this->system_id.' AND media_type=4 AND object_id = ansprechpartner.id', array ('media'))
+              ->joinleft ('media', 'media.anbieterID = '.$this->provider_id.' AND media.system_id = '.$this->system_id.' AND media_type=4 AND object_id = ansprechpartner.id', array ('media', 'media_id' => 'media.id'))
               ->where ('ansprechpartner.anbieterID = '. $this->provider_id)->where ('ansprechpartner.system_id = '. $this->system_id)->order ('ansprechpartner.id ASC');      
       if (!empty ($token)) 
         $select->where ("vorname LIKE '$token%' OR nachname LIKE '$token%'");      

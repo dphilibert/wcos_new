@@ -55,7 +55,9 @@
   ->prependFile ('/js/jquery/jquery-1.9.1.min.js')                             
   ->appendFile ('/js/fancybox/jquery.fancybox.pack.js')            
   ->appendFile ('/js/tinymce/jscripts/tiny_mce/tiny_mce.js')        
-  ->appendFile ('/twitter_bootstrap/js/bootstrap.min.js')   
+  ->appendFile ('/twitter_bootstrap/js/bootstrap.min.js')             
+  ->appendFile ('/js/jquery/jquery-ui.js')
+  ->appendFile ('/js/jquery/jquery.ui.datepicker.js')             
   ->appendFile ('/js/main.js');
   echo $this->headLink ()
   ->appendStylesheet ('/css/style.css')

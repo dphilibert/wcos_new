@@ -9,24 +9,17 @@ $(document).ready(function()
     'autoCenter' : false,
     'fitToView' : false,
     'helpers' : {overlay : null}    
-  };
-    
-  mce_config = {
-    // General options
+  };    
+  mce_config = {  
     selector                       : "textarea",
     mode                           :"textareas",
     theme                          :"advanced",
-    plugins                        :"safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount",
-    //width                          :775,
-    //height                         :400,
-    // Theme options
-    theme_advanced_buttons1        :"pastetext,pasteword,|,bold,italic,underline,strikethrough,|, link,unlink,|,bullist,numlist,|,justifyleft,justifycenter,justifyright,justifyfull,hr,removeformat,visualaid,separator,sub,sup,separator,charmap,code",
-    
+    plugins                        :"safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount",       
+    theme_advanced_buttons1        :"pastetext,pasteword,|,bold,italic,underline,strikethrough,|, link,unlink,|,bullist,numlist,|,justifyleft,justifycenter,justifyright,justifyfull,hr,removeformat,visualaid,separator,sub,sup,separator,charmap,code",    
     paste_auto_cleanup_on_paste : true,
     paste_remove_styles: true,
     paste_remove_styles_if_webkit: true,
-    paste_strip_class_attributes: true,
-    
+    paste_strip_class_attributes: true,    
     theme_advanced_buttons2        :"",
     theme_advanced_buttons3        :"",
     theme_advanced_toolbar_location:"top",
@@ -36,7 +29,29 @@ $(document).ready(function()
     forced_root_block              :"",
     force_br_newlines              :false
   }
-  
+
+  $(function($){
+	$.datepicker.regional['de'] = {
+		closeText: 'schließen',
+		prevText: '&#x3c;zurück',
+		nextText: 'Vor&#x3e;',
+		currentText: 'heute',
+		monthNames: ['Januar','Februar','März','April','Mai','Juni',
+		'Juli','August','September','Oktober','November','Dezember'],
+		monthNamesShort: ['Jan','Feb','Mär','Apr','Mai','Jun',
+		'Jul','Aug','Sep','Okt','Nov','Dez'],
+		dayNames: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],
+		dayNamesShort: ['So','Mo','Di','Mi','Do','Fr','Sa'],
+		dayNamesMin: ['So','Mo','Di','Mi','Do','Fr','Sa'],
+		weekHeader: 'Wo',
+		dateFormat: 'dd.mm.yy',
+		firstDay: 1,
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix: ''};
+	$.datepicker.setDefaults($.datepicker.regional['de']);
+  });
+  $(function() {$( "input[id^=datepicker_]" ).datepicker ();});  
 });
 
 /* Bestaetigungsdialog Loeschen */
@@ -60,9 +75,10 @@ function fancyConfirm (callback)
 
 //Absenden eines Fancy-Box Ajax-Formulars - Holen des Formulars mit
 //Fehlermeldungen oder schließen
-function submit_form (url, mce_name)
+function submit_form (url, mce_name, dp_flag)
 {     
-  mce_name = (mce_name === undefined) ? '' : mce_name;        
+  mce_name = (mce_name === undefined) ? '' : mce_name;
+  dp_flag = (dp_flag === undefined) ? false : dp_flag;
   var form_data = $(".form-horizontal").serialize ();    
      
   if (mce_name.length > 0)
@@ -85,7 +101,13 @@ function submit_form (url, mce_name)
       {        
         $(".fancybox-inner").html (response.responseText);
         if (mce_name.length > 0)                   
-          tinyMCE.init (mce_config);                              
+          tinyMCE.init (mce_config);  
+        if (dp_flag === true)
+        {
+          $('#beginn').datepicker ();
+          $('#ende').datepicker ();
+        }  
+        
       }  
     }        
   });  
@@ -108,7 +130,7 @@ function call_action (url, confirm)
 }
 
 //Ausfuehren einer Ajax-Controller-Action mit Rueckgabe in Fancy-Box
-function call_action_fancy (url, width, height, mce_flag)
+function call_action_fancy (url, width, height, mce_flag, dp_flag)
 {
   var config = fancy_config;
   config ['autoSize'] = false;
@@ -118,7 +140,9 @@ function call_action_fancy (url, width, height, mce_flag)
   config ['type'] = 'ajax';
   config ['href'] = url;      
   if (mce_flag === true)
-    config ['afterShow'] = function () {tinyMCE.init (mce_config);}    
+    config ['afterShow'] = function () {tinyMCE.init (mce_config);}
+  if (dp_flag === true)
+    config ['afterShow'] = function () {$('#beginn').datepicker ();$('#ende').datepicker ();}
   $.fancybox (config);
 }
 
@@ -171,7 +195,8 @@ function check_date_form (row_id)
     var now_date = new Date ();
     now_date = now_date.toLocaleDateString ();  
     var date = new Date (now_date);    
-    if (start_date.getTime() > end_date.getTime() || date.getTime () > start_date.getTime ())
+    //if (start_date.getTime() > end_date.getTime() || date.getTime () > start_date.getTime ())
+    if (start_date.getTime() > end_date.getTime())
       error = true;
   }  
   if (error !== true)
@@ -329,11 +354,9 @@ function delete_file (file_name, reload_flag, media_id)
 function show_preview (image, embedded_flag, media_id)
 {
   var config = fancy_config;
-  config ['autoSize'] = true;    
-  if (embedded_flag === true)
-    config ['content'] = image;
-  else  
-    config ['content'] = '<img src="/uploads/' + image + '" />';  
-  config ['content'] += '<br><button class="btn btn-small" onclick="delete_file (\''+ image +'\', true, '+ media_id +');"><i class="icon-trash"></i></button>';  
+  config ['autoSize'] = true;  
+  config ['content'] = (embedded_flag === true) ? image : '<img src="/uploads/' + image + '" />';     
+  if (media_id !== undefined)
+    config ['content'] += '<br><button class="btn btn-small" onclick="delete_file (\''+ image +'\', true, '+ media_id +');"><i class="icon-trash"></i></button>';  
   $.fancybox (config);
 }

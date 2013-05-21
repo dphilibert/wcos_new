@@ -43,7 +43,7 @@ class Form_Dates extends Zend_Form
     
     $button = new Zend_Form_Element_Button ('submit');
     $button->setLabel ('speichern')->setDecorators ($this->decorators)
-            ->setAttrib ('onclick', 'submit_form ("'.$this->action.'");')->removeDecorator ('Label');
+            ->setAttrib ('onclick', 'submit_form ("'.$this->action.'", "", true);')->removeDecorator ('Label');
     
     $hidden = new Zend_Form_Element_Hidden ('anbieterID');
     $hidden->setValue ($session->anbieterData ['anbieterID'])->setDecorators ($this->decorators)->removeDecorator ('Label');

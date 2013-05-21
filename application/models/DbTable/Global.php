@@ -138,8 +138,14 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
     $id = new Zend_Form_Element_Hidden ('id');          
     $form->addElement ($id);    
     $button = $form->getElement ('submit');    
-    $rte = ($module == 'firmenportrait') ? ', "value"' : '';
-    $button->setAttrib ('onclick', 'submit_form ("/'.$module.'/index/edit"'.$rte.');');      
+    
+    $additional = '';
+    if ($module == 'firmenportrait')
+      $additional = ', "value"';
+    else if ($module == 'termine')
+      $additional = ', "", true';
+    
+    $button->setAttrib ('onclick', 'submit_form ("/'.$module.'/index/edit"'.$additional.');');      
   }        
 
   /**

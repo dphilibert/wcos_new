@@ -19,7 +19,7 @@
             <a class="btn" title="Bearbeiten" onclick="call_action_fancy ('/media/index/edit/id/<?= $search_result_row ['id'] ?>/media_type/<?= $this->media_type ?>', 400, 400);">
               <i class="icon-pencil"></i>
             </a>
-            <a class="btn" title="Löschen" onclick=":call_action ('/media/index/delete/id/<?= $search_result_row ['id'] ?>', true);">
+            <a class="btn" title="Löschen" onclick="call_action ('/media/index/delete/id/<?= $search_result_row ['id'] ?>', true);">
               <i class="icon-trash"></i>
             </a>
             <?php if (!empty ($search_result_row ['media'])) : ?>

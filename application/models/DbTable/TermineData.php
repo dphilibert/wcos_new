@@ -15,7 +15,7 @@
     public function get_dates_list ($search_term = '')
     {      
       $query = $this->_db->select ()->from ('termine')
-              ->joinleft ('media', 'media.anbieterID = '.$this->provider_id.' AND media.system_id = '.$this->system_id.' AND media_type=7 AND object_id = termine.id', array ('media'))              
+              ->joinleft ('media', 'media.anbieterID = '.$this->provider_id.' AND media.system_id = '.$this->system_id.' AND media_type=7 AND object_id = termine.id', array ('media', 'media_id' => 'media.id'))              
               ->where ('termine.anbieterID = '. $this->provider_id)->where ('termine.system_id = '. $this->system_id)->order ('termine.id ASC');
       if (!empty ($search_term))
         $query->where ('title LIKE "%'.$search_term.'%" OR ort LIKE "%'.$search_term. '%"');

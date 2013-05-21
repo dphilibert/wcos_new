@@ -1,7 +1,7 @@
 <form id="form-<?= $this->ident ?>" class="form-inline" method="POST" action="/einfuehrung/index/premium" style="margin-bottom:0px;">
   <b style="margin-right:200px;">Premium-Status <?= ($this->action == 'premium') ? 'aktivieren' : 'bearbeiten' ?></b>
-  <input type="text" class="input-small" style="margin-right:80px;" name="start" placeholder="Beginn" value="<?= $this->start ?>">
-  <input type="text" class="input-small" style="margin-right:100px;" name="end" placeholder="Ende" value="<?= $this->end ?>">            
+  <input id="datepicker_start_<?= $this->system_id ?>" type="text" class="input-small" style="margin-right:80px;" name="start" placeholder="Beginn" value="<?= $this->start ?>">
+  <input id="datepicker_end_<?= $this->system_id ?>" type="text" class="input-small" style="margin-right:100px;" name="end" placeholder="Ende" value="<?= $this->end ?>">            
   <input type="hidden" name="_system_id" value="<?= $this->system_id ?>">
   <button class="btn" onclick="check_date_form ('<?= $this->ident ?>');return false;">speichern</button>
 </form>

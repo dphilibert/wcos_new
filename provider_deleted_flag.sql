@@ -1,1 +1,0 @@
-ALTER TABLE anbieter ADD (deleted tinyint DEFAULT 0);

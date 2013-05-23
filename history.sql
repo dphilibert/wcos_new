@@ -1,1 +1,0 @@
-CREATE TABLE history (id int AUTO_INCREMENT, user_id int, anbieterID int, system_id int, module varchar(128), action varchar(128), object_id varchar(128), tstamp varchar(128), PRIMARY KEY(id));

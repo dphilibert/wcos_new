@@ -1,1 +1,0 @@
-CREATE TABLE profiles (id int AUTO_INCREMENT, anbieterID int, value text, type int, system_id int, PRIMARY KEY (id));

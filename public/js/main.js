@@ -303,8 +303,8 @@ function upload (file_input)
         var data = JSON.parse (response.responseText);        
         $('#file_name').val (data ['name']);
         $('#file_name_orig').val (data ['orig']);                     
-        var orig_filename = (data ['orig'].length > 27) ? data ['orig'].substr (0, 23) + '...' : data ['orig'];        
-        $(file_input).after ('<div id="upload_info" class="alert alert-success" style="width:190px;padding-left:5px;padding-right:25px;"><b>'+ orig_filename +
+        var orig_filename = (data ['orig'].length > 24) ? data ['orig'].substr (0, 20) + '...' : data ['orig'];        
+        $(file_input).after ('<div id="upload_info" class="alert alert-success" style="width:190px;padding-left:5px;padding-right:25px;"><b title="'+ data ['orig'] +'">'+ orig_filename +
           '</b><button type="button" class="close" style="font-size:17px;" onclick="remove_file (\'' + data ['name'] + '\');">x</button></div>');
         $(file_input).remove ();
       }

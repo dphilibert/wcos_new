@@ -80,7 +80,7 @@
     public function getAnbieterByHash ($hash)
     {
       $query = $this->_db->select ()->from ('anbieter')
-            ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id')->where ('anbieter.anbieterhash = '. $hash);
+            ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id')->where ('anbieter.anbieterhash = "'. $hash.'"');
       $data = $this->_db->fetchRow ($query);          
       return $data;
     }

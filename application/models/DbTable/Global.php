@@ -50,13 +50,11 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
    */
   public function paging ($array, $page, $items_per_page = 10)
   {            
-    $paginator = new Zend_Paginator (new Zend_Paginator_Adapter_Array ($array));
-    
+    $paginator = new Zend_Paginator (new Zend_Paginator_Adapter_Array ($array));    
     $paginator->setItemCountPerPage ($items_per_page); 
     $paginator->pageCount = round (count ($array) / $items_per_page);    
     $paginator->current = $page;
-    $paginator->setCurrentPageNumber ($page);
-    
+    $paginator->setCurrentPageNumber ($page);    
     return $paginator;
   }        
   
@@ -69,15 +67,15 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
    * @return void
    */
   public function upload_file ($name, $type, $object_id)
-  {    
-    $transfer = new Zend_File_Transfer_Adapter_Http ();            
+  { 
+    $transfer = new Zend_File_Transfer_Adapter_Http ();
+    $info = pathinfo ($transfer->getFileName ($name));
+    $file_name = md5 ($object_id.rand ().time ()).'.'.$info ['extension'];
+                         
     $transfer->setDestination (APPLICATION_PATH . '/../public/uploads/');    
-    $transfer->receive ($name);
-    $file = $transfer->getFileInfo ($name);
-    $file = $file [$name];
-                            
-    //todo: per md5 neuen dateinamen bauen - Zend_Filter_Rename oder so 
-    $this->new_media ($file ['name'], $type, $object_id);                        
+    $transfer->addFilter ('Rename', $file_name);
+    $transfer->receive ($name);        
+    $this->new_media ($file_name, $type, $object_id);
   }        
   
   /**
@@ -188,9 +186,10 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
    */
   public function add_file_info ($form, $file_name_orig, $file_name)
   {  
-    $file_name_orig = (strlen ($file_name_orig) > 27) ? substr ($file_name_orig, 0, 23).'...' : $file_name_orig;
+    $file_name_orig_full = $file_name_orig;
+    $file_name_orig = (strlen ($file_name_orig) > 24) ? substr ($file_name_orig, 0, 20).'...' : $file_name_orig;
     return str_replace ('<input type="file" name="image" id="image" onchange="upload (this);">', 
-            '<div id="upload_info" class="alert alert-success" style="width:190px;padding-left:5px;padding-right:25px;"><b>'.$file_name_orig.'</b>
+            '<div id="upload_info" class="alert alert-success" style="width:190px;padding-left:5px;padding-right:25px;"><b title="'.$file_name_orig_full.'">'.$file_name_orig.'</b>
             <button type="button" class="close" style="font-size:17px;" onclick="remove_file (\''. $file_name.'\');">x</button></div>', $form);    
   }        
   

@@ -37,22 +37,7 @@
       
       return $autoloader;
     }
-
-    /**
-     * Einbinden der Klassen im Verzeichnis "library"
-     *  
-     */
-    protected function _initLibrary ()
-    {
-      //todo: das geht doch besser
-      $library = APPLICATION_PATH.'/library/';      
-      Zend_Loader::loadFile ('SimpleImage.php', $library);
-      Zend_Loader::loadFile ('general.inc.php', $library);
-      Zend_Loader::loadFile ('logger.inc.php', $library);
-      Zend_Loader::loadFile ('qqFileUploader.inc.php', $library);
-      Zend_Loader::loadFile ('Profile_Validator.php', $library);
-    }        
-    
+        
     /**
      * Initialisiert den Datenbankadapter
      *  
@@ -116,7 +101,9 @@
     {
       $config = new Zend_Config (require 'configs/form_errors-de.php');
       $translator = new Zend_Translate ('array', $config->toArray (), 'de');            
-      Zend_Validate_Abstract::setDefaultTranslator ($translator);      
+      Zend_Validate_Abstract::setDefaultTranslator ($translator);     
+                        
+      Zend_Loader::loadFile ('Profile_Validator.php', APPLICATION_PATH.'/forms/');
     }        
     
     /**

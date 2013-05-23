@@ -15,7 +15,7 @@ class Model_DbTable_Admin extends Model_DbTable_Global
    */
   public function provider_selections ($id_column = 'anbieterhash')
   {
-    $query = $this->_db->select ()->from ('anbieter', array ($id_column, 'firmenname'))->order ('firmenname ASC')->where ('deleted = 0');
+    $query = $this->_db->select ()->from ('anbieter', array ($id_column, 'firmenname'))->order ('firmenname ASC');
     return $this->_db->fetchPairs ($query);
   }  
   
@@ -30,8 +30,8 @@ class Model_DbTable_Admin extends Model_DbTable_Global
   public function provider_selection_search ($search_term = '')
   {
     $query = $this->_db->select ()->from ('anbieter', array ('anbieterID', 'firmenname', 'anbieterhash'))
-            ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.stammdatenID', array ('strasse', 'hausnummer', 'plz', 'ort'))
-            ->order ('firmenname ASC')->where ('deleted = 0');    
+            ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id', array ('strasse', 'hausnummer', 'plz', 'ort'))
+            ->order ('firmenname ASC');    
     if (is_numeric ($search_term))
       $query->where ('anbieter.anbieterID LIKE "'.(int)$search_term.'%"');            
     else if (!empty ($search_term))

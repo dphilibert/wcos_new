@@ -49,8 +49,9 @@
           $this->_helper->redirector->gotoUrl ('/login/index/index/error/login');
         $provider = $model->getAnbieterByKundennummer ($user ['firmaKundennummer']);                            
         
+        $model->provider_id = $provider ['anbieterID'];        
         $user ['anbieterID'] = $provider ['anbieterID'];
-        $user ['anbieterDetails'] = $model->getAnbieterDetails ($user ['anbieterID']);           
+        $user ['anbieterDetails'] = $model->getAnbieterDetails ();           
         $user ['systems'] = $zbvs->getWcosSystems ($login ['hash']);        
         
         $admin = $zbvs->checkWcosSuperuser ($login ['hash']);
@@ -68,8 +69,8 @@
         if (empty ($session->system_id))
           $session->system_id = 1;
                         
-        Model_DbTable_AnbieterData::saveAnbieter ('last_login', date ('d.m.Y H:i:s'), $user ['anbieterID']);
-         $this->_helper->redirector->gotoUrl ('/einfuehrung/index/index');
+        $model->logged_in ();
+        $this->_helper->redirector->gotoUrl ('/einfuehrung/index/index');
       } else
       {
         $this->_helper->redirector->gotoUrl ('/login/index/index/error/login');

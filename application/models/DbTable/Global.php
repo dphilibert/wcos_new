@@ -27,19 +27,20 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
   var $system_id;
   
   /**
-   * Initialisierung - Anbieter-ID, Systeme, erlaubte Systeme
+   * Initialisierung - Anbieter-ID, System-ID, Systeme, erlaubte Systeme und DB-Adapter
    *  
-   */
-  public function init ()
+   */  
+  public function __construct ($config = array ())
   {
     $session = new Zend_Session_Namespace ();
-    $this->provider_id = $session->anbieterData ['anbieterID'];
-    $this->system_id = $session->system_id;
     $systems_config = new Zend_Config (require APPLICATION_PATH.'/configs/systems.php');
     $this->systems = $systems_config->brands->toArray ();    
-    $this->allowed_systems = explode (',', $session->userData ['systems']);
-  }
-  
+    $this->allowed_systems = explode (',', $session->userData ['systems']);    
+    $this->provider_id = (!empty ($config ['provider_id'])) ? $config ['provider_id'] : $session->anbieterData ['anbieterID'];
+    $this->system_id = (!empty ($config ['system_id'])) ? $config ['system_id'] : $session->system_id;
+    $this->_db = Zend_Registry::get ('db');
+  }        
+    
   /**
    * Stellt die Zend_Paginator-Funktionalitaet zur Verfuegung
    * 
@@ -162,7 +163,7 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
     switch ($params ['module'])
     {
       case 'einfuehrung': $object_id = $params ['_system_id']; break;
-      case 'stammdaten': $object_id = $params ['stammdatenID']; break;
+      case 'stammdaten': $object_id = $params ['id']; break;
       case 'produkte': 
         if ($params ['action'] == 'add' OR $params ['action'] == 'remove') $object_id = $params ['codes'];  
         elseif ($params ['action'] == 'copy') $object_id = $params ['from_system'];        

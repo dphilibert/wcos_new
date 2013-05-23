@@ -1,34 +1,56 @@
 <?php
 
   /**
-   * Klasse für den Webservice (Modul soap)
-   *
-   * @author Thomas Grahammer
-   * @version $id$
+   * WCOS-SOAP-SERVICE
    *
    */
   class wcosWebservice
   {
-
+    /**
+     * System-ID
+     * @var int 
+     */
+    var $system;
+    
+    /**
+     * Initialisierung
+     * 
+     * @param int $system_id System-ID 
+     */
+    public function __construct ($system_id)
+    {
+      $this->system = $system_id;      
+    }        
+    
+    /**
+     * Model Instanz holen
+     * 
+     * @param string $name Model-Suffix
+     * @param int|void $anbieterID Anbieter-ID
+     * @return \model 
+     */
+    public function model ($name, $anbieterID = NULL)
+    {
+      $model = 'Model_DbTable_'.$name;
+      return new $model (array ('system_id' => $this->system, 'provider_id' => $anbieterID));
+    }        
+    
     /**
      * Anbieter suchen
      *
      * @param string $searchPhrase Suchbegriff
-     *
-     * @return mixed
+     * @return array
      */
     public function searchAnbieter ($searchPhrase)
     {
-      $model = new Model_DbTable_AnbieterData ();
-      $hits = $model->searchAnbieter ($searchPhrase);
-      return $hits;
+      $model = $this->model ('AnbieterData');
+      return $model->searchAnbieter ($searchPhrase);
     }
 
     /**
      * liefert die Details eines Anbieters
      *
      * @param int $anbieterID AnbieterID
-     *
      * @return array
      */
     public function getAnbieterDetails ($anbieterID)

@@ -76,7 +76,7 @@
         }          
       } else
       {
-        $form->populate ($this->params);
+        $form->populate ($this->params);                
         echo $form;       
       }        
     }        

@@ -46,12 +46,12 @@
         $user = $zbvs->getUserDatenFromHash ($login ['hash']);        
         
         if (empty ($user ['firmaKundennummer']))
-          $this->_helper->redirector->gotoUrl ('/login/index/index/error/login');
-        $provider = $model->getAnbieterByKundennummer ($user ['firmaKundennummer']);                            
-        
-        $model->provider_id = $provider ['anbieterID'];        
-        $user ['anbieterID'] = $provider ['anbieterID'];
-        $user ['anbieterDetails'] = $model->getAnbieterDetails ();           
+          $this->_helper->redirector->gotoUrl ('/login/index/index/error/login');        
+        $model->provider_id = $user ['firmaKundennummer'];
+        $provider = $model->getAnbieterDetails (false);   
+                        
+        $user ['anbieterID'] = $user ['firmaKundennummer'];
+        $user ['anbieterDetails'] = $provider;           
         $user ['systems'] = $zbvs->getWcosSystems ($login ['hash']);        
         
         $admin = $zbvs->checkWcosSuperuser ($login ['hash']);
@@ -67,8 +67,8 @@
         $session->anbieterData = $provider;
         $session->system_id = array_shift (explode (',', $user ['systems']));
         if (empty ($session->system_id))
-          $session->system_id = 1;
-                        
+          $session->system_id = 1;            
+                
         $model->logged_in ();
         $this->_helper->redirector->gotoUrl ('/einfuehrung/index/index');
       } else

@@ -142,6 +142,19 @@
       $button->setAttrib ('onclick', 'submit_form ("/media/index/'.$action_type.'/media_type/'. $media_type.'");');
     }        
     
+    /**
+     * liefert ein Video-Vorschaubild
+     * 
+     * @param string $description Beschreibung
+     * @return string Dateiname 
+     */
+    public function get_video_teaser ($description)
+    {
+      $query = $this->_db->select ()->from ('media', 'media')->where ('anbieterID = '. $this->provider_id)->where ('media_type = 8')
+              ->where ('beschreibung = '. $description);
+      return $this->_db->fetchOne ($query);
+    }        
+    
   }
 
 ?>

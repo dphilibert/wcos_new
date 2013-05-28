@@ -85,8 +85,7 @@
     {      
       $this->model->deactivate ($this->params ['system_id']);
       $this->model->history ();
-    }        
-    
+    }                
   }
 
 ?>

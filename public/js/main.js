@@ -260,7 +260,13 @@ function update_codes (action, button)
       url: '/produkte/index/'+ action,
       type: "POST",
       data: 'codes=' + $('#values_'+ action).val (),
-      complete: function (response, status){$('#provider_product_tree').html (response.responseText);$('#code-'+ action).attr ('class', 'btn btn-large disabled')}    
+      complete: function (response, status)
+      {
+        $('#provider_product_tree').html (response.responseText);
+        $('#code-'+ action).attr ('class', 'btn btn-large disabled');
+        if (action == 'add')        
+          $('li[id^=' + action + ']').each (function (){$(this).attr ('style', 'background-color:#f3f3f3;');});                      
+      }    
     });
   }
 }

@@ -117,7 +117,7 @@ class Model_DbTable_Admin extends Model_DbTable_Global
     {
       if (!in_array ($system_id, $this->allowed_systems))
         continue;              
-      $query = $this->_db->select ()->from ('systeme')->where ('anbieterID = '. $this->provider_id)->where ('system_id = '. $system_id);
+      $query = $this->_db->select ()->from ('systeme')->where ('anbieterID = '. $this->provider_id)->where ('system_id = '. $system_id);                  
       $data = $this->_db->fetchRow ($query);                   
       $status_data [$system_id]['system'] = $brand;      
       $status_data [$system_id]['premium'] = (empty ($data)) ? 2 : $data ['premium'];      

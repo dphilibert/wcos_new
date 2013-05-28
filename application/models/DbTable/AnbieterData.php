@@ -14,9 +14,9 @@
      */
     public function searchAnbieter ($searchPhrase)
     {
-      $query = $this->_db->select ()->from ('anbieter')->join ('systeme', 'systeme.anbieterID = anbieter.anbieterID AND systeme.system_id = '.$this->system_id, array ('premium'))
+      $query = $this->_db->select ()->distinct ()->from ('anbieter')->join ('systeme', 'systeme.anbieterID = anbieter.anbieterID AND systeme.system_id = '.$this->system_id, array ('premium'))
               ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id')
-              ->joinleft ('media', 'media.anbieterID = anbieter.anbieterID AND media.media_type = 5')->where ('anbieter.firmenname LIKE "%'.$searchPhrase.'%"')->order ('anbieter.firmenname ASC');
+              ->joinleft ('media', 'media.anbieterID = anbieter.anbieterID AND media.media_type = 5', array ('media'))->where ('anbieter.firmenname LIKE "%'.$searchPhrase.'%"')->order ('anbieter.firmenname ASC');
       $providers = $this->_db->fetchAll ($query);      
       return array ('hits' => $providers);      
     }
@@ -31,7 +31,7 @@
     {
       $query = $this->_db->select ()->from ('anbieter')->join ('systeme', 'systeme.anbieterID = anbieter.anbieterID AND systeme.system_id = '.$this->system_id, array ('premium'))
               ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id')
-              ->joinleft ('media', 'media.anbieterID = anbieter.anbieterID AND media.media_type = 5')->where ('anbieter.firmenname LIKE "'.$searchPhrase.'%"')->order ('anbieter.firmenname ASC');
+              ->joinleft ('media', 'media.anbieterID = anbieter.anbieterID AND media.media_type = 5', array ('media'))->where ('anbieter.firmenname LIKE "'.$searchPhrase.'%"')->order ('anbieter.firmenname ASC');
       $providers = $this->_db->fetchAll ($query);      
       return array ('hits' => $providers);      
     }
@@ -42,7 +42,7 @@
      * @param void
      * @return array
      */
-    public function getAnbieterDetails ()
+    public function getAnbieterDetails ($upper_case = true)
     {
       $query = $this->_db->select ()->from ('anbieter')
             ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id')->where ('anbieter.anbieterID = '. $this->provider_id);
@@ -51,7 +51,7 @@
       {
         $data = array ();
         foreach ($details as $key => $value)
-          $data [strtoupper ($key)] = $value;
+          $data [($upper_case === true) ? strtoupper ($key) : $key] = $value;
         $details = $data;
       }  
       return $details;      
@@ -86,17 +86,17 @@
     }
     
     /**
-     * liefert einen Anbieter-Datensatz zu einer Kd.Nr.
+     * liefert alle Anbieter-Daten
      *
-     * @param int $number Nummer
+     * @param void
      * @return array
      */
-    public function getAnbieterByKundennummer ($number)
+    public function getAnbieter ()
     {
-       $query = $this->_db->select ()->from ('anbieter')
-            ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id')->where ('anbieter.number = '. $number);
-      $data = $this->_db->fetchRow ($query);   
-      return $data;
+      $query = $this->_db->select ()->from ('anbieter')->join ('systeme', 'systeme.anbieterID = anbieter.anbieterID AND systeme.system_id = '.$this->system_id, array ('premium'))
+              ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id')
+              ->joinleft ('media', 'media.anbieterID = anbieter.anbieterID AND media.media_type = 5', array ('media'))->where ('anbieter.anbieterID ='.$this->provider_id);
+      return $this->_db->fetchRow ($query);   
     }
 
     /**
@@ -156,7 +156,7 @@
      */
     public function riseVisitCounter ()
     {
-      $this->_db->update ('anbieter', array ('visits' => 'visits + 1', 'anbieterID = '. $this->provider_id));
+      $this->_db->update ('anbieter', array ('visits' => 'visits' + 1), 'anbieterID = '. $this->provider_id);
     }        
   }
 

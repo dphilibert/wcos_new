@@ -104,6 +104,46 @@
         }        
       } 
     }
+    
+    /**
+     * liefert den Namen zu einem Produkt-Code
+     * 
+     * @param int $code Produkt-Code
+     * @return string Produkt-Name 
+     */
+    public function get_product_name ($code)
+    {
+      $query = $this->_db->select ()->from ('products', 'name')->where ('code = '.$code);
+      return $this->_db->fetchOne ($query);
+    }
+    
+    /**
+     * liefert die Anzahl an Anbieter zu einem Produktcode
+     * 
+     * @param int $code Produkt-Code
+     * @return int Anzahl Anbieter 
+     */
+    public function count_providers ($code)
+    {
+      $query = $this->_db->select ()->from ('anbieter')->join ('systeme', 'systeme.anbieterID = anbieter.anbieterID AND systeme.system_id = '.$this->system_id, array ('premium'))
+              ->join ('product2provider', 'anbieter.anbieterID = product2provider.anbieterID AND product = '.$code, array ());            
+      $data = $this->_db->fetchAll ($query);
+      return count ($data);
+    }        
+    
+    /**
+     * liefert die Anbieter zu einem Produkt-Code
+     * 
+     * @param int $code Produkt-Code
+     * @return array Anbieter 
+     */
+    public function get_providers ($code)
+    {
+      $query = $this->_db->select ()->from ('anbieter')->join ('systeme', 'systeme.anbieterID = anbieter.anbieterID AND systeme.system_id = '.$this->system_id, array ('premium'))
+              ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id')->join ('product2provider', 'anbieter.anbieterID = product2provider.anbieterID AND product = '.$code, array ());
+      return $this->_db->fetchAll ($query);                      
+    }        
+    
   }
 
 ?>

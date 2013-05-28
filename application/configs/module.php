@@ -6,7 +6,7 @@
         1 => 'Produkte',
         2 => 'Standorte',
         3 => 'Firmenausrichtung',
-        4 => 'Qualitaetsmanagement',
+        4 => 'Qualitätsmanagement',
         5 => 'Dienstleistungen',
         6 => 'Gründungsjahr',
         7 => 'Präsenz',

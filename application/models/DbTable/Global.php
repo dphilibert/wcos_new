@@ -148,7 +148,7 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
   }        
 
   /**
-   * Nimmt einen Eintrag in der History-Tabelle vor
+   * Nimmt einen Eintrag in der History-Tabelle vor - und aktualisiert das Änderungsdatum
    * 
    * @param void
    * @return void
@@ -175,6 +175,9 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
     $this->_db->insert ('history', 
       array ('user_id' => $session->userData ['user_id'], 'module' => $params ['module'], 'action' => $params ['action'],
         'anbieterID' => $this->provider_id, 'system_id' => $this->system_id, 'tstamp' => date ('d.m.Y - H:i:s'), 'object_id' => $object_id));
+    
+    if ($params ['module'] != 'einfuehrung' AND $params ['module'] != 'admin')
+      $this->_db->update ('anbieter', array ('lastChange' => date ('d.m.Y H:i:s')), 'anbieterID = '.$this->provider_id);
   }        
   
   /**

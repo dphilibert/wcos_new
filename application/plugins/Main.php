@@ -19,25 +19,28 @@
       $session = new Zend_Session_Namespace ();
       $params = $this->_request->getParams ();
       $module = $params ['module'];
-      
-      if (empty ($session->userData) AND $module != 'login')
-        $helper->gotoUrl ('/login/index/index');        
-                 
-      if ($module == "admin")
-      {
-        $session = new Zend_Session_Namespace ();
-        if ($session->userData ['userStatus'] != -1)                   
-          $helper->gotoUrl ('/einfuehrung/index/index');        
+     
+      if ($module != 'soap')
+      {                
+        if (empty ($session->userData) AND $module != 'login')
+          $helper->gotoUrl ('/login/index/index');        
+
+        if ($module == "admin")
+        {
+          $session = new Zend_Session_Namespace ();
+          if ($session->userData ['userStatus'] != -1)                   
+            $helper->gotoUrl ('/einfuehrung/index/index');        
+        }
+
+        if (!empty ($params ['sato'])) 
+        {        
+        $model = new Model_DbTable_AnbieterData();
+        $session->anbieterData = $model->getAnbieterByHash ($params ['sato']);                 
+        }
+
+        if (!empty ($params ['system_id']))
+          $session->system_id = $params ['system_id'];            
       }
-                  
-      if (!empty ($params ['sato'])) 
-      {        
-       $model = new Model_DbTable_AnbieterData();
-       $session->anbieterData = $model->getAnbieterByHash ($params ['sato']);                 
-      }
-      
-      if (!empty ($params ['system_id']))
-        $session->system_id = $params ['system_id'];            
     }
   }
 

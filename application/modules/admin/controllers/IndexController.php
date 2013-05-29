@@ -55,7 +55,7 @@
       $img = explode (',', $this->params ['image']);
       $info = pathinfo ($this->params ['filename']);                
       $filename_new = md5 ($info ['filename'].rand ().time ());      
-      file_put_contents (APPLICATION_PATH . '/../public/uploads/'.$filename_new.'.'.$info ['extension'], base64_decode ($img [1]));
+      file_put_contents (UPLOAD_PATH.$filename_new.'.'.$info ['extension'], base64_decode ($img [1]));
       echo json_encode (array ('orig' => $info ['filename'].'.'.$info ['extension'], 'name' => $filename_new.'.'.$info ['extension']));
     }       
     
@@ -64,10 +64,9 @@
      *  
      */
     public function removeAction ()
-    {            
-      $path = APPLICATION_PATH . '/../public/uploads/';
-      if (!empty ($this->params ['file']) AND file_exists ($path.$this->params ['file']))
-        unlink ($path.$this->params ['file']);      
+    {                  
+      if (!empty ($this->params ['file']) AND file_exists (UPLOAD_PATH.$this->params ['file']))
+        unlink (UPLOAD_PATH.$this->params ['file']);      
       if (!empty ($this->params ['media_id']))
       {
         $model = new Model_DbTable_MediaData ();

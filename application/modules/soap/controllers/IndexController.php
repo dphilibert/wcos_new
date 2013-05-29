@@ -102,15 +102,14 @@
     public function getMedia ($mediaID, $anbieterID = NULL)
     {
       $model = $this->model ('MediaData', $anbieterID);                  
-      $media = $model->get_media_row ($mediaID);
-      $media_file = APPLICATION_PATH . '/../uploads/'. $media ['media'];
+      $media = $model->get_media_row ($mediaID);     
       $media_info = pathinfo ($media ['media']);
       
       $provider_media = array ();                   
       $provider_media ['typ'] = $media ['media_type'];
       $provider_media ['filename'] = $media_info ['filename'];
       $provider_media ['extension'] = $media_info ['extension'];
-      $provider_media ['data'] = (file_exists ($media_file)) ? base64_encode (file_get_contents ($media_file)) : '';
+      $provider_media ['data'] = (file_exists (UPLOAD_PATH.$media ['media'])) ? base64_encode (file_get_contents (UPLOAD_PATH.$media ['media'])) : '';
       
       return array ($provider_media);
     }
@@ -184,7 +183,7 @@
 
         foreach ($media_data as $video)
         {
-          $check = file_exists (APPLICATION_PATH . '/../uploads/'.$video ['media']);
+          $check = file_exists (UPLOAD_PATH.$video ['media']);
           $videos [] = array (
             'Dateiname' => ($check) ? $video ['media'] : '',
             'Bildbeschreibung' => $video ['beschreibung'],
@@ -226,10 +225,9 @@
             
       $media_data = array ();
       foreach ($all_media as $key => $media)
-      {
-        $media_file = APPLICATION_PATH . '/../uploads/'. $media ['media'];
+      {        
         $media_info = pathinfo ($media ['media']);
-        $check = file_exists ($media_file);
+        $check = file_exists (UPLOAD_PATH.$media ['media']);
                 
         $media_data [$key] = array (
           'typ' => $media ['media_type'],
@@ -237,7 +235,7 @@
           'filename' => ($check) ? $media_info ['filename'] : '',
           'extension' => ($check) ? $media_info ['extension'] : '',
           'link' => $media ['link'],
-          'data' => ($check) ? base64_decode (file_get_contents ($media_file)) : '',
+          'data' => ($check) ? base64_decode (file_get_contents (UPLOAD_PATH.$media ['media'])) : '',
           'Embedcode' => (!$check) ? $media ['media'] : ''  
         );                       
       }

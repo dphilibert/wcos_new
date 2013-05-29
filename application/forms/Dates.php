@@ -35,7 +35,7 @@ class Form_Dates extends Zend_Form
     $ende = new Zend_Form_Element_Text ('ende');
     $ende->setLabel ('Ende*')->setDecorators ($this->decorators)->setRequired (true);
     
-    $ort = new Zend_Form_Element_Text ('Ort');
+    $ort = new Zend_Form_Element_Text ('ort');
     $ort->setLabel ('Ort*')->setDecorators ($this->decorators)->setRequired (true);
     
     $file = new Zend_Form_Element_File ('images');

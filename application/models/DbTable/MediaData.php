@@ -65,9 +65,9 @@
         $params ['media'] = (!empty ($params ['file_name'])) ? $params ['file_name'] : '';
         unset ($params ['file_name'], $params ['file_name_orig']);       
       }      
+      
       $this->_db->insert ('media', $params);
-      $id = $this->_db->lastInsertId ();
-      $this->_db->update ('media', array ('object_id' => $id), 'id = '. $id);                            
+      $this->_db->update ('media', array ('object_id' => $this->_db->lastInsertId ()), 'id = '. $this->_db->lastInsertId ());                            
     }        
     
     /**
@@ -80,7 +80,7 @@
     {
       if ($params ['media_type'] == 1)
       {  
-        $params ['media'] = (!empty ($params ['file_name'])) ? $params ['file_name'] : '';
+        if (!empty ($params ['file_name'])) $params ['media'] = $params ['file_name'];
         unset ($params ['file_name'], $params ['file_name_orig']);       
       }     
       $this->_db->update ('media', $params, 'id = '. $params ['id']);                             

@@ -17,6 +17,10 @@ set_include_path(implode (PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
+//Define uploads-path
+defined('UPLOAD_PATH')
+    || define('UPLOAD_PATH', (getenv('UPLOAD_PATH') ? getenv('UPLOAD_PATH') : $_SERVER ['DOCUMENT_ROOT'].'/uploads/')); 
+ 
 /** Zend_Application */
 require_once 'Zend/Application.php';
 

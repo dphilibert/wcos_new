@@ -72,7 +72,7 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
     $info = pathinfo ($transfer->getFileName ($name));
     $file_name = md5 ($object_id.rand ().time ()).'.'.$info ['extension'];
                          
-    $transfer->setDestination (APPLICATION_PATH . '/../public/uploads/');    
+    $transfer->setDestination (UPLOAD_PATH);    
     $transfer->addFilter ('Rename', $file_name);
     $transfer->receive ($name);        
     $this->new_media ($file_name, $type, $object_id);

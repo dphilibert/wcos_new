@@ -4,18 +4,23 @@
     <th>ID</th>
     <th>Beschreibung</th>
     <th>URL</th>    
-    <th>Datei</th>
+    <th>Typ</th>
+    <th>Größe</th>
     <th class="ar">Aktionen</th>
   </tr>
   </thead>
   <?php if (!empty ($this->data_paging)) : ?>
   <tbody>
     <?php foreach ($this->data_paging as $search_result_row) : ?>
+      <?php $info = pathinfo ($search_result_row ['media']); ?>
+      <?php $size_kb = (file_exists (UPLOAD_PATH.$search_result_row ['media'])) ? (filesize (UPLOAD_PATH.$search_result_row ['media']) / 1024) : 0; ?>
+      <?php $size = ($size_kb > 100) ? number_format ($size_kb / 1024, 2).' MB' : number_format ($size_kb, 2).' KB' ?>    
       <tr>
         <td><?= $search_result_row ['id'] ?></td>
         <td><?= $search_result_row ['beschreibung'] ?></td>
         <td><?= $search_result_row ['link'] ?></td>        
-        <td><?= $search_result_row ['media'] ?></td>                
+        <td><?= $info ['extension'] ?></td> 
+        <td><?= $size ?></td>
         <td style="text-align:center;">
           <div class="btn-group">
             <a class="btn" title="Bearbeiten" href="javascript:call_action_fancy ('/media/index/edit/id/<?= $search_result_row ['id'] ?>/media_type/<?= $this->media_type ?>', 400, 400);">

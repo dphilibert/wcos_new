@@ -129,7 +129,7 @@ class Model_DbTable_Admin extends Model_DbTable_Global
         $status_data [$system_id]['end'] = $end->toString ('dd.MM.YYYY');        
         $now = new Zend_Date (time ());
         $end = new Zend_Date ($data ['end']);    
-        $status_data [$system_id]['laufzeit'] = ceil ($end->sub ($now)->toValue ()/60/60/24). ' Tage';                
+        $status_data [$system_id]['laufzeit'] = (int)ceil ($end->sub ($now)->toValue ()/60/60/24). ' Tage';                
       }         
     }           
     return $status_data;

@@ -20,7 +20,7 @@
       $params = $this->_request->getParams ();
       $module = $params ['module'];
      
-      if ($module != 'soap')
+      if ($module != 'soap' AND $module != 'cron')
       {                
         if (empty ($session->userData) AND $module != 'login')
           $helper->gotoUrl ('/login/index/index');        
@@ -34,7 +34,7 @@
 
         if (!empty ($params ['sato'])) 
         {        
-        $model = new Model_DbTable_AnbieterData();
+        $model = new Model_DbTable_AnbieterData ();
         $session->anbieterData = $model->getAnbieterByHash ($params ['sato']);                 
         }
 

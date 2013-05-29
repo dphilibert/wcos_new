@@ -103,7 +103,7 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Aktionen<b class="caret" style="border-top-color: #ffffff;"></b></a>              
               <ul class="dropdown-menu">
-                <li><a onclick="$('#contact').slideToggle();">Info</a></li>
+                <li><a href="" onclick="$('#contact').slideToggle();return false;">Info</a></li>
                 <li class="divider"></li>
                 <?php if ($this->userData ['anbieterID'] != $this->anbieter ['anbieterID']) : ?>                    
                   <li><a href="<?=  '/'.$usedModule.'/'.$usedController.'/'.$usedAction.'/sato/'.$user_anbieterhash ?>">eigener Anbieter</a></li>           

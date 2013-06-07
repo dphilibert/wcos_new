@@ -27,7 +27,7 @@
     {
       $this->params = $this->_request->getParams ();
       $action = $this->params ['action'];
-      if ($action == 'add' OR $action == 'remove')
+      if ($action == 'add' OR $action == 'remove' OR $action == 'import')
       {
         $this->_helper->_layout->disableLayout ();
         $this->_helper->viewRenderer->setNoRender (true);
@@ -43,6 +43,8 @@
     {
       $this->view->provider_products = $this->model->get_provider_product_tree ();       
       $this->view->products = $this->model->get_product_tree ();  
+      $session = new Zend_Session_Namespace ();
+      $this->view->user_status = $session->userData ['userStatus'];
     }
     
     /**
@@ -66,15 +68,14 @@
       $this->model->history ();
       echo $this->view->Tree ($this->model->get_provider_product_tree (), true);
     }        
-    
+              
     /**
-     * Uebernimmt das Produktspektrum aus einen anderen System
+     * Empfaengt die Import-Datei und ersetzt das bestehendende Anbieter-Produktspektrum durch den Import
      *  
      */
-    public function copyAction ()
-    {      
-      $this->model->copy_products ($this->params ['from_system']);
-      $this->model->history ();
+    public function importAction ()
+    {
+      $this->model->import_provider_products ();
       $this->_redirect ('/produkte/index/index');
     }        
     

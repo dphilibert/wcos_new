@@ -2,7 +2,7 @@
   <div class="fl"> <h4>Anbieterübersicht</h4></div>
   <div class="fr">
     <!-- ANBIETERAUSWAHL //-->  
-    <select onchange ="window.location.href = '<?= $this->url ($this->url_params, '', true); ?>' + '?sato=' + this.value">
+    <select onchange ="window.location.href = '<?= /*$this->url ($this->url_params, '', true);*/ '/einfuehrung/index/index' ?>' + '?sato=' + this.value">
       <?php foreach ($this->selections AS $hash => $name) : ?>
         <option value="<?= $hash ?>"> <?= $name ?></option>
       <?php endforeach; ?>
@@ -30,7 +30,7 @@
         <td><?= $search_result_row ['plz'] ?></td>
         <td><?= $search_result_row ['ort'] ?></td>
         <td style="text-align:center;">          
-          <a class="btn btn-small" title="Anbieter auswählen" href="<?= $this->url ($this->url_params, '', true).'?sato='.$search_result_row ['anbieterhash']; ?>">
+          <a class="btn btn-small" title="Anbieter auswählen" href="<?= /*$this->url ($this->url_params, '', true)*/'/einfuehrung/index/index'.'?sato='.$search_result_row ['anbieterhash']; ?>">
             <i class="icon-user"></i>
           </a>          
         </td>

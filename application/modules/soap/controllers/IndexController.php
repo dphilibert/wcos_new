@@ -85,8 +85,9 @@
           $contacts [$key]['Abteilung'] = $contact ['abteilung'];
           $contacts [$key]['Telefon'] = $contact ['telefon'];
           $contacts [$key]['Telefax'] = $contact ['telefax'];
-          $contacts [$key]['E-Mail'] = $contact ['email'];                        
-          $contacts [$key]['Bild'] = $contact ['media'];                              
+          $contacts [$key]['E-Mail'] = $contact ['email'];  
+          if (!empty ($contact ['media']))
+            $contacts [$key]['Bild'] = $contact ['media'];                              
         }
       }      
       return $contacts;
@@ -136,11 +137,14 @@
 
         foreach ($media_data as $image)
         {
-          $images [] = array (
-            'Dateiname' => $image ['media'],
-            'Bildbeschreibung' => $image ['beschreibung'],
-            'URL' => $image ['link']  
-          );                
+          if (!empty ($image ['media']))
+          {  
+            $images [] = array (
+              'Dateiname' => $image ['media'],
+              'Bildbeschreibung' => $image ['beschreibung'],
+              'URL' => $image ['link']  
+            );
+          }
         }
       }
       
@@ -266,7 +270,8 @@
           $appointments [$key]['Beginn'] = $date ['beginn'];
           $appointments [$key]['Ende'] = $date ['ende'];
           $appointments [$key]['Ort'] = $date ['ort'];
-          $appointments [$key]['Logo'] = $date ['media'];                    
+          if (!empty ($date ['media']))
+            $appointments [$key]['Logo'] = $date ['media'];                    
         }
       }
       
@@ -298,7 +303,8 @@
         
         $model = $this->model ('MediaData', $date ['anbieterID']);
         $media = $model->get_media (7, $date ['id']);
-        $appointment ['Logo'] = $media ['media'];                        
+        if (!empty ($media ['media']))
+          $appointment ['Logo'] = $media ['media'];                        
       }
       
       return $appointment;
@@ -704,7 +710,8 @@
         $provider ['Telefax'] = $provider_data ['fax'];
         $provider ['E-Mail'] = $provider_data ['email'];
         $provider ['Internetadresse'] = $provider_data ['www'];
-        $provider ['Logo'] = $provider_data ['media'];               
+        if (!empty ($provider_data ['media']))
+          $provider ['Logo'] = $provider_data ['media'];               
       }
       
       return $provider;

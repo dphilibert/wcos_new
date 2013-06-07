@@ -1,0 +1,15 @@
+<div class="btn-group fr">
+      <button class="btn">Importieren</button>
+      <a class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+        <ul class="dropdown-menu">          
+            <li><a href="#" onclick="$('#txt-import').show();return false;"> txt-Datei (VM-Export)</a>          
+        </ul>          
+</div>
+<div class="fr" style="margin-right:100px;">
+  <form id="txt-import" class="form-inline" method="POST" action="/produkte/index/import" style="display:none;" enctype="multipart/form-data">  
+    <div class="input-append">
+      <input id="appendedInputButton" style="border:1pt solid #CCC;padding:0px 10px 0px 10px;background-color: whitesmoke;font-size:11px;" type="file" name="import">
+      <button class="btn" style="height:32px;">Starten</button>
+    </div>
+  </form>
+</div>

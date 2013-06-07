@@ -1,7 +1,7 @@
 <div class="page-header">
   <div class="fl"> <h4>Produktspektrum auswählen</h4></div>
   <div class="fr">
-    <?= $this->partial ('copy.phtml', 'default') ?>     
+    <?= ($this->user_status == -1) ? $this->partial ('import.phtml') : '' ?>     
   </div>
   <div class="clear"></div>
 </div>

@@ -14,7 +14,7 @@
     public function get_provider_product_tree ()
     {
       $query = $this->_db->select ()->from ('product2provider', array ())->where ('anbieterID = '. $this->provider_id)
-              ->where ('product2provider.systems LIKE "%'.$this->system_id.'%"')->join ('products', 'product2provider.product = products.code AND products.systems LIKE "%'.$this->system_id.'%"');  
+              ->where ('product2provider.system_id ='.$this->system_id)->join ('products', 'product2provider.product = products.code AND products.system_id ='.$this->system_id);  
       $branches = $this->_db->fetchAll ($query);
       
       $product_tree = array ();
@@ -31,7 +31,7 @@
      */
     public function get_product_tree ()
     {
-      $query = $this->_db->select ()->from ('products')->where ('systems LIKE "%'.$this->system_id.'%"');
+      $query = $this->_db->select ()->from ('products')->where ('system_id ='.$this->system_id);
       $branches = $this->_db->fetchAll ($query);
       
       $product_tree = array ();
@@ -51,12 +51,12 @@
       $products = array_filter (explode (',', $codes));
       $codes = implode (',', $products);      
       $query = $this->_db->select ()->from ('product2provider', 'product')->where ('anbieterID = '. $this->provider_id)
-              ->where ('systems LIKE "%'.$this->system_id.'%"')->where ('product IN('.$codes.')');          
+              ->where ('system_id ='.$this->system_id)->where ('product IN('.$codes.')');          
       $allready_assigned = $this->_db->fetchCol ($query);      
       foreach ($products as $code)
       {  
         if (in_array ($code, $allready_assigned)) continue;
-        $this->_db->insert ('product2provider', array ('product' => $code, 'anbieterID' => $this->provider_id, 'systems' => $this->system_id));
+        $this->_db->insert ('product2provider', array ('product' => $code, 'anbieterID' => $this->provider_id, 'system_id' => $this->system_id));
       }          
     }        
     
@@ -70,39 +70,40 @@
     {
       $products = array_filter (explode (',', $codes));
       $codes = implode (',', $products);
-      $this->_db->delete ('product2provider', 'product IN('.$codes.') AND anbieterID = '.$this->provider_id.' AND systems LIKE "%'.$this->system_id.'%"');              
+      $this->_db->delete ('product2provider', 'product IN('.$codes.') AND anbieterID = '.$this->provider_id.' AND system_id ='.$this->system_id);              
     }        
     
     /**
-     * Übernimmt das Produktspektrum aus einem anderen System
+     * Ersetzt das Produktspektrum des aktuellen Anbieters durch das Produktspektrum des Imports 
      * 
-     * @param int $from_system Quellsystem
+     * @param void
      * @return void 
      */
-    public function copy_products ($from_system)
-    {
-      $query = $this->_db->select ()->from ('product2provider')->where ('anbieterID = '. $this->provider_id)->where ('systems LIKE "%'.$from_system.'%"');
-      $codes = $this->_db->fetchAll ($query);
-            
-      if (!empty ($codes))
-      {  
-        //muss für das zielsystem erlaubt sein
-        foreach ($codes as $key => $code)
-        {
-          $query = $this->_db->select()->from ('products')->where ('code = '.$code ['product'])->where ('systems LIKE "%'.$this->system_id.'%"');
-          $check = $this->_db->fetchRow ($query);
-          if (empty ($check)) unset ($codes [$key]);          
-        }          
-        if (!empty ($codes))
-        {  
-          $this->_db->delete ('product2provider', 'anbieterID = '.$this->provider_id.' AND systems LIKE "%'.$this->system_id.'%"');      
-          foreach ($codes as $code)
-          {                    
-            $code ['systems'] = $this->system_id;          
-            $this->_db->insert ('product2provider', $code);
-          }
-        }        
-      } 
+    public function import_provider_products ()
+    {                      
+      $transfer = new Zend_File_Transfer_Adapter_Http ();
+      $info = pathinfo ($transfer->getFileName ('import'));                                     
+      $transfer->setDestination (UPLOAD_PATH);          
+      $transfer->receive ('import');
+                       
+      $import_file = UPLOAD_PATH.$info ['filename'].'.'.$info ['extension'];                   
+      if (file_exists ($import_file) AND strtolower ($info ['extension']) == 'txt')
+      {
+        $this->_db->delete ('product2provider', 'anbieterID = '. $this->provider_id.' AND system_id ='.$this->system_id);        
+        $handle = fopen ($import_file, 'r');              
+        while ($line = fgets ($handle))
+        { 
+          $line = preg_replace ('/\\s/', ' ', $line);
+          $data = array_filter (explode (" ", $line));                   
+          if (is_numeric ($data [1]))
+            $this->_db->insert ('product2provider', array ('product' => $data [1], 'anbieterID' => $this->provider_id, 'system_id' => $this->system_id));                    
+        }
+        
+        fclose ($handle);        
+      }
+      
+      if (file_exists ($import_file))
+        unlink ($import_file);
     }
     
     /**

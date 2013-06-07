@@ -149,6 +149,6 @@ class Model_DbTable_Admin extends Model_DbTable_Global
     if (empty ($check))
       $this->_db->insert ('systeme', array ('anbieterID' => $this->provider_id, 'system_id' => $system_id, 'premium' => 0));
   }        
-  
+    
 }
 ?>

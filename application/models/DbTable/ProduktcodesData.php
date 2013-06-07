@@ -14,7 +14,7 @@
     public function get_provider_product_tree ()
     {
       $query = $this->_db->select ()->from ('product2provider', array ())->where ('anbieterID = '. $this->provider_id)
-              ->where ('product2provider.system_id ='.$this->system_id)->join ('products', 'product2provider.product = products.code AND products.system_id ='.$this->system_id);  
+              ->join ('products', 'product2provider.product = products.code AND products.system_id ='.$this->system_id);  
       $branches = $this->_db->fetchAll ($query);
       
       $product_tree = array ();
@@ -40,6 +40,7 @@
               
       return $product_tree;
     }        
+    
     /**
      * Fuegt Produkte dem Anbieter-Produktspektrum hinzu
      * 
@@ -51,7 +52,7 @@
       $products = array_filter (explode (',', $codes));
       $codes = implode (',', $products);      
       $query = $this->_db->select ()->from ('product2provider', 'product')->where ('anbieterID = '. $this->provider_id)
-              ->where ('system_id ='.$this->system_id)->where ('product IN('.$codes.')');          
+              ->where ('product IN('.$codes.')');          
       $allready_assigned = $this->_db->fetchCol ($query);      
       foreach ($products as $code)
       {  
@@ -70,7 +71,7 @@
     {
       $products = array_filter (explode (',', $codes));
       $codes = implode (',', $products);
-      $this->_db->delete ('product2provider', 'product IN('.$codes.') AND anbieterID = '.$this->provider_id.' AND system_id ='.$this->system_id);              
+      $this->_db->delete ('product2provider', 'product IN('.$codes.') AND anbieterID = '.$this->provider_id);              
     }        
     
     /**
@@ -88,15 +89,23 @@
                        
       $import_file = UPLOAD_PATH.$info ['filename'].'.'.$info ['extension'];                   
       if (file_exists ($import_file) AND strtolower ($info ['extension']) == 'txt')
-      {
-        $this->_db->delete ('product2provider', 'anbieterID = '. $this->provider_id.' AND system_id ='.$this->system_id);        
-        $handle = fopen ($import_file, 'r');              
+      {                
+        $handle = fopen ($import_file, 'r');
+        $cleared = array ();
         while ($line = fgets ($handle))
-        { 
+        {                   
           $line = preg_replace ('/\\s/', ' ', $line);
-          $data = array_filter (explode (" ", $line));                   
+          $data = array_filter (explode (" ", $line));          
+          
+          if (!in_array ($data [0], $cleared))
+          {        
+            if (is_numeric ($data [0]))
+              $this->_db->delete ('product2provider', 'anbieterID = '. $data [0]);
+            $cleared [] = $data [0];
+          }
+          
           if (is_numeric ($data [1]))
-            $this->_db->insert ('product2provider', array ('product' => $data [1], 'anbieterID' => $this->provider_id, 'system_id' => $this->system_id));                    
+            $this->_db->insert ('product2provider', array ('product' => $data [1], 'anbieterID' => $data [0]));                    
         }
         
         fclose ($handle);        

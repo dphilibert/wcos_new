@@ -13,7 +13,7 @@ foreach ($this->container as $page)
       //Media-Subnavigation
       if ($page->_module == 'media')
       {
-        echo '<li class="dropdown '.$active.'"><a class="dropdown-toggle" data-toggle="dropdown" href="#">'.$page->label.'<b class="caret" style="border-top-color: #ffffff;"></b></a>';
+        echo '<li class="dropdown '.$active.'"><a class="dropdown-toggle" data-toggle="dropdown" href="#">'.$page->label.'<b class="caret"></b></a>';
         echo '<ul class="dropdown-menu"><li><a href="/media/index/index/media_type/1">Bilder</a></li><li><a href="/media/index/index/media_type/2">Videos</a></li></ul></li>';
       } else  
       {

@@ -1,5 +1,0 @@
-<vm>
-  <query>
-    <?php echo $this->queryKeyLines; ?>
-  </query>
-</vm>

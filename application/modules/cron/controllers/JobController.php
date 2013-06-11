@@ -41,5 +41,46 @@ class Cron_JobController extends Zend_Controller_Action
     $this->model->cron_dates ();  
   }        
     
+  
+  /**
+   * Aktionen fuer den Import der WCOS-DB in die WCOS2-DB 
+   */
+  
+  
+  public function providerimportAction ()
+  {
+    $this->model->provider_import ();
+  }        
+  
+  public function productsimportAction ()
+  {
+    $this->model->products_import ();
+  }   
+  
+  public function profilesimportAction ()
+  {
+    $this->model->profiles_import ();
+  }        
+  
+  public function contactsimportAction ()
+  {
+    $this->model->contacts_import ();
+  }        
+  
+  public function datesimportAction ()
+  {
+    $this->model->dates_import ();
+  }        
+  
+  public function whitepaperimportAction ()
+  {
+    $this->model->whitepaper_import ();
+  }        
+  
+  public function mediaimportAction ()
+  {
+    $this->model->media_import ();
+  }        
+  
 }
 ?>

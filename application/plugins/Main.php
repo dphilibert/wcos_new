@@ -16,6 +16,7 @@
     public function preDispatch ()
     {
       $helper = new Zend_Controller_Action_Helper_Redirector ();
+      $url_helper = new Zend_Controller_Action_Helper_Url ();
       $session = new Zend_Session_Namespace ();
       $params = $this->_request->getParams ();
       $module = $params ['module'];
@@ -34,12 +35,18 @@
 
         if (!empty ($params ['sato'])) 
         {        
-        $model = new Model_DbTable_AnbieterData ();
-        $session->anbieterData = $model->getAnbieterByHash ($params ['sato']);                 
+          $model = new Model_DbTable_AnbieterData ();
+          $session->anbieterData = $model->getAnbieterByHash ($params ['sato']);
+          unset ($params ['sato']);
+          $helper->gotoUrl ($url_helper->url ($params, '', true));   
         }
 
         if (!empty ($params ['system_id']))
-          $session->system_id = $params ['system_id'];            
+        {
+          $session->system_id = $params ['system_id'];         
+          unset ($params ['system_id']);
+          $helper->gotoUrl ($url_helper->url ($params, '', true));          
+        }
       }
     }
   }

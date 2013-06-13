@@ -1,4 +1,5 @@
 <?php
+
   /**
    * Produkte-Model
    *   
@@ -14,7 +15,8 @@
     public function get_provider_product_tree ()
     {
       $query = $this->_db->select ()->from ('product2provider', array ())->where ('anbieterID = '. $this->provider_id)
-              ->join ('products', 'product2provider.product = products.code AND products.system_id ='.$this->system_id);  
+              ->join ('products', 'product2provider.product = products.code AND products.system_id ='.$this->system_id)
+              ->order (array ('haupt ASC', 'ober ASC', 'name ASC'));  
       $branches = $this->_db->fetchAll ($query);
       
       $product_tree = array ();
@@ -31,7 +33,7 @@
      */
     public function get_product_tree ()
     {
-      $query = $this->_db->select ()->from ('products')->where ('system_id ='.$this->system_id);
+      $query = $this->_db->select ()->from ('products')->where ('system_id ='.$this->system_id)->order (array ('haupt ASC', 'ober ASC', 'name ASC'));
       $branches = $this->_db->fetchAll ($query);
       
       $product_tree = array ();
@@ -57,7 +59,7 @@
       foreach ($products as $code)
       {  
         if (in_array ($code, $allready_assigned)) continue;
-        $this->_db->insert ('product2provider', array ('product' => $code, 'anbieterID' => $this->provider_id, 'system_id' => $this->system_id));
+          $this->_db->insert ('product2provider', array ('product' => $code, 'anbieterID' => $this->provider_id));
       }          
     }        
     

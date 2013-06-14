@@ -15,8 +15,11 @@ class Form_Image extends Zend_Form
            
     $this->setAction ($this->action)->setName ($this->name)->setMethod ($this->method)->setAttribs (array ('class' => 'form-horizontal', 'style' => 'margin-bottom:0px;'));
             
-    $beschreibung = new Zend_Form_Element_Textarea ('beschreibung');
-    $beschreibung->setLabel ('Beschreibung*')->setDecorators ($this->decorators)->setRequired (true)->setAttrib ('rows', 5);
+    $beschreibung = new Zend_Form_Element_Text ('beschreibung');
+    $beschreibung->setLabel ('Beschreibung*')->setDecorators ($this->decorators)->setRequired (true);
+    
+    $text = new Zend_Form_Element_Textarea ('text');
+    $text->setLabel ('Bildunterschrift')->setDecorators ($this->decorators)->setAttrib ('rows', 5);
     
     $link = new Zend_Form_Element_Text ('link');
     $link->setLabel ('Link')->setDecorators ($this->decorators);
@@ -44,7 +47,7 @@ class Form_Image extends Zend_Form
     $filename_orig->setDecorators ($this->decorators)->removeDecorator ('Label');
     
     $this->setDecorators (array ('FormElements', 'Form'));
-    $this->addElements (array ($beschreibung, $link, $media_file, $button, $hidden, $hidden2, $hidden3, $filename, $filename_orig));        
+    $this->addElements (array ($beschreibung, $text, $link, $media_file, $button, $hidden, $hidden2, $hidden3, $filename, $filename_orig));        
   }        
     
 }

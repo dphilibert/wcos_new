@@ -142,6 +142,7 @@
             $images [] = array (
               'Dateiname' => $image ['media'],
               'Bildbeschreibung' => $image ['beschreibung'],
+              'bu' => $image ['text'],  
               'URL' => $image ['link']  
             );
           }
@@ -236,6 +237,7 @@
         $media_data [$key] = array (
           'typ' => $media ['media_type'],
           'beschreibung' => $media ['beschreibung'],
+          'bu' => $media ['text'],  
           'filename' => ($check) ? $media_info ['filename'] : '',
           'extension' => ($check) ? $media_info ['extension'] : '',
           'link' => $media ['link'],

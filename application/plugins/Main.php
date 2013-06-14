@@ -36,16 +36,22 @@
         if (!empty ($params ['sato'])) 
         {        
           $model = new Model_DbTable_AnbieterData ();
-          $session->anbieterData = $model->getAnbieterByHash ($params ['sato']);
-          unset ($params ['sato']);
-          $helper->gotoUrl ($url_helper->url ($params, '', true));   
+          $session->anbieterData = $model->getAnbieterByHash ($params ['sato']);                   
+          if ($this->_request->isGet ())
+          {
+            unset ($params ['sato']);
+            $helper->gotoUrl ($url_helper->url ($params, '', true));     
+          }            
         }
 
         if (!empty ($params ['system_id']))
         {
-          $session->system_id = $params ['system_id'];         
-          unset ($params ['system_id']);
-          $helper->gotoUrl ($url_helper->url ($params, '', true));          
+          $session->system_id = $params ['system_id'];          
+          if ($this->_request->isGet ())
+          {                     
+            unset ($params ['system_id']);
+            $helper->gotoUrl ($url_helper->url ($params, '', true));
+          }
         }
       }
     }

@@ -88,11 +88,14 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
    */
   public function new_media ($filename, $type, $object_id)
   {
+    $system_dependent = ($type == 1 OR $type == 2) ? true : false;
     $query = $this->_db->select ()->from ('media')->where ('anbieterID = '. $this->provider_id)
-            ->where ('media_type ='. $type)->where ('object_id = '. $object_id)->where ('system_id = '. $this->system_id);        
+            ->where ('media_type ='. $type)->where ('object_id = '. $object_id);
+    if ($system_dependent)
+      $query->where ('system_id = '. $this->system_id);        
     $check = $this->_db->fetchRow ($query);
     if (empty ($check))           
-      $this->_db->insert ('media', array ('anbieterID' => $this->provider_id, 'media_type' => $type, 'media' => $filename, 'object_id' => $object_id, 'system_id' => $this->system_id));              
+      $this->_db->insert ('media', array ('anbieterID' => $this->provider_id, 'media_type' => $type, 'media' => $filename, 'object_id' => $object_id, 'system_id' => (!$system_dependent) ? 0 : $this->system_id));              
     else        
       $this->_db->update ('media', array ('media' => $filename), 'id = '. $check ['id']);
   }        

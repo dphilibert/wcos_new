@@ -15,7 +15,7 @@
     public function get_dates_list ($search_term = '')
     {      
       $query = $this->_db->select ()->from ('termine')
-              ->joinleft ('media', 'media.anbieterID = '.$this->provider_id.' AND media.system_id = '.$this->system_id.' AND media_type=7 AND object_id = termine.id', array ('media', 'media_id' => 'media.id'))              
+              ->joinleft ('media', 'media.anbieterID = '.$this->provider_id.' AND media_type = 7 AND object_id = termine.id', array ('media', 'media_id' => 'media.id'))              
               ->where ('termine.anbieterID = '. $this->provider_id)->where ('termine.system_id = '. $this->system_id)->order ('termine.id ASC');
       if (!empty ($search_term))
         $query->where ('title LIKE "%'.$search_term.'%" OR ort LIKE "%'.$search_term. '%"');
@@ -91,7 +91,9 @@
      */
     public function copy_dates ($from_system)
     {
-      $query = $this->_db->select ()->from ('termine')->where ('anbieterID = '. $this->provider_id)->where ('system_id = '. $from_system);
+      $query = $this->_db->select ()->from ('termine')
+               ->joinleft ('media', 'media_type = 7 AND object_id = termine.id AND media.anbieterID = '.$this->provider_id, array ('media'))
+              ->where ('termine.anbieterID = '. $this->provider_id)->where ('termine.system_id = '. $from_system)->order ('termine.id ASC');
       $dates = $this->_db->fetchAll ($query);
       
       if (!empty ($dates))
@@ -100,8 +102,11 @@
         foreach ($dates as $date)
         {
           $date ['system_id'] = $this->system_id;
-          unset ($date ['id']);
+          $media = $date ['media'];
+          unset ($date ['id'], $date ['media']);
           $this->_db->insert ('termine', $date);
+          if (!empty ($media))
+            $this->_db->insert ('media', array ('anbieterID' => $this->provider_id, 'media_type' => 7, 'media' => $media, 'object_id' => $this->_db->lastInsertId (), 'system_id' => 0));
         }
       }  
     }

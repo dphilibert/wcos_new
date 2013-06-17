@@ -35,13 +35,11 @@
      *     
      */
     public function indexAction ()
-    {      
-      $media_model = new Model_DbTable_MediaData ();      
+    {            
       $data = $this->model->get_address ();
-      $this->view->data = $data;            
-      $logo_data = $media_model->get_media (5, $data ['id']);      
-      if (!empty ($logo_data))              
-        $this->view->logo = '/uploads/'.$logo_data ['media'];                               
+      $this->view->data = $data;                        
+      if (!empty ($data ['media']))              
+        $this->view->logo = '/uploads/'.$data ['media'];                               
     }
     
     /**

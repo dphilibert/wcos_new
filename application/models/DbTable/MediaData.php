@@ -107,7 +107,7 @@
     public function copy_media ($from_system, $type)
     {
       $query = $this->_db->select ()->from ('media')->where ('anbieterID = '. $this->provider_id)
-              ->where ('media_type = '. $type)->where ('system_id = '. $from_system);
+              ->where ('media_type = '. $type)->where ('system_id = '. $from_system)->order ('id ASC');
       $multimedia = $this->_db->fetchAll ($query);
       
       if (!empty ($multimedia))

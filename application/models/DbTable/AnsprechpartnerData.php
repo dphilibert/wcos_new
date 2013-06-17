@@ -16,7 +16,7 @@
     public function get_contacts_list ($token = NULL)
     {      
       $select = $this->_db->select ()->from ('ansprechpartner')
-              ->joinleft ('media', 'media.anbieterID = '.$this->provider_id.' AND media.system_id = '.$this->system_id.' AND media_type=4 AND object_id = ansprechpartner.id', array ('media', 'media_id' => 'media.id'))
+              ->joinleft ('media', 'media.anbieterID = '.$this->provider_id.' AND media_type=4 AND object_id = ansprechpartner.id', array ('media', 'media_id' => 'media.id'))
               ->where ('ansprechpartner.anbieterID = '. $this->provider_id)->where ('ansprechpartner.system_id = '. $this->system_id)->order ('ansprechpartner.id ASC');      
       if (!empty ($token)) 
         $select->where ("vorname LIKE '$token%' OR nachname LIKE '$token%'");      
@@ -86,17 +86,22 @@
      */
     public function copy_contacts ($from_system)
     {
-      $query = $this->_db->select ()->from ('ansprechpartner')->where ('anbieterID = '. $this->provider_id)->where ('system_id = '. $from_system);     
+      $query = $this->_db->select ()->from ('ansprechpartner')
+              ->joinleft ('media', 'media_type = 4 AND object_id = ansprechpartner.id AND media.anbieterID = '.$this->provider_id, array ('media'))
+              ->where ('ansprechpartner.anbieterID = '. $this->provider_id)->where ('ansprechpartner.system_id = '. $from_system)->order ('ansprechpartner.id ASC');     
       $contacts = $this->_db->fetchAll ($query);
-                  
+                      
       if (!empty ($contacts))
       {  
         $this->_db->delete ('ansprechpartner', 'anbieterID = '.$this->provider_id.' AND system_id = '. $this->system_id);      
         foreach ($contacts as $contact)
-        {
+        {          
           $contact ['system_id'] = $this->system_id;
-          unset ($contact ['id']);
-          $this->_db->insert ('ansprechpartner', $contact);
+          $media = $contact ['media'];
+          unset ($contact ['id'], $contact ['media']);
+          $this->_db->insert ('ansprechpartner', $contact);                    
+          if (!empty ($media))
+            $this->_db->insert ('media', array ('anbieterID' => $this->provider_id, 'media_type' => 4, 'media' => $media, 'object_id' => $this->_db->lastInsertId (), 'system_id' => 0));
         }
       }  
     }        

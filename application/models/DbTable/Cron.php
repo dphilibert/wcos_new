@@ -106,7 +106,7 @@ class Model_DbTable_Cron extends Zend_Db_Table_Abstract
   {
     $import = $this->get_import_db_adapter ();
     
-    //Firmenprofile: todo: systembezug, firmenbeschreibung?
+    //Firmenprofile: todo: systembezug
     $query = $import->select ()->from ('firmenportraits');
     $firmenportraet_data = $import->fetchAll ($query);
     
@@ -116,10 +116,10 @@ class Model_DbTable_Cron extends Zend_Db_Table_Abstract
       $data = $portraets;
       unset ($data ['firmenportraitID'], $data ['anbieterID']);
       foreach ($data as $type => $value)
-      {
-        if ($type == 'firmenbeschreibung') continue;        
+      {          
         switch ($type)
-        {          
+        {      
+          case 'firmenbeschreibung' : $type_id = 0; break;
           case 'produkte': $type_id = 1; break;
           case 'standorte': $type_id = 2; break;
           case 'firmenausrichtung': $type_id = 3; break;

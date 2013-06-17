@@ -75,7 +75,7 @@ class Model_DbTable_WhitepaperData extends Model_DbTable_Global
    */
   public function copy_whitepapers ($from_system)
   {
-    $query = $this->_db->select ()->from ('whitepaper')->where ('anbieterID = '. $this->provider_id)->where ('system_id = '. $from_system);
+    $query = $this->_db->select ()->from ('whitepaper')->where ('anbieterID = '. $this->provider_id)->where ('system_id = '. $from_system)->order ('id ASC');
     $whitepapers = $this->_db->fetchAll ($query);
 
     if (!empty ($whitepapers))

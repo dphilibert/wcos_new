@@ -15,7 +15,7 @@
     public function get_address ()
     {      
       $query = $this->_db->select ()->from ('anbieter', array ('id', 'name1', 'name2'))->where ('anbieter.anbieterID = '. $this->provider_id)      
-      ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id');                  
+      ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id')->joinleft ('media', 'media_type = 5 AND media.anbieterID = anbieter.anbieterID', array ('media'));                  
       return $this->_db->fetchRow ($query);
     }
     

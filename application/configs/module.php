@@ -2,7 +2,8 @@
 
   return array (
       
-    'profiles' => array (        
+    'profiles' => array (    
+        0 => 'Beschreibung',
         1 => 'Produkte',
         2 => 'Standorte',
         3 => 'Firmenausrichtung',

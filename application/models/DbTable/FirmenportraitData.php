@@ -80,7 +80,7 @@
      */
     public function copy_profiles ($from_system)
     {            
-      $query = $this->_db->select ()->from ('profiles')->where ('anbieterID = '. $this->provider_id)->where ('system_id = '. $from_system);
+      $query = $this->_db->select ()->from ('profiles')->where ('anbieterID = '. $this->provider_id)->where ('system_id = '. $from_system)->order ('type ASC');
       $profiles = $this->_db->fetchAll ($query);
       
       if (!empty ($profiles))

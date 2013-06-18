@@ -35,7 +35,9 @@
     public function get_media ($type, $object_id)
     {
       $query = $this->_db->select ()->from ('media')->where ('anbieterID = '. $this->provider_id)
-              ->where ('media_type = '. $type)->where ('system_id = '. $this->system_id)->where ('object_id = '. $object_id);
+              ->where ('media_type = '. $type)->where ('object_id = '. $object_id);
+      if ($type == 1 OR $type == 2)
+        $query->where ('system_id = '. $this->system_id);
       
       return $this->_db->fetchRow ($query);
     }        

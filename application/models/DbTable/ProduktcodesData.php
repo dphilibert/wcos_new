@@ -152,7 +152,8 @@
     public function get_providers ($code)
     {
       $query = $this->_db->select ()->from ('anbieter')->join ('systeme', 'systeme.anbieterID = anbieter.anbieterID AND systeme.system_id = '.$this->system_id, array ('premium'))
-              ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id')->join ('product2provider', 'anbieter.anbieterID = product2provider.anbieterID AND product = '.$code, array ());
+              ->join ('stammdaten', 'anbieter.stammdatenID = stammdaten.id')->join ('product2provider', 'anbieter.anbieterID = product2provider.anbieterID AND product = '.$code, array ())
+              ->order ('firmenname ASC');
       return $this->_db->fetchAll ($query);                      
     }        
     

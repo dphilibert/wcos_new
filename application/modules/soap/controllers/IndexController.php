@@ -198,7 +198,7 @@
         }
       }
       
-      return (count ($videos) == 1) ? $videos : $videos;
+      return (count ($videos) == 1) ? $videos [0] : $videos;
     }
 
     /**
@@ -435,11 +435,15 @@
         {
           foreach ($level3_data as $level3)
           {
-            $product_tree [$level1][$level2][] = array (
-              'ProduktcodeID' => $level3 ['code'],
-              'ProduktcodeName' => $level3 ['name'],
-              'Anzahl Firmen' => $model->count_providers ($level3 ['code'])
-            );
+            $count = $model->count_providers ($level3 ['code']);
+            if ((empty ($anbieterID) AND !empty ($count)) OR !empty ($anbieterID))
+            {  
+              $product_tree [$level1][$level2][] = array (
+                'ProduktcodeID' => $level3 ['code'],
+                'ProduktcodeName' => $level3 ['name'],
+                'Anzahl Firmen' => $count 
+              );
+            }
           }
         }  
       }  
@@ -609,7 +613,7 @@
           );                   
         }               
       }
-      
+      error_log (print_r ($providers, true), 3, '/home/daniel/www/wcos2/debug.log');
       return $providers;
     }
 

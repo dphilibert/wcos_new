@@ -18,7 +18,7 @@
               ->joinleft ('media', 'media.anbieterID = '.$this->provider_id.' AND media_type = 7 AND object_id = termine.id', array ('media', 'media_id' => 'media.id'))              
               ->where ('termine.anbieterID = '. $this->provider_id)->where ('termine.system_id = '. $this->system_id)->order ('termine.id ASC');
       if (!empty ($search_term))
-        $query->where ('title LIKE "%'.$search_term.'%" OR ort LIKE "%'.$search_term. '%"');
+        $query->where ('title LIKE "%'.$search_term.'%" OR ort LIKE "%'.$search_term. '%"');        
       $dates = $this->_db->fetchAll ($query);
       
       foreach ($dates as $key => $date)      
@@ -120,6 +120,8 @@
      */
     private function format_date ($date, $switch = true)
     {
+      if (empty ($date ['beginn']) OR empty ($date ['ende'])) return $date;
+      
       $beginn = new Zend_Date ($date ['beginn']);
       $ende = new Zend_Date ($date ['ende']);
       

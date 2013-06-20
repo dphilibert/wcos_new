@@ -43,6 +43,7 @@
      *
      * @param string $searchPhrase Suchbegriff
      * @return array
+     * @deprecated
      */
     public function searchAnbieter ($searchPhrase)
     {
@@ -55,6 +56,7 @@
      *
      * @param int $anbieterID AnbieterID
      * @return array
+     * @deprecated
      */
     public function getAnbieterDetails ($anbieterID)
     {
@@ -99,6 +101,7 @@
      * @param int $mediaID mediaID
      * @param int $anbieterID AnbieterID oder null (ohne Anbieter-Selektion)
      * @return array
+     * @deprecated
      */
     public function getMedia ($mediaID, $anbieterID = NULL)
     {
@@ -207,6 +210,7 @@
      * @param int $anbieterID Anbieter-ID
      * @param string $beschreibung Beschreibung
      * @return string Dateiname
+     * @deprecated
      */
     public function getStartbild ($anbieterID, $beschreibung)
     {
@@ -220,6 +224,7 @@
      * @param int $anbieterID Anbieter-ID
      * @param @deprecated int $minimumTyp
      * @return array
+     * @deprecated
      */
     public function getAllMedia ($anbieterID, $minimumTyp = NULL)
     {
@@ -347,6 +352,7 @@
      *
      * @param int $anbieterID Anbieter-ID
      * @return array
+     * @deprecated
      */
     public function getJobs ($anbieterID)
     {
@@ -358,6 +364,7 @@
      *
      * @param int $anbieterID AnbieterID
      * @return array
+     * @deprecated
      */
     public function getWhitepaperListe ($anbieterID)
     {
@@ -396,6 +403,7 @@
      *
      * @param int $anbieterID Anbieter-ID
      * @return array
+     * @deprecated
      */
     public function getProduktbaum ($anbieterID)
     {
@@ -456,11 +464,11 @@
      *
      * @param int $anbieterID Anbieter-ID
      * @return array
+     * @deprecated
      */
     public function getStammdaten ($anbieterID)
     {
-      $model = $this->model('StammdatenData', $anbieterID);
-      //todo: arraykeys nach bedarf uebersetzen
+      $model = $this->model('StammdatenData', $anbieterID);      
       return $model->get_address ();      
     }
 
@@ -741,6 +749,7 @@
      * @param int $systemID System-ID
      * @param int $anbieterID Anbieter-ID
      * @return array
+     * @deprecated
      */
     public function getProduktSpektrum4Firma ($systemID, $anbieterID)
     {      
@@ -749,11 +758,8 @@
   }
 
   /**
-   * IndexController des SOAP-Service
-   *
-   * @author Thomas Grahammer
-   * @version $id$
-   *
+   * SOAP-API fuer das Anbieterverzeichnis-Frontend der Systeme
+   *    
    */
   class Soap_IndexController extends Zend_Controller_Action
   {

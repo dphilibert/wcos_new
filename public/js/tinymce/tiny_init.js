@@ -1,3 +1,0 @@
-tinyMCE.init(tinySettingsMinimal);
-
-

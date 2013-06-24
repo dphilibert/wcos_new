@@ -1,7 +1,0 @@
-<math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>U</mi><mi>OUT</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><mfrac><msub><mi>R</mi><mn>1</mn></msub><msub><mi>R</mi><mn>2</mn></msub></mfrac><mo>&#183;</mo><mfrac><mrow><mn>1</mn><mo>+</mo><msub><mo>&#916;</mo><mn>1</mn></msub></mrow><mrow><mn>1</mn><mo>+</mo><msub><mo>&#916;</mo><mn>2</mn></msub></mrow></mfrac></mrow></mfrac><mo>&#183;</mo><msub><mi>U</mi><mi>IN</mi></msub></math>
-#ffffff
-#000000
-true
-16
-#000000
-#000000

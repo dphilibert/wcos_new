@@ -28,9 +28,7 @@
   $model = new Model_DbTable_AnbieterData (array ('provider_id' => $this->userData ['anbieterID']));
   $user_anbieterdata = $model->getAnbieter ();
   $user_anbieterhash = $user_anbieterdata ['anbieterhash'];
-  
-  //var_dump ($user_anbieterdata);
-  
+      
   //aktuelle (s) Modul, Controller und Action holen
   $usedModule = $this->layout ()->_module;
   $usedController = $this->layout ()->_controller;
@@ -55,8 +53,8 @@
   echo $this->headTitle ('WCOS2');
   echo $this->headScript ()      
   ->prependFile ('/js/jquery/jquery-1.9.1.min.js')                             
-  ->appendFile ('/js/fancybox/jquery.fancybox.pack.js')            
-  ->appendFile ('/js/tinymce/jscripts/tiny_mce/tiny_mce.js')        
+  ->appendFile ('/js/fancybox/jquery.fancybox.pack.js')             
+  ->appendFile ('/js/tinymce4/tinymce.min.js')   
   ->appendFile ('/twitter_bootstrap/js/bootstrap.min.js')             
   ->appendFile ('/js/jquery/jquery-ui.js')
   ->appendFile ('/js/jquery/jquery.ui.datepicker.js')             

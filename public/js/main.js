@@ -1,7 +1,7 @@
 var fancy_config = {};
 var mce_config = {};
 
-//Konfiguration Fancy-Box und tinyMCE
+//Konfiguration Fancy-Box, tinyMCE und Datepicker
 $(document).ready(function()
 {
   fancy_config = {    
@@ -10,24 +10,17 @@ $(document).ready(function()
     'fitToView' : false,
     'helpers' : {overlay : null}    
   };    
+  
   mce_config = {  
-    selector                       : "textarea",
-    mode                           :"textareas",
-    theme                          :"advanced",
-    plugins                        :"safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount",       
-    theme_advanced_buttons1        :"pastetext,pasteword,|,bold,italic,underline,strikethrough,|, link,unlink,|,bullist,numlist,|,justifyleft,justifycenter,justifyright,justifyfull,hr,removeformat,visualaid,separator,sub,sup,separator,charmap,code",    
-    paste_auto_cleanup_on_paste : true,
-    paste_remove_styles: true,
-    paste_remove_styles_if_webkit: true,
-    paste_strip_class_attributes: true,    
-    theme_advanced_buttons2        :"",
-    theme_advanced_buttons3        :"",
-    theme_advanced_toolbar_location:"top",
-    theme_advanced_toolbar_align   :"left",
-    entity_encoding                :"raw",
-    dialog_type                    :"modal",
-    forced_root_block              :"",
-    force_br_newlines              :false
+    selector           : "textarea",    
+    theme              : "modern",   
+    menubar            : false,
+    plugins            : "pagebreak,layer,table,save,hr,image,link,emoticons,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,template,wordcount,charmap,code",       
+    toolbar            : "undo redo | cut paste | bold italic underline | link unlink | alignleft aligncenter alignright alignjustify | bullist numlist | hr removeformat | subscript superscript | charmap code",            
+    entity_encoding    : "raw",    
+    forced_root_block  : "",
+    force_p_newlines   :false,
+    keep_styles        : false
   }
 
   $(function($){

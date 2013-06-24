@@ -180,7 +180,7 @@ class Model_DbTable_Global extends Zend_Db_Table_Abstract
         'anbieterID' => $this->provider_id, 'system_id' => $this->system_id, 'tstamp' => date ('d.m.Y - H:i:s'), 'object_id' => $object_id));
     
     if ($params ['module'] != 'einfuehrung' AND $params ['module'] != 'admin')
-      $this->_db->update ('anbieter', array ('lastChange' => date ('d.m.Y H:i:s')), 'anbieterID = '.$this->provider_id);
+      $this->_db->update ('anbieter', array ('lastChange' => date ('Y-m-d H:i:s')), 'anbieterID = '.$this->provider_id);
   }        
   
   /**

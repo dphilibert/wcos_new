@@ -137,7 +137,9 @@
           $media_data [0] = $media [(($bildNummer < 0) ? 1 : $bildNummer) - 1];        
         else      
           $media_data = $media;
-
+        if ($bildNummer == 1) error_log ('BILD1:'.print_r ($media_data, true), 3, '/home/daniel/www/wcos2/debug.log');
+        if ($bildNummer == 2) error_log ('BILD2:'.print_r ($media_data, true), 3, '/home/daniel/www/wcos2/debug.log');
+         if ($bildNummer == 2) error_log ('BILD3:'.print_r ($media_data, true), 3, '/home/daniel/www/wcos2/debug.log');
         foreach ($media_data as $image)
         {
           if (!empty ($image ['media']))
@@ -332,7 +334,7 @@
       if (!empty ($profiles))
       {
         $profile_data = array (
-          'Firmenbeschreibung' => $profiles ['Umsatz']['text'], 
+          'Firmenbeschreibung' => $profiles ['Beschreibung']['text'], 
           'Produkte/Linecard' => $profiles ['Produkte']['text'],
           'Firmenausrichtung' => $profiles ['Firmenausrichtung']['text'],
           'Dienstleistungen' => $profiles ['Dienstleistungen']['text'],
@@ -341,7 +343,8 @@
           'Standorte/Lager' => $profiles ['Standorte']['text'],
           'Qualitätsmanagement' => $profiles ['Qualitätsmanagement']['text'],
           'Gründungsjahr' => $profiles ['Gründungsjahr']['text'],
-          'Mitarbeiter' => $profiles ['Mitarbeiter']['text']  
+          'Mitarbeiter' => $profiles ['Mitarbeiter']['text'],
+          'Umsatz' => $profiles ['Umsatz']['text'],   
         );                
       }
       return $profile_data;
@@ -524,7 +527,7 @@
      * @param int $count Anzahl
      * @return array
      */
-    public function getLastActivities ($systemID, $anzahlDerEintraege)
+    public function getLastActivities ($systemID, $count)
     {
       $model = $this->model ('AnbieterData');
       $data = $model->getLastChanged ($count);
@@ -621,7 +624,7 @@
           );                   
         }               
       }
-      error_log (print_r ($providers, true), 3, '/home/daniel/www/wcos2/debug.log');
+      
       return $providers;
     }
 
